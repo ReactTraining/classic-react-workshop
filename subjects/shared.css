@@ -1,0 +1,42 @@
+body {
+  background: #eee;
+  font-family: "Helvetica Neue";
+  font-weight: 200;
+}
+
+#index ul {
+  padding: 0;
+  list-style: none;
+}
+
+#index a {
+  font-size: 50px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: hsl(200, 50%, 50%);
+  margin: 20px;
+}
+
+.ContentToggle {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  background: #fff;
+}
+
+.ContentToggle__Summary {
+  -webkit-user-select: none;
+  cursor: pointer;
+  border-bottom: solid 1px transparent;
+}
+
+.ContentToggle__Summary:before {
+  display: inline-block;
+  width: 1em;
+  content: '▸';
+}
+
+.ContentToggle__Summary--is-open:before {
+  content: '▾';
+}
