@@ -4,11 +4,11 @@ var isOpen = false;
 
 function handleClick() {
   isOpen = !isOpen;
-  render();
+  update();
 }
 
 function render() {
-  React.render((
+  return (
     <div className="ContentToggle">
       <div onClick={handleClick} className="ContentToggle__Summary">
         Tacos
@@ -27,7 +27,11 @@ function render() {
         )}
       </div>
     </div>
-  ), document.getElementById('app'));
+  );
 }
 
-render();
+function update() {
+  React.render(render(), document.getElementById('app'));
+}
+
+update();
