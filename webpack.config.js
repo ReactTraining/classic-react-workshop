@@ -6,7 +6,7 @@ var React = require('react');
 
 var CODE = __dirname+'/subjects';
 var IGNORE = [];
-var DIRS = fs.readdirSync(CODE).filter(function(dir) {
+var DIRS = fs.readdirSync(CODE).filter(function (dir) {
   return isDirectory(path.join(CODE, dir)) && IGNORE.indexOf(dir) === -1;
 });
 
@@ -41,7 +41,7 @@ module.exports = {
 
 };
 
-function makeIndex () {
+function makeIndex() {
   var list = DIRS.map(function (dir) {
     return React.DOM.li({}, React.DOM.a({href: '/'+dir}, dir.replace(/-/g, ' ')));
   });
@@ -77,5 +77,3 @@ function makeMarkup(mainFile) {
 function isDirectory(dir) {
   return fs.lstatSync(dir).isDirectory();
 }
-
-

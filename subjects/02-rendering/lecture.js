@@ -2,12 +2,12 @@ import React from 'react';
 
 var isOpen = false;
 
-function handleClick () {
+function handleClick() {
   isOpen = !isOpen;
   render();
 }
 
-function render () {
+function render() {
   React.render((
     <div className="ContentToggle">
       <div onClick={handleClick} className="ContentToggle__Summary">
