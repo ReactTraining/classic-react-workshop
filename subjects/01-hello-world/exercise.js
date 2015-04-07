@@ -1,10 +1,9 @@
 import React from 'react';
 
-class App extends React.Component {
-  render () {
+var App = React.createClass({
+  render: function () {
     return <div>Hello World</div>;
   }
-}
+});
 
 React.render(<App/>, document.getElementById('app'));
-
