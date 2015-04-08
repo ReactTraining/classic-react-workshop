@@ -1,4 +1,4 @@
-import React from 'react';
+var React = require('react');
 var appElement = document.getElementById('app');
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,42 +61,149 @@ var appElement = document.getElementById('app');
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Lets make a thing
-var isOpen = false;
+// JSX is simply different syntax for calling functions
+//var element = <div className="App">
+                //<h1 className="Title">Hello!</h1>
+                //<p>Pork Carnitas street tacos are the best</p>
+              //</div>;
 
-function handleClick() {
-  isOpen = !isOpen;
-  render();
+//var { div, h1, p } = React.DOM;
+//var element = div({ className: "App" },
+                //h1({ className: "Title" }, 'Hello!'),
+                //p({}, 'Pork Carnitas street tacos are the best')
+              //);
+
+//React.render(element, appElement);
+
+////////////////////////////////////////////////////////////////////////////////
+// Its not a special "template" language where you have to "register" things
+// to be available, its Just JavaScript™, so you use JavaScript scope, no
+// template globals :D
+//var divide = React.DOM.div;
+//React.render(<divide>lol</divide>, appElement);
+
+////////////////////////////////////////////////////////////////////////////////
+// no special template syntax/helpers, just use Array methods on lists
+//var tacos = [
+  //{ name: 'Carnitas' },
+  //{ name: 'Pollo' },
+  //{ name: 'Asada' }
+//];
+
+//React.render((
+  //<ul>
+    //{tacos.map(taco => (
+      //<li>{taco.name}</li>
+    //))}
+  //</ul>
+//), appElement);
+
+
+////////////////////////////////////////////////////////////////////////////////
+// lets say we want to generate this HTML
+//<select name="month">
+ //<option>(01) January</option>
+ //<option>(02) February</option>
+ //...
+//</select>
+
+// in angular we'd have something like this:
+//<select name="month">
+  //<option ng-repeat="month in months">
+    //({{$index | padMonth}}) {{month}}
+  //</option>
+//</select>
+
+// Things you have to learn to make this work:
+// - ng-repeat
+// - `month in months` DSL
+// - auto-injected `$index`
+// - that `|` is called a filter so you can google to learn...
+// - ... how to create a filter
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+  'August', 'September', 'October', 'November', 'December'];
+
+function padMonth (index) {
+  var realIndex = index + 1;
+  return realIndex > 9 ? ''+realIndex : '0'+realIndex;
 }
 
-function render () {
-  var summaryClassName = 'ContentToggle__Summary';
-  if (isOpen)
-    summaryClassName += ' ContentToggle__Summary--is-open';
+//var monthSelect = (
+  //<select>
+    //{months.map((month, index) => (
+      //<option>({padMonth(index)}) {month}</option>
+    //))}
+  //</select>
+//);
 
-  React.render((
-    <div className="ContentToggle">
-      <button onClick={handleClick} className={summaryClassName}>
-        Tacos
-      </button>
-      {isOpen && (
-        <div className="ContentToggle__Details">
-          <p>
-            A taco is a traditional Mexican dish composed of a corn or wheat
-            tortilla folded or rolled around a filling. A taco can be made with a
-            variety of fillings, including beef, pork, chicken, seafood,
-            vegetables and cheese, allowing for great versatility and variety. A
-            taco is generally eaten without utensils and is often accompanied
-            by garnishes such as salsa, avocado or guacamole, cilantro
-            (coriander), tomatoes, minced meat, onions and lettuce.
-          </p>
-        </div>
-      )}
-    </div>
-  ), document.getElementById('app'));
+// Things you have to know
+// - JavaScript
+// - JSX ... or not
+
+//var { select, option } = React.DOM;
+//var monthSelect = select({}, months.map((month, index) => {
+  //return option({}, `(${padMonth(index)}) ${month}`);
+//}));
+//React.render(monthSelect, appElement);
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Because React is generally just a bunch of functions, you don't have to ask
+// React how to solve a problem in your app, you can use everything you know
+// about programming already.
+
+function monthOption (month, index) {
+  return <option>({padMonth(index)}) {month})</option>;
 }
 
-render();
+function monthSelect () {
+  return <select>{months.map(monthOption)}</select>;
+}
+
+React.render(monthSelect(), appElement);
+
+
+//////////////////////////////////////////////////////////////////////////////////
+// Lets make a thing (have michael do this part
+//var isOpen = false;
+
+//function handleClick() {
+  //isOpen = !isOpen;
+  //render();
+//}
+
+//function render () {
+  //var summaryClassName = 'ContentToggle__Summary';
+  //if (isOpen)
+    //summaryClassName += ' ContentToggle__Summary--is-open';
+
+  //return (
+    //<div className="ContentToggle">
+      //<button onClick={handleClick} className={summaryClassName}>
+        //Tacos
+      //</button>
+      //{isOpen && (
+        //<div className="ContentToggle__Details">
+          //<p>
+            //A taco is a traditional Mexican dish composed of a corn or wheat
+            //tortilla folded or rolled around a filling. A taco can be made with a
+            //variety of fillings, including beef, pork, chicken, seafood,
+            //vegetables and cheese, allowing for great versatility and variety. A
+            //taco is generally eaten without utensils and is often accompanied
+            //by garnishes such as salsa, avocado or guacamole, cilantro
+            //(coriander), tomatoes, minced meat, onions and lettuce.
+          //</p>
+        //</div>
+      //)}
+    //</div>
+  //);
+//}
+
+//function updateThePage () {
+  //React.render(render(), appElement);
+//}
+
+//updateThePage();
 
 ////////////////////////////////////////////////////////////////////////////////
 // - Always rerender
