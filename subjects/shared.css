@@ -19,15 +19,22 @@ body {
 }
 
 .ContentToggle {
-  padding: 10px;
   border: 1px solid #ccc;
   margin: 10px 0;
   background: #fff;
 }
 
 .ContentToggle__Summary {
-  -webkit-user-select: none;
   cursor: pointer;
+  border: none;
+  background: inherit;
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  font: inherit;
   border-bottom: solid 1px transparent;
 }
 
@@ -39,4 +46,12 @@ body {
 
 .ContentToggle__Summary--is-open:before {
   content: '▾';
+}
+
+.ContentToggle__Details {
+  padding: 0 10px;
+}
+
+.hot {
+  color: red;
 }
