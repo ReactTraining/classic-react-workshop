@@ -176,6 +176,93 @@ import React from 'react';
 // React.render(<App/>, document.getElementById('app'));
 
 ////////////////////////////////////////////////////////////////////////////////
+// Let's make ContentToggle re-usable and render a few of them. Summary and
+// children are properties we can pass in from the parent component. Use
+// this.props.children to render any components/text that were passed to
+// the component as children
+
+// var ContentToggle = React.createClass({
+//
+//   propTypes: {
+//     summary: React.PropTypes.string,
+//     onToggle: React.PropTypes.func
+//   },
+//
+//   getInitialState() {
+//     return {
+//       isOpen: false
+//     };
+//   },
+//
+//   handleClick() {
+//     this.setState({
+//       isOpen: !this.state.isOpen
+//     });
+//
+//     if (this.props.onToggle)
+//       this.props.onToggle();
+//   },
+//
+//   render() {
+//     return (
+//       <div className="ContentToggle">
+//         <button onClick={this.handleClick} className="ContentToggle__Summary">
+//           {this.props.summary}
+//         </button>
+//         <div className="ContentToggle__Details">
+//           {this.state.isOpen && this.props.children}
+//         </div>
+//       </div>
+//     );
+//   }
+//
+// });
+//
+// var App = React.createClass({
+//
+//   getInitialState() {
+//     return {
+//       numToggles: 0
+//     };
+//   },
+//
+//   handleToggle() {
+//     this.setState({
+//       numToggles: this.state.numToggles + 1
+//     });
+//   },
+//
+//   render() {
+//     return (
+//       <div>
+//         <p>Toggle count: {this.state.numToggles}</p>
+//         <ContentToggle summary="Tacos" onToggle={this.handleToggle}>
+//           <p>
+//             A taco is a traditional Mexican dish composed of a corn or wheat
+//             tortilla folded or rolled around a filling.
+//           </p>
+//         </ContentToggle>
+//         <ContentToggle summary="Burritos" onToggle={this.handleToggle}>
+//           <p>
+//             A burrito is a Mexican dish consisting of a tortilla rolled around
+//             a filling, typically of beans or ground or shredded beef.
+//           </p>
+//         </ContentToggle>
+//         <ContentToggle summary="Enchiladas" onToggle={this.handleToggle}>
+//           <p>
+//             An enchilada is a rolled tortilla with a filling typically of meat
+//             and served with a chili sauce.
+//           </p>
+//         </ContentToggle>
+//       </div>
+//     );
+//   }
+//
+// });
+//
+// React.render(<App/>, document.getElementById('app'));
+
+////////////////////////////////////////////////////////////////////////////////
 // React expresses your application UI as a function of state. Props are like
 // arguments to the function. They look like element attributes in JSX
 
@@ -315,7 +402,8 @@ import React from 'react';
 // common types of objects you pass around in your app
 
 function isEmail(value) {
-  return typeof value === 'string' && (/[\w.-]+@[\w.-]+\.[a-zA-Z]{2,4}/).test(value);
+  var regex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|”(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*”)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+  return typeof value === 'string' && regex.test(value);
 }
 
 var PropTypes = {
