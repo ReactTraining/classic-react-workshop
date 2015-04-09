@@ -28,10 +28,21 @@ var DATA = {
   ]
 };
 
+function tranformItems () {
+  return DATA.items.filter((item) => {
+    return item.type === 'mexican';
+  }).sort(sortBy('name'));
+}
+
 function render () {
   return (
     <div>
-      Open the console, you have failing tests
+      <h1>{DATA.title}</h1>
+      <ul>
+        {tranformItems().map((item) => (
+          <li>{item.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
