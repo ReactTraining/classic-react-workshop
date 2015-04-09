@@ -22,9 +22,9 @@ exports.run = () => {
   );
 
   console.log('after clicking the third tab...');
-  click(tabs[3]);
+  click(tabs[2]);
   assert(
-    tabs[3].style.borderBottomColor === borderFixture.style.borderBottomColor,
+    tabs[2].style.borderBottomColor === borderFixture.style.borderBottomColor,
     'third tab is active'
   );
   assert(
