@@ -1,4 +1,4 @@
-import React from 'react/addons';
+var React = require('react/addons');
 var assert = require('../shared/assert');
 
 var TestUtils = React.addons.TestUtils;

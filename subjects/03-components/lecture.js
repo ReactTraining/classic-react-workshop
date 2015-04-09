@@ -1,4 +1,4 @@
-import React from 'react';
+var React = require('react');
 
 ////////////////////////////////////////////////////////////////////////////////
 // Let's encapsulate state in an object and call it what it really is. Then, add
@@ -266,7 +266,7 @@ import React from 'react';
 // React expresses your application UI as a function of state. Props are like
 // arguments to the function. They look like element attributes in JSX
 
-// import MD5 from 'MD5';
+// var MD5 = require('MD5');
 //
 // var GRAVATAR_URL = 'http://gravatar.com/avatar';
 // var USERS = [
@@ -297,7 +297,7 @@ import React from 'react';
 // We can refactor to get a <Gravatar> component that takes a user's email as
 // a prop and automatically generates the <img src> and a size prop
 
-// import MD5 from 'MD5';
+// var MD5 = require('MD5');
 //
 // var GRAVATAR_URL = 'http://gravatar.com/avatar';
 // var USERS = [
@@ -344,7 +344,7 @@ import React from 'react';
 ////////////////////////////////////////////////////////////////////////////////
 // We can have better validation with a custom prop
 
-// import MD5 from 'MD5';
+// var MD5 = require('MD5');
 //
 // var GRAVATAR_URL = 'http://gravatar.com/avatar';
 // var USERS = [
@@ -424,7 +424,7 @@ PropTypes.email.isRequired = function (...args) {
   return PropTypes.email.apply(PropTypes.email, args.concat([ true ]));
 };
 
-import MD5 from 'MD5';
+var MD5 = require('MD5');
 
 var GRAVATAR_URL = 'http://gravatar.com/avatar';
 var USERS = [
