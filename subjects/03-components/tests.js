@@ -5,6 +5,7 @@ var { click } = React.addons.TestUtils.Simulate;
 exports.run = () => {
   var html = document.getElementById('app').innerHTML;
   var tabs = document.querySelectorAll('.Tab');
+  var panels = document.querySelector('.TabPanels');
   var borderFixture = document.createElement('div');
   borderFixture.setAttribute('style', 'border-bottom-color: #000;');
 
@@ -31,5 +32,8 @@ exports.run = () => {
     tabs[0].style.borderBottomColor !== borderFixture.style.borderBottomColor,
     'first tab is inactive'
   );
+  assert(
+    panels.textContent.trim() == 'World Cup 2018!',
+    'you have the wrong content in the panel'
+  );
 };
-
