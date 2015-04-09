@@ -1,4 +1,4 @@
-module.exports = (pass, description) => {
+module.exports = function (pass, description) {
   if (pass === true) {
     console.log('%c✔︎ ok', 'color: green', description);
   }
