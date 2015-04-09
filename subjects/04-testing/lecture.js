@@ -1,16 +1,8 @@
 import React from 'react/addons';
+var assert = require('../shared/assert');
 
 var TestUtils = React.addons.TestUtils;
 var Simulate = TestUtils.Simulate;
-
-function assert(what, message) {
-  if (what) {
-    console.log('%c✔︎ ok', 'color:green', message);
-  } else {
-    console.log('%c✘ not ok', 'color:red', message);
-    console.assert(what, message);
-  }
-}
 
 var ContentToggle = React.createClass({
 
