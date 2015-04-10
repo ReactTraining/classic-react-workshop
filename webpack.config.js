@@ -1,4 +1,5 @@
 var fs = require('fs');
+var fileExists = fs.existsSync;
 var mkdirp = require('mkdirp');
 var path = require('path');
 var webpack = require('webpack');
@@ -17,7 +18,10 @@ module.exports = {
   devtool: 'eval',
 
   entry: DIRS.reduce(function (entries, dir) {
-    entries[dir+'-exercise'] = path.join(CODE, dir, 'exercise.js');
+    if (fileExists(path.join(CODE, dir, 'exercise.js')))
+      entries[dir+'-exercise'] = path.join(CODE, dir, 'exercise.js');
+    if (fileExists(path.join(CODE, dir, 'solution.js')))
+      entries[dir+'-solution'] = path.join(CODE, dir, 'solution.js');
     entries[dir+'-lecture'] = path.join(CODE, dir, 'lecture.js');
     return entries;
   }, {}),
@@ -57,6 +61,7 @@ function makeIndex() {
 
   DIRS.forEach(function (dir) {
     fs.writeFileSync('./subjects/'+dir+'/index.html', makeMarkup(dir+'-exercise'));
+    fs.writeFileSync('./subjects/'+dir+'/solution.html', makeMarkup(dir+'-solution'));
     fs.writeFileSync('./subjects/'+dir+'/lecture.html', makeMarkup(dir+'-lecture'));
   });
 }
