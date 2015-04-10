@@ -20,9 +20,13 @@ module.exports = {
   entry: DIRS.reduce(function (entries, dir) {
     if (fileExists(path.join(CODE, dir, 'exercise.js')))
       entries[dir+'-exercise'] = path.join(CODE, dir, 'exercise.js');
+
     if (fileExists(path.join(CODE, dir, 'solution.js')))
       entries[dir+'-solution'] = path.join(CODE, dir, 'solution.js');
-    entries[dir+'-lecture'] = path.join(CODE, dir, 'lecture.js');
+
+    if (fileExists(path.join(CODE, dir, 'lecture.js')))
+      entries[dir+'-lecture'] = path.join(CODE, dir, 'lecture.js');
+
     return entries;
   }, {}),
 
