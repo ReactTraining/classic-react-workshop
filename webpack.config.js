@@ -31,12 +31,17 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
+      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.woff(2)?$/,   loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      { test: /\.ttf$/, loader: "file-loader" },
+      { test: /\.eot$/, loader: "file-loader" },
+      { test: /\.svg$/, loader: "file-loader" },
+      { test: require.resolve('jquery'), loader: "expose?jQuery" },
     ]
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('shared.js')
+    new webpack.optimize.CommonsChunkPlugin('shared.js'),
   ]
 
 };
