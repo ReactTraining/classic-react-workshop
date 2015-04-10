@@ -8,6 +8,8 @@ the following steps:
 
 * Hint: Open up Flux.png and make your way around the Flux diagram as you go *
 
+- Make the <App> component listen for changes to the ContactStore and updates its
+  state when the store changes
 - Add a "delete" button next to each contact (components/App.js)
 - The delete button should create an action (actions/ViewActionCreators.js) that deletes a contact
 - The action creator does two things:
@@ -15,8 +17,6 @@ the following steps:
   - Sends a request to the server to actually delete the contact
 - The ContactStore (stores/ContactStore.js) picks up the "contact deleted" event, removes
   the corresponding contact, and fires a change event
-- The <App> component listens for changes to the ContactStore and updates its
-  state when the store changes
 */
 
 React.render(<App/>, document.getElementById('app'));
