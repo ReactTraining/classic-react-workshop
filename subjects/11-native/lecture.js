@@ -1,5 +1,7 @@
 /*
 
+"Learn once, write anywhere"
+
 Install react-native, create a new test project, and start
 the dev server:
 
