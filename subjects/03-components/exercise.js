@@ -63,7 +63,6 @@ var App = React.createClass({
   }
 });
 
-React.render(<App countries={DATA}/>, document.getElementById('app'), () => {
+React.render(<App countries={DATA}/>, document.getElementById('app'), function () {
   require('./tests').run();
 });
-
