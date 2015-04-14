@@ -44,7 +44,7 @@ var appElement = document.getElementById('app');
 
 ////////////////////////////////////////////////////////////////////////////////
 // probably more like this
-//function handleClick () {
+//function handleClick() {
   //alert('clicked some more!');
 //};
 //var element = React.DOM.button({onClick: handleClick}, 'alert!');
@@ -53,7 +53,7 @@ var appElement = document.getElementById('app');
 
 ////////////////////////////////////////////////////////////////////////////////
 // you get an event, as you'd expect
-//function handleClick () {
+//function handleClick() {
   //console.log(event.button);
 //};
 //var element = React.DOM.button({ onMouseDown: handleClick }, 'log button');
@@ -81,6 +81,7 @@ var appElement = document.getElementById('app');
 // template globals :D
 //var divide = React.DOM.div;
 //React.render(<divide>lol</divide>, appElement);
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // no special template syntax/helpers, just use Array methods on lists
@@ -123,7 +124,7 @@ var appElement = document.getElementById('app');
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
   'August', 'September', 'October', 'November', 'December'];
 
-function padMonth (index) {
+function padMonth(index) {
   var realIndex = index + 1;
   return realIndex > 9 ? ''+realIndex : '0'+realIndex;
 }
@@ -151,12 +152,11 @@ function padMonth (index) {
 // Because React is generally just a bunch of functions, you don't have to ask
 // React how to solve a problem in your app, you can use everything you know
 // about programming already.
-
-function monthOption (month, index) {
+function monthOption(month, index) {
   return <option>({padMonth(index)}) {month})</option>;
 }
 
-function monthSelect () {
+function monthSelect() {
   return <select>{months.map(monthOption)}</select>;
 }
 
@@ -164,15 +164,15 @@ React.render(monthSelect(), appElement);
 
 
 //////////////////////////////////////////////////////////////////////////////////
-// Lets make a thing (have michael do this part
+// Lets make a thing
 //var isOpen = false;
 
 //function handleClick() {
   //isOpen = !isOpen;
-  //render();
+  //updateThePage();
 //}
 
-//function render () {
+//function render() {
   //var summaryClassName = 'ContentToggle__Summary';
   //if (isOpen)
     //summaryClassName += ' ContentToggle__Summary--is-open';
@@ -199,14 +199,14 @@ React.render(monthSelect(), appElement);
   //);
 //}
 
-//function updateThePage () {
+//function updateThePage() {
   //React.render(render(), appElement);
 //}
 
 //updateThePage();
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // - Always rerender
 // - Virtual DOM makes it efficient
 // - its like PHP but EVEN BETTER
-

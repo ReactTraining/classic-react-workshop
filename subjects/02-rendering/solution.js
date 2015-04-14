@@ -28,13 +28,13 @@ var DATA = {
   ]
 };
 
-function tranformItems () {
+function tranformItems() {
   return DATA.items.filter((item) => {
     return item.type === 'mexican';
   }).sort(sortBy('name'));
 }
 
-function render () {
+function render() {
   return (
     <div>
       <h1>{DATA.title}</h1>

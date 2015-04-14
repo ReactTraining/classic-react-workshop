@@ -1,12 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Render `DATA` to the page
-// - put the title in an h1
-// - render all the tacos
-// - now only render mexican food (hint: use `DATA.items.filter(...)`)
-// - sort the items in alphabetical order by name
-//   (might want to use `sort-by` https://github.com/staygrimm/sort-by#example)
+// - render DATA.title in an <h1>
+// - render a <ul> with each of DATA.items as an <li>
+// - now only render an <li> for mexican food (hint: use DATA.items.filter(...))
+// - sort the items in alphabetical order by name (hint: use sort-by https://github.com/staygrimm/sort-by#example)
 // - try this again without JSX
 //
 // Got extra time?
@@ -28,7 +26,7 @@ var DATA = {
   ]
 };
 
-function render () {
+function render() {
   return (
     <div>
       Open the console, you have failing tests
@@ -39,4 +37,3 @@ function render () {
 React.render(render(), document.getElementById('app'), () => {
   require('./tests').run();
 });
-
