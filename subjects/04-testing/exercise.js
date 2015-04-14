@@ -1,9 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Excercise:
-// - write tests for your Tab component from before
+//
+// Inside the exercise directory:
+//
+// - install all the app's dependencies
+// - get karma.conf.js to load tests.webpack.js
+// - fill out the test stubs in modules/__tests__
+// - run the tests
 ////////////////////////////////////////////////////////////////////////////////
-
-// use these `Tabs` or copy/paste yours into the Tabs file
-var Tabs = require('./Tabs');
-
-

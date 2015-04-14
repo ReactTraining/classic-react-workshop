@@ -1,0 +1,26 @@
+{
+  "name": "reactjs-testing-example",
+  "private": true,
+  "scripts": {
+    "test": "karma start"
+  },
+  "dependencies": {
+    "object-assign": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel": "^5.1.9",
+    "babel-core": "^5.1.9",
+    "babel-loader": "^5.0.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-cli": "0.0.4",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.10",
+    "karma-sourcemap-loader": "^0.3.4",
+    "karma-webpack": "^1.5.0",
+    "mocha": "^2.2.4",
+    "react": "^0.13.1",
+    "webpack": "^1.8.4",
+    "webpack-dev-server": "^1.8.0"
+  }
+}
