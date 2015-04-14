@@ -1,5 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Excercise:
+//
 // - render the data as tabs, with their `name` as the label in the tab
 //   and their `description` inside the tab panel
 // - make it so that you can click a tab label and the panel renders
@@ -35,6 +36,10 @@ styles.panel = {
 };
 
 var Tabs = React.createClass({
+  propTypes: {
+    data: React.PropTypes.array
+  },
+
   getInitialState () {
     return {
       activeIndex: 0
@@ -75,6 +80,10 @@ var Tabs = React.createClass({
 });
 
 var App = React.createClass({
+  propTypes: {
+    countries: React.PropTypes.array
+  },
+
   render () {
     return (
       <div>
@@ -88,4 +97,3 @@ var App = React.createClass({
 React.render(<App countries={DATA}/>, document.getElementById('app'), () => {
   require('./tests').run();
 });
-
