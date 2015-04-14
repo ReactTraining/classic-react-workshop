@@ -6,7 +6,7 @@ var webpack = require('webpack');
 var React = require('react');
 
 var CODE = __dirname+'/subjects';
-var IGNORE = ['shared', '11-migrating-to-react'];
+var IGNORE = ['shared'];
 var DIRS = fs.readdirSync(CODE).filter(function (dir) {
   return isDirectory(path.join(CODE, dir)) && IGNORE.indexOf(dir) === -1;
 });
