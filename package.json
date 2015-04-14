@@ -1,5 +1,6 @@
 {
-  "name": "seattle-2015-04",
+  "name": "reactjs-public-training",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
