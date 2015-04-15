@@ -1,5 +1,4 @@
 /*
-
 - Flux is an architecture, not a framework
   - DO NOT START BUILDING STUFF WITH FLUX WHEN YOU'RE FIRST GETTING STARTED WITH REACT
   - It can be difficult to understand why the patterns in Flux are useful if you haven't
