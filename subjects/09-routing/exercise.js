@@ -8,7 +8,10 @@
 //
 // Got extra time?
 // - Add a link to the profile page that links back to Home
-// - If the user is not found, "redirect" to a special NotFound component
+// - add a <NotFoundRoute/> route that renders at urls the app doesn't understand
+//   (https://github.com/rackt/react-router/blob/master/docs/api/components/NotFoundRoute.md)
+// - add a <Redirect/>
+//   (https://github.com/rackt/react-router/blob/master/docs/api/components/Redirect.md)
 ////////////////////////////////////////////////////////////////////////////////
 var React = require('react');
 var Router = require('react-router');
@@ -34,9 +37,9 @@ var App = React.createClass({
       <div>
         <h1>People Viewer</h1>
       </div>
-    )
+    );
   }
-})
+});
 
 var Home = React.createClass({
   render: function () {
