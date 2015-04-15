@@ -1,3 +1,9 @@
+localStorage.token = localStorage.token || (Date.now()*Math.random());
+
+function setToken(req) {
+  req.setRequestHeader('authorization', localStorage.token);
+}
+
 function getJSON(url, cb) {
   var req = new XMLHttpRequest();
   req.onload = function () {
@@ -8,6 +14,7 @@ function getJSON(url, cb) {
     }
   };
   req.open('GET', url);
+  setToken(req);
   req.send();
 }
 
@@ -18,6 +25,7 @@ function postJSON(url, obj, cb) {
   };
   req.open('POST', url);
   req.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+  setToken(req);
   req.send(JSON.stringify(obj));
 }
 
@@ -25,6 +33,7 @@ function deleteJSON(url, cb) {
   var req = new XMLHttpRequest();
   req.onload = cb;
   req.open('DELETE', url);
+  setToken(req);
   req.send();
 }
 
@@ -33,3 +42,4 @@ module.exports = {
   postJSON,
   deleteJSON
 };
+

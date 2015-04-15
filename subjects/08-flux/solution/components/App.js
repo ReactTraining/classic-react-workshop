@@ -28,7 +28,7 @@ var App = React.createClass({
     return this.state.contacts.map(function (contact) {
       return (
         <li className="Contact" key={contact.first+contact.last}>
-          {contact.first} {contact.last}
+          {contact.first} {contact.last} {' '}
           <button onClick={this.deleteContact.bind(this, contact)}>
             delete
           </button>
