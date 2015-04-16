@@ -5,6 +5,43 @@ var React = require('react');
 // a setState function that we can use to update state and automatically update
 // the page any time the state changes.
 
+var isOpen = false;
+
+function handleClick() {
+  isOpen = !isOpen;
+  updateThePage();
+}
+
+function render() {
+  var summaryClassName = 'ContentToggle__Summary';
+  if (isOpen)
+    summaryClassName += ' ContentToggle__Summary--is-open';
+
+  return (
+    <div className="ContentToggle">
+      <button onClick={handleClick} className={summaryClassName}>
+        Tacos
+      </button>
+      {isOpen && (
+        <div className="ContentToggle__Details">
+          <p>
+            A taco is a traditional Mexican dish composed of a corn or wheat
+            tortilla folded or rolled around a filling.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function updateThePage() {
+  React.render(render(), document.getElementById('app'));
+}
+
+updateThePage();
+
+
+
 // var state = {
 //   isOpen: false
 // };
@@ -383,65 +420,65 @@ var React = require('react');
 // Eventually you'll probably end up creating a bunch of custom prop types for
 // common types of objects you pass around in your app
 
-var PropTypes = {
-
-  email: function (props, propName, componentName, location, isRequired) {
-    var value = props[propName];
-
-    if (isRequired && value === undefined)
-      return new Error(`Required prop "${propName}" was not specified in "${componentName}".`);
-
-    if (value !== undefined && !isEmail(value))
-      return new Error(`Invalid prop "${propName}" given to "${componentName}", "${value}" does not look like an email address"`);
-  }
-
-};
-
-PropTypes.email.isRequired = function (...args) {
-  return PropTypes.email.apply(PropTypes.email, args.concat([ true ]));
-};
-
-var MD5 = require('MD5');
-var isEmail = require('./utils/isEmail');
-
-var GRAVATAR_URL = 'http://gravatar.com/avatar';
-var USERS = [
-  { name: 'Ryan Florence', email: 'rpflorence@gmail.com' },
-  { name: 'Michael Jackson', email: 'mjijackson@gmail.com' }
-];
-
-var Gravatar = React.createClass({
-  propTypes: {
-    email: PropTypes.email.isRequired,
-    size: React.PropTypes.number.isRequired
-  },
-  getDefaultProps() {
-    return {
-      size: 80
-    };
-  },
-  render() {
-    return (
-      <img src={GRAVATAR_URL + '/' + MD5(this.props.email) + '?s=' + this.props.size}/>
-    );
-  }
-});
-
-var App = React.createClass({
-  render () {
-    return (
-      <div>
-        <h1>Users</h1>
-        <ul>
-        {USERS.map(user => (
-          <li key={user.email}>
-            <Gravatar email={user.email}/> {user.name}
-          </li>
-        ))}
-        </ul>
-      </div>
-    );
-  }
-});
-
-React.render(<App/>, document.getElementById('app'));
+// var PropTypes = {
+//
+//   email: function (props, propName, componentName, location, isRequired) {
+//     var value = props[propName];
+//
+//     if (isRequired && value === undefined)
+//       return new Error(`Required prop "${propName}" was not specified in "${componentName}".`);
+//
+//     if (value !== undefined && !isEmail(value))
+//       return new Error(`Invalid prop "${propName}" given to "${componentName}", "${value}" does not look like an email address"`);
+//   }
+//
+// };
+//
+// PropTypes.email.isRequired = function (...args) {
+//   return PropTypes.email.apply(PropTypes.email, args.concat([ true ]));
+// };
+//
+// var MD5 = require('MD5');
+// var isEmail = require('./utils/isEmail');
+//
+// var GRAVATAR_URL = 'http://gravatar.com/avatar';
+// var USERS = [
+//   { name: 'Ryan Florence', email: 'rpflorence@gmail.com' },
+//   { name: 'Michael Jackson', email: 'mjijackson@gmail.com' }
+// ];
+//
+// var Gravatar = React.createClass({
+//   propTypes: {
+//     email: PropTypes.email.isRequired,
+//     size: React.PropTypes.number.isRequired
+//   },
+//   getDefaultProps() {
+//     return {
+//       size: 80
+//     };
+//   },
+//   render() {
+//     return (
+//       <img src={GRAVATAR_URL + '/' + MD5(this.props.email) + '?s=' + this.props.size}/>
+//     );
+//   }
+// });
+//
+// var App = React.createClass({
+//   render () {
+//     return (
+//       <div>
+//         <h1>Users</h1>
+//         <ul>
+//         {USERS.map(user => (
+//           <li key={user.email}>
+//             <Gravatar email={user.email}/> {user.name}
+//           </li>
+//         ))}
+//         </ul>
+//       </div>
+//     );
+//   }
+// });
+//
+// React.render(<App/>, document.getElementById('app'));
