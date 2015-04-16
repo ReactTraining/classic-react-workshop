@@ -1,6 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Excercise:
-//
 // - render the data as tabs, with their `name` as the label in the tab
 //   and their `description` inside the tab panel
 // - make it so that you can click a tab label and the panel renders
@@ -40,39 +39,31 @@ var Tabs = React.createClass({
     data: React.PropTypes.array
   },
 
-  getInitialState () {
+  getInitialState() {
     return {
-      activeIndex: 0
+      activeTabIndex: 0
     };
   },
 
-  handleTabClick (index) {
+  handleClick(clickedIndex, event) {
+    event.stopPropagation();
     this.setState({
-      activeIndex: index
+      activeTabIndex: clickedIndex
     });
   },
 
-  renderTabs () {
-    return this.props.data.map((item, index) => {
-      var style = index === this.state.activeIndex ?
-        styles.activeTab : styles.tab;
-      return <div
-        className="Tab"
-        style={style}
-        onClick={this.handleTabClick.bind(this, index)}
-        children={item.name}
-      />;
-    });
-  },
+  render() {
+    var activeTab = this.props.data[this.state.activeTabIndex];
 
-  render () {
     return (
       <div className="Tabs">
-        <div>
-          {this.renderTabs()}
-        </div>
+        {this.props.data.map((d, i) => (
+          <div className="Tab" onClick={this.handleClick.bind(this, i)} style={i == this.state.activeTabIndex ? styles.activeTab : styles.tab}>
+            {d.name}
+          </div>
+        ))}
         <div className="TabPanels" style={styles.panel}>
-          {this.props.data[this.state.activeIndex].description}
+          {activeTab.description}
         </div>
       </div>
     );
@@ -80,10 +71,6 @@ var Tabs = React.createClass({
 });
 
 var App = React.createClass({
-  propTypes: {
-    countries: React.PropTypes.array
-  },
-
   render () {
     return (
       <div>
