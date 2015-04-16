@@ -2,21 +2,21 @@ var React = require('react');
 var assign = require('object-assign');
 var escapeRegExp = require('./utils/escapeRegExp');
 
-var PRODUCTS = [
+var CATALOG = [
   {
-    category: 'Sporting Goods',
+    categoryName: 'Sporting Goods',
     products: [
-      { name: 'Basketball', price: 4000, quantity: 0 },
-      { name: 'Boxing Gloves', price: 3500, quantity: 3 },
-      { name: 'Baseball', price: 1000, quantity: 0 }
+      { id: 1, name: 'Basketball', price: 4000, quantity: 0 },
+      { id: 2, name: 'Boxing Gloves', price: 3500, quantity: 3 },
+      { id: 3, name: 'Baseball', price: 1000, quantity: 0 }
     ]
   },
   {
-    category: 'Pets',
+    categoryName: 'Pets',
     products: [
-      { name: 'Gerbil', price: 500, quantity: 0 },
-      { name: 'Goldfish', price: 300, quantity: 3 },
-      { name: 'Parakeet', price: 2000, quantity: 2 }
+      { id: 4, name: 'Gerbil', price: 500, quantity: 0 },
+      { id: 5, name: 'Goldfish', price: 300, quantity: 3 },
+      { id: 6, name: 'Parakeet', price: 2000, quantity: 2 }
     ]
   }
 ];
@@ -30,13 +30,12 @@ var headerCellStyle = assign({}, cellStyle, {
 });
 
 var CategoryRow = React.createClass({
-  propTypes: {
-    category: React.PropTypes.string.isRequired
-  },
   render() {
     return (
       <tr>
-        <th colSpan="2" style={{textAlign: 'left', padding: 10}}>{this.props.category}</th>
+        <th colSpan="2" style={{textAlign: 'left', padding: 10}}>
+          {this.props.productCategory.categoryName}
+        </th>
       </tr>
     );
   }
@@ -56,32 +55,29 @@ var ProductRow = React.createClass({
 });
 
 var FilterableProductTable = React.createClass({
-  propTypes: {
-    products: React.PropTypes.array
-  },
   render() {
     return (
-      <div>
-        Product Table
-      </div>
+      <p>
+        There should be a product table here.
+      </p>
     );
   }
 });
 
 var ProductCatalog = React.createClass({
-  propTypes: {
-    products: React.PropTypes.array
-  },
   render() {
     return (
       <div>
         <h2>Product Catalog</h2>
         <div>
-          <FilterableProductTable products={this.props.products}/>
+          <FilterableProductTable/>
         </div>
       </div>
     );
   }
 });
 
-React.render(<ProductCatalog products={PRODUCTS}/>, document.getElementById('app'));
+React.render(
+  <ProductCatalog productCatalog={CATALOG}/>,
+  document.getElementById('app')
+);
