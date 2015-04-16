@@ -381,7 +381,7 @@ updateThePage();
 //       var value = props[propName];
 //
 //       if (value !== undefined && !isEmail(value))
-//         return new Error(`Invalid prop "${propName}" given to "${componentName}", "${value}" does not look like an email address"`);
+//         return new Error('Invalid prop "${propName}" given to "${componentName}", "${value}" does not look like an email address"');
 //     },
 //     size: React.PropTypes.number.isRequired
 //   },
@@ -426,10 +426,10 @@ updateThePage();
 //     var value = props[propName];
 //
 //     if (isRequired && value === undefined)
-//       return new Error(`Required prop "${propName}" was not specified in "${componentName}".`);
+//       return new Error('Required prop "${propName}" was not specified in "${componentName}".');
 //
 //     if (value !== undefined && !isEmail(value))
-//       return new Error(`Invalid prop "${propName}" given to "${componentName}", "${value}" does not look like an email address"`);
+//       return new Error('Invalid prop "${propName}" given to "${componentName}", "${value}" does not look like an email address"');
 //   }
 //
 // };
