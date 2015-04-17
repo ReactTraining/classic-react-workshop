@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Excercise:
+// Exercise:
 //
 // - render the data as tabs, with their `name` as the label in the tab
 //   and their `description` inside the tab panel

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Excercise:
+// Exercise:
 //
 // make tabs a "pure component" by not managing any of its own state, instead
 // add a property to tell it which tab to show, and then have it communicate
