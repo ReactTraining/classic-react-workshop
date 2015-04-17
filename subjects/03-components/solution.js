@@ -1,5 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
+//
 // - render the data as tabs, with their `name` as the label in the tab
 //   and their `description` inside the tab panel
 // - make it so that you can click a tab label and the panel renders
@@ -10,9 +11,9 @@ var React = require('react');
 var assign = require('object-assign');
 
 var DATA = [
-  { name: 'USA', description: 'Land of the Free, Home of the brave' },
-  { name: 'China', description: 'Lots of concrete' },
-  { name: 'Russia', description: 'World Cup 2018!' },
+  { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
+  { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
+  { id: 3, name: 'Russia', description: 'World Cup 2018!' },
 ];
 
 var styles = {};
@@ -58,7 +59,7 @@ var Tabs = React.createClass({
     return (
       <div className="Tabs">
         {this.props.data.map((d, i) => (
-          <div className="Tab" onClick={this.handleClick.bind(this, i)} style={i == this.state.activeTabIndex ? styles.activeTab : styles.tab}>
+          <div key={d.id} className="Tab" onClick={this.handleClick.bind(this, i)} style={i == this.state.activeTabIndex ? styles.activeTab : styles.tab}>
             {d.name}
           </div>
         ))}

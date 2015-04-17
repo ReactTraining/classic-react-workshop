@@ -11,9 +11,9 @@ var React = require('react');
 var assign = require('object-assign');
 
 var DATA = [
-  { name: 'USA', description: 'Land of the Free, Home of the brave' },
-  { name: 'China', description: 'Lots of concrete' },
-  { name: 'Russia', description: 'World Cup 2018!' },
+  { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
+  { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
+  { id: 3, name: 'Russia', description: 'World Cup 2018!' },
 ];
 
 var styles = {};
