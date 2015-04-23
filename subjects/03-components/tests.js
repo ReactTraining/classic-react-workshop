@@ -11,7 +11,7 @@ exports.run = () => {
 
   console.log('on first render');
   assert(!!html.match(/USA/), 'render USA tab');
-  assert(!!html.match(/China/), 'render China tab');
+  assert(!!html.match(/Brazil/), 'render Brazil tab');
   assert(!!html.match(/Russia/), 'render Russia tab');
   assert(
     tabs[0].style.borderBottomColor === borderFixture.style.borderBottomColor,
