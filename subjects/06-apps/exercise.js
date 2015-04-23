@@ -1,3 +1,16 @@
+////////////////////////////////////////////////////////////////////////////////
+// Exercise:
+//
+// - Render the product catalog in a table using <CategoryRow> for
+//   product categories and <ProductRow> for products
+// - Create a search bar that filters the products in the table
+//   based on text that was entered
+//
+// Already done?
+//
+// - Create a checkbox labelled "Only show in stock" that can be
+//   used to filter out products that are not in stock
+////////////////////////////////////////////////////////////////////////////////
 var React = require('react');
 var assign = require('object-assign');
 var escapeRegExp = require('./utils/escapeRegExp');
