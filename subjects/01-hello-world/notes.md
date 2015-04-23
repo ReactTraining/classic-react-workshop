@@ -11,7 +11,7 @@ $input.on('keyup', debounce(function (event) {
   $.getJSON(url, function (data) {
     var html = '';
     data.results.forEach(function (result) {
-      var li = $('<li/>');
+      var $li = $('<li/>');
       var html = '<h2>' +
                     result.title +
                  '  <button data-id="'+result.id+'" class="remove">' +
@@ -34,7 +34,7 @@ $input.on('keyup', debounce(function (event) {
 
     $results.find('.remove').on('click', function (event) {
       var $el = $(event.target);
-      var $dialog = $el.find('.modal').dialog();
+      var $dialog = $el.parent().parent().find('.modal').dialog();
 
       $el.find('.no').on('click', function () {
         $dialog.dialog('close');
@@ -43,7 +43,7 @@ $input.on('keyup', debounce(function (event) {
       $el.find('.yes').on('click', function () {
         $.post(deleteUrl+'/'+$el.data('id'));
         $dialog.dialog('close');
-        $el.parent().remove();
+        $el.parent().parent().remove();
       });
     });
   });
