@@ -1,10 +1,9 @@
 var React = require('react');
-var appElement = document.getElementById('app');
 
 ////////////////////////////////////////////////////////////////////////////////
 // React components are really just functions that take attributes
 //var element = React.DOM.input({type: 'text'});
-//React.render(element, appElement);
+//React.render(element, document.getElementById('app'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // You can also pass in children as extra arguments
@@ -13,7 +12,7 @@ var appElement = document.getElementById('app');
                                 //React.DOM.option({value: '2'}, 'two'),
                                 //React.DOM.option({value: '3'}, 'three')
                               //);
-//React.render(element, appElement);
+//React.render(element, document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +26,7 @@ var appElement = document.getElementById('app');
                     //option({value: '3'}, 'three')
                   //)
                  //);
-//React.render(element, appElement);
+//React.render(element, document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +38,7 @@ var appElement = document.getElementById('app');
 ////////////////////////////////////////////////////////////////////////////////
 // can pass in functions as event handlers
 //var element = React.DOM.button({onClick: function() { alert('clicked!'); }}, 'alert!');
-//React.render(element, appElement);
+//React.render(element, document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +47,7 @@ var appElement = document.getElementById('app');
   //alert('clicked some more!');
 //};
 //var element = React.DOM.button({onClick: handleClick}, 'alert!');
-//React.render(element, appElement);
+//React.render(element, document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,7 +56,7 @@ var appElement = document.getElementById('app');
   //console.log(event.button);
 //};
 //var element = React.DOM.button({ onMouseDown: handleClick }, 'log button');
-//React.render(element, appElement);
+//React.render(element, document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,14 +72,14 @@ var appElement = document.getElementById('app');
                 //p({}, 'Pork Carnitas street tacos are the best')
               //);
 
-//React.render(element, appElement);
+//React.render(element, document.getElementById('app'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Its not a special "template" language where you have to "register" things
 // to be available, its Just JavaScript™, so you use JavaScript scope, no
 // template globals :D
 //var divide = React.DOM.div;
-//React.render(<divide>lol</divide>, appElement);
+//React.render(<divide>lol</divide>, document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +96,7 @@ var appElement = document.getElementById('app');
       //<li>{taco.name}</li>
     //))}
   //</ul>
-//), appElement);
+//), document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -145,7 +144,7 @@ function padMonth(index) {
 //var monthSelect = select({}, months.map((month, index) => {
   //return option({}, `(${padMonth(index)}) ${month}`);
 //}));
-//React.render(monthSelect, appElement);
+//React.render(monthSelect, document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +159,7 @@ function monthSelect() {
   return <select>{months.map(monthOption)}</select>;
 }
 
-React.render(monthSelect(), appElement);
+React.render(monthSelect(), document.getElementById('app'));
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -200,7 +199,7 @@ React.render(monthSelect(), appElement);
 //}
 
 //function updateThePage() {
-  //React.render(render(), appElement);
+  //React.render(render(), document.getElementById('app'));
 //}
 
 //updateThePage();
