@@ -11,11 +11,11 @@ the following steps:
 - Make the <App> component listen for changes to the ContactStore and updates its
   state when the store changes
 - Add a "delete" button next to each contact (components/App.js)
-- The delete button should create an action (actions/ViewActionCreators.js) that deletes a contact
-- The action creator does two things:
-  - Sends a "contact deleted" event through the dispatcher
+- The delete button should create an action (actions/ViewActionCreators.js) that does two things:
+  - Sends a "delete contact" action through the dispatcher
   - Sends a request to the server to actually delete the contact
-- The ContactStore (stores/ContactStore.js) picks up the "contact deleted" event, removes
+- The server creates an action that sends a "contact was deleted" action through the dispatcher
+- The ContactStore (stores/ContactStore.js) picks up the "delete contact" event, removes
   the corresponding contact, and fires a change event
 */
 
