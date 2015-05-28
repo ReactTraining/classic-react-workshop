@@ -1,6 +1,5 @@
 {
-  "name": "reactjs-public-training",
-  "private": true,
+  "name": "react-training",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
