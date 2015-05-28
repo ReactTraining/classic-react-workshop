@@ -1,10 +1,4 @@
 var React = require('react');
-// TODO: make sure Michael talks about
-// - passing function props to do something "onToggle"
-// - concatting className
-// - passing along `{...this.props}`
-// - propTypes propTypes propTypes!
-// - setState callback to ensure state is set (and know rendering is done)
 
 //var ContentToggle = React.createClass({
   //getInitialState () {
@@ -383,6 +377,138 @@ var React = require('react');
 // Our state is no fully synchronized, but do we even need state in
 // ContentToggle anymore?
 
+//var ContentToggle = React.createClass({
+  //handleClick () {
+    //if (this.props.onToggle) this.props.onToggle(!this.props.isOpen);
+  //},
+
+  //render () {
+    //var summaryClassName = "ContentToggle__Summary";
+    //if (this.props.isOpen)
+      //summaryClassName += " ContentToggle__Summary--is-open";
+    //return (
+      //<div {...this.props} className="ContentToggle">
+        //<button onClick={this.handleClick} className={summaryClassName}>
+          //{this.props.summary}
+        //</button>
+        //<div className="ContentToggle__Details">
+          //{this.props.isOpen && this.props.children}
+        //</div>
+      //</div>
+    //);
+  //}
+//});
+
+//var App = React.createClass({
+  //getInitialState () {
+    //return {
+      //toggleAll: false,
+      //tacos: [
+        //{ name: 'Carnitas', src: 'tacos/carnitas.png', isOpen: true },
+        //{ name: 'Pollo', src: 'tacos/pollo.png', isOpen: false },
+        //{ name: 'Asada', src: 'tacos/asada.png', isOpen: true },
+      //]
+    //};
+  //},
+
+  //toggleAll () {
+    //var allOpen = this.state.tacos.reduce((allOpen, taco) => {
+      //return allOpen === false ? allOpen : taco.isOpen;
+    //}, true);
+    //var allClosed = this.state.tacos.reduce((allClosed, taco) => {
+      //return allClosed === false ? allClosed : !taco.isOpen;
+    //}, true);
+    //var newToggleAll;
+    //if (allOpen)
+      //newToggleAll = false;
+    //else if (allClosed)
+      //newToggleAll = true;
+    //else
+      //newToggleAll = !this.state.toggleAll;
+    //var newTacos = this.state.tacos.map((taco) => {
+      //taco.isOpen = newToggleAll;
+      //return taco;
+    //});
+    //this.setState({
+      //tacos: newTacos,
+      //toggleAll: newToggleAll
+    //});
+  //},
+
+  //handleToggle (toggledTaco, isOpen) {
+    //var newTacos = this.state.tacos.map((taco) => {
+      //if (toggledTaco === taco)
+        //toggledTaco.isOpen = isOpen;
+      //return taco;
+    //});
+    //this.setState({ tacos: newTacos });
+  //},
+
+  //render () {
+    //return (
+      //<div>
+        //<StatefulContentToggle summary="stateful on its own">
+          //<p>Higher Order components rule</p>
+        //</StatefulContentToggle>
+        //<hr/>
+        //<button onClick={this.toggleAll}>Toggle All</button>
+        //<div>
+          //{this.state.tacos.map(taco => (
+            //<ContentToggle
+              //style={{width: 300}}
+              //onToggle={this.handleToggle.bind(this, taco)}
+              //isOpen={taco.isOpen}
+              //key={taco.name}
+              //summary={taco.name}
+            //>
+            //<div style={{
+              //height: 200,
+              //background: `url(${taco.src})`,
+              //backgroundSize: 'cover'
+            //}}/>
+            //</ContentToggle>
+          //))}
+        //</div>
+      //</div>
+    //);
+  //}
+//});
+
+//React.render(<App/>, document.getElementById('app'));
+
+////////////////////////////////////////////////////////////////////////////////
+// - We didn't really get rid of state, we just pushed it up a level
+// - Must implement `onToggle` :\
+// - Must manage state in the owner, always :\
+// - got rid of synchronizing state :)
+// - component is super simple, just a function of its props
+
+////////////////////////////////////////////////////////////////////////////////
+// Now we can create a Higher Order Component, that wraps our pure component,
+// - its job is to keep the state
+// - ContentToggle is still responsible for rendering
+
+var StatefulContentToggle = React.createClass({
+  getInitialState () {
+    return { isOpen: false };
+  },
+
+  handleToggle (nextOpen) {
+    this.setState({ isOpen: nextOpen }, () => {
+      if (this.props.onToggle)
+        this.props.onToggle(this.state.isOpen);
+    });
+  },
+
+  render () {
+    return <ContentToggle
+      {...this.props}
+      {...this.state}
+      onToggle={this.handleToggle}
+    />;
+  }
+});
+
 var ContentToggle = React.createClass({
   handleClick () {
     if (this.props.onToggle) this.props.onToggle(!this.props.isOpen);
@@ -453,6 +579,10 @@ var App = React.createClass({
   render () {
     return (
       <div>
+        <StatefulContentToggle summary="stateful on its own">
+          <p>Higher Order components rule</p>
+        </StatefulContentToggle>
+        <hr/>
         <button onClick={this.toggleAll}>Toggle All</button>
         <div>
           {this.state.tacos.map(taco => (
@@ -477,13 +607,4 @@ var App = React.createClass({
 });
 
 React.render(<App/>, document.getElementById('app'));
-
-// - We didn't really get rid of state, we just pushed it up a level
-// - Must implement `onToggle` :\
-// - Must manage state in the owner, always :\
-// - got rid of synchronizing state :)
-// - component is super simple, just a function of its props
-// - No silver bullets, I'd probably go the state synchronization route so
-//   that using `ContentToggle` in simple cases doesn't require my app to
-//   manage the toggle's state
 
