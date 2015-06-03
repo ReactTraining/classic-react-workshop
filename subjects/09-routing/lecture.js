@@ -20,16 +20,27 @@ var Home = React.createClass({
 
 var App = React.createClass({
   render () {
-    var Child;
+    var Child, aboutIsActive, inboxIsActive;
     switch (this.props.route) {
-      case 'about': Child = About; break;
-      case 'inbox': Child = Inbox; break;
-      default:      Child = Home;
+      case '/about':
+        Child = About;
+        aboutIsActive = true;
+        break;
+      case '/inbox':
+        Child = Inbox;
+        inboxIsActive = true;
+        break;
+      default:
+        Child = Home;
     }
 
     return (
       <div>
         <h1>App</h1>
+        <ul>
+          <li><a href="#/about" className={aboutIsActive ? 'active' : ''}>About</a></li>
+          <li><a href="#/inbox" className={inboxIsActive ? 'active' : ''}>Inbox</a></li>
+        </ul>
         <Child/>
       </div>
     )
@@ -46,47 +57,48 @@ render(); // render initially
 
 ////////////////////////////////////////////////////////////////////////////////
 // with the Router
-var Router = require('react-router');
-var { Route, RouteHandler, Link } = Router;
 
-var routes = (
-  <Route handler={App}>
-    <Route path="about" handler={About}/>
-    <Route path="inbox" handler={Inbox}/>
-  </Route>
-);
-
-var About = React.createClass({
-  render: function () {
-    return <h2>About</h2>;
-  }
-});
-
-var Inbox = React.createClass({
-  render: function () {
-    return <h2>Inbox</h2>;
-  }
-});
-
-var Home = React.createClass({
-  render: function () {
-    return <h2>Home</h2>;
-  }
-});
-
-var App = React.createClass({
-  render () {
-    return (
-      <div>
-        <h1>App</h1>
-        <RouteHandler/>
-      </div>
-    );
-  }
-});
-
-Router.run(routes, (Root) => {
-  React.render(<Root/>, document.body);
-});
-
-
+//var React = require('react');
+//var { Router, HashHistory, Route, Link } = require('react-router');
+//
+//var About = React.createClass({
+//  render: function () {
+//    return <h2>About</h2>;
+//  }
+//});
+//
+//var Inbox = React.createClass({
+//  render: function () {
+//    return <h2>Inbox</h2>;
+//  }
+//});
+//
+//var Home = React.createClass({
+//  render: function () {
+//    return <h2>Home</h2>;
+//  }
+//});
+//
+//var App = React.createClass({
+//  render () {
+//    return (
+//      <div>
+//        <h1>App</h1>
+//        <ul>
+//          <li><Link to="about">About</Link></li>
+//          <li><Link to="inbox">Inbox</Link></li>
+//        </ul>
+//        {this.props.children}
+//      </div>
+//    );
+//  }
+//});
+//
+//React.render((
+//  <Router history={HashHistory}>
+//    <Route component={App}>
+//      <Route path="about" component={About}/>
+//      <Route path="inbox" component={Inbox}/>
+//    </Route>
+//  </Router>
+//), document.body);

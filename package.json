@@ -25,7 +25,7 @@
     "mkdirp": "^0.5.0",
     "object-assign": "^2.0.0",
     "react": "^0.13.1",
-    "react-router": "^0.13.2",
+    "react-router": "git://github.com/rackt/react-router#next-training",
     "sort-by": "^1.1.0",
     "url-loader": "^0.5.5",
     "webpack": "^1.7.3",
