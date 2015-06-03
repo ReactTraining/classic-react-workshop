@@ -1,14 +1,12 @@
 var assert = require('assert');
 var React = require('react/addons');
-var { click } = React.addons.TestUtils.Simulate;
 var Tabs = require('../Tabs');
 
 describe('when <Tabs> is rendered', function () {
-
   var fixtureData = [
-    { name: 'USA', description: 'Land of the Free, Home of the brave' },
-    { name: 'China', description: 'Lots of concrete' },
-    { name: 'Russia', description: 'World Cup 2018!' },
+    { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
+    { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
+    { id: 3, name: 'Russia', description: 'World Cup 2018!' },
   ];
 
   var node, html, tabs, panel, borderFixture;
@@ -32,7 +30,7 @@ describe('when <Tabs> is rendered', function () {
 
   it('renders the USA tab');
 
-  it('renders the China tab');
+  it('renders the Brazil tab');
 
   it('renders the Russia tab');
 
