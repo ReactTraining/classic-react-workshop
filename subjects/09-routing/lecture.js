@@ -19,47 +19,46 @@ var Home = React.createClass({
 });
 
 var App = React.createClass({
-  render () {
-    var Child, aboutIsActive, inboxIsActive;
-    switch (this.props.route) {
-      case '/about':
-        Child = About;
-        aboutIsActive = true;
-        break;
-      case '/inbox':
-        Child = Inbox;
-        inboxIsActive = true;
-        break;
-      default:
-        Child = Home;
+  propTypes: {
+    route: React.PropTypes.string
+  },
+  render: function () {
+    var { route } = this.props;
+
+    var ChildComponent;
+    switch (route) {
+      case '/about': ChildComponent = About; break;
+      case '/inbox': ChildComponent = Inbox; break;
+      default: ChildComponent = Home;
     }
 
     return (
       <div>
-        <h1>App</h1>
+        <h1>Welcome to the app!</h1>
         <ul>
-          <li><a href="#/about" className={aboutIsActive ? 'active' : ''}>About</a></li>
-          <li><a href="#/inbox" className={inboxIsActive ? 'active' : ''}>Inbox</a></li>
+          <li><a href="#/" className={ChildComponent === Home ? 'active' : ''}>Home</a></li>
+          <li><a href="#/about" className={ChildComponent === About ? 'active' : ''}>About</a></li>
+          <li><a href="#/inbox" className={ChildComponent === Inbox ? 'active' : ''}>Inbox</a></li>
         </ul>
-        <Child/>
+        <ChildComponent/>
       </div>
-    )
+    );
   }
 });
 
-function render () {
-  var route = window.location.hash.substr(1);
+function render() {
+  var route = window.location.hash.substring(1);
   React.render(<App route={route} />, document.body);
 }
 
 window.addEventListener('hashchange', render);
-render(); // render initially
+
+render();
 
 ////////////////////////////////////////////////////////////////////////////////
 // with the Router
 
 //var React = require('react');
-//var { Router, HashHistory, Route, Link } = require('react-router');
 //
 //var About = React.createClass({
 //  render: function () {
@@ -85,6 +84,7 @@ render(); // render initially
 //      <div>
 //        <h1>App</h1>
 //        <ul>
+//          <li><Link to="home">Home</Link></li>
 //          <li><Link to="about">About</Link></li>
 //          <li><Link to="inbox">Inbox</Link></li>
 //        </ul>
@@ -94,9 +94,12 @@ render(); // render initially
 //  }
 //});
 //
+//var { Router, Route, Redirect, Link, HashHistory } = require('react-router');
+//
 //React.render((
 //  <Router history={HashHistory}>
 //    <Route component={App}>
+//      <Route path="home" component={Home}/>
 //      <Route path="about" component={About}/>
 //      <Route path="inbox" component={Inbox}/>
 //    </Route>
