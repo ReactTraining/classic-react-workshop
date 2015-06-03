@@ -56,12 +56,13 @@ module.exports = {
 
 function makeIndex() {
   var list = DIRS.map(function (dir) {
-    return React.DOM.li({}, React.DOM.a({href: '/'+dir}, dir.replace(/-/g, ' ')));
+    return React.DOM.li({ key: dir }, React.DOM.a({ href: '/' + dir }, dir.replace(/-/g, ' ')));
   });
+
   var markup = React.renderToStaticMarkup((
     React.DOM.html({},
-      React.DOM.link({rel: 'stylesheet', href: '/shared.css'}),
-      React.DOM.body({id: 'index'},
+      React.DOM.link({ rel: 'stylesheet', href: '/shared.css' }),
+      React.DOM.body({ id: 'index' },
         React.DOM.ul({}, list)
       )
     )
@@ -78,11 +79,11 @@ function makeIndex() {
 function makeMarkup(mainFile) {
   return React.renderToStaticMarkup((
     React.DOM.html({},
-      React.DOM.link({rel: 'stylesheet', href: '/shared.css'}),
+      React.DOM.link({ rel: 'stylesheet', href: '/shared.css' }),
       React.DOM.body({},
         React.DOM.div({ id: 'app' }),
-        React.DOM.script({src: '/__build__/shared.js'}),
-        React.DOM.script({src: '/__build__/'+mainFile+'.js'})
+        React.DOM.script({ src: '/__build__/shared.js' }),
+        React.DOM.script({ src: '/__build__/' + mainFile + '.js' })
       )
     )
   ));
