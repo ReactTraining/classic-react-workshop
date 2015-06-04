@@ -2,9 +2,10 @@
 
 "Learn once, write anywhere"
 
-Install react-native, create a new test project, and start
+Install watchman and react-native, create a new test project, and start
 the dev server:
 
+$ brew install watchman
 $ npm install -g react-native-cli
 $ react-native init TestProject
 $ cd TestProject
@@ -81,7 +82,7 @@ class Master extends React.Component {
 
   render() {
     return (
-      <TouchableHighlight onPress={this.handlePress}>
+      <TouchableHighlight underlayColor="white" onPress={this.handlePress}>
         <View style={styles.container}>
           <Text style={styles.description}>Tap me!</Text>
         </View>
