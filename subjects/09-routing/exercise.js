@@ -1,21 +1,20 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Add a <RouteHandler> to App's render method that renders the child route
-// - Add a new child route beneath App called "profile" that renders at /users/:userID
-//   and shows the user with the given ID (hint: use the Profile component as the handler)
+// - Add `this.props.children` to App's render method that renders the child route
+// - Add a new child route beneath App at "/profile/:userID" and shows the user with
+//   the given ID (hint: use the Profile component)
 // - Add links to the Home view that link to the profile page for each user
 //
 // Got extra time?
 // - Add a link to the profile page that links back to Home
-// - add a <NotFoundRoute/> route that renders at urls the app doesn't understand
-//   (https://github.com/rackt/react-router/blob/master/docs/api/components/NotFoundRoute.md)
-// - add a <Redirect/>
-//   (https://github.com/rackt/react-router/blob/master/docs/api/components/Redirect.md)
+// - add a route that renders at urls the app doesn't understand (use "*" as the path)
+// - add a <Redirect/> from "/users/:userID" to "/profile/:userID"
+//   (https://rackt.github.io/react-router/tags/v1.0.0-beta2.html#Redirect)
 ////////////////////////////////////////////////////////////////////////////////
 var React = require('react');
-var Router = require('react-router');
-var { Route, Link, State, RouteHandler } = Router;
+var { Router, Route, Link } = require('react-router');
+var HashHistory = require('react-router/lib/HashHistory').default;
 var Gravatar = require('./components/Gravatar');
 
 var USERS = [
@@ -36,6 +35,7 @@ var App = React.createClass({
     return (
       <div>
         <h1>People Viewer</h1>
+
       </div>
     );
   }
@@ -58,12 +58,11 @@ var Home = React.createClass({
 });
 
 var Profile = React.createClass({
-  mixins: [ State ],
   render: function () {
-    var user = getUserByID(this.getParams().userID);
+    var user = getUserByID(this.props.params.userID);
 
     if (user == null)
-      return <p>Cannot find user with id {this.getParams().userID}</p>;
+      return <p>Cannot find user with id {this.props.params.userID}</p>;
 
     return (
       <div className="Profile">
@@ -73,12 +72,11 @@ var Profile = React.createClass({
   }
 });
 
-var routes = (
-  <Route handler={App}>
-    <Route name="home" path="/" handler={Home}/>
-  </Route>
-);
+React.render((
+  <Router history={HashHistory}>
+    <Route component={App}>
+      <Route path="/" component={Home}/>
+    </Route>
+  </Router>
+), document.getElementById('app'));
 
-Router.run(routes, function (Handler, state) {
-  React.render(<Handler/>, document.getElementById('app'));
-});

@@ -11,8 +11,8 @@
 // - If the user is not found, "redirect" to a special NotFound component
 ////////////////////////////////////////////////////////////////////////////////
 var React = require('react');
-var { Router, Route, Link } = require('react-router');
-var HashHistory = require('react-router/lib/HashHistory').default;
+var { Router, Route, Link, Redirect } = require('react-router');
+var HashHistory = require('react-router/lib/HashHistory');
 var Gravatar = require('./components/Gravatar');
 
 var USERS = [
@@ -70,12 +70,20 @@ var Profile = React.createClass({
   }
 });
 
+var NoMatch = React.createClass({
+  render: function () {
+    return <p>I don’t understand that route</p>;
+  }
+});
+
 React.render((
-  <Router history={HashHistory}>
+  <Router history={new HashHistory()}>
     <Route component={App}>
       <Route path="/" component={Home}/>
       <Route path="/profile/:userID" component={Profile}/>
     </Route>
+    <Redirect from="/users/:userID" to="/profile/:userID"/>
+    <Route path="*" component={NoMatch}/>
   </Router>
 ), document.getElementById('app'));
 
