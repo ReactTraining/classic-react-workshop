@@ -31,7 +31,12 @@ function postJSON(url, obj, cb) {
 
 function deleteJSON(url, cb) {
   var req = new XMLHttpRequest();
-  req.onload = cb;
+  req.onload = function () {
+    if (req.status === 500)
+      cb(new Error(req.responseText));
+    else
+      cb(null, req.responseText);
+  };
   req.open('DELETE', url);
   setToken(req);
   req.send();
