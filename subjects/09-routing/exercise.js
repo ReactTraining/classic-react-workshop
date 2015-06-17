@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 var React = require('react');
 var { Router, Route, Link } = require('react-router');
-var HashHistory = require('react-router/lib/HashHistory').default;
+var HashHistory = require('react-router/lib/HashHistory');
 var Gravatar = require('./components/Gravatar');
 
 var USERS = [
@@ -73,7 +73,7 @@ var Profile = React.createClass({
 });
 
 React.render((
-  <Router history={HashHistory}>
+  <Router history={new HashHistory()}>
     <Route component={App}>
       <Route path="/" component={Home}/>
     </Route>
