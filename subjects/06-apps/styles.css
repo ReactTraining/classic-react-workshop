@@ -11,6 +11,7 @@ body {
 
 #new-message {
   position: fixed;
+  height: 50px;
   width: 100%;
   padding: 2px 5px 4px;
   bottom: 0;
@@ -22,17 +23,24 @@ body {
   border: 0;
   width: 100%;
   outline: none;
+  font-size: 1.2em;
+}
+
+.message-list-wrapper {
+  overflow: auto;
+  height: 100%;
+  padding-bottom: 50px;
 }
 
 .message-list {
   list-style-type: none;
   margin: 0;
-  padding: 0 0 20px 0;
+  padding: 0;
 }
 
 .message-list li {
   position: relative;
-  padding: 1px 3px;
+  padding: 1px 5px;
 }
 
 .message-username {

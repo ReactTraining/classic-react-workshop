@@ -21,7 +21,7 @@ export function sendMessage(username, text) {
 }
  
 export function subscribeToMessages(callback) {
-  ref.child('messages').limit(100).on('value', (snapshot) => {
+  ref.child('messages').limitToLast(100).on('value', (snapshot) => {
     var messages = [];
 
     snapshot.forEach(function (s) {

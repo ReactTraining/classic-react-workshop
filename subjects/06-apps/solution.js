@@ -51,7 +51,11 @@ var MessageList = React.createClass({
 
     var viewerUsername = auth.github.username;
     var items = messages.sort(sortBy('timestamp')).map((message) => {
-      return <MessageListItem authoredByViewer={message.username === viewerUsername} message={message} />;
+      return <MessageListItem
+        key={message.timestamp}
+        authoredByViewer={message.username === viewerUsername}
+        message={message}
+      />;
     });
 
     return (
@@ -80,11 +84,10 @@ var HiddenSubmitButton = React.createClass({
 
 });
 
-var LoginButton = React.createClass({
-  
+var Chat = React.createClass({
+
   propTypes: {
-    onError: func.isRequired,
-    onLogin: func
+    onError: func.isRequired
   },
 
   getDefaultProps() {
@@ -94,30 +97,6 @@ var LoginButton = React.createClass({
       }
     };
   },
-
-  handleClick(event) {
-    event.preventDefault();
-
-    login((error, auth) => {
-      if (error) {
-        this.props.onError.call(this, error);
-      } else if (this.props.onLogin) {
-        this.props.onLogin.call(this, auth);
-      }
-    });
-  },
-  
-  render() {
-    return (
-      <button onClick={this.handleClick}>
-        {this.props.children}
-      </button>
-    );
-  }
-
-});
-
-var Chat = React.createClass({
 
   getInitialState() {
     return {
@@ -138,31 +117,56 @@ var Chat = React.createClass({
     sendMessage(username, messageText);
   },
 
-  handleLogin(auth) {
-    this.setState({ auth });
+  componentWillMount() {
+    this.pinToBottom = true;
+  },
 
-    subscribeToMessages((messages) => {
-      this.setState({ messages });
+  componentDidMount() {
+    login((error, auth) => {
+      if (error) {
+        this.props.onError.call(this, error);
+      } else {
+        this.setState({ auth });
+
+        subscribeToMessages((messages) => {
+          this.setState({ messages });
+        });
+      }
     });
+  },
+
+  handleScroll(event) {
+    var node = event.target;
+    var { clientHeight, scrollTop, scrollHeight } = node;
+    this.pinToBottom = clientHeight + scrollTop > (scrollHeight - 10);
+  },
+
+  componentDidUpdate() {
+    var node = React.findDOMNode(this.refs.messages);
+
+    if (node && this.pinToBottom)
+      node.scrollTop = node.scrollHeight;
   },
 
   render() {
     var { auth, messages } = this.state;
 
     if (auth == null)
-      return <LoginButton onLogin={this.handleLogin}>Login with GitHub</LoginButton>;
+      return <p>Loading...</p>;
 
     if (messages == null)
       return null;
 
     return (
       <div className="chat">
-        <MessageList auth={auth} messages={messages} />
+        <div ref="messages" className="message-list-wrapper" onScroll={this.handleScroll}>
+          <MessageList auth={auth} messages={messages} />
+        </div>
         <form onSubmit={this.handleSubmit}>
           <div id="new-message">
             <input ref="messageText" type="text" placeholder="Type your message here..." />
+            <HiddenSubmitButton />
           </div>
-          <HiddenSubmitButton />
         </form>
       </div>
     );
