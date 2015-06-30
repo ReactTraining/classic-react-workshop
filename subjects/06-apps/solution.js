@@ -1,148 +1,173 @@
 var React = require('react');
 var assign = require('object-assign');
+var sortBy = require('sort-by');
 var escapeRegExp = require('./utils/escapeRegExp');
+var { login, sendMessage, subscribeToMessages } = require('./utils/ChatUtils');
 
-var CATALOG = [
-  {
-    categoryName: 'Sporting Goods',
-    products: [
-      { id: 1, name: 'Basketball', price: 4000, quantity: 0 },
-      { id: 2, name: 'Boxing Gloves', price: 3500, quantity: 3 },
-      { id: 3, name: 'Baseball', price: 1000, quantity: 0 }
-    ]
-  },
-  {
-    categoryName: 'Pets',
-    products: [
-      { id: 4, name: 'Gerbil', price: 500, quantity: 0 },
-      { id: 5, name: 'Goldfish', price: 300, quantity: 3 },
-      { id: 6, name: 'Parakeet', price: 2000, quantity: 2 }
-    ]
-  }
-];
+require('./styles');
 
-var cellStyle = {
-  padding: 10
-};
+var { arrayOf, shape, string, number, object, func, bool } = React.PropTypes;
 
-var headerCellStyle = assign({}, cellStyle, {
-  textAlign: 'left'
+var message = shape({
+  timestamp: number.isRequired,
+  username: string.isRequired,
+  text: string.isRequired
 });
 
-var PropTypes = {
-  product: React.PropTypes.shape({
-    name: React.PropTypes.string,
-    price: React.PropTypes.number,
-    quantity: React.PropTypes.number
-  })
-};
+var MessageListItem = React.createClass({
 
-PropTypes.productCategory = React.PropTypes.shape({
-  categoryName: React.PropTypes.string,
-  products: React.PropTypes.arrayOf(PropTypes.product)
-});
-
-PropTypes.productCatalog = React.PropTypes.arrayOf(PropTypes.productCategory);
-
-var CategoryRow = React.createClass({
   propTypes: {
-    productCategory: PropTypes.productCategory
+    authoredByViewer: bool.isRequired,
+    message: message.isRequired
   },
+  
   render() {
-    return (
-      <tr>
-        <th colSpan="2" style={{textAlign: 'left', padding: 10}}>
-          {this.props.productCategory.categoryName}
-        </th>
-      </tr>
-    );
-  }
-});
+    var { authoredByViewer, message } = this.props;
 
-var ProductRow = React.createClass({
-  propTypes: {
-    product: PropTypes.product
-  },
-  render() {
-    var { name, price } = this.props.product;
+    var className = 'message';
+
+    if (authoredByViewer)
+      className += ' own-message';
 
     return (
-      <tr>
-        <td style={{padding: 10}}>{name}</td>
-        <td style={{padding: 10}}>${price/100}</td>
-      </tr>
+      <li className={className}>
+        <div className="message-username">{message.username}</div>
+        <div className="message-text">{message.text}</div>
+      </li>
     );
   }
+
 });
 
-var FilterableProductTable = React.createClass({
+var MessageList = React.createClass({
+
   propTypes: {
-    productCatalog: PropTypes.productCatalog,
-    filterBy: React.PropTypes.string
+    auth: object.isRequired,
+    messages: arrayOf(message).isRequired
   },
+  
+  render() {
+    var { auth, messages } = this.props;
+
+    var viewerUsername = auth.github.username;
+    var items = messages.sort(sortBy('timestamp')).map((message) => {
+      return <MessageListItem authoredByViewer={message.username === viewerUsername} message={message} />;
+    });
+
+    return (
+      <ol className="message-list">
+        {items}
+      </ol>
+    );
+  }
+
+});
+
+var HiddenSubmitButton = React.createClass({
+  
+  render() {
+    var style = {
+      position: 'absolute',
+      left: -9999,
+      width: 1,
+      height: 1
+    };
+
+    return (
+      <input type="submit" style={style} tabIndex="-1" />
+    );
+  }
+
+});
+
+var LoginButton = React.createClass({
+  
+  propTypes: {
+    onError: func.isRequired,
+    onLogin: func
+  },
+
   getDefaultProps() {
     return {
-      filterBy: ''
+      onError(error) {
+        console.error('Login failed!', error);
+      }
     };
   },
-  render() {
-    var matcher = new RegExp(escapeRegExp(this.props.filterBy), 'i');
 
-    var rows = [];
+  handleClick(event) {
+    event.preventDefault();
 
-    this.props.productCatalog.forEach(function (productCategory) {
-      var productRows = [];
-
-      productCategory.products.forEach(function (product) {
-        if (matcher.test(product.name))
-          productRows.push(<ProductRow key={product.id} product={product}/>);
-      });
-
-      if (productRows.length)
-        rows.push(<CategoryRow key={productCategory.categoryName} productCategory={productCategory}/>);
-
-      rows = rows.concat(productRows);
+    login((error, auth) => {
+      if (error) {
+        this.props.onError.call(this, error);
+      } else if (this.props.onLogin) {
+        this.props.onLogin.call(this, auth);
+      }
     });
-
+  },
+  
+  render() {
     return (
-      <table>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+      <button onClick={this.handleClick}>
+        {this.props.children}
+      </button>
     );
   }
+
 });
 
-var ProductCatalog = React.createClass({
-  propTypes: {
-    productCatalog: PropTypes.productCatalog
-  },
+var Chat = React.createClass({
+
   getInitialState() {
     return {
-      searchQuery: ''
+      auth: null,
+      messages: null
     };
   },
-  handleQueryChange(event) {
-    this.setState({
-      searchQuery: event.target.value
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    var messageTextNode = React.findDOMNode(this.refs.messageText);
+    var messageText = messageTextNode.value;
+    messageTextNode.value = '';
+
+    var { username } = this.state.auth.github;
+
+    sendMessage(username, messageText);
+  },
+
+  handleLogin(auth) {
+    this.setState({ auth });
+
+    subscribeToMessages((messages) => {
+      this.setState({ messages });
     });
   },
+
   render() {
+    var { auth, messages } = this.state;
+
+    if (auth == null)
+      return <LoginButton onLogin={this.handleLogin}>Login with GitHub</LoginButton>;
+
+    if (messages == null)
+      return null;
+
     return (
-      <div>
-        <h2>Product Catalog</h2>
-        <input type="search" placeholder="search" onChange={this.handleQueryChange} value={this.state.searchQuery}/>
-        <br/>
-        <div>
-          <FilterableProductTable productCatalog={this.props.productCatalog} filterBy={this.state.searchQuery}/>
-        </div>
+      <div className="chat">
+        <MessageList auth={auth} messages={messages} />
+        <form onSubmit={this.handleSubmit}>
+          <div id="new-message">
+            <input ref="messageText" type="text" placeholder="Type your message here..." />
+          </div>
+          <HiddenSubmitButton />
+        </form>
       </div>
     );
   }
+  
 });
 
-React.render(
-  <ProductCatalog productCatalog={CATALOG}/>,
-  document.getElementById('app')
-);
+React.render(<Chat />, document.getElementById('app'));

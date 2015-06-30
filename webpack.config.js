@@ -37,9 +37,14 @@ module.exports = {
     publicPath: '__build__'
   },
 
+  resolve: {
+    extensions: [ '', '.js', '.css' ]
+  },
+
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.woff(2)?$/,   loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf$/, loader: "file-loader" },
       { test: /\.eot$/, loader: "file-loader" },
