@@ -15,6 +15,7 @@ body {
   padding: 2px 5px 4px;
   bottom: 0;
   background: white;
+  border-top: 1px solid #999;
 }
 
 #new-message input {
@@ -26,23 +27,24 @@ body {
 .message-list {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 20px 0;
 }
 
 .message-list li {
   position: relative;
+  padding: 1px 3px;
 }
 
 .message-username {
   position: absolute;
-  width: 100px;
+  width: 80px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .message-text {
   width: 100%;
-  padding-left: 120px;
+  padding-left: 85px;
 }
 
 .own-message {
