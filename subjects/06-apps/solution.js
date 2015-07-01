@@ -39,6 +39,14 @@ var MessageListItem = React.createClass({
 
 });
 
+var nonEmptyRe = /\S/;
+
+function isValidMessage(message) {
+  return typeof message.text === 'string' &&
+    nonEmptyRe.test(message.text) &&
+    typeof message.username === 'string';
+}
+
 var MessageList = React.createClass({
 
   propTypes: {
@@ -49,8 +57,10 @@ var MessageList = React.createClass({
   render() {
     var { auth, messages } = this.props;
 
+    var validMessages = messages.filter(isValidMessage);
+
     var viewerUsername = auth.github.username;
-    var items = messages.sort(sortBy('timestamp')).map((message) => {
+    var items = validMessages.sort(sortBy('timestamp')).map((message) => {
       return <MessageListItem
         key={message.timestamp}
         authoredByViewer={message.username === viewerUsername}
