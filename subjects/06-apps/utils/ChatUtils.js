@@ -13,22 +13,39 @@ export function login(callback) {
   ref.authWithOAuthPopup('github', callback);
 }
 
-export function sendMessage(username, text) {
-  ref.child('messages').push({
+export function sendMessage(channel, username, text) {
+  ref.child(`channels/${channel}/messages`).push({
     timestamp: Date.now() + serverTimeOffset,
     username,
     text
   });
 }
 
-export function subscribeToMessages(callback) {
-  ref.child('messages').limitToLast(100).on('value', (snapshot) => {
-    var messages = [];
+function subscribeToList(path, callback) {
+  var child = ref.child(path).limitToLast(100);
+  var onChange = child.on('value', (snapshot) => {
+    var items = [];
 
-    snapshot.forEach(function (s) {
-      messages.push(s.val());
+    snapshot.forEach(function (s, k) {
+      var item = s.val();
+      item._key = s.key();
+      items.push(item);
     });
 
-    callback(messages);
+    callback(items);
   });
+
+  return {
+    dispose() {
+      child.off('value', onChange);
+    }
+  };
+}
+
+export function subscribeToMessages(channel, callback) {
+  return subscribeToList(`channels/${channel}/messages`, callback);
+}
+
+export function subscribeToChannels(callback) {
+  return subscribeToList(`channels`, callback);
 }

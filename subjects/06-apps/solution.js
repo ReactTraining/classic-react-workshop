@@ -2,7 +2,9 @@ var React = require('react');
 var assign = require('object-assign');
 var sortBy = require('sort-by');
 var escapeRegExp = require('./utils/escapeRegExp');
-var { login, sendMessage, subscribeToMessages } = require('./utils/ChatUtils');
+var { login, sendMessage, subscribeToChannels, subscribeToMessages } = require('./utils/ChatUtils');
+var { Router, Route, Redirect, Link } = require('react-router');
+var { history } = require('react-router/lib/HashHistory');
 
 require('./styles');
 
@@ -31,7 +33,9 @@ var MessageListItem = React.createClass({
 
     return (
       <li className={className}>
-        <div className="message-username">{message.username}</div>
+        <div className="message-username">
+          {message.username}
+        </div>
         <div className="message-text">{message.text}</div>
       </li>
     );
@@ -95,24 +99,87 @@ var HiddenSubmitButton = React.createClass({
 });
 
 var Chat = React.createClass({
-
-  propTypes: {
-    onError: func.isRequired
+  getInitialState() {
+    return {
+      auth: null,
+      channels: null
+    };
   },
 
-  getDefaultProps() {
-    return {
-      onError(error) {
-        console.error('Login failed!', error);
+  componentDidMount() {
+    login((error, auth) => {
+      if (error) {
+        console.log(error);
+      } else {
+        this.setState({ auth });
+        subscribeToChannels((channels) => {
+          this.setState({ channels });
+        });
       }
-    };
+    });
+  },
+
+  render() {
+    var { auth } = this.state;
+
+    if (auth == null)
+      return <p>Logging in...</p>;
+
+    return (
+      <div className="chat">
+        {React.cloneElement(this.props.children, { auth })}
+        <div className="channels">
+          {this.state.channels && (
+            <ul>
+              {this.state.channels.map(channel => (
+                <li key={channel._key}>
+                  <Link to={"/"+channel._key}>{channel._key}</Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+});
+
+var Room = React.createClass({
+
+  propTypes: {
+    auth: React.PropTypes.object,
+    params: React.PropTypes.shape({
+      room: React.PropTypes.string
+    })
   },
 
   getInitialState() {
     return {
-      auth: null,
-      messages: null
+      messages: []
     };
+  },
+
+  componentWillMount() {
+    this.messagesSubscription = null;
+    this.pinToBottom = true;
+  },
+
+  componentDidMount() {
+    this.subscribeToMessages(this.props.params.room);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    this.subscribeToMessages(nextProps.params.room);
+  },
+
+  subscribeToMessages(room) {
+    if (this.messagesSubscription)
+      this.messagesSubscription.dispose();
+
+    this.messagesSubscription = subscribeToMessages(room, (messages) => {
+      this.setState({ messages });
+    });
   },
 
   handleSubmit(event) {
@@ -122,28 +189,10 @@ var Chat = React.createClass({
     var messageText = messageTextNode.value;
     messageTextNode.value = '';
 
-    var { username } = this.state.auth.github;
+    var { username } = this.props.auth.github;
 
     this.pinToBottom = true;
-    sendMessage(username, messageText);
-  },
-
-  componentWillMount() {
-    this.pinToBottom = true;
-  },
-
-  componentDidMount() {
-    login((error, auth) => {
-      if (error) {
-        this.props.onError.call(this, error);
-      } else {
-        this.setState({ auth });
-
-        subscribeToMessages((messages) => {
-          this.setState({ messages });
-        });
-      }
-    });
+    sendMessage('off-topic', username, messageText);
   },
 
   handleScroll(event) {
@@ -160,33 +209,30 @@ var Chat = React.createClass({
   },
 
   render() {
-    var { auth, messages } = this.state;
-
-    if (auth == null)
-      return <p>Loading...</p>;
-
-    if (messages == null)
-      return null;
-
+    var { auth } = this.props;
+    var { messages } = this.state;
     return (
-      <div className="chat">
-        <div className="room">
-          <div ref="messages" className="messages" onScroll={this.handleScroll}>
-            <MessageList auth={auth} messages={messages} />
+      <div className="room">
+        <div ref="messages" className="messages" onScroll={this.handleScroll}>
+          <MessageList auth={auth} messages={messages} />
+        </div>
+        <form className="new-message-form" onSubmit={this.handleSubmit}>
+          <div className="new-message">
+            <input ref="messageText" type="text" placeholder="Type your message here..." />
+            <HiddenSubmitButton />
           </div>
-          <form className="new-message-form" onSubmit={this.handleSubmit}>
-            <div className="new-message">
-              <input ref="messageText" type="text" placeholder="Type your message here..." />
-              <HiddenSubmitButton />
-            </div>
-          </form>
-        </div>
-        <div className="channels">
-        </div>
+        </form>
       </div>
     );
   }
 
 });
 
-React.render(<Chat />, document.getElementById('app'));
+React.render((
+  <Router history={history}>
+    <Redirect from="/" to="/general"/>
+    <Route component={Chat}>
+      <Route path=":room" component={Room}/>
+    </Route>
+  </Router>
+), document.getElementById('app'));

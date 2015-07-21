@@ -20,6 +20,7 @@ form {
 .room {
   height: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 
@@ -31,6 +32,15 @@ form {
 .channels {
   width: 300px;
   background: #444;
+  color: #fefefe;
+}
+
+.channels a {
+  color: #fefefe;
+}
+
+.channels a.active {
+  color: yellow;
 }
 
 .new-message {
@@ -60,7 +70,7 @@ form {
 
 .message-username {
   position: absolute;
-  width: 80px;
+  width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -68,7 +78,7 @@ form {
 
 .message-text {
   width: 100%;
-  padding-left: 85px;
+  padding-left: 155px;
 }
 
 .own-message {
