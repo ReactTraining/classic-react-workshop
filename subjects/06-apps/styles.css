@@ -1,12 +1,14 @@
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
 body {
   margin: 0;
+  line-height: 1.5;
 }
 
 form {
@@ -22,6 +24,17 @@ form {
   display: flex;
   flex: 1;
   flex-direction: column;
+  position: relative;
+}
+
+.room-title {
+  font-size: 14px;
+  margin: 0;
+  padding: 4;
+  text-align: center;
+  background: hsl(55, 75%, 50%);
+  color: #333;
+  border-bottom: 1px solid #333;
 }
 
 .messages {
@@ -33,6 +46,7 @@ form {
   width: 300px;
   background: #444;
   color: #fefefe;
+  overflow: auto;
 }
 
 .channels a {
@@ -40,7 +54,7 @@ form {
 }
 
 .channels a.active {
-  color: yellow;
+  color: hsl(55, 75%, 50%);
 }
 
 .new-message {
@@ -63,22 +77,23 @@ form {
   padding: 0;
 }
 
-.message-list li {
-  position: relative;
-  padding: 1px 5px;
+.message {
+  display: flex;
+  padding: 10px;
+}
+
+.message-avatar {
+  padding: 0 8px 8px 8px;
 }
 
 .message-username {
-  position: absolute;
-  width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
 }
 
-.message-text {
-  width: 100%;
-  padding-left: 155px;
+.message-content {
+  flex: 1;
 }
 
 .own-message {

@@ -13,10 +13,11 @@ export function login(callback) {
   ref.authWithOAuthPopup('github', callback);
 }
 
-export function sendMessage(channel, username, text) {
+export function sendMessage(channel, username, avatar, text) {
   ref.child(`channels/${channel}/messages`).push({
     timestamp: Date.now() + serverTimeOffset,
     username,
+    avatar,
     text
   });
 }

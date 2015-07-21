@@ -20,7 +20,8 @@ var MessageListItem = React.createClass({
 
   propTypes: {
     authoredByViewer: bool.isRequired,
-    message: message.isRequired
+    message: message.isRequired,
+    avatar: string
   },
 
   render() {
@@ -33,10 +34,15 @@ var MessageListItem = React.createClass({
 
     return (
       <li className={className}>
-        <div className="message-username">
-          {message.username}
+        <div className="message-avatar">
+          <img src={message.avatar} width="40"/>
         </div>
-        <div className="message-text">{message.text}</div>
+        <div className="message-content">
+          <div className="message-username">
+            {message.username}
+          </div>
+          <div className="message-text">{message.text}</div>
+        </div>
       </li>
     );
   }
@@ -64,9 +70,9 @@ var MessageList = React.createClass({
     var validMessages = messages.filter(isValidMessage);
 
     var viewerUsername = auth.github.username;
-    var items = validMessages.sort(sortBy('timestamp')).map((message) => {
+    var items = validMessages.sort(sortBy('timestamp')).map((message, index) => {
       return <MessageListItem
-        key={message.timestamp}
+        key={index}
         authoredByViewer={message.username === viewerUsername}
         message={message}
       />;
@@ -82,7 +88,6 @@ var MessageList = React.createClass({
 });
 
 var HiddenSubmitButton = React.createClass({
-
   render() {
     var style = {
       position: 'absolute',
@@ -95,7 +100,37 @@ var HiddenSubmitButton = React.createClass({
       <input type="submit" style={style} tabIndex="-1" />
     );
   }
+});
 
+var ChannelList = React.createClass({
+  getInitialState() {
+    return {
+      channels: []
+    };
+  },
+
+  componentDidMount() {
+    subscribeToChannels((channels) => {
+      this.setState({ channels });
+    });
+  },
+
+  render() {
+    var defaultChannels = [{ _key: 'general' }];
+    var channels = this.state.channels.length ?
+      this.state.channels : defaultChannels;
+    return (
+      <div className="channels">
+        <ul>
+          {channels.map(channel => (
+            <li key={channel._key}>
+              <Link to={"/"+channel._key}>{channel._key}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 });
 
 var Chat = React.createClass({
@@ -112,9 +147,6 @@ var Chat = React.createClass({
         console.log(error);
       } else {
         this.setState({ auth });
-        subscribeToChannels((channels) => {
-          this.setState({ channels });
-        });
       }
     });
   },
@@ -128,17 +160,7 @@ var Chat = React.createClass({
     return (
       <div className="chat">
         {React.cloneElement(this.props.children, { auth })}
-        <div className="channels">
-          {this.state.channels && (
-            <ul>
-              {this.state.channels.map(channel => (
-                <li key={channel._key}>
-                  <Link to={"/"+channel._key}>{channel._key}</Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <ChannelList/>
       </div>
     );
   }
@@ -189,10 +211,11 @@ var Room = React.createClass({
     var messageText = messageTextNode.value;
     messageTextNode.value = '';
 
-    var { username } = this.props.auth.github;
+    var username = this.props.auth.github.username;
+    var avatar = this.props.auth.github.profileImageURL;
 
     this.pinToBottom = true;
-    sendMessage('off-topic', username, messageText);
+    sendMessage(this.props.params.room, username, avatar, messageText);
   },
 
   handleScroll(event) {
@@ -213,6 +236,7 @@ var Room = React.createClass({
     var { messages } = this.state;
     return (
       <div className="room">
+        <h1 className="room-title">{this.props.params.room}</h1>
         <div ref="messages" className="messages" onScroll={this.handleScroll}>
           <MessageList auth={auth} messages={messages} />
         </div>
@@ -236,3 +260,4 @@ React.render((
     </Route>
   </Router>
 ), document.getElementById('app'));
+

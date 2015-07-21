@@ -12,4 +12,29 @@
 var React = require('react');
 var { login, sendMessage, subscribeToMessages } = require('./utils/ChatUtils');
 
-// THE WORLD IS YOUR OYSTER!
+/*
+
+Here's how to use the ChatUtils:
+
+login((error, auth) => {
+  // hopefully the error is `null` and you have a github
+  // `auth` object
+});
+
+sendMessage(
+  'general', // the channel to post a message to, please post to "general" at first
+  'ryanflorence', // the github user name
+  'https://avatars.githubusercontent.com/u/100200?v=3', // the github avatar
+  'hello, this is a message' // the actual message
+);
+
+var subscription = subscribeToMessages('general', (messages) => {
+  // here are your messages as an array, it will be called
+  // every time the messages change
+});
+subscription.dispose(); // stop listening for changes
+
+The world is your oyster!
+
+*/
+
