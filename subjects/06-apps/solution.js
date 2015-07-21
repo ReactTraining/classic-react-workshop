@@ -20,7 +20,7 @@ var MessageListItem = React.createClass({
     authoredByViewer: bool.isRequired,
     message: message.isRequired
   },
-  
+
   render() {
     var { authoredByViewer, message } = this.props;
 
@@ -53,7 +53,7 @@ var MessageList = React.createClass({
     auth: object.isRequired,
     messages: arrayOf(message).isRequired
   },
-  
+
   render() {
     var { auth, messages } = this.props;
 
@@ -78,7 +78,7 @@ var MessageList = React.createClass({
 });
 
 var HiddenSubmitButton = React.createClass({
-  
+
   render() {
     var style = {
       position: 'absolute',
@@ -124,6 +124,7 @@ var Chat = React.createClass({
 
     var { username } = this.state.auth.github;
 
+    this.pinToBottom = true;
     sendMessage(username, messageText);
   },
 
@@ -169,19 +170,23 @@ var Chat = React.createClass({
 
     return (
       <div className="chat">
-        <div ref="messages" className="message-list-wrapper" onScroll={this.handleScroll}>
-          <MessageList auth={auth} messages={messages} />
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <div id="new-message">
-            <input ref="messageText" type="text" placeholder="Type your message here..." />
-            <HiddenSubmitButton />
+        <div className="room">
+          <div ref="messages" className="messages" onScroll={this.handleScroll}>
+            <MessageList auth={auth} messages={messages} />
           </div>
-        </form>
+          <form className="new-message-form" onSubmit={this.handleSubmit}>
+            <div className="new-message">
+              <input ref="messageText" type="text" placeholder="Type your message here..." />
+              <HiddenSubmitButton />
+            </div>
+          </form>
+        </div>
+        <div className="channels">
+        </div>
       </div>
     );
   }
-  
+
 });
 
 React.render(<Chat />, document.getElementById('app'));
