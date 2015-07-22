@@ -3,8 +3,6 @@ var assign = require('object-assign');
 var sortBy = require('sort-by');
 var escapeRegExp = require('./utils/escapeRegExp');
 var { login, sendMessage, subscribeToChannels, subscribeToMessages } = require('./utils/ChatUtils');
-var { Router, Route, Redirect, Link } = require('react-router');
-var { history } = require('react-router/lib/HashHistory');
 
 require('./styles');
 
@@ -159,8 +157,7 @@ var Chat = React.createClass({
 
     return (
       <div className="chat">
-        {React.cloneElement(this.props.children, { auth })}
-        <ChannelList/>
+        <Room auth={auth}/>
       </div>
     );
   }
@@ -188,7 +185,7 @@ var Room = React.createClass({
   },
 
   componentDidMount() {
-    this.subscribeToMessages(this.props.params.room);
+    this.subscribeToMessages('general');
   },
 
   componentWillReceiveProps(nextProps) {
@@ -215,7 +212,7 @@ var Room = React.createClass({
     var avatar = this.props.auth.github.profileImageURL;
 
     this.pinToBottom = true;
-    sendMessage(this.props.params.room, username, avatar, messageText);
+    sendMessage('general', username, avatar, messageText);
   },
 
   handleScroll(event) {
@@ -236,7 +233,7 @@ var Room = React.createClass({
     var { messages } = this.state;
     return (
       <div className="room">
-        <h1 className="room-title">{this.props.params.room}</h1>
+        <h1 className="room-title">general</h1>
         <div ref="messages" className="messages" onScroll={this.handleScroll}>
           <MessageList auth={auth} messages={messages} />
         </div>
@@ -252,12 +249,5 @@ var Room = React.createClass({
 
 });
 
-React.render((
-  <Router history={history}>
-    <Redirect from="/" to="/general"/>
-    <Route component={Chat}>
-      <Route path=":room" component={Room}/>
-    </Route>
-  </Router>
-), document.getElementById('app'));
+React.render(<Chat/>, document.getElementById('app'));
 
