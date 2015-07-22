@@ -167,10 +167,7 @@ var Chat = React.createClass({
 var Room = React.createClass({
 
   propTypes: {
-    auth: React.PropTypes.object,
-    params: React.PropTypes.shape({
-      room: React.PropTypes.string
-    })
+    auth: React.PropTypes.object
   },
 
   getInitialState() {
