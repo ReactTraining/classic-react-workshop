@@ -1,12 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - render the data as tabs, with their `name` as the label in the tab
+// - Render the data as tabs, with their `name` as the label in the tab
 //   and their `description` inside the tab panel
-// - make it so that you can click a tab label and the panel renders
+// - Make it so that you can click a tab label and the panel renders
 //   the correct content
-// - make sure the active tab has the active styles
+// - Make sure the active tab has the active styles
 ////////////////////////////////////////////////////////////////////////////////
+
 var React = require('react');
 var assign = require('object-assign');
 
@@ -65,5 +66,5 @@ var App = React.createClass({
 });
 
 React.render(<App countries={DATA}/>, document.getElementById('app'), function () {
-  require('./tests').run();
+  require('./tests').run(this);
 });

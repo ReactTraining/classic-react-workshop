@@ -2,10 +2,12 @@ var assert = require('../shared/assert');
 var React = require('react/addons');
 var { click } = React.addons.TestUtils.Simulate;
 
-exports.run = () => {
-  var html = document.getElementById('app').innerHTML;
-  var tabs = document.querySelectorAll('.Tab');
-  var panels = document.querySelector('.TabPanels');
+exports.run = (component) => {
+  var node = React.findDOMNode(component);
+  var html = node.innerHTML;
+  var tabs = node.querySelectorAll('.Tab');
+  var panels = node.querySelector('.TabPanels');
+
   var borderFixture = document.createElement('div');
   borderFixture.setAttribute('style', 'border-bottom-color: #000;');
 
