@@ -1,6 +1,6 @@
 var React = require('react');
 var { Router, Route, Link, Redirect } = require('react-router');
-var HashHistory = require('react-router/lib/HashHistory');
+var { history } = require('react-router/lib/HashHistory');
 var Gravatar = require('./components/Gravatar');
 
 var USERS = [
@@ -67,7 +67,7 @@ var NoMatch = React.createClass({
 });
 
 React.render((
-  <Router history={new HashHistory}>
+  <Router history={history}>
     <Route component={App}>
       <Route path="/" component={Home}/>
       <Route path="/profile/:userID" component={Profile}/>
