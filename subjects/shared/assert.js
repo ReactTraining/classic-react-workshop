@@ -1,5 +1,5 @@
 module.exports = function (pass, description) {
-  if (pass === true) {
+  if (pass) {
     console.log('%c✔︎ ok', 'color: green', description);
   } else {
     console.assert(pass, description);
