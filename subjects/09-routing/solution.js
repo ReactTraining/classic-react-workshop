@@ -1,15 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-// Exercise:
-//
-// - Add a <RouteHandler> to App's render method that renders the child route
-// - Add a new child route beneath App called "profile" that renders at /users/:userID
-//   and shows the user with the given ID (hint: use the Profile component as the handler)
-// - Add links to the Home view that link to the profile page for each user
-//
-// Got extra time?
-// - Add a link to the profile page that links back to Home
-// - If the user is not found, "redirect" to a special NotFound component
-////////////////////////////////////////////////////////////////////////////////
 var React = require('react');
 var { Router, Route, Link, Redirect } = require('react-router');
 var HashHistory = require('react-router/lib/HashHistory');
@@ -37,7 +25,7 @@ var App = React.createClass({
       </div>
     )
   }
-})
+});
 
 var Home = React.createClass({
   render: function () {
@@ -50,20 +38,22 @@ var Home = React.createClass({
     });
 
     return (
-      <ul>{items}</ul>
+      <ul className="people-list">{items}</ul>
     );
   }
 });
 
 var Profile = React.createClass({
   render: function () {
-    var user = getUserByID(this.props.params.userID);
+    var { userID } = this.props.params;
+
+    var user = getUserByID(userID);
 
     if (user == null)
-      return <p>Cannot find user with id {this.getParams().userID}</p>;
+      return <p>Cannot find user with id {userID}</p>;
 
     return (
-      <div className="Profile">
+      <div className="profile">
         <Gravatar email={user.email}/> {user.name}
       </div>
     );
@@ -77,7 +67,7 @@ var NoMatch = React.createClass({
 });
 
 React.render((
-  <Router history={new HashHistory()}>
+  <Router history={new HashHistory}>
     <Route component={App}>
       <Route path="/" component={Home}/>
       <Route path="/profile/:userID" component={Profile}/>
@@ -85,5 +75,6 @@ React.render((
     <Redirect from="/users/:userID" to="/profile/:userID"/>
     <Route path="*" component={NoMatch}/>
   </Router>
-), document.getElementById('app'));
-
+), document.getElementById('app'), function () {
+  require('./tests').run(this);
+});

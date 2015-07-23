@@ -1,17 +1,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Add `this.props.children` to App's render method that renders the child route
-// - Add a new child route beneath App at "/profile/:userID" and shows the user with
-//   the given ID (hint: use the Profile component)
+// - Add some code to App's render method that renders the child route
+//   (hint: use this.props.children)
+// - Add a new child route beneath App at "/profile/:userID" and shows the
+//   user with the given ID (hint: use the Profile component)
 // - Add links to the Home view that link to the profile page for each user
 //
 // Got extra time?
-// - Add a link to the profile page that links back to Home
-// - add a route that renders at urls the app doesn't understand (use "*" as the path)
-// - add a <Redirect/> from "/users/:userID" to "/profile/:userID"
+//
+// - Add a link to the profile page that links back to Home so users don't have
+//   to use the Back button to navigate
+// - Add a route that renders at urls the app doesn't understand (use "*" as the path)
+// - Add a <Redirect/> from "/users/:userID" to "/profile/:userID"
 //   (https://rackt.github.io/react-router/tags/v1.0.0-beta2.html#Redirect)
 ////////////////////////////////////////////////////////////////////////////////
+
 var React = require('react');
 var { Router, Route, Link } = require('react-router');
 var HashHistory = require('react-router/lib/HashHistory');
@@ -35,7 +39,6 @@ var App = React.createClass({
     return (
       <div>
         <h1>People Viewer</h1>
-
       </div>
     );
   }
@@ -43,7 +46,7 @@ var App = React.createClass({
 
 var Home = React.createClass({
   render: function () {
-    var items = USERS.map(function (user) {
+    var contactItems = USERS.map(function (user) {
       return (
         <li key={user.email}>
           {user.name}
@@ -52,20 +55,22 @@ var Home = React.createClass({
     });
 
     return (
-      <ul>{items}</ul>
+      <ul className="people-list">{contactItems}</ul>
     );
   }
 });
 
 var Profile = React.createClass({
   render: function () {
-    var user = getUserByID(this.props.params.userID);
+    var { userID } = this.props.params;
+
+    var user = getUserByID(userID);
 
     if (user == null)
-      return <p>Cannot find user with id {this.props.params.userID}</p>;
+      return <p>Cannot find user with id {userID}</p>;
 
     return (
-      <div className="Profile">
+      <div className="profile">
         <Gravatar email={user.email}/> {user.name}
       </div>
     );
@@ -73,10 +78,11 @@ var Profile = React.createClass({
 });
 
 React.render((
-  <Router history={new HashHistory()}>
+  <Router history={new HashHistory}>
     <Route component={App}>
       <Route path="/" component={Home}/>
     </Route>
   </Router>
-), document.getElementById('app'));
-
+), document.getElementById('app'), function () {
+  require('./tests').run(this);
+});
