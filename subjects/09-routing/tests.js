@@ -10,7 +10,7 @@ exports.run = (component) => {
   var node = React.findDOMNode(component);
   var peopleList = node.querySelector('.people-list');
   var profileLinks = toArray(node.querySelectorAll('.people-list a'));
-  var profileHrefFormat = /^\/profile\/\d+$/;
+  var profileHrefFormat = /\/profile\/\d+$/;
 
   console.log('on first render');
 
