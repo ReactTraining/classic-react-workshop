@@ -1,0 +1,118 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+}
+
+form {
+  margin: 0;
+}
+
+.chat {
+  display: flex;
+}
+
+.channel {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  position: relative;
+}
+
+.channel-title {
+  font-size: 14px;
+  margin: 0;
+  padding: 4;
+  text-align: center;
+  background: hsl(55, 75%, 50%);
+  color: #333;
+  border-bottom: 1px solid #333;
+}
+
+.messages {
+  overflow: auto;
+  flex: 1;
+}
+
+.channels {
+  width: 300px;
+  background: #444;
+  color: #fefefe;
+  overflow: auto;
+}
+
+.channels a {
+  color: #fefefe;
+}
+
+.channels a.active {
+  color: hsl(55, 75%, 50%);
+}
+
+.new-message {
+  padding: 2px 5px 4px;
+  background: white;
+  border-top: 1px solid #999;
+}
+
+.new-message input {
+  border: 0;
+  width: 100%;
+  outline: none;
+  font-size: 1.2em;
+  padding: 4px;
+}
+
+.message-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.message {
+  display: flex;
+  padding: 10px;
+  position: relative;
+}
+
+.message:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.message-avatar {
+  padding: 0 8px 8px 8px;
+}
+
+.message-username {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+}
+
+.message-content {
+  flex: 1;
+}
+
+.delete-button {
+  display: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.message:hover .delete-button {
+  display: block;
+}
+
+.own-message {
+  background-color: #ddd;
+}
+
