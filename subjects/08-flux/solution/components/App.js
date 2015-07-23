@@ -27,7 +27,8 @@ var App = React.createClass({
   renderContacts: function () {
     return this.state.contacts.map(function (contact) {
       return (
-        <li className="Contact" key={contact.first+contact.last}>
+        <li key={contact.id}>
+          <img src={contact.avatar} width={40} /> {' '}
           {contact.first} {contact.last} {' '}
           <button onClick={this.deleteContact.bind(this, contact)}>
             delete
