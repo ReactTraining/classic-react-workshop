@@ -1,7 +1,4 @@
-var assign = require('object-assign');
-var styles = {};
-
-styles.tab = {
+const tab = {
   display: 'inline-block',
   padding: 10,
   margin: 10,
@@ -10,14 +7,17 @@ styles.tab = {
   cursor: 'pointer'
 };
 
-styles.activeTab = assign({}, styles.tab, {
+const activeTab = {
+  ...tab,
   borderBottomColor: '#000'
-});
+};
 
-styles.tabPanels = {
+const tabPanels = {
   padding: 10
 };
 
-module.exports = styles;
-
-
+module.exports = {
+  tab,
+  activeTab,
+  tabPanels
+};

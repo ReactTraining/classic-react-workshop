@@ -1,5 +1,4 @@
 var React = require('react');
-var assign = require('object-assign');
 var sortBy = require('sort-by');
 var escapeRegExp = require('./utils/escapeRegExp');
 var { login, sendMessage, subscribeToChannels, subscribeToMessages } = require('./utils/ChatUtils');
@@ -24,7 +23,6 @@ var MessageListItem = React.createClass({
 
   render() {
     var { authoredByViewer, message } = this.props;
-
     var className = 'message';
 
     if (authoredByViewer)

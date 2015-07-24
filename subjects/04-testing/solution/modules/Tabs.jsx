@@ -1,5 +1,4 @@
 var React = require('react');
-var assign = require('object-assign');
 
 var DATA = [
   { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
@@ -18,9 +17,10 @@ styles.tab = {
   cursor: 'pointer'
 };
 
-styles.activeTab = assign({}, styles.tab, {
+styles.activeTab = {
+  ...styles.tab,
   borderBottomColor: '#000'
-});
+};
 
 styles.panel = {
   padding: 10

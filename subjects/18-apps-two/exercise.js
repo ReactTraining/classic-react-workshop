@@ -9,8 +9,8 @@
 //   - edit a message
 //   - delete a message
 ////////////////////////////////////////////////////////////////////////////////
+
 var React = require('react');
-var assign = require('object-assign');
 var sortBy = require('sort-by');
 var escapeRegExp = require('./utils/escapeRegExp');
 var { Router, Route, Redirect, Link } = require('react-router');

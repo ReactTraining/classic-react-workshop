@@ -4,9 +4,6 @@
   "scripts": {
     "test": "karma start"
   },
-  "dependencies": {
-    "object-assign": "^2.0.0"
-  },
   "devDependencies": {
     "babel": "^5.1.9",
     "babel-core": "^5.1.9",
