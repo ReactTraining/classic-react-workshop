@@ -1,8 +1,6 @@
-import React from 'react/addons';
-import tweenState from 'react-tween-state';
-import assign from 'object-assign';
+var React = require('react/addons');
+var TweenStateMixin = require('react-tween-state').Mixin;
 
-var TweenState = tweenState.Mixin;
 var { TransitionGroup } = React.addons;
 var guid = -1;
 
@@ -12,7 +10,7 @@ function getHeight(node) {
 
 var HeightFader = React.createClass({
 
-  mixins: [ TweenState ],
+  mixins: [ TweenStateMixin ],
 
   getDefaultProps () {
     return {
@@ -27,7 +25,7 @@ var HeightFader = React.createClass({
     };
   },
 
-  componentWillEnter (cb) {
+  componentWillEnter(cb) {
     this.tweenState('opacity', {
       duration: 250,
       endValue: 1
@@ -40,7 +38,7 @@ var HeightFader = React.createClass({
     });
   },
 
-  componentWillLeave (cb) {
+  componentWillLeave(cb) {
     this.tweenState('opacity', {
       duration: 250,
       endValue: 0
@@ -53,56 +51,62 @@ var HeightFader = React.createClass({
     });
   },
 
-  render () {
-    var opacity = this.getTweeningValue('opacity');
-    var height = this.getTweeningValue('height');
-    return React.createElement(this.props.component, assign({}, this.props, {
-      style: {opacity, height}
-    }));
+  render() {
+    return React.createElement(this.props.component, {
+      ...this.props,
+      style: {
+        opacity: this.getTweeningValue('opacity'),
+        height: this.getTweeningValue('height')
+      }
+    });
   }
 
 });
 
 var List = React.createClass({
-  getInitialState () {
+
+  getInitialState() {
     return {
       items: []
     };
   },
 
-  addItem (e) {
+  addItem(e) {
     if (e.key === 'Enter') {
       this.state.items.unshift({
         id: ++guid,
         label: e.target.value
       });
+
       this.setState({ items: this.state.items });
+
       e.target.value = '';
     }
   },
 
-  removeItem (item) {
+  removeItem(item) {
     this.setState({
       items: this.state.items.filter(i => i !== item)
     });
   },
 
-  render () {
+  render() {
     return (
       <div>
         <h1>{this.props.name}</h1>
-        <input onKeyPress={this.addItem}/>
+        <input onKeyPress={this.addItem} />
         <TransitionGroup component="ul">
           {this.state.items.map(item => (
             <HeightFader key={item.id}>
               {item.label}{' '}
-              <button onClick={this.removeItem.bind(this, item)}>×</button>
+              <button onClick={() => this.removeItem(item)}>×</button>
             </HeightFader>
           ))}
         </TransitionGroup>
       </div>
     );
   }
+
 });
 
 /*
@@ -116,14 +120,15 @@ var List = React.createClass({
         </TransitionGroup>
         */
 var App = React.createClass({
-  render () {
+
+  render() {
     return (
       <div>
-        <List name="Transition Group"/>
+        <List name="Transition Group" />
       </div>
     );
   }
+
 });
 
-React.render(<App/>, document.getElementById('app'));
-
+React.render(<App />, document.getElementById('app'));
