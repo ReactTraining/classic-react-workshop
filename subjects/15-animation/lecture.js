@@ -1,67 +1,6 @@
 var React = require('react/addons');
-var TweenStateMixin = require('react-tween-state').Mixin;
-
 var { TransitionGroup } = React.addons;
-var guid = -1;
-
-function getHeight(node) {
-  return node.scrollHeight;
-}
-
-var HeightFader = React.createClass({
-
-  mixins: [ TweenStateMixin ],
-
-  getDefaultProps () {
-    return {
-      component: 'li'
-    };
-  },
-
-  getInitialState () {
-    return {
-      opacity: 0,
-      height: 0
-    };
-  },
-
-  componentWillEnter(cb) {
-    this.tweenState('opacity', {
-      duration: 250,
-      endValue: 1
-    });
-
-    this.tweenState('height', {
-      duration: 250,
-      endValue: getHeight(React.findDOMNode(this)),
-      onEnd: cb
-    });
-  },
-
-  componentWillLeave(cb) {
-    this.tweenState('opacity', {
-      duration: 250,
-      endValue: 0
-    });
-
-    this.tweenState('height', {
-      duration: 250,
-      endValue: 0,
-      onEnd: cb
-    });
-  },
-
-  render() {
-    return React.createElement(this.props.component, {
-      ...this.props,
-      style: {
-        opacity: this.getTweeningValue('opacity'),
-        height: this.getTweeningValue('height')
-      }
-    });
-  }
-
-});
+var HeightFader = require('./components/HeightFader');
 
 var List = React.createClass({
 
@@ -73,12 +12,17 @@ var List = React.createClass({
 
   addItem(e) {
     if (e.key === 'Enter') {
-      this.state.items.unshift({
-        id: ++guid,
-        label: e.target.value
-      });
+      if (this.guid == null)
+        this.guid = 1;
 
-      this.setState({ items: this.state.items });
+      var newItem = {
+        id: this.guid++,
+        label: e.target.value
+      };
+
+      this.setState({
+        items: [ newItem ].concat(this.state.items)
+      });
 
       e.target.value = '';
     }
@@ -95,30 +39,19 @@ var List = React.createClass({
       <div>
         <h1>{this.props.name}</h1>
         <input onKeyPress={this.addItem} />
-        <TransitionGroup component="ul">
+        <ul>
           {this.state.items.map(item => (
-            <HeightFader key={item.id}>
-              {item.label}{' '}
-              <button onClick={() => this.removeItem(item)}>×</button>
-            </HeightFader>
+            <li key={item.id}>
+              {item.label} <button onClick={() => this.removeItem(item)}>remove</button>
+            </li>
           ))}
-        </TransitionGroup>
+        </ul>
       </div>
     );
   }
 
 });
 
-/*
-        <TransitionGroup component="ul">
-          {this.state.items.map(item => (
-            <HeightFader key={item.id}>
-              {item.label}{' '}
-              <button onClick={this.removeItem.bind(this, item)}>×</button>
-            </HeightFader>
-          ))}
-        </TransitionGroup>
-        */
 var App = React.createClass({
 
   render() {
