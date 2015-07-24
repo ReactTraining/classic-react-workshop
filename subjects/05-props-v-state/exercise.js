@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// make tabs a "pure component" by not managing any of its own state, instead
+// Make tabs a "pure component" by not managing any of its own state, instead
 // add a property to tell it which tab to show, and then have it communicate
 // with its owner to get rerendered with a new active tab.
 //
@@ -16,6 +16,7 @@
 // being required to manage state) and synchronize the state between the App
 // and Tabs.
 ////////////////////////////////////////////////////////////////////////////////
+
 var React = require('react');
 var styles = require('./lib/styles');
 var data = require('./lib/data');
@@ -26,17 +27,17 @@ var Tabs = React.createClass({
     data: React.PropTypes.array.isRequired
   },
 
-  getInitialState () {
+  getInitialState() {
     return {
       activeTabIndex: 0
     };
   },
 
-  handleTabClick (activeTabIndex) {
+  handleTabClick(activeTabIndex) {
     this.setState({ activeTabIndex });
   },
 
-  renderTabs () {
+  renderTabs() {
     return this.props.data.map((tab, index) => {
       var style = this.state.activeTabIndex === index ?
         styles.activeTab : styles.tab;
@@ -49,7 +50,7 @@ var Tabs = React.createClass({
     });
   },
 
-  renderPanel () {
+  renderPanel() {
     var tab = this.props.data[this.state.activeTabIndex];
     return (
       <div>
@@ -58,7 +59,7 @@ var Tabs = React.createClass({
     );
   },
 
-  render () {
+  render() {
     return (
       <div style={styles.app}>
         <div style={styles.tabs}>
@@ -70,10 +71,12 @@ var Tabs = React.createClass({
       </div>
     );
   }
+
 });
 
 var App = React.createClass({
-  render () {
+
+  render() {
     return (
       <div>
         <h1>Props v. State</h1>
@@ -81,13 +84,9 @@ var App = React.createClass({
       </div>
     );
   }
+
 });
 
-var assert = require('../shared/assert');
-
-var component = React.render(<App tabs={data}/>, document.getElementById('app'), () => {
-  setTimeout(() => {
-    require('./tests').run(component);
-  }, 0);
+React.render(<App tabs={data}/>, document.getElementById('app'), function () {
+  require('./tests').run(this);
 });
-

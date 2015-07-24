@@ -1,6 +1,6 @@
-var assert = require('../shared/assert');
 var React = require('react/addons');
 var { click } = React.addons.TestUtils.Simulate;
+var assert = require('../assert');
 
 exports.run = (component) => {
   var node = React.findDOMNode(component);

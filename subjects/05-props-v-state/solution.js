@@ -10,11 +10,11 @@ var Tabs = React.createClass({
     onActivateTab: React.PropTypes.func.isRequired,
   },
 
-  handleTabClick (activeTabIndex) {
+  handleTabClick(activeTabIndex) {
     this.props.onActivateTab(activeTabIndex);
   },
 
-  renderTabs () {
+  renderTabs() {
     return this.props.data.map((tab, index) => {
       var style = this.props.activeTabIndex === index ?
         styles.activeTab : styles.tab;
@@ -27,7 +27,7 @@ var Tabs = React.createClass({
     });
   },
 
-  renderPanel () {
+  renderPanel() {
     var tab = this.props.data[this.props.activeTabIndex];
     return (
       <div>
@@ -36,7 +36,7 @@ var Tabs = React.createClass({
     );
   },
 
-  render () {
+  render() {
     return (
       <div style={styles.app}>
         <div style={styles.tabs}>
@@ -51,17 +51,18 @@ var Tabs = React.createClass({
 });
 
 var App = React.createClass({
-  getInitialState () {
+
+  getInitialState() {
     return {
       activeTabIndex: 0
     };
   },
 
-  handleActivateTab (activeTabIndex) {
+  handleActivateTab(activeTabIndex) {
     this.setState({ activeTabIndex });
   },
 
-  render () {
+  render() {
     return (
       <div>
         <h1>Props v. State</h1>
@@ -74,11 +75,9 @@ var App = React.createClass({
       </div>
     );
   }
+
 });
 
-var component = React.render(<App tabs={data}/>, document.getElementById('app'), () => {
-  setTimeout(() => {
-    require('./tests').run(component);
-  }, 0);
+React.render(<App tabs={data}/>, document.getElementById('app'), function () {
+  require('./tests').run(this);
 });
-
