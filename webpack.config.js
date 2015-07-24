@@ -43,18 +43,14 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.woff(2)?$/,   loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-      { test: /\.ttf$/, loader: "file-loader" },
-      { test: /\.eot$/, loader: "file-loader" },
-      { test: /\.svg$/, loader: "file-loader" },
-      { test: require.resolve('jquery'), loader: "expose?jQuery" },
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
+      { test: /\.css$/, loader: 'style!css' },
+      { test: require.resolve('jquery'), loader: "expose?jQuery" }
     ]
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('shared.js'),
+    new webpack.optimize.CommonsChunkPlugin('shared.js')
   ]
 
 };
@@ -64,14 +60,15 @@ function makeIndex() {
     return React.DOM.li({ key: dir }, React.DOM.a({ href: '/' + dir }, dir.replace(/-/g, ' ')));
   });
 
-  var markup = React.renderToStaticMarkup((
+  var markup = React.renderToStaticMarkup(
     React.DOM.html({},
       React.DOM.link({ rel: 'stylesheet', href: '/shared.css' }),
       React.DOM.body({ id: 'index' },
         React.DOM.ul({}, list)
       )
     )
-  ));
+  );
+
   fs.writeFileSync('./subjects/index.html', markup);
 
   DIRS.forEach(function (dir) {
@@ -82,7 +79,7 @@ function makeIndex() {
 }
 
 function makeMarkup(mainFile) {
-  return React.renderToStaticMarkup((
+  return React.renderToStaticMarkup(
     React.DOM.html({},
       React.DOM.link({ rel: 'stylesheet', href: '/shared.css' }),
       React.DOM.body({},
@@ -91,7 +88,7 @@ function makeMarkup(mainFile) {
         React.DOM.script({ src: '/__build__/' + mainFile + '.js' })
       )
     )
-  ));
+  );
 }
 
 function isDirectory(dir) {
