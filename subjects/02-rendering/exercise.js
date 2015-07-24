@@ -13,6 +13,7 @@
 // - Hint: you'll need an `updateThePage` function that calls `React.render`,
 //   and then you'll need to call it in the event handlers of the form controls
 ////////////////////////////////////////////////////////////////////////////////
+
 var React = require('react');
 var sortBy = require('sort-by');
 
@@ -34,6 +35,6 @@ function render() {
   );
 }
 
-React.render(render(), document.getElementById('app'), () => {
-  require('./tests').run();
+React.render(render(), document.getElementById('app'), function () {
+  require('./tests').run(this);
 });
