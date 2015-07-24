@@ -3,7 +3,7 @@
 //
 // - Add some code to App's render method that renders the child route
 //   (hint: use this.props.children)
-// - Add a new child route beneath App at "/profile/:userID" and shows the
+// - Add a new child route beneath App at "/profile/:userID" that shows the
 //   user with the given ID (hint: use the Profile component)
 // - Add links to the Home view that link to the profile page for each user
 //
@@ -63,7 +63,6 @@ var Home = React.createClass({
 var Profile = React.createClass({
   render: function () {
     var { userID } = this.props.params;
-
     var user = getUserByID(userID);
 
     if (user == null)
@@ -71,7 +70,7 @@ var Profile = React.createClass({
 
     return (
       <div className="profile">
-        <Gravatar email={user.email}/> {user.name}
+        <Gravatar email={user.email} /> {user.name}
       </div>
     );
   }
@@ -80,7 +79,7 @@ var Profile = React.createClass({
 React.render((
   <Router history={history}>
     <Route component={App}>
-      <Route path="/" component={Home}/>
+      <Route path="/" component={Home} />
     </Route>
   </Router>
 ), document.getElementById('app'), function () {

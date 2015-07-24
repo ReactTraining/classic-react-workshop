@@ -1,12 +1,14 @@
-var assert = require('../shared/assert');
 var React = require('react/addons');
 var { click } = React.addons.TestUtils.Simulate;
+var assert = require('../assert');
 
 function toArray(nodeList) {
   return Array.prototype.slice.call(nodeList, 0);
 }
 
 exports.run = (component) => {
+  window.location.hash = '';
+
   var node = React.findDOMNode(component);
   var peopleList = node.querySelector('.people-list');
   var profileLinks = toArray(node.querySelectorAll('.people-list a'));
