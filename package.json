@@ -23,6 +23,7 @@
     "css-loader": "^0.10.1",
     "events": "^1.0.2",
     "expose-loader": "^0.6.0",
+    "file-loader": "^0.8.4",
     "firebase": "^2.2.7",
     "flux": "^2.0.1",
     "immstruct": "^1.4.1",
@@ -36,6 +37,7 @@
     "react-tween-state": "0.0.5",
     "sort-by": "^1.1.0",
     "style-loader": "^0.12.3",
+    "url-loader": "^0.5.6",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.8.0"
   }

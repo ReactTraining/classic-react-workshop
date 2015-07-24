@@ -43,8 +43,12 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
       { test: /\.css$/, loader: 'style!css' },
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
+      { test: /\.woff(2)?$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
+      { test: /\.ttf$/, loader: "file" },
+      { test: /\.eot$/, loader: "file" },
+      { test: /\.svg$/, loader: "file" },
       { test: require.resolve('jquery'), loader: "expose?jQuery" }
     ]
   },
