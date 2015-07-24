@@ -192,10 +192,10 @@ var element = Add({ x: 2, y: 3 }); // <span>5</span>
 
 var Double = React.createClass({
   render () {
-    return React.createElement(Add({
+    return Add({
       x: this.props.value,
       y: this.props.value
-    }));
+    });
   }
 });
 
