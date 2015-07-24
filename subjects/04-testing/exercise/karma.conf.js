@@ -2,14 +2,11 @@ var webpack = require('webpack');
 
 module.exports = function (config) {
   config.set({
-
+    browsers: [ 'Chrome' ],
     browserNoActivityTimeout: 30000,
-
-    browsers: [ process.env.CONTINUOUS_INTEGRATION ? 'Firefox' : 'Chrome' ],
-
-    singleRun: process.env.CONTINUOUS_INTEGRATION === 'true',
-
+    captureTimeout: 30000,
     frameworks: [ 'mocha' ],
+    reporters: [ 'dots' ],
 
     files: [
       // TODO
@@ -19,8 +16,6 @@ module.exports = function (config) {
       'tests.webpack.js': [ 'webpack', 'sourcemap' ]
     },
 
-    reporters: [ 'dots' ],
-
     webpack: {
       devtool: 'inline-source-map',
       resolve: {
@@ -28,7 +23,7 @@ module.exports = function (config) {
       },
       module: {
         loaders: [
-          { test: /\.jsx?$/, loader: 'babel-loader' }
+          { test: /\.jsx?$/, loader: 'babel' }
         ]
       },
       plugins: [
@@ -41,6 +36,5 @@ module.exports = function (config) {
     webpackServer: {
       noInfo: true
     }
-
   });
 };
