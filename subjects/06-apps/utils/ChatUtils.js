@@ -1,8 +1,7 @@
+var invariant = require('invariant');
 var Firebase = require('firebase/lib/firebase-web');
 
 var ref = new Firebase('https://hip-react.firebaseio.com');
-window.ref = ref;
-
 var serverTimeOffset = 0;
 
 ref.child('.info/serverTimeOffset').on('value', function (snapshot) {
@@ -14,6 +13,11 @@ export function login(callback) {
 }
 
 export function sendMessage(channel, username, avatar, text) {
+  invariant(
+    channel && username && avatar && text,
+    'You must provide (channel, username, avatar, text) to sendMessage'
+  );
+
   ref.child(`channels/${channel}/messages`).push({
     timestamp: Date.now() + serverTimeOffset,
     username,
@@ -23,23 +27,23 @@ export function sendMessage(channel, username, avatar, text) {
 }
 
 function subscribeToList(path, callback) {
-  var child = ref.child(path).limitToLast(100);
-  var onChange = child.on('value', (snapshot) => {
+  function handleChange(snapshot) {
     var items = [];
 
-    snapshot.forEach(function (s, k) {
+    snapshot.forEach(function (s) {
       var item = s.val();
       item._key = s.key();
       items.push(item);
     });
 
     callback(items);
-  });
+  }
 
-  return {
-    dispose() {
-      child.off('value', onChange);
-    }
+  var child = ref.child(path).limitToLast(100);
+  child.on('value', handleChange);
+
+  return function () {
+    child.off('value', handleChange);
   };
 }
 

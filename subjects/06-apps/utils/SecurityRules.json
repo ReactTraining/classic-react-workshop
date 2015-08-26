@@ -1,0 +1,18 @@
+{
+  "rules": {
+
+    ".read": true,
+    ".write": "auth != null",
+
+    "channels": {
+      "$channelName": {
+        "messages": {
+          "$messageID": {
+            ".validate": "newData.hasChildren([ 'avatar', 'text', 'timestamp', 'username' ])"
+          }
+        }
+      }
+    }
+
+  }
+}

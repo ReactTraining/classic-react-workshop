@@ -45,14 +45,6 @@ var MessageListItem = React.createClass({
 
 });
 
-var nonEmptyRe = /\S/;
-
-function isValidMessage(message) {
-  return typeof message.text === 'string' &&
-    nonEmptyRe.test(message.text) &&
-    typeof message.username === 'string';
-}
-
 var MessageList = React.createClass({
 
   propTypes: {
@@ -63,10 +55,8 @@ var MessageList = React.createClass({
   render() {
     var { auth, messages } = this.props;
 
-    var validMessages = messages.filter(isValidMessage);
-
     var viewerUsername = auth.github.username;
-    var items = validMessages.sort(sortBy('timestamp')).map((message, index) => {
+    var items = messages.sort(sortBy('timestamp')).map((message, index) => {
       return <MessageListItem
         key={index}
         authoredByViewer={message.username === viewerUsername}
@@ -84,6 +74,7 @@ var MessageList = React.createClass({
 });
 
 var HiddenSubmitButton = React.createClass({
+
   render() {
     var style = {
       position: 'absolute',
@@ -96,9 +87,11 @@ var HiddenSubmitButton = React.createClass({
       <input type="submit" style={style} tabIndex="-1" />
     );
   }
+
 });
 
 var ChannelList = React.createClass({
+
   getInitialState() {
     return {
       channels: []
@@ -127,9 +120,11 @@ var ChannelList = React.createClass({
       </div>
     );
   }
+
 });
 
 var Chat = React.createClass({
+
   getInitialState() {
     return {
       auth: null,
@@ -175,7 +170,7 @@ var Room = React.createClass({
   },
 
   componentWillMount() {
-    this.messagesSubscription = null;
+    this.unsubscribe = null;
     this.pinToBottom = true;
   },
 
@@ -188,10 +183,10 @@ var Room = React.createClass({
   },
 
   subscribeToMessages(room) {
-    if (this.messagesSubscription)
-      this.messagesSubscription.dispose();
+    if (this.unsubscribe)
+      this.unsubscribe();
 
-    this.messagesSubscription = subscribeToMessages(room, (messages) => {
+    this.unsubscribe = subscribeToMessages(room, (messages) => {
       this.setState({ messages });
     });
   },
@@ -213,6 +208,7 @@ var Room = React.createClass({
   handleScroll(event) {
     var node = event.target;
     var { clientHeight, scrollTop, scrollHeight } = node;
+
     this.pinToBottom = clientHeight + scrollTop > (scrollHeight - 10);
   },
 
@@ -226,6 +222,7 @@ var Room = React.createClass({
   render() {
     var { auth } = this.props;
     var { messages } = this.state;
+
     return (
       <div className="room">
         <h1 className="room-title">general</h1>
@@ -245,4 +242,3 @@ var Room = React.createClass({
 });
 
 React.render(<Chat/>, document.getElementById('app'));
-
