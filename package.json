@@ -16,8 +16,6 @@
   ],
   "license": "GPL3",
   "dependencies": {
-    "babel": "^5.8.3",
-    "md5": "^2.0.0",
     "axios": "^0.5.4",
     "babel": "^5.8.3",
     "babel-core": "^5.0.9",
@@ -39,7 +37,7 @@
     "object-assign": "^2.0.0",
     "react": "^0.13.3",
     "react-motion": "^0.2.2",
-    "react-router": "1.0.0-beta3",
+    "react-router": "git://github.com/rackt/react-router#training",
     "react-tween-state": "0.0.5",
     "sort-by": "^1.1.0",
     "style-loader": "^0.12.3",
