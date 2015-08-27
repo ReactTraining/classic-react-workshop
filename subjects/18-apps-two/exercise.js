@@ -14,7 +14,6 @@ var React = require('react');
 var sortBy = require('sort-by');
 var escapeRegExp = require('./utils/escapeRegExp');
 var { Router, Route, Redirect, Link } = require('react-router');
-var { history } = require('react-router/lib/HashHistory');
 var { login, sendMessage, subscribeToChannels, subscribeToMessages, editMessage, deleteMessage } = require('./utils/ChatUtils');
 
 /*
@@ -35,5 +34,3 @@ deleteMessage(channel, message._key);
 ```
 
 */
-
-
