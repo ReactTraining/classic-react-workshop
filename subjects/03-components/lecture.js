@@ -288,7 +288,7 @@ updateThePage();
 // React expresses your application UI as a function of state. Props are like
 // arguments to the function. They look like element attributes in JSX
 
-// var MD5 = require('MD5');
+// var md5 = require('md5');
 //
 // var GRAVATAR_URL = 'http://gravatar.com/avatar';
 // var USERS = [
@@ -304,7 +304,7 @@ updateThePage();
 //         <ul>
 //         {USERS.map(user => (
 //           <li key={user.email}>
-//             <img src={GRAVATAR_URL + '/' + MD5(user.email)}/> {user.name}
+//             <img src={GRAVATAR_URL + '/' + md5(user.email)}/> {user.name}
 //           </li>
 //         ))}
 //         </ul>
@@ -319,7 +319,7 @@ updateThePage();
 // We can refactor to get a <Gravatar> component that takes a user's email as
 // a prop and automatically generates the <img src> and a size prop
 
-// var MD5 = require('MD5');
+// var md5 = require('md5');
 //
 // var GRAVATAR_URL = 'http://gravatar.com/avatar';
 // var USERS = [
@@ -339,7 +339,7 @@ updateThePage();
 //   },
 //   render() {
 //     return (
-//       <img src={GRAVATAR_URL + '/' + MD5(this.props.email) + '?s=' + this.props.size}/>
+//       <img src={GRAVATAR_URL + '/' + md5(this.props.email) + '?s=' + this.props.size}/>
 //     );
 //   }
 // });
@@ -366,7 +366,7 @@ updateThePage();
 ////////////////////////////////////////////////////////////////////////////////
 // We can have better validation with a custom prop
 
-// var MD5 = require('MD5');
+// var md5 = require('md5');
 // var isEmail = require('./utils/isEmail');
 //
 // var GRAVATAR_URL = 'http://gravatar.com/avatar';
@@ -392,7 +392,7 @@ updateThePage();
 //   },
 //   render() {
 //     return (
-//       <img src={GRAVATAR_URL + '/' + MD5(this.props.email) + '?s=' + this.props.size}/>
+//       <img src={GRAVATAR_URL + '/' + md5(this.props.email) + '?s=' + this.props.size}/>
 //     );
 //   }
 // });
@@ -438,7 +438,7 @@ updateThePage();
 //   return PropTypes.email.apply(PropTypes.email, args.concat([ true ]));
 // };
 //
-// var MD5 = require('MD5');
+// var md5 = require('md5');
 // var isEmail = require('./utils/isEmail');
 //
 // var GRAVATAR_URL = 'http://gravatar.com/avatar';
@@ -459,7 +459,7 @@ updateThePage();
 //   },
 //   render() {
 //     return (
-//       <img src={GRAVATAR_URL + '/' + MD5(this.props.email) + '?s=' + this.props.size}/>
+//       <img src={GRAVATAR_URL + '/' + md5(this.props.email) + '?s=' + this.props.size}/>
 //     );
 //   }
 // });
