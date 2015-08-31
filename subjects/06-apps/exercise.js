@@ -28,11 +28,11 @@ sendMessage(
   'hello, this is a message' // the actual message
 );
 
-var subscription = subscribeToMessages('general', (messages) => {
+var unsubscribe = subscribeToMessages('general', (messages) => {
   // here are your messages as an array, it will be called
   // every time the messages change
 });
-subscription.dispose(); // stop listening for changes
+unsubscribe(); // stop listening for changes
 
 The world is your oyster!
 
