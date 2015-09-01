@@ -12,7 +12,7 @@ var App = React.createClass({
   },
 
   renderContacts: function () {
-    return this.state.contacts.map(function (contact) {
+    return this.state.contacts.map((contact) => {
       return <li key={contact.first+contact.last}>{contact.first} {contact.last}</li>;
     });
   },
