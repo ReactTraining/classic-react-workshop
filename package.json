@@ -37,7 +37,7 @@
     "object-assign": "^2.0.0",
     "react": "^0.13.3",
     "react-motion": "^0.2.2",
-    "react-router": "git://github.com/rackt/react-router#training",
+    "react-router": "1.0.0-beta4",
     "react-tween-state": "0.0.5",
     "sort-by": "^1.1.0",
     "style-loader": "^0.12.3",
