@@ -48,7 +48,7 @@ updateThePage();
 //
 // function setState(nextState) {
 //   for (var property in nextState)
-//     if (nextState.hasOwnProperty(property))
+//     if (state.hasOwnProperty(property))
 //       state[property] = nextState[property];
 //
 //   updateThePage();
