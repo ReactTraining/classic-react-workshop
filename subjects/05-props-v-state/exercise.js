@@ -12,9 +12,8 @@
 //
 // Already done?
 //
-// Now put state back into the tabs (so that they can be used w/o a the owner
-// being required to manage state) and synchronize the state between the App
-// and Tabs.
+// Make a `StatefulTabs` component that manages some state that is passes as
+// props down to `Tabs` (since they should now be stateless)
 ////////////////////////////////////////////////////////////////////////////////
 
 var React = require('react');
@@ -80,7 +79,10 @@ var App = React.createClass({
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs ref="tabs" data={this.props.tabs}/>
+        <Tabs
+          ref="tabs"
+          data={this.props.tabs}
+        />
       </div>
     );
   }
