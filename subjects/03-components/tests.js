@@ -38,4 +38,5 @@ exports.run = (component) => {
     panels.textContent.trim() == 'World Cup 2018!',
     'you have the wrong content in the panel'
   );
+  click(tabs[0]);
 };
