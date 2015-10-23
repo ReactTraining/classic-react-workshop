@@ -7,17 +7,17 @@ var App = React.createClass({
     return ContactsStore.getState();
   },
 
+  updateState: function () {
+    this.setState(ContactsStore.getState());
+  },
+
   componentDidMount: function () {
-    ContactsStore.addChangeListener(this.handleStoreChange);
+    ContactsStore.addChangeListener(this.updateState);
     ViewActionCreators.loadContacts();
   },
 
   componentWillUnmount: function () {
-    ContactsStore.removeChangeListener(this.handleStoreChange);
-  },
-
-  handleStoreChange: function () {
-    this.setState(ContactsStore.getState());
+    ContactsStore.removeChangeListener(this.updateState);
   },
 
   deleteContact: function (contact) {
@@ -25,14 +25,17 @@ var App = React.createClass({
   },
 
   renderContacts: function () {
-    return this.state.contacts.map((contact) => {
+    var { contacts, contactErrors, contactsPendingDelete } = this.state
+
+    return contacts.map((contact) => {
+      var error = contactErrors[contact.id];
+      var pendingDelete = contactsPendingDelete.indexOf(contact) !== -1;
+
       return (
-        <li key={contact.id}>
-          <img src={contact.avatar} width={40} /> {' '}
-          {contact.first} {contact.last} {' '}
-          <button onClick={() => this.deleteContact(contact)}>
-            delete
-          </button>
+        <li key={contact.first+contact.last} style={{ backgroundColor: error ? 'red' : 'white' }}>
+          <img src={contact.avatar} width="80" /> {contact.first} {contact.last} {' '}
+          {!error && <button disabled={pendingDelete} onClick={() => this.deleteContact(contact)}>delete</button>}
+          {error && <p>{error.message}</p>}
         </li>
       );
     });

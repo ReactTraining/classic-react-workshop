@@ -12,7 +12,7 @@ var ViewActionCreators = {
 
   deleteContact: function (contact) {
     AppDispatcher.handleViewAction({
-      type: ActionTypes.CONTACT_DELETED,
+      type: ActionTypes.DELETE_CONTACT,
       contact: contact
     });
     APIUtils.deleteContact(contact);

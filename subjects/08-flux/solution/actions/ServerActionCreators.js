@@ -11,7 +11,15 @@ var ServerActionCreators = {
 
   deletedContact: function (contact) {
     AppDispatcher.handleServerAction({
-      type: ActionTypes.CONTACT_DELETED,
+      type: ActionTypes.CONTACT_WAS_DELETED,
+      contact: contact
+    });
+  },
+
+  errorDeletingContact: function (error, contact) {
+    AppDispatcher.handleServerAction({
+      type: ActionTypes.ERROR_DELETING_CONTACT,
+      error: error,
       contact: contact
     });
   }

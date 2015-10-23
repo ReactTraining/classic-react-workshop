@@ -7,7 +7,9 @@ module.exports = {
   ActionTypes: keyMirror({
     CONTACTS_LOADED: null,
     LOAD_CONTACTS: null,
-    CONTACT_DELETED: null
+    DELETE_CONTACT: null,
+    CONTACT_WAS_DELETED: null,
+    ERROR_DELETING_CONTACT: null
   }),
 
   PayloadSources: keyMirror({

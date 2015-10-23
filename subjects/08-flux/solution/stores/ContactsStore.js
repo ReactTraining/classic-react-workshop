@@ -8,6 +8,8 @@ var CHANGE_EVENT = 'CHANGE';
 
 var state = {
   contacts: [],
+  contactsPendingDelete: [],
+  contactErrors: {}, // keyed by contact.id
   loaded: false
 };
 
@@ -33,18 +35,33 @@ var ContactsStore = {
 ContactsStore.dispatchToken = AppDispatcher.register(function (payload) {
   var { action } = payload;
 
+  if (action.type === ActionTypes.DELETE_CONTACT) {
+    setState({
+      contactsPendingDelete: state.contactsPendingDelete.concat([ action.contact ])
+    });
+  }
+
+  if (action.type === ActionTypes.CONTACT_WAS_DELETED) {
+    setState({
+      contacts: state.contacts.filter(c => c.id !== action.contact.id),
+      contactsPendingDelete: state.contactsPendingDelete.filter(c => c.id !== action.contact.id)
+    });
+  }
+
+  if (action.type === ActionTypes.ERROR_DELETING_CONTACT) {
+    var contactErrors = state.contactErrors;
+    contactErrors[action.contact.id] = action.error;
+    setState({
+      contactErrors: contactErrors,
+      contactsPendingDelete: state.contactsPendingDelete.filter(c => c.id !== action.contact.id)
+    });
+  }
+
   if (action.type === ActionTypes.CONTACTS_LOADED) {
     setState({
       loaded: true,
       contacts: action.contacts
     });
-  }
-
-  if (action.type === ActionTypes.CONTACT_DELETED) {
-    var newContacts = state.contacts.filter(function (contact) {
-      return contact.id !== action.contact.id;
-    });
-    setState({ contacts: newContacts });
   }
 });
 

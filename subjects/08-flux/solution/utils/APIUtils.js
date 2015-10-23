@@ -11,7 +11,14 @@ var APIUtils = {
 
   deleteContact: function (contact) {
     xhr.deleteJSON(`${API}/contacts/${contact.id}`, function (err, res) {
-      ServerActionCreators.deletedContact(contact);
+      // Fake server latency ... BWHAHAHAHAHAHAH!
+      setTimeout(function () {
+        if (err) {
+          ServerActionCreators.errorDeletingContact(err, contact);
+        } else {
+          ServerActionCreators.deletedContact(contact);
+        }
+      }, 5000);
     });
   }
 };
