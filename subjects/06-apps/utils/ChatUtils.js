@@ -9,7 +9,11 @@ ref.child('.info/serverTimeOffset').on('value', function (snapshot) {
 });
 
 export function login(callback) {
-  ref.authWithOAuthPopup('github', callback);
+  var auth = ref.getAuth()
+  if (auth)
+    callback(null, auth)
+  else
+    ref.authWithOAuthPopup('github', callback);
 }
 
 export function sendMessage(channel, username, avatar, text) {
