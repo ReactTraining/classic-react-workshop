@@ -46,6 +46,6 @@ $ sudo rm -rf ~/.npm
 # If you installed node with Homebrew:
 $ sudo rm -rf /usr/local/lib/node_modules
 
-# Then:
+# Then (look ma, no sudo!):
 $ npm install
 ```
