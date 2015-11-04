@@ -4,6 +4,7 @@ var mkdirp = require('mkdirp');
 var path = require('path');
 var webpack = require('webpack');
 var React = require('react');
+var ReactDOMServer = require('react-dom/server');
 
 var CODE = __dirname+'/subjects';
 var IGNORE = ['shared'];
@@ -64,7 +65,7 @@ function makeIndex() {
     return React.DOM.li({ key: dir }, React.DOM.a({ href: '/' + dir }, dir.replace(/-/g, ' ')));
   });
 
-  var markup = React.renderToStaticMarkup(
+  var markup = ReactDOMServer.renderToStaticMarkup(
     React.DOM.html({},
       React.DOM.link({ rel: 'stylesheet', href: '/shared.css' }),
       React.DOM.body({ id: 'index' },
@@ -83,7 +84,7 @@ function makeIndex() {
 }
 
 function makeMarkup(mainFile) {
-  return React.renderToStaticMarkup(
+  return ReactDOMServer.renderToStaticMarkup(
     React.DOM.html({},
       React.DOM.link({ rel: 'stylesheet', href: '/shared.css' }),
       React.DOM.body({},
