@@ -1,18 +1,18 @@
-var fs = require('fs');
-var fileExists = fs.existsSync;
-var mkdirp = require('mkdirp');
-var path = require('path');
-var webpack = require('webpack');
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
+var fs = require('fs')
+var fileExists = fs.existsSync
+var mkdirp = require('mkdirp')
+var path = require('path')
+var webpack = require('webpack')
+var React = require('react')
+var ReactDOMServer = require('react-dom/server')
 
-var CODE = __dirname+'/subjects';
-var IGNORE = ['shared'];
+var CODE = __dirname+'/subjects'
+var IGNORE = ['shared']
 var DIRS = fs.readdirSync(CODE).filter(function (dir) {
-  return isDirectory(path.join(CODE, dir)) && IGNORE.indexOf(dir) === -1;
-});
+  return isDirectory(path.join(CODE, dir)) && IGNORE.indexOf(dir) === -1
+})
 
-makeIndex();
+makeIndex()
 
 module.exports = {
 
@@ -20,15 +20,15 @@ module.exports = {
 
   entry: DIRS.reduce(function (entries, dir) {
     if (fileExists(path.join(CODE, dir, 'exercise.js')))
-      entries[dir+'-exercise'] = path.join(CODE, dir, 'exercise.js');
+      entries[dir+'-exercise'] = path.join(CODE, dir, 'exercise.js')
 
     if (fileExists(path.join(CODE, dir, 'solution.js')))
-      entries[dir+'-solution'] = path.join(CODE, dir, 'solution.js');
+      entries[dir+'-solution'] = path.join(CODE, dir, 'solution.js')
 
     if (fileExists(path.join(CODE, dir, 'lecture.js')))
-      entries[dir+'-lecture'] = path.join(CODE, dir, 'lecture.js');
+      entries[dir+'-lecture'] = path.join(CODE, dir, 'lecture.js')
 
-    return entries;
+    return entries
   }, {}),
 
   output: {
@@ -58,12 +58,12 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin('shared.js')
   ]
 
-};
+}
 
 function makeIndex() {
   var list = DIRS.map(function (dir) {
-    return React.DOM.li({ key: dir }, React.DOM.a({ href: '/' + dir }, dir.replace(/-/g, ' ')));
-  });
+    return React.DOM.li({ key: dir }, React.DOM.a({ href: '/' + dir }, dir.replace(/-/g, ' ')))
+  })
 
   var markup = ReactDOMServer.renderToStaticMarkup(
     React.DOM.html({},
@@ -74,15 +74,15 @@ function makeIndex() {
         React.DOM.ul({}, list)
       )
     )
-  );
+  )
 
-  fs.writeFileSync('./subjects/index.html', markup);
+  fs.writeFileSync('./subjects/index.html', markup)
 
   DIRS.forEach(function (dir) {
-    fs.writeFileSync('./subjects/'+dir+'/index.html', makeMarkup(dir+'-exercise'));
-    fs.writeFileSync('./subjects/'+dir+'/solution.html', makeMarkup(dir+'-solution'));
-    fs.writeFileSync('./subjects/'+dir+'/lecture.html', makeMarkup(dir+'-lecture'));
-  });
+    fs.writeFileSync('./subjects/'+dir+'/index.html', makeMarkup(dir+'-exercise'))
+    fs.writeFileSync('./subjects/'+dir+'/solution.html', makeMarkup(dir+'-solution'))
+    fs.writeFileSync('./subjects/'+dir+'/lecture.html', makeMarkup(dir+'-lecture'))
+  })
 }
 
 function makeMarkup(mainFile) {
@@ -97,9 +97,9 @@ function makeMarkup(mainFile) {
         React.DOM.script({ src: '/__build__/' + mainFile + '.js' })
       )
     )
-  );
+  )
 }
 
 function isDirectory(dir) {
-  return fs.lstatSync(dir).isDirectory();
+  return fs.lstatSync(dir).isDirectory()
 }
