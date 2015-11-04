@@ -8,15 +8,9 @@
 // - Make sure the active tab has the active styles
 ////////////////////////////////////////////////////////////////////////////////
 
-var React = require('react');
+import React from 'react'
 
-var DATA = [
-  { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
-  { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
-  { id: 3, name: 'Russia', description: 'World Cup 2018!' },
-];
-
-var styles = {};
+const styles = {}
 
 styles.tab = {
   display: 'inline-block',
@@ -25,19 +19,19 @@ styles.tab = {
   borderBottom: '4px solid',
   borderBottomColor: '#ccc',
   cursor: 'pointer'
-};
+}
 
 styles.activeTab = {
   ...styles.tab,
   borderBottomColor: '#000'
-};
+}
 
 styles.panel = {
   padding: 10
-};
+}
 
-var Tabs = React.createClass({
-  render () {
+class Tabs extends React.Component {
+  render() {
     return (
       <div className="Tabs">
         <div className="Tab" style={styles.tab}>
@@ -50,21 +44,27 @@ var Tabs = React.createClass({
           Panel
         </div>
       </div>
-    );
+    )
   }
-});
+}
 
-var App = React.createClass({
-  render () {
+class App extends React.Component {
+  render() {
     return (
       <div>
         <h1>Countries</h1>
         <Tabs data={this.props.countries}/>
       </div>
-    );
+    )
   }
-});
+}
 
-React.render(<App countries={DATA}/>, document.getElementById('app'), function () {
-  require('./tests').run(this);
-});
+const DATA = [
+  { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
+  { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
+  { id: 3, name: 'Russia', description: 'World Cup 2018!' },
+]
+
+render(<App countries={DATA}/>, document.getElementById('app'), function () {
+  require('./tests')(this)
+})

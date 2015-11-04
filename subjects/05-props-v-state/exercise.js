@@ -16,47 +16,53 @@
 // props down to `Tabs` (since they should now be stateless)
 ////////////////////////////////////////////////////////////////////////////////
 
-var React = require('react');
-var styles = require('./lib/styles');
-var data = require('./lib/data');
+import React from 'react'
+import { render } from 'react-dom'
+import styles from './lib/styles'
+import data from './lib/data'
 
-var Tabs = React.createClass({
+class Tabs extends React.Component {
 
-  propTypes: {
+  static propTypes = {
     data: React.PropTypes.array.isRequired
-  },
+  }
 
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props)
+    this.state = {
       activeTabIndex: 0
-    };
-  },
+    }
+  }
 
   handleTabClick(activeTabIndex) {
-    this.setState({ activeTabIndex });
-  },
+    this.setState({ activeTabIndex })
+  }
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
-      var style = this.state.activeTabIndex === index ?
-        styles.activeTab : styles.tab;
-      var clickHandler = this.handleTabClick.bind(this, index);
+      const style = this.state.activeTabIndex === index ?
+        styles.activeTab : styles.tab
       return (
-        <div className="Tab" key={tab.name} style={style} onClick={clickHandler}>
+        <div
+          className="Tab"
+          key={tab.name}
+          style={style}
+          onClick={() => this.handleTabClick(index)}
+        >
           {tab.name}
         </div>
-      );
-    });
-  },
+      )
+    })
+  }
 
   renderPanel() {
-    var tab = this.props.data[this.state.activeTabIndex];
+    const tab = this.props.data[this.state.activeTabIndex]
     return (
       <div>
         <p>{tab.description}</p>
       </div>
-    );
-  },
+    )
+  }
 
   render() {
     return (
@@ -68,27 +74,24 @@ var Tabs = React.createClass({
           {this.renderPanel()}
         </div>
       </div>
-    );
+    )
   }
 
-});
+}
 
-var App = React.createClass({
+class App extends React.Component {
 
   render() {
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs
-          ref="tabs"
-          data={this.props.tabs}
-        />
+        <Tabs ref="tabs" data={this.props.tabs} />
       </div>
-    );
+    )
   }
 
-});
+}
 
-React.render(<App tabs={data}/>, document.getElementById('app'), function () {
-  require('./tests').run(this);
-});
+render(<App tabs={data}/>, document.getElementById('app'), function () {
+  require('./tests')(this)
+})

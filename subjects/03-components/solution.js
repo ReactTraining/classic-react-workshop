@@ -1,12 +1,13 @@
-var React = require('react');
+import React from 'react'
+import { render } from 'react-dom'
 
-var DATA = [
+const DATA = [
   { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
   { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
   { id: 3, name: 'Russia', description: 'World Cup 2018!' },
-];
+]
 
-var styles = {};
+const styles = {}
 
 styles.tab = {
   display: 'inline-block',
@@ -15,42 +16,49 @@ styles.tab = {
   borderBottom: '4px solid',
   borderBottomColor: '#ccc',
   cursor: 'pointer'
-};
+}
 
 styles.activeTab = {
   ...styles.tab,
   borderBottomColor: '#000'
-};
+}
 
 styles.panel = {
   padding: 10
-};
+}
 
-var Tabs = React.createClass({
-  propTypes: {
+class Tabs extends React.Component {
+
+  static propTypes = {
     data: React.PropTypes.array
-  },
+  }
 
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props)
+    this.state = {
       activeTabIndex: 0
-    };
-  },
+    }
+  }
 
   handleClick(clickedIndex, event) {
-    event.stopPropagation();
+    event.stopPropagation()
     this.setState({
       activeTabIndex: clickedIndex
-    });
-  },
+    })
+  }
 
   render() {
-    var activeTab = this.props.data[this.state.activeTabIndex];
+    const activeTab = this.props.data[this.state.activeTabIndex]
 
     return (
       <div className="Tabs">
         {this.props.data.map((d, i) => (
-          <div key={d.id} className="Tab" onClick={this.handleClick.bind(this, i)} style={i == this.state.activeTabIndex ? styles.activeTab : styles.tab}>
+          <div
+            key={d.id}
+            className="Tab"
+            onClick={() => this.handleClick(i)}
+            style={i === this.state.activeTabIndex ? styles.activeTab : styles.tab}
+          >
             {d.name}
           </div>
         ))}
@@ -58,21 +66,21 @@ var Tabs = React.createClass({
           {activeTab.description}
         </div>
       </div>
-    );
+    )
   }
-});
+}
 
-var App = React.createClass({
-  render () {
+class App extends React.Component {
+  render() {
     return (
       <div>
         <h1>Countries</h1>
         <Tabs data={this.props.countries}/>
       </div>
-    );
+    )
   }
-});
+}
 
-React.render(<App countries={DATA}/>, document.getElementById('app'), function () {
-  require('./tests').run(this);
-});
+render(<App countries={DATA}/>, document.getElementById('app'), () => {
+  require('./tests')(this)
+})

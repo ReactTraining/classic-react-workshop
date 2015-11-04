@@ -5,7 +5,6 @@
 // - render a <ul> with each of DATA.items as an <li>
 // - now only render an <li> for mexican food (hint: use DATA.items.filter(...))
 // - sort the items in alphabetical order by name (hint: use sort-by https://github.com/staygrimm/sort-by#example)
-// - try this again without JSX
 //
 // Got extra time?
 // - add a select dropdown to make filtering on `type` dynamic
@@ -14,20 +13,21 @@
 //   and then you'll need to call it in the event handlers of the form controls
 ////////////////////////////////////////////////////////////////////////////////
 
-var React = require('react');
-var sortBy = require('sort-by');
+import React from 'react'
+import { render } from 'react-dom'
+import sortBy from 'sort-by'
 
-var DATA = {
+const DATA = {
   title: 'Menu',
   items: [
     { id: 1, name: 'tacos', type: 'mexican' },
     { id: 2, name: 'burrito', type: 'mexican' },
     { id: 3, name: 'tostada', type: 'mexican' },
-    { id: 4, name: 'hush puppies', type: 'southern' }
+    { id: 4, name: 'hush puppies', type: 'southern' },
   ]
 };
 
-function render() {
+function Menu() {
   return (
     <div>
       Open the console, you have failing tests
@@ -35,6 +35,7 @@ function render() {
   );
 }
 
-React.render(render(), document.getElementById('app'), function () {
-  require('./tests').run(this);
-});
+React.render(<Menu/>, document.getElementById('app'), function () {
+  require('./tests').run(this)
+})
+

@@ -1,110 +1,99 @@
-var React = require('react');
+import React from 'react'
+import { render } from 'react-dom'
 
 ////////////////////////////////////////////////////////////////////////////////
 // React components are really just functions that take attributes
-//var element = React.DOM.input({type: 'text'});
-//React.render(element, document.getElementById('app'));
+//const element = React.DOM.input({type: 'text'})
+//render(element, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // You can also pass in children as extra arguments
-//var element = React.DOM.select({value: '2'},
+//const element = React.DOM.select({value: '2'},
                                 //React.DOM.option({value: '1'}, 'one'),
                                 //React.DOM.option({value: '2'}, 'two'),
                                 //React.DOM.option({value: '3'}, 'three')
-                              //);
-//React.render(element, document.getElementById('app'));
+                              //)
+//render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // And build up more UI
-//var { div, select, option, h1 } = React.DOM;
-//var element = div({},
-                  //h1({className: 'hot'}, "These are just functions"),
+//const { div, select, option, h1 } = React.DOM
+//const element = div({},
+                  //h1({className: 'hot'}, 'These are just functions'),
                   //select({value: '2'},
                     //option({value: '1'}, 'one'),
                     //option({value: '2'}, 'two'),
                     //option({value: '3'}, 'three')
                   //)
-                 //);
-//React.render(element, document.getElementById('app'));
+                 //)
+//render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // lets look at one of them in the console
 // don't get upset, `className` is a DOM thing
-//console.log(element);
+//console.log(element)
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // can pass in functions as event handlers
-//var element = React.DOM.button({onClick: function() { alert('clicked!'); }}, 'alert!');
-//React.render(element, document.getElementById('app'));
+//const element = React.DOM.button({onClick: function() { alert('clicked!') }}, 'alert!')
+//render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // probably more like this
 //function handleClick() {
-  //alert('clicked some more!');
-//};
-//var element = React.DOM.button({onClick: handleClick}, 'alert!');
-//React.render(element, document.getElementById('app'));
+  //alert('clicked some more!')
+//}
+//const element = React.DOM.button({onClick: handleClick}, 'alert!')
+//render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // you get an event, as you'd expect
 //function handleClick() {
-  //console.log(event.button);
-//};
-//var element = React.DOM.button({ onMouseDown: handleClick }, 'log button');
-//React.render(element, document.getElementById('app'));
+  //console.log(event.button)
+//}
+//const element = React.DOM.button({ onMouseDown: handleClick }, 'log button')
+//render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // JSX is simply different syntax for calling functions
-//var element = <div className="App">
+//const element = <div className="App">
                 //<h1 className="Title">Hello!</h1>
                 //<p>Pork Carnitas street tacos are the best</p>
-              //</div>;
+              //</div>
 
-//var { div, h1, p } = React.DOM;
-//var element = div({ className: "App" },
+//const { div, h1, p } = React.DOM
+//const element = div({ className: "App" },
                 //h1({ className: "Title" }, 'Hello!'),
                 //p({}, 'Pork Carnitas street tacos are the best')
-              //);
+              //)
 
-//React.render(element, document.getElementById('app'));
-
-////////////////////////////////////////////////////////////////////////////////
-// Its not a special "template" language where you have to "register" things
-// to be available, its Just JavaScript™, so you use JavaScript scope, no
-// template globals :D
-//var divide = React.DOM.div;
-//React.render(<divide>lol</divide>, document.getElementById('app'));
-
+//render(element, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // no special template syntax/helpers, just use Array methods on lists
-//var tacos = [
+//const tacos = [
   //{ name: 'Carnitas' },
   //{ name: 'Pollo' },
   //{ name: 'Asada' }
-//];
-
-//React.render((
-  //<ul>
-    //{tacos.map(taco => (
-      //<li>{taco.name}</li>
-    //))}
-  //</ul>
-//), document.getElementById('app'));
+//]
+//const items = tacos.map(function(taco) {
+  //return <li>{taco.name}</li>
+//})
+//render(<ul>{items}</ul>), document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // lets say we want to generate this HTML
 //<select name="month">
- //<option>(01) January</option>
- //<option>(02) February</option>
- //...
+  //<option>(01) January</option>
+  //<option>(02) February</option>
+  //...
 //</select>
 
 // in angular we'd have something like this:
@@ -120,61 +109,61 @@ var React = require('react');
 // - auto-injected `$index`
 // - that `|` is called a filter so you can google to learn...
 // - ... how to create a filter
-var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-  'August', 'September', 'October', 'November', 'December'];
 
-function padMonth(index) {
-  var realIndex = index + 1;
-  return realIndex > 9 ? ''+realIndex : '0'+realIndex;
-}
 
-//var monthSelect = (
+//const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+//function padMonth(index) {
+  //const realIndex = index + 1
+  //return realIndex > 9 ? ''+realIndex : '0'+realIndex
+//}
+
+//render((
   //<select>
     //{months.map((month, index) => (
       //<option>({padMonth(index)}) {month}</option>
     //))}
   //</select>
-//);
+//), document.getElementById('app'))
 
 // Things you have to know
 // - JavaScript
 // - JSX ... or not
 
-//var { select, option } = React.DOM;
-//var monthSelect = select({}, months.map((month, index) => {
-  //return option({}, `(${padMonth(index)}) ${month}`);
-//}));
-//React.render(monthSelect, document.getElementById('app'));
+//const { select, option } = React.DOM
+//render(select({}, months.map((month, index) => (
+  //option({}, `(${padMonth(index)}) ${month}`)
+//))), document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Because React is generally just a bunch of functions, you don't have to ask
 // React how to solve a problem in your app, you can use everything you know
 // about programming already.
-function monthOption(month, index) {
-  return <option>({padMonth(index)}) {month})</option>;
-}
+//function monthOption(month, index) {
+  //return <option>({padMonth(index)}) {month})</option>
+//}
 
-function monthSelect() {
-  return <select>{months.map(monthOption)}</select>;
-}
+//function MonthSelect() {
+  //return <select>{months.map(monthOption)}</select>
+//}
 
-React.render(monthSelect(), document.getElementById('app'));
+//render(<MonthSelect/>, document.getElementById('app'))
 
 
 //////////////////////////////////////////////////////////////////////////////////
 // Lets make a thing
-//var isOpen = false;
+//const isOpen = false
 
 //function handleClick() {
-  //isOpen = !isOpen;
-  //updateThePage();
+  //isOpen = !isOpen
+  //updateThePage()
 //}
 
-//function render() {
-  //var summaryClassName = 'ContentToggle__Summary';
+//function App() {
+  //const summaryClassName = 'ContentToggle__Summary'
   //if (isOpen)
-    //summaryClassName += ' ContentToggle__Summary--is-open';
+    //summaryClassName += ' ContentToggle__Summary--is-open'
 
   //return (
     //<div className="ContentToggle">
@@ -195,14 +184,14 @@ React.render(monthSelect(), document.getElementById('app'));
         //</div>
       //)}
     //</div>
-  //);
+  //)
 //}
 
 //function updateThePage() {
-  //React.render(render(), document.getElementById('app'));
+  //render(<App/>, document.getElementById('app'))
 //}
 
-//updateThePage();
+//updateThePage()
 
 
 ////////////////////////////////////////////////////////////////////////////////
