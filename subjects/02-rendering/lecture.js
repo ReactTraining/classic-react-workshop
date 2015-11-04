@@ -153,7 +153,7 @@ import { render } from 'react-dom'
 
 //////////////////////////////////////////////////////////////////////////////////
 // Lets make a thing
-//const isOpen = false
+//let isOpen = false
 
 //function handleClick() {
   //isOpen = !isOpen
@@ -161,7 +161,7 @@ import { render } from 'react-dom'
 //}
 
 //function App() {
-  //const summaryClassName = 'ContentToggle__Summary'
+  //let summaryClassName = 'ContentToggle__Summary'
   //if (isOpen)
     //summaryClassName += ' ContentToggle__Summary--is-open'
 

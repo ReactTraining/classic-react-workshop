@@ -9,6 +9,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 import React from 'react'
+import { render } from 'react-dom'
 
 const styles = {}
 
@@ -65,6 +66,6 @@ const DATA = [
   { id: 3, name: 'Russia', description: 'World Cup 2018!' },
 ]
 
-render(<App countries={DATA}/>, document.getElementById('app'), function () {
-  require('./tests')(this)
+render(<App countries={DATA}/>, document.getElementById('app'), function (component) {
+  require('./tests')()
 })

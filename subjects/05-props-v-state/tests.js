@@ -1,5 +1,5 @@
 import React from 'react'
-import { Simulate } from 'react-addons-testutils'
+import { Simulate } from 'react-addons-test-utils'
 import assert from '../assert'
 
 export default function run(component) {

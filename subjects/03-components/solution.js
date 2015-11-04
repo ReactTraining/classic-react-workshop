@@ -40,8 +40,7 @@ class Tabs extends React.Component {
     }
   }
 
-  handleClick(clickedIndex, event) {
-    event.stopPropagation()
+  handleClick(clickedIndex) {
     this.setState({
       activeTabIndex: clickedIndex
     })
@@ -82,5 +81,5 @@ class App extends React.Component {
 }
 
 render(<App countries={DATA}/>, document.getElementById('app'), () => {
-  require('./tests')(this)
+  require('./tests')()
 })

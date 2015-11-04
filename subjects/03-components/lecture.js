@@ -1,11 +1,12 @@
 import React from 'react'
+import { render } from 'react-dom'
 
 ////////////////////////////////////////////////////////////////////////////////
 // Let's encapsulate state in an object and call it what it really is. Then, add
 // a setState function that we can use to update state and automatically update
 // the page any time the state changes.
 
-const isOpen = false
+let isOpen = false
 
 function handleClick() {
   isOpen = !isOpen
@@ -13,7 +14,8 @@ function handleClick() {
 }
 
 function App() {
-  const summaryClassName = 'ContentToggle__Summary'
+  let summaryClassName = 'ContentToggle__Summary'
+
   if (isOpen)
     summaryClassName += ' ContentToggle__Summary--is-open'
 

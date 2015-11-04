@@ -1,4 +1,4 @@
-var keyMirror = require('react/lib/keyMirror');
+import keyMirror from 'key-mirror'
 
 module.exports = {
   //API: 'http://localhost:3000',
