@@ -39,6 +39,7 @@
     "object-assign": "^2.0.0",
     "react": "^0.14.2",
     "react-addons-test-utils": "^0.14.2",
+    "react-dom": "^0.14.2",
     "react-motion": "^0.2.2",
     "react-router": "1.0.0-beta4",
     "react-tween-state": "0.0.5",
