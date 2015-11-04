@@ -67,7 +67,9 @@ function makeIndex() {
 
   var markup = ReactDOMServer.renderToStaticMarkup(
     React.DOM.html({},
-      React.DOM.link({ rel: 'stylesheet', href: '/shared.css' }),
+      React.DOM.head({},
+        React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
+      ),
       React.DOM.body({ id: 'index' },
         React.DOM.ul({}, list)
       )
@@ -86,7 +88,9 @@ function makeIndex() {
 function makeMarkup(mainFile) {
   return ReactDOMServer.renderToStaticMarkup(
     React.DOM.html({},
-      React.DOM.link({ rel: 'stylesheet', href: '/shared.css' }),
+      React.DOM.head({},
+        React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
+      ),
       React.DOM.body({},
         React.DOM.div({ id: 'app' }),
         React.DOM.script({ src: '/__build__/shared.js' }),
