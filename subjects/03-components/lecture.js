@@ -118,7 +118,7 @@ updateThePage()
 //
 //const USERS = [
 //  { name: 'Ryan Florence', email: 'rpflorence@gmail.com' },
-//  { name: 'Michael Jackson', email: '@gmail.com' }
+//  { name: 'Michael Jackson', email: 'mjijackson@gmail.com' }
 //]
 //
 //render(<App users={USERS} />, document.getElementById('app'))
