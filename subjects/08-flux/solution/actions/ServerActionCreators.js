@@ -1,28 +1,24 @@
-var ActionTypes = require('../Constants').ActionTypes;
-var AppDispatcher = require('../AppDispatcher');
+import { ActionTypes } from '../Constants'
+import { dispatchServerAction } from '../AppDispatcher'
 
-var ServerActionCreators = {
-  loadedContacts: function (contacts) {
-    AppDispatcher.handleServerAction({
-      type: ActionTypes.CONTACTS_LOADED,
-      contacts: contacts
-    });
-  },
+export function contactsWereLoaded(contacts) {
+  dispatchServerAction({
+    type: ActionTypes.CONTACTS_WERE_LOADED,
+    contacts
+  })
+}
 
-  deletedContact: function (contact) {
-    AppDispatcher.handleServerAction({
-      type: ActionTypes.CONTACT_WAS_DELETED,
-      contact: contact
-    });
-  },
+export function contactWasDeleted(contact) {
+  dispatchServerAction({
+    type: ActionTypes.CONTACT_WAS_DELETED,
+    contact
+  })
+}
 
-  errorDeletingContact: function (error, contact) {
-    AppDispatcher.handleServerAction({
-      type: ActionTypes.ERROR_DELETING_CONTACT,
-      error: error,
-      contact: contact
-    });
-  }
-};
-
-module.exports = ServerActionCreators;
+export function errorDeletingContact(error, contact) {
+  dispatchServerAction({
+    type: ActionTypes.ERROR_DELETING_CONTACT,
+    error,
+    contact
+  })
+}

@@ -1,26 +1,26 @@
-var xhr = require('../lib/xhr');
-var { API, ActionTypes } = require('../Constants');
-var ServerActionCreators = require('../actions/ServerActionCreators');
+import { getJSON, deleteJSON } from '../lib/xhr'
+import { contactsWereLoaded, contactWasDeleted, errorDeletingContact } from '../actions/ServerActionCreators'
 
-var APIUtils = {
-  loadContacts: function () {
-    xhr.getJSON(`${API}/contacts`, function (err, res) {
-      ServerActionCreators.loadedContacts(res.contacts);
-    });
-  },
+const API = 'http://addressbook-api.herokuapp.com'
 
-  deleteContact: function (contact) {
-    xhr.deleteJSON(`${API}/contacts/${contact.id}`, function (err, res) {
-      // Fake server latency ... BWHAHAHAHAHAHAH!
-      setTimeout(function () {
-        if (err) {
-          ServerActionCreators.errorDeletingContact(err, contact);
-        } else {
-          ServerActionCreators.deletedContact(contact);
-        }
-      }, 5000);
-    });
-  }
-};
+export function loadContacts() {
+  getJSON(`${API}/contacts`, function (error, res) {
+    contactsWereLoaded(res.contacts)
+  })
+}
 
-module.exports = APIUtils;
+export function deleteContact(contact) {
+  deleteJSON(`${API}/contacts/${contact.id}`, function (error, res) {
+    fakeNetworkLatency(function () {
+      if (error) {
+        errorDeletingContact(error, contact)
+      } else {
+        contactWasDeleted(contact)
+      }
+    })
+  })
+}
+
+function fakeNetworkLatency(callback) {
+  setTimeout(callback, Math.random() * 5000)
+}

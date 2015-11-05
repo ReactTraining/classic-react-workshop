@@ -1,22 +1,20 @@
-var ActionTypes = require('../Constants').ActionTypes;
-var AppDispatcher = require('../AppDispatcher');
-var APIUtils = require('../utils/APIUtils');
+import { ActionTypes } from '../Constants'
+import { dispatchViewAction } from '../AppDispatcher'
+import * as APIUtils from '../utils/APIUtils'
 
-var ViewActionCreators = {
-  loadContacts: function () {
-    AppDispatcher.handleViewAction({
-      type: ActionTypes.LOAD_CONTACTS
-    });
-    APIUtils.loadContacts();
-  },
+export function loadContacts() {
+  dispatchViewAction({
+    type: ActionTypes.LOAD_CONTACTS
+  })
 
-  deleteContact: function (contact) {
-    AppDispatcher.handleViewAction({
-      type: ActionTypes.DELETE_CONTACT,
-      contact: contact
-    });
-    APIUtils.deleteContact(contact);
-  }
-};
+  APIUtils.loadContacts()
+}
 
-module.exports = ViewActionCreators;
+export function deleteContact(contact) {
+  dispatchViewAction({
+    type: ActionTypes.DELETE_CONTACT,
+    contact
+  })
+
+  APIUtils.deleteContact(contact)
+}

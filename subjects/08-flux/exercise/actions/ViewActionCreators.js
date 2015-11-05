@@ -1,6 +1,6 @@
 import { ActionTypes } from '../Constants'
 import { dispatchViewAction } from '../AppDispatcher'
-import APIUtils from '../utils/APIUtils'
+import * as APIUtils from '../utils/APIUtils'
 
 export function loadContacts() {
   dispatchViewAction({

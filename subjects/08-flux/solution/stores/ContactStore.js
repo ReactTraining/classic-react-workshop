@@ -8,6 +8,8 @@ const events = new EventEmitter
 
 const state = {
   contacts: [],
+  deletingContacts: [],
+  errors: {},
   loaded: false
 }
 
@@ -35,6 +37,29 @@ AppDispatcher.register(function (payload) {
     setState({
       loaded: true,
       contacts: action.contacts
+    })
+  }
+
+  if (action.type === ActionTypes.DELETE_CONTACT) {
+    setState({
+      deletingContacts: state.deletingContacts.concat([ action.contact ])
+    })
+  }
+
+  if (action.type === ActionTypes.ERROR_DELETING_CONTACT) {
+    const { errors } = state
+    errors[action.contact.id] = action.error
+
+    setState({
+      deletingContacts: state.deletingContacts.filter(c => c.id !== action.contact.id),
+      errors
+    })
+  }
+
+  if (action.type === ActionTypes.CONTACT_WAS_DELETED) {
+    setState({
+      contacts: state.contacts.filter(c => c.id !== action.contact.id),
+      deletingContacts: state.deletingContacts.filter(c => c.id !== action.contact.id)
     })
   }
 })
