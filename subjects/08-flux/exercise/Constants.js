@@ -2,11 +2,9 @@ import keyMirror from 'key-mirror'
 
 export default {
 
-  API: 'http://addressbook-api.herokuapp.com',
-
   ActionTypes: keyMirror({
-    CONTACTS_LOADED: null,
-    LOAD_CONTACTS: null
+    LOAD_CONTACTS: null,
+    CONTACTS_WERE_LOADED: null
   }),
 
   PayloadSources: keyMirror({

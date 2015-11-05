@@ -1,8 +1,8 @@
 import React from 'react'
-import { getState, addChangeListener } from '../stores/ContactsStore'
+import { getState, addChangeListener } from '../stores/ContactStore'
 import { loadContacts } from '../actions/ViewActionCreators'
 
-const App = React.createClass({
+const ContactList = React.createClass({
   getInitialState() {
     return getState()
   },
@@ -33,4 +33,4 @@ const App = React.createClass({
   }
 })
 
-export default App
+export default ContactList

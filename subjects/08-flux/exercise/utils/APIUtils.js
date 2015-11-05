@@ -1,19 +1,16 @@
-var xhr = require('../lib/xhr');
-var { API, ActionTypes } = require('../Constants');
-var ServerActionCreators = require('../actions/ServerActionCreators');
+import { getJSON, deleteJSON } from '../lib/xhr'
+import { contactsWereLoaded, contactWasDeleted } from '../actions/ServerActionCreators'
 
-var APIUtils = {
-  loadContacts: function () {
-    xhr.getJSON(`${API}/contacts`, function (err, res) {
-      ServerActionCreators.loadedContacts(res.contacts);
-    });
-  },
+const API = 'http://addressbook-api.herokuapp.com'
 
-  deleteContact: function (contact) {
-    xhr.deleteJSON(`${API}/contacts/${contact.id}`, function (err, res) {
-      ServerActionCreators.deletedContact(contact);
-    });
-  }
-};
+export function loadContacts() {
+  getJSON(`${API}/contacts`, function (error, res) {
+    contactsWereLoaded(res.contacts)
+  })
+}
 
-module.exports = APIUtils;
+export function deleteContact(contact) {
+  deleteJSON(`${API}/contacts/${contact.id}`, function (error, res) {
+    contactWasDeleted(contact)
+  })
+}

@@ -1,9 +1,9 @@
 import { ActionTypes } from '../Constants'
 import { dispatchServerAction } from '../AppDispatcher'
 
-export function loadedContacts(contacts) {
+export function contactsWereLoaded(contacts) {
   dispatchServerAction({
-    type: ActionTypes.CONTACTS_LOADED,
-    contacts: contacts
+    type: ActionTypes.CONTACTS_WERE_LOADED,
+    contacts
   })
 }
