@@ -35,7 +35,6 @@ function Menu() {
   );
 }
 
-React.render(<Menu/>, document.getElementById('app'), function () {
-  require('./tests').run(this)
+render(<Menu/>, document.getElementById('app'), function () {
+  require('./tests')()
 })
-
