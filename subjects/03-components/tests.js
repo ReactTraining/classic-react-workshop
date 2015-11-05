@@ -3,11 +3,11 @@ import { findDOMNode } from 'react-dom'
 import { Simulate } from 'react-addons-test-utils'
 import assert from '../assert'
 
-export default function run() {
+export function run() {
   const node = document.getElementById('app')
   const html = node.innerHTML
   const tabs = node.querySelectorAll('.Tab')
-  const panels = node.querySelector('.TabPanels')
+  const panel = node.querySelector('.TabPanel')
 
   const borderFixture = document.createElement('div')
   borderFixture.setAttribute('style', 'border-bottom-color: #000')
@@ -25,10 +25,10 @@ export default function run() {
     'second tab is inactive'
   )
 
-  console.log('after clicking the third tab...')
-  Simulate.click(tabs[2])
+  console.log('after clicking the second tab...')
+  Simulate.click(tabs[1])
   assert(
-    tabs[2].style.borderBottomColor === borderFixture.style.borderBottomColor,
+    tabs[1].style.borderBottomColor === borderFixture.style.borderBottomColor,
     'third tab is active'
   )
   assert(
@@ -36,8 +36,8 @@ export default function run() {
     'first tab is inactive'
   )
   assert(
-    panels.textContent.trim() == 'World Cup 2018!',
-    'you have the wrong content in the panel'
+    panel.textContent.trim() == 'Sunshine, beaches, and Carnival',
+    'panel has the correct content'
   )
   Simulate.click(tabs[0])
 }

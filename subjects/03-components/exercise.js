@@ -31,25 +31,25 @@ styles.panel = {
   padding: 10
 }
 
-class Tabs extends React.Component {
+const Tabs = React.createClass({
   render() {
     return (
       <div className="Tabs">
-        <div className="Tab" style={styles.tab}>
-          Inactive
-        </div>
         <div className="Tab" style={styles.activeTab}>
           Active
         </div>
-        <div className="TabPanels" style={styles.panel}>
+        <div className="Tab" style={styles.tab}>
+          Inactive
+        </div>
+        <div className="TabPanel" style={styles.panel}>
           Panel
         </div>
       </div>
     )
   }
-}
+})
 
-class App extends React.Component {
+const App = React.createClass({
   render() {
     return (
       <div>
@@ -58,14 +58,14 @@ class App extends React.Component {
       </div>
     )
   }
-}
+})
 
 const DATA = [
   { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
   { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
-  { id: 3, name: 'Russia', description: 'World Cup 2018!' },
+  { id: 3, name: 'Russia', description: 'World Cup 2018!' }
 ]
 
-render(<App countries={DATA}/>, document.getElementById('app'), function (component) {
-  require('./tests')()
+render(<App countries={DATA} />, document.getElementById('app'), function (component) {
+  require('./tests').run()
 })

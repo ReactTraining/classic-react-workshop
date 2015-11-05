@@ -1,12 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-const DATA = [
-  { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
-  { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
-  { id: 3, name: 'Russia', description: 'World Cup 2018!' },
-]
-
 const styles = {}
 
 styles.tab = {
@@ -27,24 +21,22 @@ styles.panel = {
   padding: 10
 }
 
-class Tabs extends React.Component {
-
-  static propTypes = {
+const Tabs = React.createClass({
+  propTypes: {
     data: React.PropTypes.array
-  }
+  },
 
-  constructor(props) {
-    super(props)
-    this.state = {
+  getInitialState(props) {
+    return {
       activeTabIndex: 0
     }
-  }
+  },
 
   handleClick(clickedIndex) {
     this.setState({
       activeTabIndex: clickedIndex
     })
-  }
+  },
 
   render() {
     const activeTab = this.props.data[this.state.activeTabIndex]
@@ -61,15 +53,15 @@ class Tabs extends React.Component {
             {d.name}
           </div>
         ))}
-        <div className="TabPanels" style={styles.panel}>
+        <div className="TabPanel" style={styles.panel}>
           {activeTab.description}
         </div>
       </div>
     )
   }
-}
+})
 
-class App extends React.Component {
+const App = React.createClass({
   render() {
     return (
       <div>
@@ -78,8 +70,14 @@ class App extends React.Component {
       </div>
     )
   }
-}
+})
 
-render(<App countries={DATA}/>, document.getElementById('app'), () => {
-  require('./tests')()
+const DATA = [
+  { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
+  { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
+  { id: 3, name: 'Russia', description: 'World Cup 2018!' }
+]
+
+render(<App countries={DATA} />, document.getElementById('app'), () => {
+  require('./tests').run()
 })
