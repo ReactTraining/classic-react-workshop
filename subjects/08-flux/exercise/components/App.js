@@ -1,32 +1,36 @@
-var React = require('react');
-var ContactsStore = require('../stores/ContactsStore');
-var ViewActionCreators = require('../actions/ViewActionCreators');
+import React from 'react'
+import { getState, addChangeListener } from '../stores/ContactsStore'
+import { loadContacts } from '../actions/ViewActionCreators'
 
-var App = React.createClass({
-  getInitialState: function () {
-    return ContactsStore.getState();
+const App = React.createClass({
+  getInitialState() {
+    return getState()
   },
 
-  componentDidMount: function () {
-    ViewActionCreators.loadContacts();
+  componentDidMount() {
+    loadContacts()
   },
 
-  renderContacts: function () {
-    return this.state.contacts.map((contact) => {
-      return <li key={contact.first+contact.last}>{contact.first} {contact.last}</li>;
-    });
-  },
+  render() {
+    const { contacts, loaded } = this.state
 
-  render: function () {
-    if (!this.state.loaded)
-      return <div>Loading...</div>;
+    if (!loaded)
+      return <div>Loading...</div>
+
+    const items = contacts.map(contact => {
+      return (
+        <li key={contact.id}>
+          <img src={contact.avatar} width="40" /> {contact.first} {contact.last}
+        </li>
+      )
+    })
 
     return (
       <div>
-        <ul>{this.renderContacts()}</ul>
+        <ul>{items}</ul>
       </div>
-    );
+    )
   }
-});
+})
 
-module.exports = App;
+export default App

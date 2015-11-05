@@ -1,5 +1,6 @@
-var React = require('react');
-var App = require('./exercise/components/App');
+import React from 'react'
+import { render } from 'react-dom'
+import App from './exercise/components/App'
 
 /*
 The goal of this exercise is to add a button beside each contact in the list
@@ -19,4 +20,4 @@ the following steps:
   the corresponding contact, and fires a change event
 */
 
-React.render(<App/>, document.getElementById('app'));
+render(<App />, document.getElementById('app'))

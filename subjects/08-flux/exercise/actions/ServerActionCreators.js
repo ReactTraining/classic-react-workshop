@@ -1,13 +1,9 @@
-var ActionTypes = require('../Constants').ActionTypes;
-var AppDispatcher = require('../AppDispatcher');
+import { ActionTypes } from '../Constants'
+import { dispatchServerAction } from '../AppDispatcher'
 
-var ServerActionCreators = {
-  loadedContacts: function (contacts) {
-    AppDispatcher.handleServerAction({
-      type: ActionTypes.CONTACTS_LOADED,
-      contacts: contacts
-    });
-  }
-};
-
-module.exports = ServerActionCreators;
+export function loadedContacts(contacts) {
+  dispatchServerAction({
+    type: ActionTypes.CONTACTS_LOADED,
+    contacts: contacts
+  })
+}
