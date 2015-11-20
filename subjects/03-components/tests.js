@@ -1,10 +1,10 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Simulate } from 'react-addons-test-utils'
 import assert from '../assert'
 
-export function run() {
-  const node = document.getElementById('app')
+export function run(component) {
+  const node = ReactDOM.findDOMNode(component)
   const html = node.innerHTML
   const tabs = node.querySelectorAll('.Tab')
   const panel = node.querySelector('.TabPanel')
