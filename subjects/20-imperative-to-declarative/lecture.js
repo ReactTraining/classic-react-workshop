@@ -302,10 +302,10 @@ let App = React.createClass({
     //return (
       //<div>
         //<h1>What does it mean to be declarative?</h1>
-        //<Theremin type="sine"/>
-        //<Theremin type="triangle"/>
-        //<Theremin type="square"/>
-        //<Theremin type="sawtooth"/>
+        //<Theremin type="sine" />
+        //<Theremin type="triangle" />
+        //<Theremin type="square" />
+        //<Theremin type="sawtooth" />
       //</div>
     //)
   //}
@@ -321,5 +321,5 @@ let App = React.createClass({
 // componentDidMount and componenDidUpdate, you even make the imperative
 // work predictable because it's based on a snapshot of state in time also.
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById('app'))
 

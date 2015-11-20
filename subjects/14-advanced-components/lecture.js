@@ -12,7 +12,7 @@ var Modal = React.createClass({
   },
 
   renderPortal () {
-    React.render(<ModalPortal {...this.props} context={this.context}/>, this.portalNode);
+    React.render(<ModalPortal {...this.props} context={this.context} />, this.portalNode);
   },
 
   render () {
@@ -98,7 +98,7 @@ var ModalPortal = React.createClass({
 
 var ModalCloseButton = React.createClass({
   render () {
-    return <button {...this.props}/>;
+    return <button {...this.props} />;
   }
 });
 
@@ -125,14 +125,14 @@ var App = React.createClass({
     return (
       <div>
         <h1>Unbreakable</h1>
-        <button onClick={this.openTheModal}>remove from favorites</button><br/><br/>
+        <button onClick={this.openTheModal}>remove from favorites</button><br /><br />
 
         <Modal isOpen={this.state.confirmingRemove} onCloseRequest={this.handleModalClose} >
           <ModalCloseButton>close</ModalCloseButton>
           <p>Are you sure?</p>
         </Modal>
 
-        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg"/>
+        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg" />
         <p>
           Your bones don’t break, mine do. That’s clear. Your cells react to
           bacteria and viruses differently than mine. You don’t get sick, I do.
@@ -146,4 +146,4 @@ var App = React.createClass({
   }
 });
 
-React.render(<App/>, document.getElementById('app'));
+React.render(<App />, document.getElementById('app'));

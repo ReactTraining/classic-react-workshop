@@ -1,3 +1,20 @@
+////////////////////////////////////////////////////////////////////////////////
+// Exercise:
+//
+// - Add some code to App's render method that renders the child route
+//   (hint: use this.props.children)
+// - Add a new child route beneath App at "/profile/:userID" that shows the
+//   user with the given ID (hint: use the Profile component)
+// - Add links to the Home view that link to the profile page for each user
+//
+// Got extra time?
+//
+// - Add a link to the profile page that links back to Home so users don't have
+//   to use the Back button to navigate
+// - Add a route that renders at urls the app doesn't understand (use "*" as the path)
+// - Add a <Redirect> from "/users/:userID" to "/profile/:userID"
+//   (https://rackt.github.io/react-router/tags/v1.0.0-beta2.html#Redirect)
+////////////////////////////////////////////////////////////////////////////////
 var React = require('react');
 var { Router, Route, Link, Redirect } = require('react-router');
 var Gravatar = require('./components/Gravatar');
@@ -53,7 +70,7 @@ var Profile = React.createClass({
 
     return (
       <div className="profile">
-        <Gravatar email={user.email}/> {user.name}
+        <Gravatar email={user.email} /> {user.name}
       </div>
     );
   }
@@ -68,11 +85,11 @@ var NoMatch = React.createClass({
 React.render((
   <Router>
     <Route component={App}>
-      <Route path="/" component={Home}/>
-      <Route path="/profile/:userID" component={Profile}/>
+      <Route path="/" component={Home} />
+      <Route path="/profile/:userID" component={Profile} />
     </Route>
-    <Redirect from="/users/:userID" to="/profile/:userID"/>
-    <Route path="*" component={NoMatch}/>
+    <Redirect from="/users/:userID" to="/profile/:userID" />
+    <Route path="*" component={NoMatch} />
   </Router>
 ), document.getElementById('app'), function () {
   require('./tests').run(this);

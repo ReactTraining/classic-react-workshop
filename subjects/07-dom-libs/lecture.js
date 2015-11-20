@@ -32,7 +32,7 @@ require('bootstrap-webpack');
   //}
 //});
 
-//React.render(<App/>, document.getElementById('app'));
+//React.render(<App />, document.getElementById('app'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ require('bootstrap-webpack');
   //}
 //});
 
-//React.render(<App/>, document.getElementById('app'));
+//React.render(<App />, document.getElementById('app'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // And make it even nicer
@@ -241,5 +241,5 @@ var App = React.createClass({
   }
 });
 
-React.render(<App/>, document.getElementById('app'));
+React.render(<App />, document.getElementById('app'));
 

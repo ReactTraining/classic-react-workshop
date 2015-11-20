@@ -40,7 +40,7 @@ var App = React.createClass({
           <li><a href="#/about" className={ChildComponent === About ? 'active' : ''}>About</a></li>
           <li><a href="#/inbox" className={ChildComponent === Inbox ? 'active' : ''}>Inbox</a></li>
         </ul>
-        <ChildComponent/>
+        <ChildComponent />
       </div>
     );
   }
@@ -99,9 +99,9 @@ render();
 //React.render((
 //  <Router history={HashHistory}>
 //    <Route component={App}>
-//      <Route path="home" component={Home}/>
-//      <Route path="about" component={About}/>
-//      <Route path="inbox" component={Inbox}/>
+//      <Route path="home" component={Home} />
+//      <Route path="about" component={About} />
+//      <Route path="inbox" component={Inbox} />
 //    </Route>
 //  </Router>
 //), document.body);

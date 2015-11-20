@@ -49,7 +49,7 @@ var DrawingPad = React.createClass({
               left: point[0],
               top: point[1] - 120,
               borderRadius: '50%'
-            }}/>
+            }} />
           ))}
         </div>
       </div>
@@ -69,7 +69,7 @@ var App = React.createClass({
     return (
       <div>
         <h1>{cursor.get('name')}</h1>
-        <input onChange={(e) => cursor.update('name', () => e.target.value)}/>
+        <input onChange={(e) => cursor.update('name', () => e.target.value)} />
         <div>
           <input
             type="range"
@@ -80,7 +80,7 @@ var App = React.createClass({
             style={{width: 400}}
           />
         </div>
-        <DrawingPad cursor={cursor}/>
+        <DrawingPad cursor={cursor} />
       </div>
     );
   }
@@ -110,7 +110,7 @@ function redo (amt) {
 }
 
 function render () {
-  React.render(<App structure={structure}/>, document.getElementById('app'));
+  React.render(<App structure={structure} />, document.getElementById('app'));
 }
 
 

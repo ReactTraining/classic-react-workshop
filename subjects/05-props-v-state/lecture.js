@@ -61,7 +61,7 @@ class App extends React.Component {
                 height: 200,
                 background: `url(${taco.src})`,
                 backgroundSize: 'cover'
-              }}/>
+              }} />
             </ContentToggle>
           ))}
         </div>
@@ -70,7 +70,7 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // But what about when we add this feature?
@@ -156,7 +156,7 @@ render(<App/>, document.getElementById('app'))
                 //height: 200,
                 //background: `url(${taco.src})`,
                 //backgroundSize: 'cover'
-              //}}/>
+              //}} />
             //</ContentToggle>
           //))}
         //</div>
@@ -165,7 +165,7 @@ render(<App/>, document.getElementById('app'))
   //}
 //}
 
-//render(<App/>, document.getElementById('app'))
+//render(<App />, document.getElementById('app'))
 
 
 
@@ -271,7 +271,7 @@ render(<App/>, document.getElementById('app'))
                 //height: 200,
                 //background: `url(${taco.src})`,
                 //backgroundSize: 'cover'
-              //}}/>
+              //}} />
             //</ContentToggle>
           //))}
         //</div>
@@ -280,7 +280,7 @@ render(<App/>, document.getElementById('app'))
   //}
 //}
 
-//render(<App/>, document.getElementById('app'))
+//render(<App />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Our state is now fully synchronized, but do we even need state in
@@ -339,7 +339,7 @@ render(<App/>, document.getElementById('app'))
 
 //}
 
-//React.render(<App/>, document.getElementById('app'))
+//React.render(<App />, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////

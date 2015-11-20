@@ -34,7 +34,7 @@ var TweetBox = React.createClass({
             style={{position: 'relative', background: 'transparent', resize: 'none'}}
             cols={30} rows={6}
             onChange={this.handleChange}
-            value={textValue}/>
+            value={textValue} />
           <div style={{position: 'absolute', right: 0, bottom: -24}}>
             <button>Tweet</button>
           </div>
@@ -44,4 +44,4 @@ var TweetBox = React.createClass({
   }
 });
 
-React.render(<TweetBox/>, document.getElementById('app'));
+React.render(<TweetBox />, document.getElementById('app'));

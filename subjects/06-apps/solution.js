@@ -31,7 +31,7 @@ var MessageListItem = React.createClass({
     return (
       <li className={className}>
         <div className="message-avatar">
-          <img src={message.avatar} width="40"/>
+          <img src={message.avatar} width="40" />
         </div>
         <div className="message-content">
           <div className="message-username">
@@ -150,7 +150,7 @@ var Chat = React.createClass({
 
     return (
       <div className="chat">
-        <Room auth={auth}/>
+        <Room auth={auth} />
       </div>
     );
   }
@@ -241,4 +241,4 @@ var Room = React.createClass({
 
 });
 
-React.render(<Chat/>, document.getElementById('app'));
+React.render(<Chat />, document.getElementById('app'));

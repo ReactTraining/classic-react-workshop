@@ -98,7 +98,7 @@ class App extends React.Component {
 
 }
 
-render(<App tabs={data}/>, document.getElementById('app'), function () {
+render(<App tabs={data} />, document.getElementById('app'), function () {
   require('./tests')(this)
 })
 

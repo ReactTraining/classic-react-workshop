@@ -68,7 +68,7 @@ class TestProject extends React.Component {
     return (
       <NavigatorIOS
         style={styles.container}
-        initialRoute={MasterRoute}/>
+        initialRoute={MasterRoute} />
     );
   }
 }

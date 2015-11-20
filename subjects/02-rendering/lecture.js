@@ -148,7 +148,7 @@ import { render } from 'react-dom'
   //return <select>{months.map(monthOption)}</select>
 //}
 
-//render(<MonthSelect/>, document.getElementById('app'))
+//render(<MonthSelect />, document.getElementById('app'))
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -188,7 +188,7 @@ import { render } from 'react-dom'
 //}
 
 //function updateThePage() {
-  //render(<App/>, document.getElementById('app'))
+  //render(<App />, document.getElementById('app'))
 //}
 
 //updateThePage()

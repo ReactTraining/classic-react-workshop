@@ -39,7 +39,7 @@ var MessageListItem = React.createClass({
     return (
       <li className={className}>
         <div className="message-avatar">
-          <img src={message.avatar} width="40"/><br/>
+          <img src={message.avatar} width="40" /><br />
         </div>
         <div className="message-content">
           <div className="message-username">
@@ -170,7 +170,7 @@ var Chat = React.createClass({
     return (
       <div className="chat">
         {React.cloneElement(this.props.children, { auth })}
-        <ChannelList/>
+        <ChannelList />
       </div>
     );
   }
@@ -265,9 +265,9 @@ var Channel = React.createClass({
 
 React.render((
   <Router>
-    <Redirect from="/" to="/general"/>
+    <Redirect from="/" to="/general" />
     <Route component={Chat}>
-      <Route path=":channel" component={Channel}/>
+      <Route path=":channel" component={Channel} />
     </Route>
   </Router>
 ), document.getElementById('app'));

@@ -53,7 +53,7 @@ const App = React.createClass({
     return (
       <div>
         <h1>Countries</h1>
-        <Tabs data={this.props.countries}/>
+        <Tabs data={this.props.countries} />
       </div>
     )
   }

@@ -12,10 +12,9 @@
 // - Add a link to the profile page that links back to Home so users don't have
 //   to use the Back button to navigate
 // - Add a route that renders at urls the app doesn't understand (use "*" as the path)
-// - Add a <Redirect/> from "/users/:userID" to "/profile/:userID"
+// - Add a <Redirect> from "/users/:userID" to "/profile/:userID"
 //   (https://rackt.github.io/react-router/tags/v1.0.0-beta2.html#Redirect)
 ////////////////////////////////////////////////////////////////////////////////
-
 var React = require('react');
 var { Router, Route, Link } = require('react-router');
 var Gravatar = require('./components/Gravatar');

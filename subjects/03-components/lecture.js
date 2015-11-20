@@ -107,7 +107,7 @@ updateThePage()
 //        <ul>
 //          {this.props.users.map(user => (
 //            <li key={user.email}>
-//              <Gravatar email={user.email}/> {user.name}
+//              <Gravatar email={user.email} /> {user.name}
 //            </li>
 //          ))}
 //        </ul>

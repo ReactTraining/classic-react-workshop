@@ -12,7 +12,7 @@ describe('when <Tabs> is rendered', function () {
 
   var node, html, tabs, panel, borderFixture;
   beforeEach(function (done) {
-    var component = React.render(<Tabs data={fixtureData}/>, document.body, function () {
+    var component = React.render(<Tabs data={fixtureData} />, document.body, function () {
       node = React.findDOMNode(this);
       html = node.innerHTML;
       tabs = node.querySelectorAll('.Tab');
