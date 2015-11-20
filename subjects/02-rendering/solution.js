@@ -13,7 +13,7 @@
 //   and then you'll need to call it in the event handlers of the form controls
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import sortBy from 'sort-by'
 
 const DATA = {
@@ -41,6 +41,6 @@ function Menu() {
   )
 }
 
-render(<Menu/>, document.getElementById('app'), function () {
-  require('./tests')(this)
+ReactDOM.render(<Menu />, document.getElementById('app'), function () {
+  require('./tests').run()
 })

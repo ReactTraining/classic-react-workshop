@@ -5,12 +5,10 @@
 // - see the updates automatically in your browser without refreshing!
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 
-const App = React.createClass({
-  render() {
-    return <div>Hello world!</div>
-  }
-})
+function App() {
+  return <div>Hello world!</div>
+}
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

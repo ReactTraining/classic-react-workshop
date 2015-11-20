@@ -1,9 +1,8 @@
-var React = require('react')
-var assert = require('../assert')
+import assert from '../assert'
 
-export default function run(component) {
-  var node = React.findDOMNode(component)
-  var html = node.innerHTML
+export function run() {
+  const node = document.getElementById('app')
+  const html = node.innerHTML
 
   assert(!!html.match(/Menu/), 'render title')
   assert(!!html.match(/burrito/), 'render burrito')
