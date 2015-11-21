@@ -29,7 +29,7 @@ export function run(component) {
   Simulate.click(tabs[1])
   assert(
     tabs[1].style.borderBottomColor === borderFixture.style.borderBottomColor,
-    'third tab is active'
+    'second tab is active'
   )
   assert(
     tabs[0].style.borderBottomColor !== borderFixture.style.borderBottomColor,
@@ -39,5 +39,6 @@ export function run(component) {
     panel.textContent.trim() == 'Sunshine, beaches, and Carnival',
     'panel has the correct content'
   )
+
   Simulate.click(tabs[0])
 }
