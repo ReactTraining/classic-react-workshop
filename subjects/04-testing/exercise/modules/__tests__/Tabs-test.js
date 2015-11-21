@@ -1,52 +1,56 @@
-var assert = require('assert');
-var React = require('react/addons');
-var Tabs = require('../Tabs');
+import assert from 'assert'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Simulate } from 'react-addons-test-utils'
+import Tabs from '../Tabs'
 
 describe('when <Tabs> is rendered', function () {
-  var fixtureData = [
-    { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
-    { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
-    { id: 3, name: 'Russia', description: 'World Cup 2018!' },
-  ];
+  const FixtureData = [
+    { label: 'USA', content: 'Land of the Free, Home of the brave' },
+    { label: 'Brazil', content: 'Sunshine, beaches, and Carnival' },
+    { label: 'Russia', content: 'World Cup 2018!' }
+  ]
 
-  var node, html, tabs, panel, borderFixture;
+  let node, tabs, panel, borderFixture
   beforeEach(function (done) {
-    var component = React.render(<Tabs data={fixtureData} />, document.body, function () {
-      node = React.findDOMNode(this);
-      html = node.innerHTML;
-      tabs = node.querySelectorAll('.Tab');
-      panel = node.querySelector('.TabPanel');
+    node = document.createElement('div')
+    document.body.appendChild(node)
 
-      borderFixture = document.createElement('div');
-      borderFixture.setAttribute('style', 'border-bottom-color: #000;');
+    ReactDOM.render(<Tabs data={FixtureData} />, node, function () {
+      tabs = node.querySelectorAll('.Tab')
+      panel = node.querySelector('.TabPanel')
 
-      done();
-    });
-  });
+      borderFixture = document.createElement('div')
+      borderFixture.setAttribute('style', 'border-bottom-color: #000')
+
+      done()
+    })
+  })
 
   afterEach(function () {
-    React.unmountComponentAtNode(document.body);
-  });
+    ReactDOM.unmountComponentAtNode(node)
+    document.body.removeChild(node)
+  })
 
-  it('renders the USA tab');
+  it('renders the USA tab')
 
-  it('renders the Brazil tab');
+  it('renders the Brazil tab')
 
-  it('renders the Russia tab');
+  it('renders the Russia tab')
 
-  it('activates the first tab');
+  it('activates the first tab')
 
-  it('does not activate the second tab');
+  it('does not activate the second tab')
 
-  describe('after clicking the third tab', function () {
+  describe('after clicking the second tab', function () {
     beforeEach(function () {
-      // TODO
-    });
+      // TODO: Simulate a click event on the second tab
+    })
 
-    it('activates the third tab');
+    it('activates the second tab')
 
-    it('deactivates the first tab');
+    it('deactivates the first tab')
 
-    it('puts the correct content in the panel');
-  });
-});
+    it('puts the correct content in the panel')
+  })
+})
