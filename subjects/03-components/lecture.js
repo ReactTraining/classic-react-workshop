@@ -1,42 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-let isOpen = false
-
-function handleClick() {
-  isOpen = !isOpen
-  updateThePage()
-}
-
-function App() {
-  let summaryClassName = 'ContentToggle__Summary'
-
-  if (isOpen)
-    summaryClassName += ' ContentToggle__Summary--is-open'
-
-  return (
-    <div className="ContentToggle">
-      <button onClick={handleClick} className={summaryClassName}>
-        Tacos
-      </button>
-      {isOpen && (
-        <div className="ContentToggle__Details">
-          <p>
-            A taco is a traditional Mexican dish composed of a corn or wheat
-            tortilla folded or rolled around a filling.
-          </p>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function updateThePage() {
-  render(<App />, document.getElementById('app'))
-}
-
-updateThePage()
-
 ////////////////////////////////////////////////////////////////////////////////
 // Let's encapsulate state in an object and call it what it really is. Then, add
 // a setState function that we can use to update state and automatically update
@@ -53,6 +17,95 @@ updateThePage()
 // Wrap <ContentToggle> in a <ToggleTracker> that tracks the # of times it has
 // been toggled and shows a counter. <ContentToggle> gets an onToggle handler,
 // declared as a function in propTypes.
+
+//const ContentToggle = React.createClass({
+//
+//  propTypes: {
+//    title: React.PropTypes.string.isRequired,
+//    onToggle: React.PropTypes.func,
+//    children: React.PropTypes.node
+//  },
+//  
+//  getInitialState() {
+//    return {
+//      isOpen: false
+//    }
+//  },
+//
+//  handleClick() {
+//    this.setState({
+//      isOpen: !this.state.isOpen
+//    })
+//
+//    if (this.props.onToggle)
+//      this.props.onToggle()
+//  },
+//
+//  render() {
+//    let summaryClassName = 'ContentToggle__Summary'
+//
+//    if (this.state.isOpen)
+//      summaryClassName += ' ContentToggle__Summary--is-open'
+//
+//    return (
+//      <div className="ContentToggle">
+//        <button onClick={this.handleClick} className={summaryClassName}>
+//          {this.props.title}
+//        </button>
+//        {this.state.isOpen && (
+//          <div className="ContentToggle__Details">
+//            {this.props.children}
+//          </div>
+//        )}
+//      </div>
+//    )
+//  }
+//
+//})
+//
+//const ToggleTracker = React.createClass({
+//
+//  getInitialState() {
+//    return {
+//      numToggles: 0
+//    }
+//  },
+//
+//  handleToggle() {
+//    this.setState({
+//      numToggles: this.state.numToggles + 1
+//    })
+//  },
+//  
+//  render() {
+//    let { children } = this.props
+//
+//    children = React.Children.map(children, (child) => (
+//      React.cloneElement(child, {
+//        onToggle: this.handleToggle
+//      })
+//    ))
+//
+//    return (
+//      <div>
+//        <pre>{JSON.stringify(this.state, null, 2)}</pre>
+//        {children}
+//      </div>
+//    )
+//  }
+//
+//})
+//
+//render((
+//  <ToggleTracker>
+//    <ContentToggle title="Tacos">
+//      <p>A taco is a traditional Mexican dish composed of a corn or wheat tortilla folded or rolled around a filling.</p>
+//    </ContentToggle>
+//    <ContentToggle title="Burritos">
+//      <p>(US English /bəˈritoʊ/, About this sound buˈrito (help·info))[1] is a type of Mexican[2] and Tex-Mex food,[3] consisting of a wheat flour tortilla wrapped or folded into a cylindrical shape to completely enclose the filling (in contrast to a taco, which is generally formed by simply folding a tortilla in half around a filling, leaving the semicircular perimeter open).</p>
+//    </ContentToggle>
+//  </ToggleTracker>
+//), document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // React expresses your application UI as a function of state. Props are like
@@ -81,25 +134,35 @@ updateThePage()
 //  return email.apply(this, arguments)
 //}
 //
+//const user = shape({
+//  name: string.isRequired,
+//  email: email.isRequired
+//})
+//
 //import md5 from 'md5'
 //
-//const GRAVATAR_URL = 'http://gravatar.com/avatar'
+//const GravatarURL = 'http://gravatar.com/avatar'
 //
-//class Gravatar extends React.Component {
-//  static propTypes = {
-//    email: email.isRequired,
-//    size: React.PropTypes.number.isRequired
-//  }
-//  static defaultProps = {
-//    size: 80
-//  }
+//const Gravatar = React.createClass({
+//  propTypes: {
+//    email: string.isRequired,
+//    size: number.isRequired
+//  },
+//  getDefaultProps() {
+//    return {
+//      size: 40
+//    }
+//  },
 //  render() {
-//    const src = `${GRAVATAR_URL}/${md5(this.props.email)}?s=${this.props.size}`
+//    const src = `${GravatarURL}/${md5(this.props.email)}?s=${this.props.size}`
 //    return <img src={src} />
 //  }
-//}
+//})
 //
-//class App extends React.Component {
+//const App = React.createClass({
+//  propTypes: {
+//    users: arrayOf(user)
+//  },
 //  render() {
 //    return (
 //      <div>
@@ -114,7 +177,7 @@ updateThePage()
 //      </div>
 //    )
 //  }
-//}
+//})
 //
 //const USERS = [
 //  { name: 'Ryan Florence', email: 'rpflorence@gmail.com' },
