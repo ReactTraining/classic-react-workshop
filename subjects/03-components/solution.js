@@ -10,6 +10,19 @@
 import React from 'react'
 import { render } from 'react-dom'
 
+const { arrayOf, string, number, shape } = React.PropTypes
+
+const tab = shape({
+  label: string.isRequired,
+  content: string.isRequired
+})
+
+const country = shape({
+  id: number.isRequired,
+  name: string.isRequired,
+  description: string.isRequired
+})
+
 const styles = {}
 
 styles.tab = {
@@ -32,38 +45,45 @@ styles.panel = {
 
 const Tabs = React.createClass({
   propTypes: {
-    data: React.PropTypes.array
+    data: arrayOf(tab)
   },
-
-  getInitialState(props) {
+  getInitialState() {
     return {
       activeTabIndex: 0
     }
   },
-
-  handleClick(clickedIndex) {
+  selectTabIndex(activeTabIndex) {
     this.setState({
-      activeTabIndex: clickedIndex
+      activeTabIndex
     })
   },
-
   render() {
-    const activeTab = this.props.data[this.state.activeTabIndex]
+    const { activeTabIndex } = this.state
+
+    const tabs = this.props.data.map((tab, index) => {
+      const isActive = index === activeTabIndex
+      const style = isActive ? styles.activeTab : styles.tab
+
+      return (
+        <div
+          key={tab.label}
+          className="Tab"
+          style={style}
+          onClick={() => this.selectTabIndex(index)}
+        >
+            {tab.label}
+        </div>
+      )
+    })
+
+    const activeTab = this.props.data[activeTabIndex]
+    const content = activeTab && activeTab.content
 
     return (
       <div className="Tabs">
-        {this.props.data.map((d, i) => (
-          <div
-            key={d.id}
-            className="Tab"
-            onClick={() => this.handleClick(i)}
-            style={i === this.state.activeTabIndex ? styles.activeTab : styles.tab}
-          >
-            {d.name}
-          </div>
-        ))}
+        {tabs}
         <div className="TabPanel" style={styles.panel}>
-          {activeTab.description}
+          {content}
         </div>
       </div>
     )
@@ -71,11 +91,19 @@ const Tabs = React.createClass({
 })
 
 const App = React.createClass({
+  propTypes: {
+    countries: arrayOf(country).isRequired
+  },
   render() {
+    const data = this.props.countries.map(country => ({
+      label: country.name,
+      content: country.description
+    }))
+
     return (
       <div>
         <h1>Countries</h1>
-        <Tabs data={this.props.countries} />
+        <Tabs data={data} />
       </div>
     )
   }
