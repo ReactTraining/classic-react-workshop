@@ -58,9 +58,10 @@ const Tabs = React.createClass({
     })
   },
   render() {
+    const { data } = this.props
     const { activeTabIndex } = this.state
 
-    const tabs = this.props.data.map((tab, index) => {
+    const tabs = data.map((tab, index) => {
       const isActive = index === activeTabIndex
       const style = isActive ? styles.activeTab : styles.tab
 
@@ -70,13 +71,11 @@ const Tabs = React.createClass({
           className="Tab"
           style={style}
           onClick={() => this.selectTabIndex(index)}
-        >
-            {tab.label}
-        </div>
+        >{tab.label}</div>
       )
     })
 
-    const activeTab = this.props.data[activeTabIndex]
+    const activeTab = data[activeTabIndex]
     const content = activeTab && activeTab.content
 
     return (
