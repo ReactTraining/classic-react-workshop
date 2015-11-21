@@ -1,84 +1,87 @@
-var assert = require('assert');
-var React = require('react/addons');
-var { click } = React.addons.TestUtils.Simulate;
-var Tabs = require('../Tabs');
+import assert from 'assert'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Simulate } from 'react-addons-test-utils'
+import Tabs from '../Tabs'
 
 describe('when <Tabs> is rendered', function () {
-  var fixtureData = [
-    { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
-    { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
-    { id: 3, name: 'Russia', description: 'World Cup 2018!' },
-  ];
+  const FixtureData = [
+    { label: 'USA', content: 'Land of the Free, Home of the brave' },
+    { label: 'Brazil', content: 'Sunshine, beaches, and Carnival' },
+    { label: 'Russia', content: 'World Cup 2018!' }
+  ]
 
-  var node, html, tabs, panel, borderFixture;
+  let node, tabs, panel, borderFixture
   beforeEach(function (done) {
-    var component = React.render(<Tabs data={fixtureData} />, document.body, function () {
-      node = React.findDOMNode(this);
-      html = node.innerHTML;
-      tabs = node.querySelectorAll('.Tab');
-      panel = node.querySelector('.TabPanel');
+    node = document.createElement('div')
+    document.body.appendChild(node)
 
-      borderFixture = document.createElement('div');
-      borderFixture.setAttribute('style', 'border-bottom-color: #000;');
+    ReactDOM.render(<Tabs data={FixtureData} />, node, function () {
+      tabs = node.querySelectorAll('.Tab')
+      panel = node.querySelector('.TabPanel')
 
-      done();
-    });
-  });
+      borderFixture = document.createElement('div')
+      borderFixture.setAttribute('style', 'border-bottom-color: #000')
+
+      done()
+    })
+  })
 
   afterEach(function () {
-    React.unmountComponentAtNode(document.body);
-  });
+    ReactDOM.unmountComponentAtNode(node)
+    document.body.removeChild(node)
+  })
 
   it('renders the USA tab', function () {
-    assert(!!html.match(/USA/), 'USA tab was not rendered');
-  });
+    assert(tabs[0].innerText === FixtureData[0].label, 'USA tab was rendered')
+  })
 
   it('renders the Brazil tab', function () {
-    assert(!!html.match(/Brazil/), 'Brazil tab was not rendered');
-  });
+    assert(tabs[1].innerText === FixtureData[1].label, 'Brazil tab was rendered')
+  })
 
   it('renders the Russia tab', function () {
-    assert(!!html.match(/Russia/), 'Russia tab was not rendered');
-  });
+    assert(tabs[2].innerText === FixtureData[2].label, 'Russia tab was rendered')
+  })
 
   it('activates the first tab', function () {
     assert(
       tabs[0].style.borderBottomColor === borderFixture.style.borderBottomColor,
-      'the first tab should be active'
-    );
-  });
+      'the first tab is active'
+    )
+  })
 
   it('does not activate the second tab', function () {
     assert(
       tabs[1].style.borderBottomColor !== borderFixture.style.borderBottomColor,
-      'the second tab should not be active'
-    );
-  });
+      'the second tab is not active'
+    )
+  })
 
-  describe('after clicking the third tab', function () {
+  describe('after clicking the second tab', function () {
     beforeEach(function () {
-      click(tabs[2]);
-    });
+      Simulate.click(tabs[1])
+    })
 
-    it('activates the third tab', function () {
+    it('activates the second tab', function () {
       assert(
-        tabs[2].style.borderBottomColor === borderFixture.style.borderBottomColor,
-        'third tab is active'
-      );
-    });
+        tabs[1].style.borderBottomColor === borderFixture.style.borderBottomColor,
+        'the second tab is active'
+      )
+    })
 
     it('deactivates the first tab', function () {
       assert(
         tabs[0].style.borderBottomColor !== borderFixture.style.borderBottomColor,
-        'first tab is inactive'
-      );
-    });
+        'the first tab is inactive'
+      )
+    })
 
     it('puts the correct content in the panel', function () {
       assert(
-        panel.innerHTML.trim() == 'World Cup 2018!',
-        'you have the wrong content in the panel'
-      );
-    });
-  });
-});
+        panel.innerText === FixtureData[1].content,
+        'the correct content is in the panel'
+      )
+    })
+  })
+})
