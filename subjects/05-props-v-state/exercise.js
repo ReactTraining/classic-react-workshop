@@ -15,28 +15,26 @@
 // Make a `StatefulTabs` component that manages some state that is passes as
 // props down to `Tabs` (since they should now be stateless)
 ////////////////////////////////////////////////////////////////////////////////
-
 import React from 'react'
 import { render } from 'react-dom'
-import styles from './lib/styles'
+import * as styles from './lib/styles'
 import data from './lib/data'
 
-class Tabs extends React.Component {
+const Tabs = React.createClass({
 
-  static propTypes = {
+  propTypes: {
     data: React.PropTypes.array.isRequired
-  }
+  },
 
-  constructor(props) {
-    super(props)
-    this.state = {
+  getInitialState() {
+    return {
       activeTabIndex: 0
     }
-  }
+  },
 
   handleTabClick(activeTabIndex) {
     this.setState({ activeTabIndex })
-  }
+  },
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
@@ -48,12 +46,10 @@ class Tabs extends React.Component {
           key={tab.name}
           style={style}
           onClick={() => this.handleTabClick(index)}
-        >
-          {tab.name}
-        </div>
+        >{tab.name}</div>
       )
     })
-  }
+  },
 
   renderPanel() {
     const tab = this.props.data[this.state.activeTabIndex]
@@ -62,7 +58,7 @@ class Tabs extends React.Component {
         <p>{tab.description}</p>
       </div>
     )
-  }
+  },
 
   render() {
     return (
@@ -77,9 +73,9 @@ class Tabs extends React.Component {
     )
   }
 
-}
+})
 
-class App extends React.Component {
+const App = React.createClass({
 
   render() {
     return (
@@ -90,8 +86,8 @@ class App extends React.Component {
     )
   }
 
-}
+})
 
 render(<App tabs={data} />, document.getElementById('app'), function () {
-  require('./tests')(this)
+  require('./tests').run(this)
 })

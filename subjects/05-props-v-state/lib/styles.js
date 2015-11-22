@@ -1,17 +1,21 @@
+export const app = {}
+
+export const tabs = {}
+
 export const tab = {
   display: 'inline-block',
   padding: 10,
   margin: 10,
   borderBottom: '4px solid',
   borderBottomColor: '#ccc',
-  cursor: 'pointer',
+  cursor: 'pointer'
 }
 
 export const activeTab = {
   ...tab,
-  borderBottomColor: '#000',
+  borderBottomColor: '#000'
 }
 
 export const tabPanels = {
-  padding: 10,
+  padding: 10
 }
