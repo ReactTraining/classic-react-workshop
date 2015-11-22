@@ -1,35 +1,38 @@
-var React = require('react');
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-var About = React.createClass({
-  render: function () {
-    return <h2>About</h2>;
+////////////////////////////////////////////////////////////////////////////////
+// Let's build a page without ReactRouter
+const About = React.createClass({
+  render() {
+    return <h2>About</h2>
   }
-});
+})
 
-var Inbox = React.createClass({
-  render: function () {
-    return <h2>Inbox</h2>;
+const Inbox = React.createClass({
+  render() {
+    return <h2>Inbox</h2>
   }
-});
+})
 
-var Home = React.createClass({
-  render: function () {
-    return <h2>Home</h2>;
+const Home = React.createClass({
+  render() {
+    return <h2>Home</h2>
   }
-});
+})
 
-var App = React.createClass({
+const App = React.createClass({
   propTypes: {
     route: React.PropTypes.string
   },
-  render: function () {
-    var { route } = this.props;
+  render() {
+    const { route } = this.props
 
-    var ChildComponent;
+    let ChildComponent
     switch (route) {
-      case '/about': ChildComponent = About; break;
-      case '/inbox': ChildComponent = Inbox; break;
-      default: ChildComponent = Home;
+      case '/about': ChildComponent = About; break
+      case '/inbox': ChildComponent = Inbox; break
+      default: ChildComponent = Home
     }
 
     return (
@@ -42,44 +45,41 @@ var App = React.createClass({
         </ul>
         <ChildComponent />
       </div>
-    );
+    )
   }
-});
+})
 
 function render() {
-  var route = window.location.hash.substring(1);
-  React.render(<App route={route} />, document.body);
+  const route = window.location.hash.substring(1)
+  ReactDOM.render(<App route={route} />, document.body)
 }
 
-window.addEventListener('hashchange', render);
-
-render();
+window.addEventListener('hashchange', render)
+render()
 
 ////////////////////////////////////////////////////////////////////////////////
 // with the Router
 
-//var React = require('react');
-//
-//var About = React.createClass({
-//  render: function () {
-//    return <h2>About</h2>;
+//const About = React.createClass({
+//  render() {
+//    return <h2>About</h2>
 //  }
-//});
+//})
 //
-//var Inbox = React.createClass({
-//  render: function () {
-//    return <h2>Inbox</h2>;
+//const Inbox = React.createClass({
+//  render() {
+//    return <h2>Inbox</h2>
 //  }
-//});
+//})
 //
-//var Home = React.createClass({
-//  render: function () {
-//    return <h2>Home</h2>;
+//const Home = React.createClass({
+//  render() {
+//    return <h2>Home</h2>
 //  }
-//});
+//})
 //
-//var App = React.createClass({
-//  render () {
+//const App = React.createClass({
+//  render() {
 //    return (
 //      <div>
 //        <h1>App</h1>
@@ -90,13 +90,13 @@ render();
 //        </ul>
 //        {this.props.children}
 //      </div>
-//    );
+//    )
 //  }
-//});
+//})
 //
-//var { Router, Route, Redirect, Link, HashHistory } = require('react-router');
+//import { Router, Route, Redirect, Link, HashHistory } from 'react-router'
 //
-//React.render((
+//ReactDOM.render((
 //  <Router history={HashHistory}>
 //    <Route component={App}>
 //      <Route path="home" component={Home} />
@@ -104,4 +104,4 @@ render();
 //      <Route path="inbox" component={Inbox} />
 //    </Route>
 //  </Router>
-//), document.body);
+//), document.body)
