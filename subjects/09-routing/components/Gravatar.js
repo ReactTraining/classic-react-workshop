@@ -1,9 +1,9 @@
-var React = require('react');
-var md5 = require('md5');
+import React from 'react'
+import md5 from 'md5'
 
-var GRAVATAR_URL = 'http://gravatar.com/avatar';
+const GravatarURL = 'http://gravatar.com/avatar'
 
-var Gravatar = React.createClass({
+const Gravatar = React.createClass({
   propTypes: {
     email: React.PropTypes.string.isRequired,
     size: React.PropTypes.number.isRequired
@@ -11,13 +11,13 @@ var Gravatar = React.createClass({
   getDefaultProps() {
     return {
       size: 80
-    };
+    }
   },
   render() {
     return (
-      <img src={GRAVATAR_URL + '/' + md5(this.props.email) + '?s=' + this.props.size} />
-    );
+      <img src={GravatarURL + '/' + md5(this.props.email) + '?s=' + this.props.size} />
+    )
   }
-});
+})
 
-module.exports = Gravatar;
+export default Gravatar

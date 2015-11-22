@@ -15,71 +15,72 @@
 // - Add a <Redirect> from "/users/:userID" to "/profile/:userID"
 //   (https://rackt.github.io/react-router/tags/v1.0.0-beta2.html#Redirect)
 ////////////////////////////////////////////////////////////////////////////////
-var React = require('react');
-var { Router, Route, Link } = require('react-router');
-var Gravatar = require('./components/Gravatar');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router, Route, Link } from 'react-router'
+import Gravatar from './components/Gravatar'
 
-var USERS = [
+const USERS = [
   { id: 1, name: 'Ryan Florence', email: 'rpflorence@gmail.com' },
   { id: 2, name: 'Michael Jackson', email: 'mjijackson@gmail.com' }
-];
+]
 
 function getUserByID(id) {
   for (var i = 0; i < USERS.length; ++i)
     if (USERS[i].id === parseInt(id, 10))
-      return USERS[i];
+      return USERS[i]
 
-  return null;
+  return null
 }
 
-var App = React.createClass({
-  render: function () {
+const App = React.createClass({
+  render() {
     return (
       <div>
         <h1>People Viewer</h1>
       </div>
-    );
+    )
   }
-});
+})
 
-var Home = React.createClass({
-  render: function () {
-    var contactItems = USERS.map(function (user) {
+const Home = React.createClass({
+  render() {
+    const contactItems = USERS.map(function (user) {
       return (
         <li key={user.email}>
           {user.name}
         </li>
-      );
-    });
+      )
+    })
 
     return (
       <ul className="people-list">{contactItems}</ul>
-    );
+    )
   }
-});
+})
 
-var Profile = React.createClass({
-  render: function () {
-    var { userID } = this.props.params;
-    var user = getUserByID(userID);
+const Profile = React.createClass({
+  render() {
+    const { userID } = this.props.params
+    const user = getUserByID(userID)
 
     if (user == null)
-      return <p>Cannot find user with id {userID}</p>;
+      return <p>Cannot find user with id {userID}</p>
 
     return (
       <div className="profile">
         <Gravatar email={user.email} /> {user.name}
       </div>
-    );
+    )
   }
-});
+})
 
-React.render((
+ReactDOM.render((
   <Router>
     <Route component={App}>
       <Route path="/" component={Home} />
     </Route>
   </Router>
 ), document.getElementById('app'), function () {
-  require('./tests').run(this);
-});
+  require('./tests').run(this)
+})
