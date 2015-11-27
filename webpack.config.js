@@ -16,7 +16,7 @@ makeIndex()
 
 module.exports = {
 
-  devtool: 'eval',
+  devtool: 'source-map',
 
   entry: DIRS.reduce(function (entries, dir) {
     if (fileExists(path.join(CODE, dir, 'exercise.js')))
