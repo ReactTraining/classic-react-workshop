@@ -1,6 +1,40 @@
 import React from 'react'
 import { render } from 'react-dom'
 
+let isOpen = false
+
+function handleClick() {
+  isOpen = !isOpen
+  updateThePage()
+}
+
+function ContentToggle() {
+  let summaryClassName = 'ContentToggle__Summary'
+
+  if (isOpen)
+    summaryClassName += ' ContentToggle__Summary--is-open'
+
+  return (
+    <div className="ContentToggle">
+      <button onClick={handleClick} className={summaryClassName}>
+        Haggis
+      </button>
+      {isOpen && (
+        <div className="ContentToggle__Details">
+          <p>Haggis is a savoury pudding containing sheep's pluck (heart, liver and lungs); minced with onion, oatmeal, suet, spices, and salt, mixed with stock, traditionally encased in the animal's stomach though now often in an artificial casing instead. According to the 2001 English edition of the Larousse Gastronomique: "Although its description is not immediately appealing, haggis has an excellent nutty texture and delicious savoury flavour".</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function updateThePage() {
+  render(<ContentToggle />, document.getElementById('app'))
+}
+
+updateThePage()
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // Let's encapsulate state in an object and call it what it really is. Then, add
 // a setState function that we can use to update state and automatically update
