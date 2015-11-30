@@ -6,12 +6,14 @@
 //
 // Hint: Modal shouldn't need its own state anymore.
 ////////////////////////////////////////////////////////////////////////////////
+import React from 'react'
+import { render, findDOMNode } from 'react-dom'
 import $ from 'jquery'
 import 'bootstrap-webpack'
-import React, { render, findDOMNode } from 'react'
 
-var Modal = React.createClass({
-  render () {
+const Modal = React.createClass({
+
+  render() {
     return (
       <div className="modal fade">
         <div className="modal-dialog">
@@ -27,19 +29,20 @@ var Modal = React.createClass({
       </div>
     )
   }
+
 })
 
-var App = React.createClass({
+const App = React.createClass({
 
-  openModal () {
+  openModal() {
     $(findDOMNode(this.refs.modal)).modal('show')
   },
 
-  closeModal () {
+  closeModal() {
     $(findDOMNode(this.refs.modal)).modal('hide')
   },
 
-  render () {
+  render() {
     return (
       <div className="container">
         <h1>Let’s make bootstrap modal declarative</h1>
@@ -61,9 +64,9 @@ var App = React.createClass({
         </Modal>
 
       </div>
-    );
+    )
   }
-});
+
+})
 
 render(<App />, document.getElementById('app'))
-

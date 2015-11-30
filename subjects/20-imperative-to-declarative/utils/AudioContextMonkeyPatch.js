@@ -134,4 +134,3 @@ BiquadFilterNode.type and OscillatorNode.type.
     }
   }
 }(window));
-
