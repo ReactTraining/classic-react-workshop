@@ -7,7 +7,7 @@ Before the training make sure you can run this repository.
 Install [git](http://git-scm.com/downloads) and [node.js](https://nodejs.org/), then:
 
 ```sh
-$ git clone https://github.com/ReactTraining/react-fundamentals.git
+$ git clone https://github.com/ReactJSTraining/react-fundamentals.git
 $ cd react-fundamentals
 $ npm install
 $ npm start
