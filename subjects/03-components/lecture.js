@@ -34,7 +34,6 @@ function updateThePage() {
 
 updateThePage()
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Let's encapsulate state in an object and call it what it really is. Then, add
 // a setState function that we can use to update state and automatically update
@@ -47,11 +46,6 @@ updateThePage()
 // Let's make <ContentToggle> re-usable and render a few of them. Title and
 // children are properties we can pass in from the parent component.
 
-////////////////////////////////////////////////////////////////////////////////
-// Wrap <ContentToggle> in a <ToggleTracker> that tracks the # of times it has
-// been toggled and shows a counter. <ContentToggle> gets an onToggle handler,
-// declared as a function in propTypes.
-
 //const ContentToggle = React.createClass({
 //
 //  propTypes: {
@@ -59,7 +53,7 @@ updateThePage()
 //    onToggle: React.PropTypes.func,
 //    children: React.PropTypes.node
 //  },
-//  
+//
 //  getInitialState() {
 //    return {
 //      isOpen: false
@@ -110,7 +104,7 @@ updateThePage()
 //      numToggles: this.state.numToggles + 1
 //    })
 //  },
-//  
+//
 //  render() {
 //    let { children } = this.props
 //
@@ -142,60 +136,31 @@ updateThePage()
 //), document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
+// Wrap <ContentToggle> in a <ToggleTracker> that tracks the # of times it has
+// been toggled and shows a counter. <ContentToggle> gets an onToggle handler,
+// declared as a function in propTypes.
+
+////////////////////////////////////////////////////////////////////////////////
 // React expresses your application UI as a function of state. Props are like
 // arguments to the function. They look like element attributes in JSX.
 
-////////////////////////////////////////////////////////////////////////////////
-// Let's use a <Gravatar> component that takes a user's email as a prop and
-// automatically generates the <img src> and a size prop. Add a default value
-// to the size prop to show it doesn't always need to be passed in.
-
-//import isEmail from './utils/isEmail'
-//
-//function email(props, propName, componentName) {
-//  const value = props[propName]
-//
-//  if (value !== undefined && !isEmail(value))
-//    return new Error(`Invalid prop "${propName}" given to "${componentName}", "${value}" does not look like an email address"`)
-//}
-//
-//email.isRequired = function (props, propName, componentName) {
-//  const value = props[propName]
-//
-//  if (value == null)
-//    return new Error(`Required prop "${propName}" was not specified in "${componentName}"`)
-//
-//  return email.apply(this, arguments)
-//}
-//
-//const user = shape({
-//  name: string.isRequired,
-//  email: email.isRequired
-//})
-//
 //import md5 from 'md5'
 //
 //const GravatarURL = 'http://gravatar.com/avatar'
 //
 //const Gravatar = React.createClass({
 //  propTypes: {
-//    email: string.isRequired,
-//    size: number.isRequired
-//  },
-//  getDefaultProps() {
-//    return {
-//      size: 40
-//    }
+//    email: string.isRequired
 //  },
 //  render() {
-//    const src = `${GravatarURL}/${md5(this.props.email)}?s=${this.props.size}`
+//    const src = `${GravatarURL}/${md5(this.props.email)}?s=40`
 //    return <img src={src} />
 //  }
 //})
 //
 //const App = React.createClass({
 //  propTypes: {
-//    users: arrayOf(user)
+//    users: array
 //  },
 //  render() {
 //    return (
@@ -221,7 +186,12 @@ updateThePage()
 //render(<App users={USERS} />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
-// We can have better validation with a custom prop
+// Let's use a <Gravatar> component that takes a user's email as a prop and
+// automatically generates the <img src> and a size prop. Add a default value
+// to the size prop to show it doesn't always need to be passed in.
+
+////////////////////////////////////////////////////////////////////////////////
+// Create a custom user propType for <App users>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Eventually you'll probably end up creating a bunch of custom prop types for
