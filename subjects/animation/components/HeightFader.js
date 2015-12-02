@@ -1,11 +1,11 @@
-var React = require('react');
-var TweenStateMixin = require('react-tween-state').Mixin;
+const React = require('react');
+const TweenStateMixin = require('react-tween-state').Mixin;
 
 function getHeight(node) {
   return node.scrollHeight;
 }
 
-var HeightFader = React.createClass({
+const HeightFader = React.createClass({
 
   mixins: [ TweenStateMixin ],
 

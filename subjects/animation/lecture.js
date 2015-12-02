@@ -1,37 +1,37 @@
-var React = require('react/addons');
-var { TransitionGroup } = React.addons;
-var HeightFader = require('./components/HeightFader');
+const React = require('react/addons')
+const { TransitionGroup } = React.addons
+const HeightFader = require('./components/HeightFader')
 
-var List = React.createClass({
+const List = React.createClass({
 
   getInitialState() {
     return {
       items: []
-    };
+    }
   },
 
   addItem(e) {
     if (e.key === 'Enter') {
       if (this.guid == null)
-        this.guid = 1;
+        this.guid = 1
 
-      var newItem = {
+      const newItem = {
         id: this.guid++,
         label: e.target.value
-      };
+      }
 
       this.setState({
         items: [ newItem ].concat(this.state.items)
-      });
+      })
 
-      e.target.value = '';
+      e.target.value = ''
     }
   },
 
   removeItem(item) {
     this.setState({
       items: this.state.items.filter(i => i !== item)
-    });
+    })
   },
 
   render() {
@@ -47,21 +47,21 @@ var List = React.createClass({
           ))}
         </ul>
       </div>
-    );
+    )
   }
 
-});
+})
 
-var App = React.createClass({
+const App = React.createClass({
 
   render() {
     return (
       <div>
         <List name="Transition Group" />
       </div>
-    );
+    )
   }
 
-});
+})
 
-React.render(<App />, document.getElementById('app'));
+React.render(<App />, document.getElementById('app'))

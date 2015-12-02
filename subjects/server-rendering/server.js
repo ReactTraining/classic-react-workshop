@@ -1,3 +1,4 @@
+/*eslint-disable no-console */
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise
 //
@@ -18,19 +19,19 @@
 // 2. Now that you've got the server working, open up `exercise.js`
 ////////////////////////////////////////////////////////////////////////////////
 
-var webpackServer = 'http://localhost:8080';
-var http = require('http');
-var React = require('react');
-var App = require('./lib/App');
-var fetchContacts = require('./lib/fetchContacts');
+const webpackServer = 'http://localhost:8080'
+const http = require('http')
+const React = require('react')
+const App = require('./lib/App')
+const fetchContacts = require('./lib/fetchContacts')
 
 function write(res, string) {
   res.writeHead(200, {
     'Content-Length': string.length,
     'Content-Type': 'text/html'
-  });
-  res.write(string);
-  res.end();
+  })
+  res.write(string)
+  res.end()
 }
 
 function createPage(appHTML, data) {
@@ -44,23 +45,20 @@ function createPage(appHTML, data) {
     <body>
 
       <div id="app">${appHTML}</div>
-      <script>var __DATA__ = ${JSON.stringify(data)};</script>
+      <script>const __DATA__ = ${JSON.stringify(data)};</script>
 
-      <script src=${webpackServer + "/__build__/shared.js"}></script>
-      <script src=${webpackServer + "/__build__/19-server-rendering-exercise.js"}></script>
+      <script src=${webpackServer + '/__build__/shared.js'}></script>
+      <script src=${webpackServer + '/__build__/19-server-rendering-exercise.js'}></script>
     </body>
   </html>
-  `;
+  `
 }
 
-var app = http.createServer(function(req, res) {
+const app = http.createServer(function (req, res) {
   // fetch data and render `App` here,
   // you'll use `fetchContacts`, `App`, and `createPage`
-  write(res, '[fill in with the react app]');
-});
+  write(res, '[fill in with the react app]')
+})
 
-
-
-app.listen(5000);
-console.log('listening on port 5000');
-
+app.listen(5000)
+console.log('listening on port 5000')

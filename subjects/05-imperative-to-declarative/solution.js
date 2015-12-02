@@ -22,7 +22,7 @@ const Modal = React.createClass({
   },
 
   doImperativeWork() {
-    var $el = $(findDOMNode(this))
+    const $el = $(findDOMNode(this))
     if (this.props.isOpen === true) {
       $el.modal('show')
     } else {

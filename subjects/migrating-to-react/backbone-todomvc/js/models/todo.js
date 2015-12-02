@@ -1,5 +1,5 @@
 /*global Backbone */
-var app = app || {};
+const app = app || {};
 
 (function () {
 	'use strict';

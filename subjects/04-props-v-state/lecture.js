@@ -10,17 +10,17 @@ class ContentToggle extends React.Component {
     }
   }
 
-  handleClick () {
+  handleClick() {
     this.setState({ isOpen: !this.state.isOpen }, () => {
       if (this.props.onToggle)
         this.props.onToggle(this.state.isOpen)
     })
   }
 
-  render () {
-    var summaryClassName = "ContentToggle__Summary"
+  render() {
+    const summaryClassName = 'ContentToggle__Summary'
     if (this.state.isOpen)
-      summaryClassName += " ContentToggle__Summary--is-open"
+      summaryClassName += ' ContentToggle__Summary--is-open'
     return (
       <div {...this.props} className="ContentToggle">
         <button onClick={() => this.handleClick()} className={summaryClassName}>
@@ -42,7 +42,7 @@ class App extends React.Component {
       tacos: [
         { id: 0, name: 'Carnitas', src: 'tacos/carnitas.png' },
         { id: 1, name: 'Pollo', src: 'tacos/pollo.png' },
-        { id: 2, name: 'Asada', src: 'tacos/asada.png' },
+        { id: 2, name: 'Asada', src: 'tacos/asada.png' }
       ]
     }
   }
@@ -98,7 +98,7 @@ render(<App />, document.getElementById('app'))
   //}
 
   //render () {
-    //var summaryClassName = "ContentToggle__Summary"
+    //const summaryClassName = "ContentToggle__Summary"
     //if (this.state.isOpen)
       //summaryClassName += " ContentToggle__Summary--is-open"
     //return (
@@ -167,8 +167,6 @@ render(<App />, document.getElementById('app'))
 
 //render(<App />, document.getElementById('app'))
 
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // This is cool, until we screw up the state by clicking the button, then
 // clicking every item to the other state, and then clicking the button again,
@@ -192,7 +190,7 @@ render(<App />, document.getElementById('app'))
   //}
 
   //render () {
-    //var summaryClassName = "ContentToggle__Summary"
+    //const summaryClassName = "ContentToggle__Summary"
     //if (this.state.isOpen)
       //summaryClassName += " ContentToggle__Summary--is-open"
     //return (
@@ -293,7 +291,7 @@ render(<App />, document.getElementById('app'))
   //}
 
   //render () {
-    //var summaryClassName = "ContentToggle__Summary"
+    //const summaryClassName = "ContentToggle__Summary"
     //if (this.props.isOpen)
       //summaryClassName += " ContentToggle__Summary--is-open"
     //return (
@@ -308,8 +306,6 @@ render(<App />, document.getElementById('app'))
     //)
   //}
 //}
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // - We didn't really get rid of state, we just pushed it up a level
@@ -340,7 +336,6 @@ render(<App />, document.getElementById('app'))
 //}
 
 //React.render(<App />, document.getElementById('app'))
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // You don't inherit from base classes, you compose by wrapping, just like you

@@ -5,7 +5,7 @@ function setToken(req) {
 }
 
 export function getJSON(url, callback) {
-  var req = new XMLHttpRequest()
+  const req = new XMLHttpRequest()
   req.onload = function () {
     if (req.status === 404) {
       callback(new Error('not found'))
@@ -19,7 +19,7 @@ export function getJSON(url, callback) {
 }
 
 export function postJSON(url, obj, callback) {
-  var req = new XMLHttpRequest()
+  const req = new XMLHttpRequest()
   req.onload = function () {
     callback(JSON.parse(req.response))
   }
@@ -30,7 +30,7 @@ export function postJSON(url, obj, callback) {
 }
 
 export function deleteJSON(url, callback) {
-  var req = new XMLHttpRequest()
+  const req = new XMLHttpRequest()
   req.onload = function () {
     if (req.status === 500) {
       callback(new Error(req.responseText))

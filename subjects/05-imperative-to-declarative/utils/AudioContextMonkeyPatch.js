@@ -68,21 +68,21 @@ BiquadFilterNode.type and OscillatorNode.type.
 
     AudioContext.prototype.internal_createGain = AudioContext.prototype.createGain;
     AudioContext.prototype.createGain = function() { 
-      var node = this.internal_createGain();
+      const node = this.internal_createGain();
       fixSetTarget(node.gain);
       return node;
     };
 
     AudioContext.prototype.internal_createDelay = AudioContext.prototype.createDelay;
     AudioContext.prototype.createDelay = function() { 
-      var node = this.internal_createDelay();
+      const node = this.internal_createDelay();
       fixSetTarget(node.delayTime);
       return node;
     };
 
     AudioContext.prototype.internal_createBufferSource = AudioContext.prototype.createBufferSource;
     AudioContext.prototype.createBufferSource = function() { 
-      var node = this.internal_createBufferSource();
+      const node = this.internal_createBufferSource();
       if (!node.start) {
         node.start = function ( when, offset, duration ) {
           if ( offset || duration )
@@ -99,7 +99,7 @@ BiquadFilterNode.type and OscillatorNode.type.
 
     AudioContext.prototype.internal_createDynamicsCompressor = AudioContext.prototype.createDynamicsCompressor;
     AudioContext.prototype.createDynamicsCompressor = function() { 
-      var node = this.internal_createDynamicsCompressor();
+      const node = this.internal_createDynamicsCompressor();
       fixSetTarget(node.threshold);
       fixSetTarget(node.knee);
       fixSetTarget(node.ratio);
@@ -111,7 +111,7 @@ BiquadFilterNode.type and OscillatorNode.type.
 
     AudioContext.prototype.internal_createBiquadFilter = AudioContext.prototype.createBiquadFilter;
     AudioContext.prototype.createBiquadFilter = function() { 
-      var node = this.internal_createBiquadFilter();
+      const node = this.internal_createBiquadFilter();
       fixSetTarget(node.frequency);
       fixSetTarget(node.detune);
       fixSetTarget(node.Q);
@@ -122,7 +122,7 @@ BiquadFilterNode.type and OscillatorNode.type.
     if (AudioContext.prototype.hasOwnProperty( 'createOscillator' )) {
       AudioContext.prototype.internal_createOscillator = AudioContext.prototype.createOscillator;
       AudioContext.prototype.createOscillator = function() { 
-        var node = this.internal_createOscillator();
+        const node = this.internal_createOscillator();
         if (!node.start)
           node.start = node.noteOn; 
         if (!node.stop)

@@ -1,3 +1,4 @@
+/*eslint-disable no-console */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Simulate } from 'react-addons-test-utils'

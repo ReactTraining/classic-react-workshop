@@ -5,7 +5,8 @@
   "description": "Training material for http://reactjs-training.com",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --content-base subjects"
+    "start": "webpack-dev-server --inline --content-base subjects",
+    "lint": "eslint subjects/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,8 @@
   "license": "GPL3",
   "dependencies": {
     "axios": "^0.5.4",
-    "babel": "^5.8.3",
-    "babel-core": "^5.0.9",
-    "babel-loader": "^5.3.2",
+    "babel": "^5.8.34",
+    "babel-loader": "^5.4.0",
     "bootstrap": "^3.3.4",
     "bootstrap-webpack": "0.0.3",
     "css-loader": "^0.10.1",
@@ -38,6 +38,7 @@
     "mkdirp": "^0.5.0",
     "object-assign": "^2.0.0",
     "react": "^0.14.2",
+    "react-addons-perf": "^0.14.3",
     "react-addons-test-utils": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-motion": "^0.2.2",
@@ -48,5 +49,10 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.8.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^3.1.23",
+    "eslint": "^1.7.3",
+    "eslint-plugin-react": "^3.6.3"
   }
 }

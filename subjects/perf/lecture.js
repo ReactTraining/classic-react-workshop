@@ -1,14 +1,14 @@
-var React = require('react/addons');
-var { Perf } = React.addons;
-var guid = 0;
+import React from 'react'
+import Perf from 'react-addons-perf'
 
-var ITEMS = [];
-for (var i = 0; i < 2000; i++)
-  ITEMS.push({ id: ++guid, body: `item ${guid}` });
+let guid = 0
 
-var TodoItem = React.createClass({
+const ITEMS = []
+for (const i = 0; i < 2000; i++)
+  ITEMS.push({ id: ++guid, body: `item ${guid}` })
 
-  render () {
+const TodoItem = React.createClass({
+  render() {
     return (
       <li>
         <span><input type="checkbox" /> </span>
@@ -26,39 +26,39 @@ var TodoItem = React.createClass({
         </span>
         <span tabIndex="-1">
           <span className="thing">
-            <span style={{color: 'blue'}}>{this.props.body}</span>
+            <span style={{ color: 'blue' }}>{this.props.body}</span>
           </span>
         </span>
       </li>
-    );
+    )
   }
-});
+})
 
-var TodoList = React.createClass({
-  getInitialState () {
+const TodoList = React.createClass({
+  getInitialState() {
     return {
       items: ITEMS
-    };
+    }
   },
 
-  handleSubmit (e) {
-    e.preventDefault();
-    var item = {
+  handleSubmit(e) {
+    e.preventDefault()
+    const item = {
       id: ++guid,
       body: e.target.elements[0].value
-    };
-    e.target.reset();
+    }
+    e.target.reset()
 
-    Perf.start();
+    Perf.start()
     this.setState({
-      items: [item].concat(this.state.items)
+      items: [ item ].concat(this.state.items)
     }, () => {
-      Perf.stop();
-      Perf.printWasted();
-    });
+      Perf.stop()
+      Perf.printWasted()
+    })
   },
 
-  render () {
+  render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -70,19 +70,18 @@ var TodoList = React.createClass({
           ))}
         </ul>
       </div>
-    );
+    )
   }
-});
+})
 
-var App = React.createClass({
-  render () {
+const App = React.createClass({
+  render() {
     return (
       <div>
         <TodoList />
       </div>
-    );
+    )
   }
-});
+})
 
-React.render(<App />, document.getElementById('app'));
-
+React.render(<App />, document.getElementById('app'))

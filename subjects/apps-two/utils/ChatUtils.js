@@ -1,8 +1,8 @@
-var Firebase = require('firebase/lib/firebase-web');
+const Firebase = require('firebase/lib/firebase-web');
 
-var ref = new Firebase('https://hip-react.firebaseio.com');
+const ref = new Firebase('https://hip-react.firebaseio.com');
 
-var serverTimeOffset = 0;
+const serverTimeOffset = 0;
 
 ref.child('.info/serverTimeOffset').on('value', function (snapshot) {
   serverTimeOffset = snapshot.val();
@@ -31,12 +31,12 @@ export function editMessage(channel, key, text) {
 }
 
 function subscribeToList(path, callback) {
-  var child = ref.child(path).limitToLast(100);
-  var onChange = child.on('value', (snapshot) => {
-    var items = [];
+  const child = ref.child(path).limitToLast(100);
+  const onChange = child.on('value', (snapshot) => {
+    const items = [];
 
     snapshot.forEach(function (s, k) {
-      var item = s.val();
+      const item = s.val();
       item._key = s.key();
       items.push(item);
     });

@@ -1,15 +1,15 @@
-var invariant = require('invariant');
-var Firebase = require('firebase/lib/firebase-web');
+const invariant = require('invariant');
+const Firebase = require('firebase/lib/firebase-web');
 
-var ref = new Firebase('https://hip-react.firebaseio.com');
-var serverTimeOffset = 0;
+const ref = new Firebase('https://hip-react.firebaseio.com');
+const serverTimeOffset = 0;
 
 ref.child('.info/serverTimeOffset').on('value', function (snapshot) {
   serverTimeOffset = snapshot.val();
 });
 
 export function login(callback) {
-  var auth = ref.getAuth()
+  const auth = ref.getAuth()
   if (auth)
     callback(null, auth)
   else
@@ -32,10 +32,10 @@ export function sendMessage(channel, username, avatar, text) {
 
 function subscribeToList(path, callback) {
   function handleChange(snapshot) {
-    var items = [];
+    const items = [];
 
     snapshot.forEach(function (s) {
-      var item = s.val();
+      const item = s.val();
       item._key = s.key();
       items.push(item);
     });
@@ -43,7 +43,7 @@ function subscribeToList(path, callback) {
     callback(items);
   }
 
-  var child = ref.child(path).limitToLast(100);
+  const child = ref.child(path).limitToLast(100);
   child.on('value', handleChange);
 
   return function () {

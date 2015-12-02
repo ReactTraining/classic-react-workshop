@@ -1,7 +1,7 @@
-var React = require('react');
-var axios = require('axios');
+const React = require('react');
+const axios = require('axios');
 
-var App = React.createClass({
+const App = React.createClass({
   render() {
     return (
       <div>

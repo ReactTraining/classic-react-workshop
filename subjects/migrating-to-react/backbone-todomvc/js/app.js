@@ -1,8 +1,8 @@
 /*global $ */
 /*jshint unused:false */
-var app = app || {};
-var ENTER_KEY = 13;
-var ESC_KEY = 27;
+const app = app || {};
+const ENTER_KEY = 13;
+const ESC_KEY = 27;
 
 $(function () {
 	'use strict';

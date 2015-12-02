@@ -10,18 +10,18 @@
 //   - delete a message
 ////////////////////////////////////////////////////////////////////////////////
 
-var React = require('react');
-var sortBy = require('sort-by');
-var escapeRegExp = require('./utils/escapeRegExp');
-var { Router, Route, Redirect, Link } = require('react-router');
-var { login, sendMessage, subscribeToChannels, subscribeToMessages, editMessage, deleteMessage } = require('./utils/ChatUtils');
+const React = require('react')
+const sortBy = require('sort-by')
+const escapeRegExp = require('./utils/escapeRegExp')
+const { Router, Route, Redirect, Link } = require('react-router')
+const { login, sendMessage, subscribeToChannels, subscribeToMessages, editMessage, deleteMessage } = require('./utils/ChatUtils')
 
 /*
 
 Subscribe to channels
 
 ```
-var subscription = subscribeToChannels('general', (messages) => {
+const subscription = subscribeToChannels('general', (messages) => {
   // here are your channels as an array
 });
 ```

@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 
-var Modal = React.createClass({
+const Modal = React.createClass({
 
   containerStyle: {
     position: 'fixed',
@@ -30,21 +30,21 @@ var Modal = React.createClass({
     textAlign: 'center'
   },
 
-  getInitialState () {
+  getInitialState() {
     return { isOpen: false }
   },
 
-  open () {
+  open() {
     this.setState({ isOpen: true })
   },
 
-  close () {
+  close() {
     this.setState({ isOpen: false })
   },
 
-  render () {
+  render() {
     if (this.state.isOpen === false)
-      return null;
+      return null
 
     return (
       <div style={this.containerStyle}>
@@ -52,21 +52,21 @@ var Modal = React.createClass({
           {this.props.children}
         </div>
       </div>
-    );
+    )
   }
-});
+})
 
-var App = React.createClass({
+const App = React.createClass({
 
-  openModal () {
+  openModal() {
     this.refs.modal.open()
   },
 
-  closeModal () {
+  closeModal() {
     this.refs.modal.close()
   },
 
-  render () {
+  render() {
     return (
       <div>
         <h1>Unbreakable</h1>
@@ -87,9 +87,9 @@ var App = React.createClass({
           <p>Are you sure?</p>
         </Modal>
       </div>
-    );
+    )
   }
-});
+})
 
-React.render(<App />, document.getElementById('app'));
+React.render(<App />, document.getElementById('app'))
 

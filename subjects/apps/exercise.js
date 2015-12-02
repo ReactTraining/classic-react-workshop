@@ -9,8 +9,8 @@
 //   sender and/or content
 //
 ////////////////////////////////////////////////////////////////////////////////
-var React = require('react');
-var { login, sendMessage, subscribeToMessages } = require('./utils/ChatUtils');
+const React = require('react')
+const { login, sendMessage, subscribeToMessages } = require('./utils/ChatUtils')
 
 /*
 
@@ -28,7 +28,7 @@ sendMessage(
   'hello, this is a message' // the actual message
 );
 
-var unsubscribe = subscribeToMessages('general', (messages) => {
+const unsubscribe = subscribeToMessages('general', (messages) => {
   // here are your messages as an array, it will be called
   // every time the messages change
 });

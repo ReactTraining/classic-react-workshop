@@ -26,7 +26,7 @@ const USERS = [
 ]
 
 function getUserByID(id) {
-  for (var i = 0; i < USERS.length; ++i)
+  for (const i = 0; i < USERS.length; ++i)
     if (USERS[i].id === parseInt(id, 10))
       return USERS[i]
 

@@ -1,4 +1,4 @@
-var axios = require('axios');
+const axios = require('axios');
 
 function fetchContacts(cb) {
   axios.get('https://addressbook-api.herokuapp.com/contacts').then((res) => {

@@ -1,28 +1,28 @@
-import React from 'react';
-import immstruct from 'immstruct';
-import Immutable from 'immutable';
+import React from 'react'
+import immstruct from 'immstruct'
+import Immutable from 'immutable'
 
-var structure = immstruct.withHistory('app', {
+const structure = immstruct.withHistory('app', {
   points: [],
   name: 'Drawing Pad'
-});
+})
 
-var DrawingPad = React.createClass({
-  getInitialState () {
+const DrawingPad = React.createClass({
+  getInitialState() {
     return {
       drawing: false
-    };
+    }
   },
 
-  maybeDraw (e) {
+  maybeDraw(e) {
     if (this.state.drawing)
       this.props.cursor.update('points', (points) => {
-        return points.push([e.clientX, e.clientY]);
-      });
+        return points.push([ e.clientX, e.clientY ])
+      })
   },
 
-  render () {
-    var points = this.props.cursor.get('points');
+  render() {
+    const points = this.props.cursor.get('points')
     return (
       <div>
         <div
@@ -37,7 +37,7 @@ var DrawingPad = React.createClass({
             background: '#fff'
           }}
           onMouseDown={() => this.setState({ drawing: true })}
-          onMouseUp={() => this.setState({ drawing: false})}
+          onMouseUp={() => this.setState({ drawing: false })}
           onMouseMove={this.maybeDraw}
         >
           {points.map((point, i) => (
@@ -53,19 +53,19 @@ var DrawingPad = React.createClass({
           ))}
         </div>
       </div>
-    );
+    )
   }
-});
+})
 
-var App = React.createClass({
-  handleSlider (e) {
-    setHistory(parseInt(e.target.value, 10));
+const App = React.createClass({
+  handleSlider(e) {
+    setHistory(parseInt(e.target.value, 10))
   },
 
-  render () {
-    var { structure } = this.props;
-    var cursor = structure.cursor();
-    var historyCount = structure.history.count();
+  render() {
+    const { structure } = this.props
+    const cursor = structure.cursor()
+    const historyCount = structure.history.count()
     return (
       <div>
         <h1>{cursor.get('name')}</h1>
@@ -77,40 +77,40 @@ var App = React.createClass({
             min="0"
             max={historyCount}
             value={structure._currentRevision}
-            style={{width: 400}}
+            style={{ width: 400 }}
           />
         </div>
         <DrawingPad cursor={cursor} />
       </div>
-    );
+    )
   }
-});
+})
 
-structure.on('swap', render);
-render();
+structure.on('swap', render)
+render()
 
-function setHistory (frame) {
-  var count = structure.history.count();
-  var current = structure._currentRevision;
+function setHistory(frame) {
+  const count = structure.history.count()
+  const current = structure._currentRevision
   if (frame > current)
-    redo(frame - current);
+    redo(frame - current)
   else if (frame < current)
-    undo(current - frame);
+    undo(current - frame)
 
 }
 
-function undo (amt) {
-  structure.undo(amt);
-  render();
+function undo(amt) {
+  structure.undo(amt)
+  render()
 }
 
-function redo (amt) {
-  structure.redo(amt);
-  render();
+function redo(amt) {
+  structure.redo(amt)
+  render()
 }
 
-function render () {
-  React.render(<App structure={structure} />, document.getElementById('app'));
+function render() {
+  React.render(<App structure={structure} />, document.getElementById('app'))
 }
 
 

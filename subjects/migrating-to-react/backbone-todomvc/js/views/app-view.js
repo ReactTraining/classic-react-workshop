@@ -1,5 +1,5 @@
 /*global Backbone, jQuery, _, ENTER_KEY */
-var app = app || {};
+const app = app || {};
 
 (function ($) {
 	'use strict';
@@ -49,8 +49,8 @@ var app = app || {};
 		// Re-rendering the App just means refreshing the statistics -- the rest
 		// of the app doesn't change.
 		render: function () {
-			var completed = app.todos.completed().length;
-			var remaining = app.todos.remaining().length;
+			const completed = app.todos.completed().length;
+			const remaining = app.todos.remaining().length;
 
 			if (app.todos.length) {
 				this.$main.show();
@@ -76,7 +76,7 @@ var app = app || {};
 		// Add a single todo item to the list by creating a view for it, and
 		// appending its element to the `<ul>`.
 		addOne: function (todo) {
-			var view = new app.TodoView({ model: todo });
+			const view = new app.TodoView({ model: todo });
 			this.$list.append(view.render().el);
 		},
 
@@ -119,7 +119,7 @@ var app = app || {};
 		},
 
 		toggleAllComplete: function () {
-			var completed = this.allCheckbox.checked;
+			const completed = this.allCheckbox.checked;
 
 			app.todos.each(function (todo) {
 				todo.save({

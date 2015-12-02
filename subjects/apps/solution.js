@@ -1,19 +1,19 @@
-var React = require('react');
-var sortBy = require('sort-by');
-var escapeRegExp = require('./utils/escapeRegExp');
-var { login, sendMessage, subscribeToChannels, subscribeToMessages } = require('./utils/ChatUtils');
+import React from 'react'
+import { render, findDOMNode } from 'react-dom'
+import sortBy from 'sort-by'
+import { login, sendMessage, subscribeToChannels, subscribeToMessages } from './utils/ChatUtils'
 
-require('./styles');
+require('./styles')
 
-var { arrayOf, shape, string, number, object, func, bool } = React.PropTypes;
+const { arrayOf, shape, string, number, object, func, bool } = React.PropTypes
 
-var message = shape({
+const message = shape({
   timestamp: number.isRequired,
   username: string.isRequired,
   text: string.isRequired
-});
+})
 
-var MessageListItem = React.createClass({
+const MessageListItem = React.createClass({
 
   propTypes: {
     authoredByViewer: bool.isRequired,
@@ -22,11 +22,11 @@ var MessageListItem = React.createClass({
   },
 
   render() {
-    var { authoredByViewer, message } = this.props;
-    var className = 'message';
+    const { authoredByViewer, message } = this.props
+    const className = 'message'
 
     if (authoredByViewer)
-      className += ' own-message';
+      className += ' own-message'
 
     return (
       <li className={className}>
@@ -40,12 +40,12 @@ var MessageListItem = React.createClass({
           <div className="message-text">{message.text}</div>
         </div>
       </li>
-    );
+    )
   }
 
-});
+})
 
-var MessageList = React.createClass({
+const MessageList = React.createClass({
 
   propTypes: {
     auth: object.isRequired,
@@ -53,111 +53,107 @@ var MessageList = React.createClass({
   },
 
   render() {
-    var { auth, messages } = this.props;
+    const { auth, messages } = this.props
 
-    var viewerUsername = auth.github.username;
-    var items = messages.sort(sortBy('timestamp')).map((message, index) => {
-      return <MessageListItem
+    const viewerUsername = auth.github.username
+    const items = messages.sort(sortBy('timestamp')).map((message, index) =>
+      <MessageListItem
         key={index}
         authoredByViewer={message.username === viewerUsername}
         message={message}
-      />;
-    });
+      />
+    )
 
     return (
       <ol className="message-list">
         {items}
       </ol>
-    );
+    )
   }
 
-});
+})
 
-var HiddenSubmitButton = React.createClass({
+const HiddenSubmitButton = React.createClass({
 
   render() {
-    var style = {
+    const style = {
       position: 'absolute',
       left: -9999,
       width: 1,
       height: 1
-    };
+    }
 
     return (
       <input type="submit" style={style} tabIndex="-1" />
-    );
+    )
   }
 
-});
+})
 
-var ChannelList = React.createClass({
+const ChannelList = React.createClass({
 
   getInitialState() {
     return {
       channels: []
-    };
+    }
   },
 
   componentDidMount() {
     subscribeToChannels((channels) => {
-      this.setState({ channels });
-    });
+      this.setState({ channels })
+    })
   },
 
   render() {
-    var defaultChannels = [{ _key: 'general' }];
-    var channels = this.state.channels.length ?
-      this.state.channels : defaultChannels;
+    const defaultChannels = [ { _key: 'general' } ]
+    const channels = this.state.channels.length ? this.state.channels : defaultChannels
+
     return (
       <div className="channels">
         <ul>
           {channels.map(channel => (
             <li key={channel._key}>
-              <Link to={"/"+channel._key}>{channel._key}</Link>
+              <a href={'/'+channel._key}>{channel._key}</a>
             </li>
           ))}
         </ul>
       </div>
-    );
+    )
   }
 
-});
+})
 
-var Chat = React.createClass({
+const Chat = React.createClass({
 
   getInitialState() {
     return {
       auth: null,
       channels: null
-    };
+    }
   },
 
   componentDidMount() {
     login((error, auth) => {
-      if (error) {
-        console.log(error);
-      } else {
-        this.setState({ auth });
-      }
-    });
+      this.setState({ auth })
+    })
   },
 
   render() {
-    var { auth } = this.state;
+    const { auth } = this.state
 
     if (auth == null)
-      return <p>Logging in...</p>;
+      return <p>Logging in...</p>
 
     return (
       <div className="chat">
         <Room auth={auth} />
       </div>
-    );
+    )
   }
 
-});
+})
 
-var Room = React.createClass({
+const Room = React.createClass({
 
   propTypes: {
     auth: React.PropTypes.object
@@ -166,62 +162,60 @@ var Room = React.createClass({
   getInitialState() {
     return {
       messages: []
-    };
+    }
   },
 
   componentWillMount() {
-    this.unsubscribe = null;
-    this.pinToBottom = true;
+    this.unsubscribe = null
+    this.pinToBottom = true
   },
 
   componentDidMount() {
-    this.subscribeToMessages('general');
+    this.subscribeToMessages('general')
   },
 
   componentWillReceiveProps(nextProps) {
-    this.subscribeToMessages(nextProps.params.room);
+    this.subscribeToMessages(nextProps.params.room)
   },
 
   subscribeToMessages(room) {
     if (this.unsubscribe)
-      this.unsubscribe();
+      this.unsubscribe()
 
     this.unsubscribe = subscribeToMessages(room, (messages) => {
-      this.setState({ messages });
-    });
+      this.setState({ messages })
+    })
   },
 
   handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
 
-    var messageTextNode = React.findDOMNode(this.refs.messageText);
-    var messageText = messageTextNode.value;
-    messageTextNode.value = '';
+    const messageTextNode = findDOMNode(this.refs.messageText)
+    const messageText = messageTextNode.value
+    messageTextNode.value = ''
 
-    var username = this.props.auth.github.username;
-    var avatar = this.props.auth.github.profileImageURL;
+    const username = this.props.auth.github.username
+    const avatar = this.props.auth.github.profileImageURL
 
-    this.pinToBottom = true;
-    sendMessage('general', username, avatar, messageText);
+    this.pinToBottom = true
+    sendMessage('general', username, avatar, messageText)
   },
 
   handleScroll(event) {
-    var node = event.target;
-    var { clientHeight, scrollTop, scrollHeight } = node;
-
-    this.pinToBottom = clientHeight + scrollTop > (scrollHeight - 10);
+    const { clientHeight, scrollTop, scrollHeight } = event.target
+    this.pinToBottom = clientHeight + scrollTop > (scrollHeight - 10)
   },
 
   componentDidUpdate() {
-    var node = React.findDOMNode(this.refs.messages);
+    const node = findDOMNode(this.refs.messages)
 
     if (node && this.pinToBottom)
-      node.scrollTop = node.scrollHeight;
+      node.scrollTop = node.scrollHeight
   },
 
   render() {
-    var { auth } = this.props;
-    var { messages } = this.state;
+    const { auth } = this.props
+    const { messages } = this.state
 
     return (
       <div className="room">
@@ -236,9 +230,9 @@ var Room = React.createClass({
           </div>
         </form>
       </div>
-    );
+    )
   }
 
-});
+})
 
-React.render(<Chat />, document.getElementById('app'));
+render(<Chat />, document.getElementById('app'))

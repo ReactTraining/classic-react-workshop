@@ -10,16 +10,16 @@
 // - Use a <Spring> to animate the transition
 ////////////////////////////////////////////////////////////////////////////////
 
-var React = require('react/addons');
-var easingTypes = require('react-tween-state').easingTypes;
-var TweenStateMixin = require('react-tween-state').Mixin;
-var { Spring } = require('react-motion');
+const React = require('react/addons')
+const easingTypes = require('react-tween-state').easingTypes
+const TweenStateMixin = require('react-tween-state').Mixin
+const { Spring } = require('react-motion')
 
-var { number } = React.PropTypes;
+const { number } = React.PropTypes
 
-require('./styles');
+require('./styles')
 
-var ToggleSwitch = React.createClass({
+const ToggleSwitch = React.createClass({
 
   propTypes: {
     animationDuration: number
@@ -28,38 +28,38 @@ var ToggleSwitch = React.createClass({
   getDefaultProps() {
     return {
       animationDuration: 350
-    };
+    }
   },
 
   getInitialState() {
     return {
       knobLeft: 0
-    };
+    }
   },
 
   toggle() {
     this.setState({
       knobLeft: this.state.knobLeft === 0 ? 400 : 0
-    });
+    })
   },
 
   handleClick() {
-    this.toggle();
+    this.toggle()
   },
   
   render() {
-    var knobStyle = {
+    const knobStyle = {
       WebkitTransform: `translate3d(${this.state.knobLeft}px,0,0)`,
       transform: `translate3d(${this.state.knobLeft}px,0,0)`
-    };
+    }
 
     return (
       <div className="toggle-switch" onClick={this.handleClick}>
         <div className="toggle-switch-knob" style={knobStyle} />
       </div>
-    );
+    )
   }
 
-});
+})
 
-React.render(<ToggleSwitch />, document.getElementById('app'));
+React.render(<ToggleSwitch />, document.getElementById('app'))
