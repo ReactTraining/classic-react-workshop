@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, findDOMNode } from 'react-dom'
+import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
 import sortBy from 'sort-by'
-import { login, sendMessage, subscribeToChannels, subscribeToMessages } from './utils/ChatUtils'
 
 require('./styles')
 
@@ -31,12 +31,10 @@ const MessageListItem = React.createClass({
     return (
       <li className={className}>
         <div className="message-avatar">
-          <img src={message.avatar} width="40" />
+          <img src={message.avatarURL} width="40" />
         </div>
         <div className="message-content">
-          <div className="message-username">
-            {message.username}
-          </div>
+          <div className="message-username">{message.username}</div>
           <div className="message-text">{message.text}</div>
         </div>
       </li>
@@ -90,73 +88,10 @@ const HiddenSubmitButton = React.createClass({
 
 })
 
-const ChannelList = React.createClass({
-
-  getInitialState() {
-    return {
-      channels: []
-    }
-  },
-
-  componentDidMount() {
-    subscribeToChannels((channels) => {
-      this.setState({ channels })
-    })
-  },
-
-  render() {
-    const defaultChannels = [ { _key: 'general' } ]
-    const channels = this.state.channels.length ? this.state.channels : defaultChannels
-
-    return (
-      <div className="channels">
-        <ul>
-          {channels.map(channel => (
-            <li key={channel._key}>
-              <a href={'/'+channel._key}>{channel._key}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
-
-})
-
-const Chat = React.createClass({
-
-  getInitialState() {
-    return {
-      auth: null,
-      channels: null
-    }
-  },
-
-  componentDidMount() {
-    login((error, auth) => {
-      this.setState({ auth })
-    })
-  },
-
-  render() {
-    const { auth } = this.state
-
-    if (auth == null)
-      return <p>Logging in...</p>
-
-    return (
-      <div className="chat">
-        <Room auth={auth} />
-      </div>
-    )
-  }
-
-})
-
 const Room = React.createClass({
 
   propTypes: {
-    auth: React.PropTypes.object
+    auth: object.isRequired
   },
 
   getInitialState() {
@@ -171,18 +106,14 @@ const Room = React.createClass({
   },
 
   componentDidMount() {
-    this.subscribeToMessages('general')
+    this.subscribeToMessages()
   },
 
-  componentWillReceiveProps(nextProps) {
-    this.subscribeToMessages(nextProps.params.room)
-  },
-
-  subscribeToMessages(room) {
+  subscribeToMessages() {
     if (this.unsubscribe)
       this.unsubscribe()
 
-    this.unsubscribe = subscribeToMessages(room, (messages) => {
+    this.unsubscribe = subscribeToMessages(messages => {
       this.setState({ messages })
     })
   },
@@ -194,11 +125,13 @@ const Room = React.createClass({
     const messageText = messageTextNode.value
     messageTextNode.value = ''
 
-    const username = this.props.auth.github.username
-    const avatar = this.props.auth.github.profileImageURL
+    const { auth } = this.props
+    const username = auth.github.username
+    const avatarURL = auth.github.profileImageURL
+
+    sendMessage(auth.uid, username, avatarURL, messageText)
 
     this.pinToBottom = true
-    sendMessage('general', username, avatar, messageText)
   },
 
   handleScroll(event) {
@@ -219,7 +152,7 @@ const Room = React.createClass({
 
     return (
       <div className="room">
-        <h1 className="room-title">general</h1>
+        <h1 className="room-title">hip-react</h1>
         <div ref="messages" className="messages" onScroll={this.handleScroll}>
           <MessageList auth={auth} messages={messages} />
         </div>
@@ -229,6 +162,35 @@ const Room = React.createClass({
             <HiddenSubmitButton />
           </div>
         </form>
+      </div>
+    )
+  }
+
+})
+
+const Chat = React.createClass({
+
+  getInitialState() {
+    return {
+      auth: null
+    }
+  },
+
+  componentDidMount() {
+    login((error, auth) => {
+      this.setState({ auth })
+    })
+  },
+
+  render() {
+    const { auth } = this.state
+
+    if (auth == null)
+      return <p>Logging in...</p>
+
+    return (
+      <div className="chat">
+        <Room auth={auth} />
       </div>
     )
   }

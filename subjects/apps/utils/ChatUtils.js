@@ -1,60 +1,59 @@
-import invariant from 'invariant'
 import Firebase from 'firebase/lib/firebase-web'
 
-const ref = new Firebase('https://hip-react.firebaseio.com')
-let serverTimeOffset = 0
+const BaseRef = new Firebase('https://hip-react.firebaseio.com')
 
-ref.child('.info/serverTimeOffset').on('value', function (snapshot) {
+let serverTimeOffset = 0
+BaseRef.child('.info/serverTimeOffset').on('value', function (snapshot) {
   serverTimeOffset = snapshot.val()
 })
 
-export function login(callback) {
-  const auth = ref.getAuth()
-  if (auth)
-    callback(null, auth)
-  else
-    ref.authWithOAuthPopup('github', callback)
+function saveAuth(auth) {
+  BaseRef.child('users/' + auth.uid).set(auth)
 }
 
-export function sendMessage(channel, username, avatar, text) {
-  invariant(
-    channel && username && avatar && text,
-    'You must provide (channel, username, avatar, text) to sendMessage'
-  )
+export function login(callback) {
+  const auth = BaseRef.getAuth()
 
-  ref.child(`channels/${channel}/messages`).push({
+  if (auth) {
+    saveAuth(auth)
+    callback(null, auth)
+  } else {
+    BaseRef.authWithOAuthPopup('github', function (error, auth) {
+      if (auth)
+        saveAuth(auth)
+
+      callback(error, auth)
+    })
+  }
+}
+
+export function sendMessage(uid, username, avatarURL, text) {
+  BaseRef.child('messages').push({
+    uid,
     timestamp: Date.now() + serverTimeOffset,
     username,
-    avatar,
+    avatarURL,
     text
   })
 }
 
-function subscribeToList(path, callback) {
-  function handleChange(snapshot) {
-    const items = []
+export function subscribeToMessages(callback) {
+  function handleValue(snapshot) {
+    const messages = []
 
     snapshot.forEach(function (s) {
-      const item = s.val()
-      item._key = s.key()
-      items.push(item)
+      const message = s.val()
+      message._key = s.key()
+      messages.push(message)
     })
 
-    callback(items)
+    callback(messages)
   }
 
-  const child = ref.child(path).limitToLast(100)
-  child.on('value', handleChange)
+  const messagesRef = BaseRef.child('messages').limitToLast(100)
+  messagesRef.on('value', handleValue)
 
   return function () {
-    child.off('value', handleChange)
+    messagesRef.off('value', handleValue)
   }
-}
-
-export function subscribeToMessages(channel, callback) {
-  return subscribeToList(`channels/${channel}/messages`, callback)
-}
-
-export function subscribeToChannels(callback) {
-  return subscribeToList(`channels`, callback)
 }
