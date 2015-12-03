@@ -27,13 +27,10 @@ const ToggleSwitch = React.createClass({
   },
   
   render() {
-    let x = this.state.isActive ? 400 : 0
+    const x = this.state.isActive ? 400 : 0
 
     return (
-      <Motion
-        defaultStyle={{ x }}
-        style={{ x: spring(x) }}
-      >
+      <Motion defaultStyle={{ x }} style={{ x: spring(x) }}>
       {s => (
         <div id="switch1" className="toggle-switch" onClick={e => this.handleClick(e)}>
           <div className="toggle-switch-knob" style={{

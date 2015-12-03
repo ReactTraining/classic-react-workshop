@@ -4,20 +4,14 @@
 // - Use TweenStateMixin to animate a sliding animation
 // - Experiment with different types of easing (hint: use easingTypes at 
 //   https://github.com/chenglou/tween-functions/blob/master/index.js)
-//
-// Got more time?
-//
-// - Use a <Spring> to animate the transition
 ////////////////////////////////////////////////////////////////////////////////
-
-const React = require('react/addons')
-const easingTypes = require('react-tween-state').easingTypes
-const TweenStateMixin = require('react-tween-state').Mixin
-const { Spring } = require('react-motion')
-
-const { number } = React.PropTypes
+import React from 'react'
+import { render } from 'react-dom'
+import { easingTypes, Mixin as TweenStateMixin } from 'react-tween-state'
 
 require('./styles')
+
+const { number } = React.PropTypes
 
 const ToggleSwitch = React.createClass({
 
@@ -62,4 +56,4 @@ const ToggleSwitch = React.createClass({
 
 })
 
-React.render(<ToggleSwitch />, document.getElementById('app'))
+render(<ToggleSwitch />, document.getElementById('app'))

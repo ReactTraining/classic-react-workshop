@@ -9,23 +9,22 @@
 //
 // - Use a <Spring> to animate the transition
 ////////////////////////////////////////////////////////////////////////////////
-
-const React = require('react/addons')
-const easingTypes = require('react-tween-state').easingTypes
-const TweenStateMixin = require('react-tween-state').Mixin
-const { Spring } = require('react-motion')
-
-const { bool, number } = React.PropTypes
+import React from 'react'
+import { render } from 'react-dom'
+import { easingTypes, Mixin as TweenStateMixin } from 'react-tween-state'
+import { Motion, spring } from 'react-motion'
 
 require('./styles')
 
-const ToggleSwitch = React.createClass({
+const { bool, number } = React.PropTypes
+
+const TweenToggleSwitch = React.createClass({
 
   mixins: [ TweenStateMixin ],
 
   propTypes: {
     animationDuration: number,
-    isLeft: bool.isRequired
+    isActive: bool.isRequired
   },
 
   getDefaultProps() {
@@ -43,14 +42,15 @@ const ToggleSwitch = React.createClass({
   componentWillReceiveProps(nextProps) {
     this.tweenState('knobLeft', {
       duration: this.props.animationDuration,
-      endValue: (nextProps.isLeft ? 0 : 400)
+      endValue: (nextProps.isActive ? 400 : 0)
     })
   },
 
   render() {
+    const knobLeft = this.getTweeningValue('knobLeft')
     const knobStyle = {
-      WebkitTransform: `translate3d(${this.getTweeningValue('knobLeft')}px,0,0)`,
-      transform: `translate3d(${this.getTweeningValue('knobLeft')}px,0,0)`
+      WebkitTransform: `translate3d(${knobLeft}px,0,0)`,
+      transform: `translate3d(${knobLeft}px,0,0)`
     }
 
     return (
@@ -65,21 +65,23 @@ const ToggleSwitch = React.createClass({
 const SpringToggleSwitch = React.createClass({
 
   propTypes: {
-    isLeft: bool.isRequired
+    isActive: bool.isRequired
   },
 
   render() {
+    const x = this.props.isActive ? 400 : 0
+
     return (
-      <Spring endValue={{ val: this.props.isLeft ? 0 : 400 }}>
-        {({ val }) =>
-          <div className="toggle-switch" onClick={this.handleClick}>
-            <div className="toggle-switch-knob" style={{
-              WebkitTransform: `translate3d(${val}px,0,0)`,
-              transform: `translate3d(${val}px,0,0)`
-            }} />
-          </div>
-        }
-      </Spring>
+      <Motion defaultStyle={{ x }} style={{ x: spring(x) }}>
+      {s => (
+        <div id="switch1" className="toggle-switch" onClick={this.handleClick}>
+          <div className="toggle-switch-knob" style={{
+            WebkitTransform: `translate3d(${s.x}px,0,0)`,
+            transform: `translate3d(${s.x}px,0,0)`
+          }} />
+        </div>
+      )}
+      </Motion>
     )
   }
 
@@ -89,13 +91,13 @@ const App = React.createClass({
 
   getInitialState() {
     return {
-      isLeft: true
+      isActive: false
     }
   },
 
   toggle() {
     this.setState({
-      isLeft: !this.state.isLeft
+      isActive: !this.state.isActive
     })
   },
 
@@ -106,13 +108,13 @@ const App = React.createClass({
   render() {
     return (
       <div>
+        <TweenToggleSwitch isActive={this.state.isActive} />
+        <SpringToggleSwitch isActive={this.state.isActive} />
         <button onClick={this.handleClick}>Toggle</button>
-        <ToggleSwitch isLeft={this.state.isLeft} />
-        <SpringToggleSwitch isLeft={this.state.isLeft} />
       </div>
     )
   }
 
 })
 
-React.render(<App />, document.getElementById('app'))
+render(<App />, document.getElementById('app'))
