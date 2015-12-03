@@ -18,12 +18,12 @@
 //
 // 2. Now that you've got the server working, open up `exercise.js`
 ////////////////////////////////////////////////////////////////////////////////
+import http from 'http'
+import React from 'react'
+import App from './lib/App'
+import fetchContacts from './lib/fetchContacts'
 
 const webpackServer = 'http://localhost:8080'
-const http = require('http')
-const React = require('react')
-const App = require('./lib/App')
-const fetchContacts = require('./lib/fetchContacts')
 
 function write(res, string) {
   res.writeHead(200, {

@@ -1,5 +1,5 @@
-const React = require('react');
-const axios = require('axios');
+import React from 'react'
+import axios from 'axios'
 
 const App = React.createClass({
   render() {
@@ -12,9 +12,8 @@ const App = React.createClass({
           ))}
         </ul>
       </div>
-    );
+    )
   }
-});
+})
 
-module.exports = App;
-
+export default App

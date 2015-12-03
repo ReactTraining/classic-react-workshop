@@ -250,10 +250,10 @@ This avoids the "globals" problem in Ember, Angular and Web Components,
 too.
 
 ```js
-var SomeThing = require('./SomeThing')
+import SomeThing from './SomeThing'
 
-var App = React.createClass({
-  render () {
+const App = React.createClass({
+  render() {
     var Renamed = Something
     return (
       <div>

@@ -9,15 +9,12 @@
 //   - edit a message
 //   - delete a message
 ////////////////////////////////////////////////////////////////////////////////
-
-const React = require('react')
-const sortBy = require('sort-by')
-const escapeRegExp = require('./utils/escapeRegExp')
-const { Router, Route, Redirect, Link } = require('react-router')
-const { login, sendMessage, subscribeToChannels, subscribeToMessages, editMessage, deleteMessage } = require('./utils/ChatUtils')
+import React from 'react'
+import sortBy from 'sort-by'
+import { Router, Route, Redirect, Link } from 'react-router'
+import { login, sendMessage, subscribeToChannels, subscribeToMessages, editMessage, deleteMessage } from './utils/ChatUtils'
 
 /*
-
 Subscribe to channels
 
 ```
@@ -32,5 +29,4 @@ Edit/delete messages:
 editMessage(channel, message._key);
 deleteMessage(channel, message._key);
 ```
-
 */

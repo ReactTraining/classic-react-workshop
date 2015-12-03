@@ -1,10 +1,9 @@
-const axios = require('axios');
+import axios from 'axios'
 
 function fetchContacts(cb) {
   axios.get('https://addressbook-api.herokuapp.com/contacts').then((res) => {
-    cb(res.data.contacts);
-  });
+    cb(res.data.contacts)
+  })
 }
 
-module.exports = fetchContacts;
-
+export default fetchContacts

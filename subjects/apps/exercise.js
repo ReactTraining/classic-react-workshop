@@ -7,13 +7,11 @@
 //
 // - Create a filter that lets you filter messages in the chat by
 //   sender and/or content
-//
 ////////////////////////////////////////////////////////////////////////////////
-const React = require('react')
-const { login, sendMessage, subscribeToMessages } = require('./utils/ChatUtils')
+import React from 'react'
+import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
 
 /*
-
 Here's how to use the ChatUtils:
 
 login((error, auth) => {
@@ -35,6 +33,4 @@ const unsubscribe = subscribeToMessages('general', (messages) => {
 unsubscribe(); // stop listening for changes
 
 The world is your oyster!
-
 */
-
