@@ -21,8 +21,8 @@ const ListView = React.createClass({
   },
 
   render() {
-    let { items, itemHeight, availableHeight, renderItem, style } = this.props
-    let totalHeight = items.length * itemHeight
+    const { items, itemHeight, availableHeight, renderItem, style } = this.props
+    const totalHeight = items.length * itemHeight
 
     return (
       <div style={{ ...style, height: '100%', overflowY: 'scroll' }}>

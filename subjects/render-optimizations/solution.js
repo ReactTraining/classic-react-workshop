@@ -26,21 +26,21 @@ const ListView = React.createClass({
     }
   },
 
-  handleScroll(e) {
+  handleScroll(event) {
     this.setState({
-      scrollTop: e.target.scrollTop
+      scrollTop: event.target.scrollTop
     })
   },
 
   render() {
-    let { items, itemHeight, availableHeight, renderItem, style } = this.props
-    let totalHeight = items.length * itemHeight
+    const { items, itemHeight, availableHeight, renderItem, style } = this.props
+    const totalHeight = items.length * itemHeight
 
-    let { scrollTop } = this.state
-    let scrollBottom = scrollTop + availableHeight
+    const { scrollTop } = this.state
+    const scrollBottom = scrollTop + availableHeight
 
-    let startIndex = Math.floor(scrollTop / itemHeight)
-    let endIndex = Math.ceil(scrollBottom / itemHeight)
+    const startIndex = Math.floor(scrollTop / itemHeight)
+    const endIndex = Math.ceil(scrollBottom / itemHeight)
 
     return (
       <div style={{ ...style, height: '100%', overflowY: 'scroll' }} onScroll={(e) => this.handleScroll(e)}>
