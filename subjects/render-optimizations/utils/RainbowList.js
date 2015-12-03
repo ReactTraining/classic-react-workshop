@@ -6,29 +6,29 @@ import formatHSL from './formatHSL'
 
 const { func, number } = React.PropTypes
 
-class RainbowList extends React.Component {
+const RainbowList = React.createClass({
 
-  static propTypes = {
+  propTypes: {
     length: number.isRequired,
     ListView: func.isRequired
-  }
+  },
 
-  static defaultProps = {
-    length: 360,
-    period: 100
-  }
+  getDefaultProps() {
+    return {
+      length: 360,
+      period: 100
+    }
+  },
 
-  constructor(props, context) {
-    super(props, context)
-    this.handleWindowResize = this.handleWindowResize.bind(this)
-    this.state = {
+  getInitialState() {
+    return {
       availableHeight: 0,
       items: []
     }
-  }
+  },
 
   computeItems(length, period) {
-    let items = []
+    const items = []
 
     for (let i = 0; i < length; ++i) {
       items.push({
@@ -38,31 +38,31 @@ class RainbowList extends React.Component {
     }
 
     this.setState({ items })
-  }
+  },
 
   handleWindowResize() {
     this.setState({
       availableHeight: findDOMNode(this).clientHeight
     })
-  }
+  },
 
   componentWillMount() {
     this.computeItems(this.props.length, this.props.period)
-  }
+  },
 
   componentDidMount() {
     window.addEventListener('resize', this.handleWindowResize)
     this.handleWindowResize()
-  }
+  },
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize)
-  }
+  },
 
   render() {
-    let { ListView } = this.props
-    let { items, availableHeight } = this.state
-    let itemHeight = 30
+    const { ListView } = this.props
+    const { items, availableHeight } = this.state
+    const itemHeight = 30
 
     return (
       <ListView
@@ -78,6 +78,6 @@ class RainbowList extends React.Component {
     )
   }
 
-}
+})
 
 export default RainbowList

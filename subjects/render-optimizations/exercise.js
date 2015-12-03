@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import { render } from 'react-dom'
-import RainbowList from './lib/RainbowList'
+import RainbowList from './utils/RainbowList'
 
 require('./styles')
 
