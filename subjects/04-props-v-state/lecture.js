@@ -1,21 +1,20 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-class ContentToggle extends React.Component {
+const ContentToggle = React.createClass({
 
-  constructor(props) {
-    super(props)
-    this.state = {
+  getInitialState() {
+    return {
       isOpen: false
     }
-  }
+  },
 
   handleClick() {
     this.setState({ isOpen: !this.state.isOpen }, () => {
       if (this.props.onToggle)
         this.props.onToggle(this.state.isOpen)
     })
-  }
+  },
 
   render() {
     let summaryClassName = 'ContentToggle__Summary'
@@ -32,20 +31,20 @@ class ContentToggle extends React.Component {
       </div>
     )
   }
-}
 
-class App extends React.Component {
+})
 
-  constructor(props) {
-    super(props)
-    this.state = {
+const App = React.createClass({
+
+  getInitialState() {
+    return {
       tacos: [
         { id: 0, name: 'Carnitas', src: 'tacos/carnitas.png' },
         { id: 1, name: 'Pollo', src: 'tacos/pollo.png' },
         { id: 2, name: 'Asada', src: 'tacos/asada.png' }
       ]
     }
-  }
+  },
 
   render() {
     return (
@@ -68,7 +67,8 @@ class App extends React.Component {
       </div>
     )
   }
-}
+
+})
 
 render(<App />, document.getElementById('app'))
 
@@ -76,28 +76,27 @@ render(<App />, document.getElementById('app'))
 // But what about when we add this feature?
 // <button>Toggle All</button>
 
-//class ContentToggle extends React.Component {
+//const ContentToggle = React.createClass({
 
-  //constructor(props) {
-    //super(props)
-    //this.state = {
-      //isOpen: props.isOpen
+  //getInitialState() {
+    //return {
+      //isOpen: this.props.isOpen
     //}
-  //}
+  //},
 
   //componentWillReceiveProps(nextProps) {
     //if (nextProps.isOpen != null)
       //this.setState({ isOpen: nextProps.isOpen })
-  //}
+  //},
 
-  //handleClick () {
+  //handleClick() {
     //this.setState({ isOpen: !this.state.isOpen }, () => {
       //if (this.props.onToggle)
         //this.props.onToggle(this.state.isOpen)
     //})
-  //}
+  //},
 
-  //render () {
+  //render() {
     //const summaryClassName = "ContentToggle__Summary"
     //if (this.state.isOpen)
       //summaryClassName += " ContentToggle__Summary--is-open"
@@ -112,29 +111,29 @@ render(<App />, document.getElementById('app'))
       //</div>
     //)
   //}
-//}
 
-//class App extends React.Component {
+//})
 
-  //constructor(props) {
-    //super(props)
-    //this.state = {
+//const App = React.createClass({
+
+  //getInitialState() {
+    //return {
       //allOpen: true,
       //tacos: [
         //{ id: 0, name: 'Carnitas', src: 'tacos/carnitas.png' },
         //{ id: 1, name: 'Pollo', src: 'tacos/pollo.png' },
-        //{ id: 2, name: 'Asada', src: 'tacos/asada.png' },
+        //{ id: 2, name: 'Asada', src: 'tacos/asada.png' }
       //]
     //}
-  //}
+  //},
 
   //openAll() {
     //this.setState({ allOpen: true })
-  //}
+  //},
 
   //closeAll() {
     //this.setState({ allOpen: false })
-  //}
+  //},
 
   //render() {
     //return (
@@ -163,7 +162,8 @@ render(<App />, document.getElementById('app'))
       //</div>
     //)
   //}
-//}
+
+//})
 
 //render(<App />, document.getElementById('app'))
 
@@ -173,23 +173,22 @@ render(<App />, document.getElementById('app'))
 // now that the parent owns the toggle state, we need it know each toggler's
 // state and synchronize it
 
-//class ContentToggle extends React.Component {
+//const ContentToggle = React.createClass({
 
-  //constructor(props) {
-    //super(props)
-    //this.state = {
-      //isOpen: props.isOpen
+  //getInitialState() {
+    //return {
+      //isOpen: this.props.isOpen
     //}
-  //}
+  //},
 
-  //handleClick () {
+  //handleClick() {
     //this.setState({ isOpen: !this.state.isOpen }, () => {
       //if (this.props.onToggle)
         //this.props.onToggle(this.state.isOpen)
     //})
-  //}
+  //},
 
-  //render () {
+  //render() {
     //const summaryClassName = "ContentToggle__Summary"
     //if (this.state.isOpen)
       //summaryClassName += " ContentToggle__Summary--is-open"
@@ -204,20 +203,20 @@ render(<App />, document.getElementById('app'))
       //</div>
     //)
   //}
-//}
 
-//class App extends React.Component {
+//})
 
-  //constructor(props) {
-    //super(props)
-    //this.state = {
+//const App = React.createClass({
+
+  //getInitialState() {
+    //return {
       //tacos: [
         //{ name: 'Carnitas', src: 'tacos/carnitas.png', isOpen: false },
         //{ name: 'Pollo', src: 'tacos/pollo.png', isOpen: false },
-        //{ name: 'Asada', src: 'tacos/asada.png', isOpen: false },
+        //{ name: 'Asada', src: 'tacos/asada.png', isOpen: false }
       //]
     //}
-  //}
+  //},
 
   //openAll() {
     //this.setState({
@@ -226,7 +225,7 @@ render(<App />, document.getElementById('app'))
         //return taco
       //})
     //})
-  //}
+  //},
 
   //closeAll() {
     //this.setState({
@@ -234,7 +233,7 @@ render(<App />, document.getElementById('app'))
         //taco.isOpen = false
       //})
     //})
-  //}
+  //},
 
   //handleTacoToggle(toggledTaco, toggledIsOpen) {
     //this.setState({
@@ -244,8 +243,7 @@ render(<App />, document.getElementById('app'))
         //return taco
       //})
     //})
-  //}
-
+  //},
 
   //render() {
     //const shouldCloseAll = this.state.tacos.every(taco => taco.isOpen)
@@ -276,21 +274,23 @@ render(<App />, document.getElementById('app'))
       //</div>
     //)
   //}
-//}
+
+//})
 
 //render(<App />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Our state is now fully synchronized, but do we even need state in
 // ContentToggle anymore?
-//class ContentToggle extends React.Component {
 
-  //handleClick () {
+//const ContentToggle = React.createClass({
+
+  //handleClick() {
     //if (this.props.onToggle)
       //this.props.onToggle(!this.props.isOpen)
-  //}
+  //},
 
-  //render () {
+  //render() {
     //const summaryClassName = "ContentToggle__Summary"
     //if (this.props.isOpen)
       //summaryClassName += " ContentToggle__Summary--is-open"
@@ -305,7 +305,8 @@ render(<App />, document.getElementById('app'))
       //</div>
     //)
   //}
-//}
+
+//})
 
 ////////////////////////////////////////////////////////////////////////////////
 // - We didn't really get rid of state, we just pushed it up a level
@@ -318,14 +319,13 @@ render(<App />, document.getElementById('app'))
 
 // We can create a Controller Component that wraps our pure component,
 
-//class StatefulContentToggle extends React.Component {
+//const StatefulContentToggle = React.createClass({
 
-  //constructor(props) {
-    //super(props)
-    //this.state = { isOpen: false }
-  //}
+  //getInitialState() {
+    //return { isOpen: false }
+  //},
 
-  //render () {
+  //render() {
     //return <ContentToggle
       //{...this.props}
       //isOpen={this.state.isOpen}
@@ -333,7 +333,7 @@ render(<App />, document.getElementById('app'))
     ///>
   //}
 
-//}
+//})
 
 //render(<App />, document.getElementById('app'))
 
