@@ -8,3 +8,13 @@
 // - Use `npm start` to start the test server
 // - Fill in the test stubs in modules/__tests__ to make the tests pass
 ////////////////////////////////////////////////////////////////////////////////
+//
+
+describe('crap', () => {
+  it('should be stinky', () => {
+    console.assert(false)
+  })
+})
+
+window.mocha.run()
+
