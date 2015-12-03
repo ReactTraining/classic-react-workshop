@@ -38,6 +38,6 @@ const ListView = React.createClass({
 })
 
 render(
-  <RainbowList ListView={ListView} length={500} />,
+  <RainbowList ListView={ListView} length={500000} />,
   document.getElementById('app')
 )
