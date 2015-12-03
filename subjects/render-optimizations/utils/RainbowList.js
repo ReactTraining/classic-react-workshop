@@ -1,79 +1,41 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
-import convertNumberToEnglish from './convertNumberToEnglish'
-import computeHSLRainbowColor from './computeHSLRainbowColor'
-import formatHSL from './formatHSL'
+import { computeHSLRainbowColor, convertNumberToEnglish } from './RainbowUtils'
 
 const { func, number } = React.PropTypes
 
 const RainbowList = React.createClass({
 
   propTypes: {
+    ListView: func.isRequired,
+    rowHeight: number.isRequired,
     length: number.isRequired,
-    ListView: func.isRequired
+    period: number.isRequired
   },
 
   getDefaultProps() {
     return {
+      rowHeight: 30,
       length: 360,
       period: 100
     }
   },
 
-  getInitialState() {
-    return {
-      availableHeight: 0,
-      items: []
-    }
-  },
-
-  computeItems(length, period) {
-    const items = []
-
-    for (let i = 0; i < length; ++i) {
-      items.push({
-        text: convertNumberToEnglish(i + 1),
-        color: computeHSLRainbowColor(i, period)
-      })
-    }
-
-    this.setState({ items })
-  },
-
-  handleWindowResize() {
-    this.setState({
-      availableHeight: findDOMNode(this).clientHeight
-    })
-  },
-
-  componentWillMount() {
-    this.computeItems(this.props.length, this.props.period)
-  },
-
-  componentDidMount() {
-    window.addEventListener('resize', this.handleWindowResize)
-    this.handleWindowResize()
-  },
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize)
-  },
-
   render() {
-    const { ListView } = this.props
-    const { items, availableHeight } = this.state
-    const itemHeight = 30
+    const { ListView, rowHeight, length, period } = this.props
 
     return (
       <ListView
-        items={items}
-        itemHeight={itemHeight}
-        availableHeight={availableHeight}
-        renderItem={item =>
-          <div style={{ height: itemHeight, color: formatHSL(...item.color), fontSize: 24 }}>
-            {item.text}
-          </div>
-        }
+        rowHeight={rowHeight}
+        length={length}
+        renderRowAtIndex={index => {
+          const color = computeHSLRainbowColor(index, period)
+
+          return (
+            <div style={{ height: rowHeight, color, fontSize: 24, padding: '5px 10px' }}>
+              {convertNumberToEnglish(index + 1)}
+            </div>
+          )
+        }}
       />
     )
   }
