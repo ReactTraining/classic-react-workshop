@@ -1,27 +1,35 @@
 import React from 'react'
-import { getState, addChangeListener, removeChangeListener } from '../stores/ContactStore'
-import { loadContacts, deleteContact } from '../actions/ViewActionCreators'
+import ContactStore from '../stores/ContactStore'
+import ViewActions from '../actions/ViewActionCreators'
 
 const ContactList = React.createClass({
+
+  getDefaultProps() {
+    return {
+      ContactStore,
+      ViewActions
+    }
+  },
+
   getInitialState() {
-    return getState()
+    return this.props.ContactStore.getState()
   },
 
   handleChange() {
-    this.setState(getState())
+    this.setState(this.props.ContactStore.getState())
   },
 
   componentDidMount() {
-    addChangeListener(this.handleChange)
-    loadContacts()
+    this.props.ContactStore.addChangeListener(this.handleChange)
+    this.props.ViewActions.loadContacts()
   },
 
   componentWillUnmount() {
-    removeChangeListener(this.handleChange)
+    this.props.ContactStore.removeChangeListener(this.handleChange)
   },
 
   deleteContact(contact) {
-    deleteContact(contact)
+    this.props.ViewActions.deleteContact(contact)
   },
 
   render() {

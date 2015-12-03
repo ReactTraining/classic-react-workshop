@@ -2,7 +2,7 @@ import { ActionTypes } from '../Constants'
 import { dispatchViewAction } from '../AppDispatcher'
 import * as APIUtils from '../utils/APIUtils'
 
-export function loadContacts() {
+function loadContacts() {
   dispatchViewAction({
     type: ActionTypes.LOAD_CONTACTS
   })
@@ -10,7 +10,7 @@ export function loadContacts() {
   APIUtils.loadContacts()
 }
 
-export function deleteContact(contact) {
+function deleteContact(contact) {
   dispatchViewAction({
     type: ActionTypes.DELETE_CONTACT,
     contact
@@ -18,3 +18,5 @@ export function deleteContact(contact) {
 
   APIUtils.deleteContact(contact)
 }
+
+export default { deleteContact, loadContacts }

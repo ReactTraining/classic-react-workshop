@@ -18,15 +18,15 @@ function setState(newState) {
   events.emit(CHANGE_EVENT)
 }
 
-export function addChangeListener(fn) {
+function addChangeListener(fn) {
   events.addListener(CHANGE_EVENT, fn)
 }
 
-export function removeChangeListener(fn) {
+function removeChangeListener(fn) {
   events.removeListener(CHANGE_EVENT, fn)
 }
 
-export function getState() {
+function getState() {
   return state
 }
 
@@ -63,3 +63,6 @@ AppDispatcher.register(function (payload) {
     })
   }
 })
+
+export default { getState, removeChangeListener, addChangeListener }
+
