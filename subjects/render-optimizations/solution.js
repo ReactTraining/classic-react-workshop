@@ -15,7 +15,7 @@ const ListView = React.createClass({
 
   propTypes: {
     rowHeight: number.isRequired,
-    length: number.isRequired,
+    numRows: number.isRequired,
     renderRowAtIndex: func.isRequired
   },
 
@@ -48,14 +48,14 @@ const ListView = React.createClass({
   },
 
   render() {
-    const { rowHeight, length, renderRowAtIndex } = this.props
-    const totalHeight = rowHeight * length
+    const { rowHeight, numRows, renderRowAtIndex } = this.props
+    const totalHeight = rowHeight * numRows
 
     const { availableHeight, scrollTop } = this.state
     const scrollBottom = scrollTop + availableHeight
 
-    const startIndex = Math.floor(scrollTop / rowHeight)
-    const endIndex = Math.ceil(scrollBottom / rowHeight)
+    const startIndex = Math.max(0, Math.floor(scrollTop / rowHeight) - 20)
+    const endIndex = Math.min(numRows, Math.ceil(scrollBottom / rowHeight) + 20)
 
     const items = []
 
@@ -68,7 +68,7 @@ const ListView = React.createClass({
     return (
       <div style={{ height: '100%', overflowY: 'scroll' }} onScroll={this.handleScroll}>
         <ol style={{ paddingTop: (startIndex * rowHeight), pointerEvents: 'none', height: totalHeight }}>
-        {items}
+          {items}
         </ol>
       </div>
     )
@@ -77,6 +77,6 @@ const ListView = React.createClass({
 })
 
 render(
-  <RainbowList ListView={ListView} length={500000} />,
+  <RainbowList ListView={ListView} numRows={500000} />,
   document.getElementById('app')
 )

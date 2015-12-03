@@ -8,25 +8,25 @@ const RainbowList = React.createClass({
   propTypes: {
     ListView: func.isRequired,
     rowHeight: number.isRequired,
-    length: number.isRequired,
+    numRows: number.isRequired,
     period: number.isRequired
   },
 
   getDefaultProps() {
     return {
       rowHeight: 30,
-      length: 360,
+      numRows: 360,
       period: 100
     }
   },
 
   render() {
-    const { ListView, rowHeight, length, period } = this.props
+    const { ListView, rowHeight, numRows, period } = this.props
 
     return (
       <ListView
         rowHeight={rowHeight}
-        length={length}
+        numRows={numRows}
         renderRowAtIndex={index => {
           const color = computeHSLRainbowColor(index, period)
 
