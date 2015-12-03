@@ -10,39 +10,6 @@ import Droppable from './modules/Droppable'
 import StatefulContentToggle from './modules/StatefulContentToggle'
 import ContactList from '../flux/solution/components/ContactList'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //describe('ContentToggle', () => {
   //const div = document.createElement('div')
 
@@ -150,4 +117,3 @@ import ContactList from '../flux/solution/components/ContactList'
 //- getDefaultProps for application modules
 //- shallow renderer
 //- assert on vdom
-
