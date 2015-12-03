@@ -9,7 +9,7 @@
 // Got extra time?
 // - add a select dropdown to make filtering on `type` dynamic
 // - add a button to toggle the sort order
-// - Hint: you'll need an `updateThePage` function that calls `React.render`,
+// - Hint: you'll need an `updateThePage` function that calls `render`,
 //   and then you'll need to call it in the event handlers of the form controls
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'

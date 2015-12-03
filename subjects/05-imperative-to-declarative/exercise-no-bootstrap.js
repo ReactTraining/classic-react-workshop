@@ -6,6 +6,7 @@
 //   imperative API D: Make it declarative!
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
+import { render } from 'react-dom'
 
 const Modal = React.createClass({
 
@@ -89,7 +90,7 @@ const App = React.createClass({
       </div>
     )
   }
+
 })
 
-React.render(<App />, document.getElementById('app'))
-
+render(<App />, document.getElementById('app'))

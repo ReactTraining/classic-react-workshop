@@ -1,4 +1,5 @@
 import React from 'react'
+import { render } from 'react-dom'
 import Perf from 'react-addons-perf'
 
 let guid = 0
@@ -84,4 +85,4 @@ const App = React.createClass({
   }
 })
 
-React.render(<App />, document.getElementById('app'))
+render(<App />, document.getElementById('app'))

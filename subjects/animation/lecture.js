@@ -1,6 +1,7 @@
-const React = require('react/addons')
-const { TransitionGroup } = React.addons
-const HeightFader = require('./components/HeightFader')
+import React from 'react'
+import { render } from 'react-dom'
+import TransitionGroup from 'react-addons-transition-group'
+import HeightFader from './components/HeightFader'
 
 const List = React.createClass({
 
@@ -64,4 +65,4 @@ const App = React.createClass({
 
 })
 
-React.render(<App />, document.getElementById('app'))
+render(<App />, document.getElementById('app'))

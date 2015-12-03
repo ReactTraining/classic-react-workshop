@@ -335,7 +335,7 @@ render(<App />, document.getElementById('app'))
 
 //}
 
-//React.render(<App />, document.getElementById('app'))
+//render(<App />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // You don't inherit from base classes, you compose by wrapping, just like you

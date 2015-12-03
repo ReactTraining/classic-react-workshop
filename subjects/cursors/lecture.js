@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import immstruct from 'immstruct'
 import Immutable from 'immutable'
 
@@ -110,7 +111,5 @@ function redo(amt) {
 }
 
 function render() {
-  React.render(<App structure={structure} />, document.getElementById('app'))
+  ReactDOM.render(<App structure={structure} />, document.getElementById('app'))
 }
-
-

@@ -5,13 +5,13 @@ Coming from jQuery
 ------------------
 
 ```js
-var $input = $('<input/>');
-var $results = $('<ul/>');
+var $input = $('<input/>')
+var $results = $('<ul/>')
 $input.on('keyup', debounce(function (event) {
   $.getJSON(url, function (data) {
-    var html = '';
+    var html = ''
     data.results.forEach(function (result) {
-      var li = $('<li/>');
+      var li = $('<li/>')
       var html = '<h2>' +
                     result.title +
                  '  <button data-id="'+result.id+'" class="remove">' +
@@ -19,37 +19,37 @@ $input.on('keyup', debounce(function (event) {
                  '  </button>' +
                  '</h2>' +
                  '<p>Posted <span class="timeAgo"></span></p>' +
-                 '<p>'+result.description+'</p>';
+                 '<p>'+result.description+'</p>'
                  '<div class="modal" style="display: none">' +
                  '  Are you sure sure?' +
                  '  <button class="no">No</button> ' +
                  '  <button class="yes">Yes</button>' +
-                 '</div>';
-      $li.html(html);
+                 '</div>'
+      $li.html(html)
       setInterval(function () {
-        $li.find('.timeAgo').html(timeAgo(result.posted_at));
-      }, 1000);
-    });
-    $results.html(html);
+        $li.find('.timeAgo').html(timeAgo(result.posted_at))
+      }, 1000)
+    })
+    $results.html(html)
 
     $results.find('.remove').on('click', function (event) {
-      var $el = $(event.target);
-      var $dialog = $el.find('.modal').dialog();
+      var $el = $(event.target)
+      var $dialog = $el.find('.modal').dialog()
 
       $el.find('.no').on('click', function () {
-        $dialog.dialog('close');
-      });
+        $dialog.dialog('close')
+      })
 
       $el.find('.yes').on('click', function () {
-        $.post(deleteUrl+'/'+$el.data('id'));
-        $dialog.dialog('close');
-        $el.parent().remove();
-      });
-    });
-  });
-}), 500);
+        $.post(deleteUrl+'/'+$el.data('id'))
+        $dialog.dialog('close')
+        $el.parent().remove()
+      })
+    })
+  })
+}), 500)
 
-$('#app').append($input).append($results);
+$('#app').append($input).append($results)
 ```
 
 - extremely imperative, have to set up every instance of every
@@ -135,7 +135,7 @@ It also allows you to think about your app as a "Stock" instead of a
 But first, lets talk about functions, pure functions to be exact:
 
 ```js
-var add = (x, y) => x + y;
+var add = (x, y) => x + y
 ```
 
 - will always return the same value given the same input
@@ -143,13 +143,13 @@ var add = (x, y) => x + y;
 
 ```js
 // either as part of the new function's definition
-var double = (x) => add(x, x);
+var double = (x) => add(x, x)
 
 // or used to pass in arguments to the function
-double(add(x, y), z);
+double(add(x, y), z)
 
 // or even passed INTO a function
-var double = (adder, value) => adder(value);
+var double = (adder, value) => adder(value)
 ```
 
 Pure functions are incredibly versatile. They are completely isolated
@@ -161,17 +161,17 @@ React components are literally functions that return a
 description of UI that will get rendered.
 
 ```js
-var input = React.DOM.input({type: 'password'});
-React.render(input, document.body);
+var input = React.DOM.input({type: 'password'})
+render(input, document.body)
 ```
 
 ```js
-var { div, h1, p } = React.DOM;
+var { div, h1, p } = React.DOM
 var element = div({ className: 'App' },
                    h1(null, 'Hello!'),
                    p(null, 'lorem ipsum ...'),
-                 );
-React.render(element, document.body);
+                 )
+render(element, document.body)
 ```
 
 Lets get back to some math. We can create our own types of components in
@@ -180,27 +180,27 @@ React:
 ```js
 var Add = React.createClass({
   render () {
-    var sum = this.props.x + this.props.y;
-    return React.DOM.span({}, sum);
+    var sum = this.props.x + this.props.y
+    return React.DOM.span({}, sum)
   }
-});
+})
 
 // don't worry about this rn
-Add = React.createFactory(Add);
+Add = React.createFactory(Add)
 
-var element = Add({ x: 2, y: 3 }); // <span>5</span>
+var element = Add({ x: 2, y: 3 }) // <span>5</span>
 
 var Double = React.createClass({
   render () {
     return Add({
       x: this.props.value,
       y: this.props.value
-    });
+    })
   }
-});
+})
 
-Double = React.createFactory(Double);
-var element = Double({ value: 2 }); // <span>4</span>
+Double = React.createFactory(Double)
+var element = Double({ value: 2 }) // <span>4</span>
 ```
 
 Just functions. Two differences with "normal" functions:
@@ -211,11 +211,11 @@ Just functions. Two differences with "normal" functions:
 About that `factory` stuff.
 
 ```js
-var Foo = React.createClass({ /* ... */});
-var element = React.createElement(Foo, props);
+var Foo = React.createClass({ /* ... */})
+var element = React.createElement(Foo, props)
 // v.
-Foo = React.createFactory(Foo);
-var element = Foo(props);
+Foo = React.createFactory(Foo)
+var element = Foo(props)
 ```
 
 That only matters if you're not using JSX. We're going to be using JSX.
@@ -232,12 +232,12 @@ just like UI.
 var element = <div className="App">
                 <h1 className="Title">Hello!</h1>
                 <p>Pork Carnitas street tacos are the best</p>
-              </div>;
+              </div>
 
 var element = div({ className: "App" },
                 h1({ className: "Title" }, 'Hello!'),
                 p(null, 'Pork Carnitas street tacos are the best')
-              );
+              )
 ```
 
 Again, JSX is really just a different way to call functions. Arrays
@@ -250,19 +250,19 @@ This avoids the "globals" problem in Ember, Angular and Web Components,
 too.
 
 ```js
-var SomeThing = require('./SomeThing');
+var SomeThing = require('./SomeThing')
 
 var App = React.createClass({
   render () {
-    var Renamed = Something;
+    var Renamed = Something
     return (
       <div>
         <SomeThing/>
         <Renamed/>
       </div>
-    );
+    )
   }
-});
+})
 ```
 
 You don't have to rely on and learn the framework's reinvention of the
@@ -297,7 +297,7 @@ var options = months.map((month, index) => (
   <FancyOption>
     {month} ({ padMonth(index) })
   </FancyOption>
-));
+))
 ```
 
 Things you have to know:

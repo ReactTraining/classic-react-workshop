@@ -1,8 +1,8 @@
-const React = require('react')
-const sortBy = require('sort-by')
-const escapeRegExp = require('./utils/escapeRegExp')
-const { Router, Route, Redirect, Link } = require('react-router')
-const { login, sendMessage, subscribeToChannels, subscribeToMessages, editMessage, deleteMessage } = require('./utils/ChatUtils')
+import React from 'react'
+import { render } from 'react-dom'
+import sortBy from 'sort-by'
+import { Router, Route, Redirect, Link } from 'react-router'
+import { login, sendMessage, subscribeToChannels, subscribeToMessages, editMessage, deleteMessage } from './utils/ChatUtils'
 
 require('./styles')
 
@@ -257,7 +257,7 @@ const Channel = React.createClass({
 
 })
 
-React.render((
+render((
   <Router>
     <Redirect from="/" to="/general" />
     <Route component={Chat}>
