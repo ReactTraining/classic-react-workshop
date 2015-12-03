@@ -1,120 +1,134 @@
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Use TweenStateMixin to animate a sliding animation
-// - Experiment with different types of easing (hint: use easingTypes at 
-//   https://github.com/chenglou/tween-functions/blob/master/index.js)
+// - Use a <Motion> to animate the transition of the red "marker" to its
+//   destination when it is dropped
 //
-// Got more time?
+// Got extra time?
 //
-// - Use a <Spring> to animate the transition
+// - Add a "drop hint" element that indicates which element will receive
+//   the marker when it is dropped to improve usability
+// - Use a <StaggeredMotion> to give the marker animation a blur effect
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render } from 'react-dom'
-import { easingTypes, Mixin as TweenStateMixin } from 'react-tween-state'
+import { render, findDOMNode } from 'react-dom'
 import { Motion, spring } from 'react-motion'
 
 require('./styles')
 
-const { bool, number } = React.PropTypes
-
-const TweenToggleSwitch = React.createClass({
-
-  mixins: [ TweenStateMixin ],
-
-  propTypes: {
-    animationDuration: number,
-    isActive: bool.isRequired
-  },
-
-  getDefaultProps() {
-    return {
-      animationDuration: 350
-    }
-  },
+const MarkerGrid = React.createClass({
 
   getInitialState() {
     return {
-      knobLeft: 0
+      isDraggingMarker: false,
+      markerX: 0,
+      markerY: 0,
+      mouseX: 0,
+      mouseY: 0
     }
   },
 
-  componentWillReceiveProps(nextProps) {
-    this.tweenState('knobLeft', {
-      duration: this.props.animationDuration,
-      endValue: (nextProps.isActive ? 400 : 0)
-    })
+  componentWillMount() {
+    document.addEventListener('mouseup', this.handleMouseUp)
+    document.addEventListener('mousemove', this.handleMouseMove)
   },
 
-  render() {
-    const knobLeft = this.getTweeningValue('knobLeft')
-    const knobStyle = {
-      WebkitTransform: `translate3d(${knobLeft}px,0,0)`,
-      transform: `translate3d(${knobLeft}px,0,0)`
-    }
-
-    return (
-      <div className="toggle-switch" onClick={this.handleClick}>
-        <div className="toggle-switch-knob" style={knobStyle} />
-      </div>
-    )
-  }
-
-})
-
-const SpringToggleSwitch = React.createClass({
-
-  propTypes: {
-    isActive: bool.isRequired
+  componentWillUnmount() {
+    document.removeEventListener('mousemove', this.handleMouseMove)
+    document.removeEventListener('mouseup', this.handleMouseUp)
   },
 
-  render() {
-    const x = this.props.isActive ? 400 : 0
-
-    return (
-      <Motion defaultStyle={{ x }} style={{ x: spring(x) }}>
-      {s => (
-        <div id="switch1" className="toggle-switch" onClick={this.handleClick}>
-          <div className="toggle-switch-knob" style={{
-            WebkitTransform: `translate3d(${s.x}px,0,0)`,
-            transform: `translate3d(${s.x}px,0,0)`
-          }} />
-        </div>
-      )}
-      </Motion>
-    )
-  }
-
-})
-
-const App = React.createClass({
-
-  getInitialState() {
+  getRelativeXY({ clientX, clientY }) {
+    const { offsetLeft, offsetTop } = findDOMNode(this)
+    
     return {
-      isActive: false
+      x: clientX - offsetLeft,
+      y: clientY - offsetTop
     }
   },
 
-  toggle() {
+  handleMouseDown(event) {
+    const { x, y } = this.getRelativeXY(event)
+    const { offsetLeft, offsetTop } = event.target
+
     this.setState({
-      isActive: !this.state.isActive
+      isDraggingMarker: true,
+      markerX: x - offsetLeft,
+      markerY: y - offsetTop,
+      mouseX: x,
+      mouseY: y
     })
+
+    // Prevent Chrome from displaying a text cursor.
+    event.preventDefault()
   },
 
-  handleClick() {
-    this.toggle()
+  handleMouseMove(event) {
+    if (this.state.isDraggingMarker) {
+      const { x, y } = this.getRelativeXY(event)
+
+      this.setState({
+        mouseX: x,
+        mouseY: y
+      })
+    }
+  },
+
+  handleMouseUp() {
+    if (this.state.isDraggingMarker)
+      this.setState({ isDraggingMarker: false })
   },
 
   render() {
+    const { isDraggingMarker, markerX, markerY, mouseX, mouseY } = this.state
+
+    let markerLeft, markerTop, dropHint
+    if (isDraggingMarker) {
+      markerLeft = mouseX - markerX
+      markerTop = mouseY - markerY
+      dropHint = (
+        <div className="drop-hint" style={{
+          left: Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150,
+          top: Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
+        }} />
+      )
+    } else {
+      markerLeft = Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150
+      markerTop = Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
+    }
+
+    const markerStyle = {
+      left: markerLeft,
+      top: markerTop
+    }
+
     return (
-      <div>
-        <TweenToggleSwitch isActive={this.state.isActive} />
-        <SpringToggleSwitch isActive={this.state.isActive} />
-        <button onClick={this.handleClick}>Toggle</button>
+      <div className="grid">
+        {dropHint}
+        <Motion
+          defaultStyle={markerStyle}
+          style={{
+            left: isDraggingMarker ? markerLeft : spring(markerLeft),
+            top: isDraggingMarker ? markerTop : spring(markerTop)
+          }}
+        >
+        {markerStyle => (
+          <div className="marker" style={markerStyle} onMouseDown={this.handleMouseDown} />
+        )}
+        </Motion>
+        <div className="cell">1</div>
+        <div className="cell">2</div>
+        <div className="cell">3</div>
+        <div className="cell">4</div>
+        <div className="cell">5</div>
+        <div className="cell">6</div>
+        <div className="cell">7</div>
+        <div className="cell">8</div>
+        <div className="cell">9</div>
       </div>
     )
   }
 
 })
 
-render(<App />, document.getElementById('app'))
+render(<MarkerGrid />, document.getElementById('app'))
