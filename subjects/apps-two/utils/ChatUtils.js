@@ -2,7 +2,7 @@ const Firebase = require('firebase/lib/firebase-web');
 
 const ref = new Firebase('https://hip-react.firebaseio.com');
 
-const serverTimeOffset = 0;
+let serverTimeOffset = 0;
 
 ref.child('.info/serverTimeOffset').on('value', function (snapshot) {
   serverTimeOffset = snapshot.val();

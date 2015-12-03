@@ -18,7 +18,7 @@ class ContentToggle extends React.Component {
   }
 
   render() {
-    const summaryClassName = 'ContentToggle__Summary'
+    let summaryClassName = 'ContentToggle__Summary'
     if (this.state.isOpen)
       summaryClassName += ' ContentToggle__Summary--is-open'
     return (

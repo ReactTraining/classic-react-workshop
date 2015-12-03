@@ -30,8 +30,7 @@ const MessageListItem = React.createClass({
 
   render() {
     const { authoredByViewer, message } = this.props
-
-    const className = 'message'
+    let className = 'message'
 
     if (authoredByViewer)
       className += ' own-message'

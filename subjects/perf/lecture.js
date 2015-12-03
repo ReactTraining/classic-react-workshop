@@ -4,7 +4,7 @@ import Perf from 'react-addons-perf'
 let guid = 0
 
 const ITEMS = []
-for (const i = 0; i < 2000; i++)
+for (let i = 0; i < 2000; i++)
   ITEMS.push({ id: ++guid, body: `item ${guid}` })
 
 const TodoItem = React.createClass({
