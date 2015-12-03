@@ -27,7 +27,7 @@ const ListView = React.createClass({
     return (
       <div style={{ ...style, height: '100%', overflowY: 'scroll' }}>
         <ol style={{ height: totalHeight }}>
-        {items.map((item, index) =>
+        {items.map(item =>
           <li key={item.text}>{renderItem(item)}</li>
         )}
         </ol>

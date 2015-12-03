@@ -46,7 +46,7 @@ const ListView = React.createClass({
       <div style={{ ...style, height: '100%', overflowY: 'scroll' }} onScroll={(e) => this.handleScroll(e)}>
         <div style={{ height: totalHeight }}>
           <ol style={{ paddingTop: (startIndex * itemHeight), pointerEvents: 'none' }}>
-          {items.slice(startIndex, endIndex).map((item, index) =>
+          {items.slice(startIndex, endIndex).map(item =>
             <li key={item.text}>{renderItem(item)}</li>
           )}
           </ol>
