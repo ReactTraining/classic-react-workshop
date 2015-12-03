@@ -1,32 +1,28 @@
 var fs = require('fs')
-var fileExists = fs.existsSync
-var mkdirp = require('mkdirp')
 var path = require('path')
+var mkdirp = require('mkdirp')
 var webpack = require('webpack')
 var React = require('react')
 var ReactDOMServer = require('react-dom/server')
 
-var CODE = __dirname+'/subjects'
-var IGNORE = ['shared']
-var DIRS = fs.readdirSync(CODE).filter(function (dir) {
-  return isDirectory(path.join(CODE, dir)) && IGNORE.indexOf(dir) === -1
+var SubjectsDir = path.join(__dirname, 'subjects')
+var SubjectDirs = fs.readdirSync(SubjectsDir).filter(function (dir) {
+  return isDirectory(path.join(SubjectsDir, dir))
 })
-
-makeIndex()
 
 module.exports = {
 
   devtool: 'source-map',
 
-  entry: DIRS.reduce(function (entries, dir) {
-    if (fileExists(path.join(CODE, dir, 'exercise.js')))
-      entries[dir+'-exercise'] = path.join(CODE, dir, 'exercise.js')
+  entry: SubjectDirs.reduce(function (entries, dir) {
+    if (fs.existsSync(path.join(SubjectsDir, dir, 'exercise.js')))
+      entries[dir+ '-exercise'] = path.join(SubjectsDir, dir, 'exercise.js')
 
-    if (fileExists(path.join(CODE, dir, 'solution.js')))
-      entries[dir+'-solution'] = path.join(CODE, dir, 'solution.js')
+    if (fs.existsSync(path.join(SubjectsDir, dir, 'solution.js')))
+      entries[dir+ '-solution'] = path.join(SubjectsDir, dir, 'solution.js')
 
-    if (fileExists(path.join(CODE, dir, 'lecture.js')))
-      entries[dir+'-lecture'] = path.join(CODE, dir, 'lecture.js')
+    if (fs.existsSync(path.join(SubjectsDir, dir, 'lecture.js')))
+      entries[dir+ '-lecture'] = path.join(SubjectsDir, dir, 'lecture.js')
 
     return entries
   }, {}),
@@ -45,12 +41,12 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.css$/, loader: 'style!css' },
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel?stage=0&loose=all' },
-      { test: /\.woff(2)?$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
-      { test: /\.ttf$/, loader: "file" },
-      { test: /\.eot$/, loader: "file" },
-      { test: /\.svg$/, loader: "file" },
-      { test: require.resolve('jquery'), loader: "expose?jQuery" }
+      { test: /\.js$/, exclude: /node_modules|mocha-browser\.js/, loader: 'babel?stage=0&loose=all' },
+      { test: /\.woff(2)?$/,   loader: 'url?limit=10000&mimetype=application/font-woff' },
+      { test: /\.ttf$/, loader: 'file' },
+      { test: /\.eot$/, loader: 'file' },
+      { test: /\.svg$/, loader: 'file' },
+      { test: require.resolve('jquery'), loader: 'expose?jQuery' }
     ]
   },
 
@@ -75,9 +71,13 @@ module.exports = {
 
 }
 
+makeIndex()
+
 function makeIndex() {
-  var list = DIRS.map(function (dir) {
-    return React.DOM.li({ key: dir }, React.DOM.a({ href: '/' + dir }, dir.replace(/-/g, ' ')))
+  var list = SubjectDirs.map(function (dir) {
+    return React.DOM.li({ key: dir },
+      React.DOM.a({ href: '/' + dir }, dir.replace(/-/g, ' '))
+    )
   })
 
   var markup = ReactDOMServer.renderToStaticMarkup(
@@ -93,10 +93,10 @@ function makeIndex() {
 
   fs.writeFileSync('./subjects/index.html', markup)
 
-  DIRS.forEach(function (dir) {
-    fs.writeFileSync('./subjects/'+dir+'/index.html', makeMarkup(dir+'-exercise'))
-    fs.writeFileSync('./subjects/'+dir+'/solution.html', makeMarkup(dir+'-solution'))
-    fs.writeFileSync('./subjects/'+dir+'/lecture.html', makeMarkup(dir+'-lecture'))
+  SubjectDirs.forEach(function (dir) {
+    fs.writeFileSync('./subjects/' + dir + '/index.html', makeMarkup(dir + '-exercise'))
+    fs.writeFileSync('./subjects/' + dir + '/solution.html', makeMarkup(dir + '-solution'))
+    fs.writeFileSync('./subjects/' + dir + '/lecture.html', makeMarkup(dir + '-lecture'))
   })
 }
 
