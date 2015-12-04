@@ -2,6 +2,13 @@
 // Exercise:
 //
 // Write a <ListView> that only shows the elements in the view.
+//
+// Got extra time?
+//
+// - Render fewer rows as the size of the window changes (Hint: You'll need
+//   to listen for the window's "resize" event)
+// - Try rendering a few rows above and beneath the visible area to prevent
+//   tearing when scrolling quickly
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import { render, findDOMNode } from 'react-dom'
