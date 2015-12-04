@@ -9,7 +9,6 @@ function parseLinks (meta) {
 
 export default function fetchGists (url, cb) {
   jsonp(url, (err, res) => {
-    cb(null, res.data.items, parseLinks(res.meta));
-  });
+    cb(null, res.data.items, parseLinks(res.meta))
+  })
 }
-
