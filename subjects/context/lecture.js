@@ -13,7 +13,7 @@ import * as styles from './lib/styles'
 // plan, so instead we can use a feature called "context"
 
 //const TabList = React.createClass({
-  //render () {
+  //render() {
     //const children = React.Children.map(this.props.children, (child, index) => {
       //return React.cloneElement(child, {
         //isActive: index === this.props.activeIndex,
@@ -25,7 +25,7 @@ import * as styles from './lib/styles'
 //})
 
 //const Tab = React.createClass({
-  //render () {
+  //render() {
     //return (
       //<div
         //onClick={this.props.disabled ? null : this.props.onClick}
@@ -40,7 +40,7 @@ import * as styles from './lib/styles'
 //})
 
 //const TabPanels = React.createClass({
-  //render () {
+  //render() {
     //return (
       //<div style={styles.tabPanels}>
         //{this.props.children[this.props.activeIndex]}
@@ -50,7 +50,7 @@ import * as styles from './lib/styles'
 //})
 
 //const TabPanel = React.createClass({
-  //render () {
+  //render() {
     //return <div>{this.props.children}</div>
   //}
 //})
@@ -115,9 +115,8 @@ import * as styles from './lib/styles'
 
 //render(<App/>, document.getElementById('app'))
 
-
 ////////////////////////////////////////////////////////////////////////////////
-// wrapping TabPanels in a div breaks everything, lets introduce context
+// Wrapping TabPanels in a div breaks everything, lets introduce context
 
 //const TabList = React.createClass({
   //render () {
@@ -234,7 +233,7 @@ import * as styles from './lib/styles'
 //render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
-// Wrapping TabList also breaks (no more active styels), lets check context for
+// Wrapping TabList also breaks (no more active styles), lets check context for
 // isActive and the click handler instead of props
 
 const TabList = React.createClass({
@@ -337,4 +336,3 @@ const App = React.createClass({
 })
 
 render(<App/>, document.getElementById('app'))
-
