@@ -16,7 +16,7 @@ import RainbowList from './utils/RainbowList'
 
 require('./styles')
 
-const { array, func, number } = React.PropTypes
+const { func, number } = React.PropTypes
 
 const ListView = React.createClass({
 

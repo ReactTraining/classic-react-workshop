@@ -11,7 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import { render } from 'react-dom'
-import { easingTypes, Mixin as TweenStateMixin } from 'react-tween-state'
+import { Mixin as TweenStateMixin } from 'react-tween-state'
 import { Motion, spring } from 'react-motion'
 
 require('./styles')

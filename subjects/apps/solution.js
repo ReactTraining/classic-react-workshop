@@ -5,7 +5,7 @@ import sortBy from 'sort-by'
 
 require('./styles')
 
-const { arrayOf, shape, string, number, object, func, bool } = React.PropTypes
+const { arrayOf, shape, string, number, object, bool } = React.PropTypes
 
 const message = shape({
   timestamp: number.isRequired,
