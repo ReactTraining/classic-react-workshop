@@ -1,19 +1,19 @@
 ## Welcome to React.js Training!
 
-This repo contains the course material for the React Fundamentals course from [React.js Training](https://reactjs-training.com/).
+This repo contains the course material for [React.js Training](https://reactjs-training.com/).
 
 Before the training make sure you can run this repository.
 
 Install [git](http://git-scm.com/downloads) and [node.js](https://nodejs.org/), then:
 
 ```sh
-$ git clone https://github.com/ReactJSTraining/react-fundamentals.git
-$ cd react-fundamentals
+$ git clone https://github.com/ReactJSTraining/react-training-material.git
+$ cd react-training-material
 $ npm install
 $ npm start
 ```
 
-Then open your browser to `http://localhost:8080`, you should see a list of subjects.
+Then open your browser to `http://localhost:8080`. You should see a list of subjects.
 
 ### Troubleshooting
 
