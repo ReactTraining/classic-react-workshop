@@ -241,7 +241,7 @@ var element = div({ className: "App" },
 ```
 
 Again, JSX is really just a different way to call functions. Arrays
-start with `[`, regular expressions sart with `/`, and UI starts with
+start with `[`, regular expressions start with `/`, and UI starts with
 `<`. There's nothing crazy going on.
 
 Because its just JavaScript, there are no special ways to deal with
