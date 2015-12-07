@@ -150,7 +150,7 @@ updateThePage()
 //
 //const Gravatar = React.createClass({
 //  propTypes: {
-//    email: string.isRequired
+//    email: React.PropTypes.string.isRequired
 //  },
 //  render() {
 //    const src = `${GravatarURL}/${md5(this.props.email)}?s=40`
@@ -160,7 +160,7 @@ updateThePage()
 //
 //const App = React.createClass({
 //  propTypes: {
-//    users: array
+//    users: React.PropTypes.array
 //  },
 //  render() {
 //    return (
