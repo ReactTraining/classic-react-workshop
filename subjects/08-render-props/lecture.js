@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
-import * as styles from './lib/styles'
-import searchGithubRepos from './lib/searchGithubRepos'
-import ScrollBottomNotifier from './lib/ScrollBottomNotifier'
+import * as styles from './utils/styles'
+import searchGithubRepos from './utils/searchGithubRepos'
+import ScrollBottomNotifier from './utils/ScrollBottomNotifier'
 
 ////////////////////////////////////////////////////////////////////////////////
 // Here's a fun app, check out ScrollBottomNotifier, making these kinds of tasks

@@ -1,14 +1,16 @@
 import jsonp from 'jsonp'
 
-function parseLinks (meta) {
+function parseLinks(meta) {
   return meta.Link.reduce((links, link) => {
     links[link[1].rel] = link[0]
     return links
   }, {})
 }
 
-export default function fetchGists (url, cb) {
+function searchGithubRepos(url, callback) {
   jsonp(url, (err, res) => {
-    cb(null, res.data.items, parseLinks(res.meta))
+    callback(null, res.data.items, parseLinks(res.meta))
   })
 }
+
+export default searchGithubRepos

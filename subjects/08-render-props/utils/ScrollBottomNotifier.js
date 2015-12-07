@@ -1,15 +1,19 @@
 import React from 'react'
 
-class ScrollBottomNotifier extends React.Component {
+const { func, number } = React.PropTypes
 
-  static propTypes = {
-    onScrollBottom: React.PropTypes.func,
-    buffer: React.PropTypes.number
-  }
+const ScrollBottomNotifier = React.createClass({
 
-  static defaultProps = {
-    buffer: 200
-  }
+  propTypes: {
+    buffer: number.isRequired,
+    onScrollBottom: func
+  },
+
+  getDefaultProps() {
+    return {
+      buffer: 200
+    }
+  },
 
   handleScroll(event) {
     const { scrollTop, scrollHeight, clientHeight } = event.target
@@ -17,7 +21,7 @@ class ScrollBottomNotifier extends React.Component {
 
     if (hitBottom && this.props.onScrollBottom)
       this.props.onScrollBottom()
-  }
+  },
 
   render() {
     const style = {...this.props.style, overflow: 'auto'}
@@ -29,6 +33,6 @@ class ScrollBottomNotifier extends React.Component {
     />
   }
 
-}
+})
 
 export default ScrollBottomNotifier

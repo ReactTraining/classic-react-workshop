@@ -15,58 +15,59 @@
 //   <PinnedToBottom/> component
 // - now make sure if the user scrolls up, you don't scroll them down
 // - make a <JSONP/> component that fetches data with the jsonp package used in
-//   `lib/githubSearch` that uses a render prop to pass its data back up
+//   `utils/githubSearch` that uses a render prop to pass its data back up
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import { render, findDOMNode } from 'react-dom'
-import { listen } from './lib/log'
+import { listen } from './utils/log'
 
 const { arrayOf, func, number, oneOfType, string } = React.PropTypes
 
 const component = oneOfType([ string, func ])
 
-class PinnedToBottom extends React.Component {
+const PinnedToBottom = React.createClass({
 
-  static propTypes = {
+  propTypes: {
     component: component.isRequired,
     tolerance: number.isRequired
-  }
+  },
 
-  static defaultProps = {
-    component: 'div',
-    tolerance: 10
-  }
+  getDefaultProps() {
+    return {
+      component: 'div',
+      tolerance: 10
+    }
+  },
 
   scrollToBottom() {
-    let node = findDOMNode(this)
+    const node = findDOMNode(this)
     node.scrollTop = node.scrollHeight
-  }
+  },
 
   adjustScrollPosition() {
     if (this.pinToBottom)
       this.scrollToBottom()
-  }
+  },
 
   componentWillMount() {
     this.pinToBottom = true
-  }
+  },
 
   componentDidMount() {
     this.adjustScrollPosition()
-  }
+  },
 
   componentWillUpdate() {
-    let node = findDOMNode(this)
-    let { clientHeight, scrollHeight, scrollTop } = node
+    const { clientHeight, scrollHeight, scrollTop } = findDOMNode(this)
     this.pinToBottom = (scrollHeight - (clientHeight + scrollTop)) < this.props.tolerance
-  }
+  },
 
   componentDidUpdate() {
     this.adjustScrollPosition()
-  }
+  },
 
   render() {
-    let { children, component, style } = this.props
+    const { children, component, style } = this.props
 
     return React.createElement(component, {
       style: { ...style, overflowY: 'scroll' },
@@ -74,35 +75,35 @@ class PinnedToBottom extends React.Component {
     })
   }
 
-}
+})
 
-class Tail extends React.Component {
+const Tail = React.createClass({
 
-  static propTypes = {
+  propTypes: {
     lines: arrayOf(string).isRequired,
     n: number.isRequired
-  }
+  },
 
-  static defaultProps = {
-    n: 15
-  }
+  getDefaultProps() {
+    return {
+      n: 15
+    }
+  },
 
   render() {
-    let { children, lines, n } = this.props
+    const { children, lines, n } = this.props
     return children(lines.slice(-n))
   }
 
-}
+})
 
-class App extends React.Component {
+const App = React.createClass({
 
-  constructor(props, context) {
-    super(props, context)
-
-    this.state = {
+  getInitialState() {
+    return {
       lines: []
     }
-  }
+  },
 
   componentDidMount() {
     listen(newLines => {
@@ -110,7 +111,7 @@ class App extends React.Component {
         lines: this.state.lines.concat(newLines)
       })
     })
-  }
+  },
 
   render() {
     return (
@@ -133,6 +134,6 @@ class App extends React.Component {
     )
   }
 
-}
+})
 
 render(<App />, document.getElementById('app'))
