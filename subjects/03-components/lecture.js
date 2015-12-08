@@ -130,7 +130,7 @@ updateThePage()
 //      <p>A taco is a traditional Mexican dish composed of a corn or wheat tortilla folded or rolled around a filling.</p>
 //    </ContentToggle>
 //    <ContentToggle title="Burritos">
-//      <p>(US English /bəˈritoʊ/, About this sound buˈrito (help·info))[1] is a type of Mexican[2] and Tex-Mex food,[3] consisting of a wheat flour tortilla wrapped or folded into a cylindrical shape to completely enclose the filling (in contrast to a taco, which is generally formed by simply folding a tortilla in half around a filling, leaving the semicircular perimeter open).</p>
+//      <p>A burrito is a type of Mexican and Tex-Mex food, consisting of a wheat flour tortilla wrapped or folded into a cylindrical shape to completely enclose the filling (in contrast to a taco, which is generally formed by simply folding a tortilla in half around a filling, leaving the semicircular perimeter open).</p>
 //    </ContentToggle>
 //  </ToggleTracker>
 //), document.getElementById('app'))
