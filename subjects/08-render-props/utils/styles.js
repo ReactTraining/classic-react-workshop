@@ -1,17 +1,16 @@
-export var repos = {
+export const repos = {
   height: 400,
   border: 'solid 1px',
-};
+}
 
-export var repoList = {
+export const repoList = {
   padding: 0,
   margin: 0
-};
+}
 
-export var repo = {
+export const repo = {
   display: 'block',
   textDecoration: 'none',
   borderTop: '1px solid #aaa',
   padding: 10
-};
-
+}

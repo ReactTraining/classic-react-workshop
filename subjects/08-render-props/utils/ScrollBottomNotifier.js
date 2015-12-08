@@ -24,12 +24,12 @@ const ScrollBottomNotifier = React.createClass({
   },
 
   render() {
-    const style = {...this.props.style, overflow: 'auto'}
+    const style = { ...this.props.style, overflow: 'auto' }
 
     return <div
       {...this.props}
       style={style}
-      onScroll={(e) => this.handleScroll(e)}
+      onScroll={this.handleScroll}
     />
   }
 
