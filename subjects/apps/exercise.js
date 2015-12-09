@@ -15,15 +15,14 @@ import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
 Here's how to use the ChatUtils:
 
 login((error, auth) => {
-  // hopefully the error is `null` and you have a github
-  // `auth` object
+  // hopefully the error is `null` and you have a auth.github object
 })
 
 sendMessage(
-  'general', // the channel to post a message to, please post to "general" at first
-  'ryanflorence', // the github user name
-  'https://avatars.githubusercontent.com/u/100200?v=3', // the github avatar
-  'hello, this is a message' // the actual message
+  'asdfasdfs',                    // the auth.uid string
+  'ryanflorence',                 // the username, try auth.github.username
+  'https://example.com/foo.jpg',  // the user's profile image, try auth.github.profileImageURL
+  'hello, this is a message'      // the text of the message
 )
 
 const unsubscribe = subscribeToMessages('general', (messages) => {
