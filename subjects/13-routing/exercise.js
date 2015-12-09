@@ -44,6 +44,7 @@ const App = React.createClass({
     return (
       <div>
         <h1>People Viewer</h1>
+        {this.props.children}
       </div>
     )
   }
@@ -54,7 +55,7 @@ const Home = React.createClass({
     const contactItems = USERS.map(function (user) {
       return (
         <li key={user.email}>
-          <Link to={`/profile/${user.id}`}>{user.name}</Link>
+          {user.name}
         </li>
       )
     })
