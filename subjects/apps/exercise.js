@@ -19,17 +19,18 @@ login((error, auth) => {
 })
 
 sendMessage(
-  'asdfasdfs',                    // the auth.uid string
-  'ryanflorence',                 // the username, try auth.github.username
-  'https://example.com/foo.jpg',  // the user's profile image, try auth.github.profileImageURL
+  auth.uid,                       // the auth.uid string
+  auth.github.username,           // the username, try auth.github.username
+  auth.github.profileImageURL,    // the user's profile image, try auth.github.profileImageURL
   'hello, this is a message'      // the text of the message
 )
 
-const unsubscribe = subscribeToMessages('general', (messages) => {
+const unsubscribe = subscribeToMessages(messages => {
   // here are your messages as an array, it will be called
   // every time the messages change
 })
-unsubscribe() // stop listening for changes
+
+unsubscribe() // stop listening for new messages
 
 The world is your oyster!
 */
