@@ -1,23 +1,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
+//
 // - Add some code to App's render method that renders the child route
 //   (hint: use this.props.children)
 // - Add a new child route beneath App at "/profile/:userID" that shows the
 //   user with the given ID (hint: use the Profile component)
 // - Add links to the Home view that link to the profile page for each user
+// - Move the links to `App`, whats different now?
 //
 // Got extra time?
 //
+// Refer to the docs here for help:
+// https://github.com/rackt/react-router/blob/latest/docs
+// https://github.com/rackt/react-router/blob/latest/docs/API.md
+//
 // - Add a link to the profile page that links back to Home so users don't have
 //   to use the Back button to navigate
-// - Add a route that renders at urls the app doesn't understand (use "*" as the path)
 // - Add a <Redirect> from "/users/:userID" to "/profile/:userID"
-//   (https://rackt.github.io/react-router/tags/v1.0.0-beta2.html#Redirect)
+// - Add a route that renders at urls the app doesn't understand (use "*" as the
+//   path)
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, Link, Redirect } from 'react-router'
+import { Router, Route, IndexRoute, Link, Redirect } from 'react-router'
 import Gravatar from './components/Gravatar'
 
 const USERS = [
@@ -46,7 +52,7 @@ const App = React.createClass({
 
 const Home = React.createClass({
   render() {
-    const items = USERS.map(function (user) {
+    const contactItems = USERS.map(function (user) {
       return (
         <li key={user.email}>
           <Link to={`/profile/${user.id}`}>{user.name}</Link>
@@ -55,7 +61,10 @@ const Home = React.createClass({
     })
 
     return (
-      <ul className="people-list">{items}</ul>
+      <div>
+        <h2>Home</h2>
+        <ul className="people-list">{contactItems}</ul>
+      </div>
     )
   }
 })
@@ -78,19 +87,18 @@ const Profile = React.createClass({
 
 const NoMatch = React.createClass({
   render() {
-    return <p>I don’t understand that route</p>
+    return <h1>No routes matched</h1>
   }
 })
 
 ReactDOM.render((
   <Router>
-    <Route component={App}>
-      <Route path="/" component={Home} />
-      <Route path="/profile/:userID" component={Profile} />
+    <Route path="/" component={App}>
+      <IndexRoute component={Home}/>
+      <Route path="profile/:userID" component={Profile}/>
+      <Redirect from="/users/:userID" to="/profile/:userID"/>
     </Route>
-    <Redirect from="/users/:userID" to="/profile/:userID" />
-    <Route path="*" component={NoMatch} />
+    <Route path="*" component={NoMatch}/>
   </Router>
-), document.getElementById('app'), function () {
-  require('./tests').run(this)
-})
+), document.getElementById('app'))
+
