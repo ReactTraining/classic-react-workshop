@@ -9,6 +9,7 @@
 //   sender and/or content
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
+import { render } from 'react-dom'
 import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
 
 /*
