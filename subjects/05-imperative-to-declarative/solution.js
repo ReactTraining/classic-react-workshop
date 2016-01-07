@@ -14,6 +14,12 @@ const Modal = React.createClass({
 
   componentDidMount() {
     this.doImperativeWork()
+    
+    $(findDOMNode(this)).on('hidden.bs.modal', () => {
+      if (this.props.onClose) {
+        this.props.onClose();
+      }
+    })
   },
 
   componentDidUpdate() {
@@ -74,7 +80,7 @@ const App = React.createClass({
           onClick={this.openModal}
         >open modal</button>
 
-        <Modal isOpen={this.state.modalIsOpen} title="Declarative is better">
+        <Modal isOpen={this.state.modalIsOpen} title="Declarative is better" onClose={this.closeModal}>
           <p>Calling methods on instances is a FLOW not a STOCK!</p>
           <p>It’s the dynamic process, not the static program in text space.</p>
           <p>You have to experience it over time, rather than in snapshots of state.</p>
