@@ -5,7 +5,7 @@
   "description": "Training material for http://reactjs-training.com",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --content-base subjects",
+    "start": "webpack-dev-server --inline --content-base subjects",
     "lint": "eslint subjects/**/*.js"
   },
   "repository": {
