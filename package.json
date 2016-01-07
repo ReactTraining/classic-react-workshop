@@ -1,5 +1,5 @@
 {
-  "name": "react-fundamentals",
+  "name": "react-training-material",
   "private": true,
   "version": "1.0.0",
   "description": "Training material for http://reactjs-training.com",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ReactTraining/react-fundamentals.git"
+    "url": "https://github.com/ReactJSTraining/react-training-material.git"
   },
   "authors": [
     "Ryan Florence",
