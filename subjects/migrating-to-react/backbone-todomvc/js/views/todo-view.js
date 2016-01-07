@@ -1,5 +1,5 @@
 /*global Backbone, jQuery, _, ENTER_KEY, ESC_KEY */
-const app = app || {};
+var app = app || {};
 
 (function ($) {
 	'use strict';
@@ -78,8 +78,8 @@ const app = app || {};
 
 		// Close the `"editing"` mode, saving changes to the todo.
 		close: function () {
-			const value = this.$input.val();
-			const trimmedValue = value.trim();
+			var value = this.$input.val();
+			var trimmedValue = value.trim();
 
 			// We don't want to handle blur events from an item that is no
 			// longer being edited. Relying on the CSS class here has the

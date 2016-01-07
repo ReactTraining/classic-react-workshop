@@ -1,12 +1,12 @@
 /*global Backbone */
-const app = app || {};
+var app = app || {};
 
 (function () {
 	'use strict';
 
 	// Todo Router
 	// ----------
-	const TodoRouter = Backbone.Router.extend({
+	var TodoRouter = Backbone.Router.extend({
 		routes: {
 			'*filter': 'setFilter'
 		},

@@ -1,5 +1,5 @@
 /*global Backbone */
-const app = app || {};
+var app = app || {};
 
 (function () {
 	'use strict';
@@ -9,7 +9,7 @@ const app = app || {};
 
 	// The collection of todos is backed by *localStorage* instead of a remote
 	// server.
-	const Todos = Backbone.Collection.extend({
+	var Todos = Backbone.Collection.extend({
 		// Reference to this collection's model.
 		model: app.Todo,
 
