@@ -92,7 +92,6 @@ const App = React.createClass({
           >Close</button>
         </Modal>
 
-        <pre>{JSON.stringify(this.state, null, 2)}</pre>
       </div>
     )
   }
