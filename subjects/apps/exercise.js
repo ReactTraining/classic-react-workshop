@@ -1,10 +1,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Create a chat application using the utility methods we give you.
+// - Create a chat application using the utility methods we give you
 //
-// Already done?
+// Need some ideas?
 //
+// - Cause the message list to automatically scroll as new
+//   messages come in
+// - Highlight messages from you to make them easy to find
+// - Highlight messages that mention you by your GitHub username
+// - Group subsequent messages from the same sender
 // - Create a filter that lets you filter messages in the chat by
 //   sender and/or content
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,8 +26,8 @@ login((error, auth) => {
 
 sendMessage(
   auth.uid,                       // the auth.uid string
-  auth.github.username,           // the username, try auth.github.username
-  auth.github.profileImageURL,    // the user's profile image, try auth.github.profileImageURL
+  auth.github.username,           // the username
+  auth.github.profileImageURL,    // the user's profile image
   'hello, this is a message'      // the text of the message
 )
 
