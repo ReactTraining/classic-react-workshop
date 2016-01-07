@@ -4,7 +4,6 @@
 // This Modal, even though its a React component, has an imperative API to
 // open and close it. Can you convert it to a declarative API?
 //
-// Hint: Modal shouldn't need its own state anymore.
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import { render, findDOMNode } from 'react-dom'
