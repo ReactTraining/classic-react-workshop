@@ -14,7 +14,7 @@ const { bool, string, node, func } = React.PropTypes
 const Modal = React.createClass({
 
   propTypes: {
-    isOpen: bool.isRequired
+    isOpen: bool.isRequired,
     title: string.isRequired,
     onClose: func,
     children: node
