@@ -17,13 +17,15 @@ import { Simulate } from 'react-addons-test-utils'
 import Tabs from './modules/Tabs'
 
 describe('when <Tabs> is rendered', () => {
+
+  let node, tabs, panel, borderFixture
+
   const FixtureData = [
     { label: 'USA', content: 'Land of the Free, Home of the brave' },
     { label: 'Brazil', content: 'Sunshine, beaches, and Carnival' },
     { label: 'Russia', content: 'World Cup 2018!' }
   ]
 
-  let node, tabs, panel, borderFixture
   beforeEach((done) => {
     node = document.createElement('div')
     document.body.appendChild(node)
@@ -52,6 +54,7 @@ describe('when <Tabs> is rendered', () => {
 
   it('renders the Russia tab')
 
+  // you may want to use the `borderFixture` variable
   it('activates the first tab')
 
   it('does not activate the second tab')

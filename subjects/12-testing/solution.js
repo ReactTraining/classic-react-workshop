@@ -2,12 +2,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Inside the exercise directory:
-//
-// - Use `npm install` to install all the app's dependencies
-// - Get karma.conf.js to load tests.webpack.js
-// - Use `npm start` to start the test server
-// - Fill in the test stubs in modules/__tests__ to make the tests pass
+// Write some tests!
 ////////////////////////////////////////////////////////////////////////////////
 import './modules/mocha-setup'
 import assert from 'assert'
@@ -17,13 +12,15 @@ import { Simulate } from 'react-addons-test-utils'
 import Tabs from './modules/Tabs'
 
 describe('when <Tabs> is rendered', function () {
+
+  let node, tabs, panel, borderFixture
+
   const FixtureData = [
     { label: 'USA', content: 'Land of the Free, Home of the brave' },
     { label: 'Brazil', content: 'Sunshine, beaches, and Carnival' },
     { label: 'Russia', content: 'World Cup 2018!' }
   ]
 
-  let node, tabs, panel, borderFixture
   beforeEach(function (done) {
     node = document.createElement('div')
     document.body.appendChild(node)
