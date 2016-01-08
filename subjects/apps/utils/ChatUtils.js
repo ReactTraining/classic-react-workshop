@@ -1,6 +1,7 @@
 import Firebase from 'firebase/lib/firebase-web'
 
 const BaseRef = new Firebase('https://hip-react.firebaseio.com')
+const MessagesRef = BaseRef.child('messages')
 
 let serverTimeOffset = 0
 BaseRef.child('.info/serverTimeOffset').on('value', function (snapshot) {
@@ -28,7 +29,7 @@ export function login(callback) {
 }
 
 export function sendMessage(uid, username, avatarURL, text) {
-  BaseRef.child('messages').push({
+  MessagesRef.push({
     uid,
     timestamp: Date.now() + serverTimeOffset,
     username,
@@ -50,10 +51,9 @@ export function subscribeToMessages(callback) {
     callback(messages)
   }
 
-  const messagesRef = BaseRef.child('messages').limitToLast(100)
-  messagesRef.on('value', handleValue)
+  MessagesRef.on('value', handleValue)
 
   return function () {
-    messagesRef.off('value', handleValue)
+    MessagesRef.off('value', handleValue)
   }
 }

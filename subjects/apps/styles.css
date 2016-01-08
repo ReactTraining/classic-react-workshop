@@ -1,7 +1,7 @@
 html {
   box-sizing: border-box;
+  overflow: hidden; /* prevent elastic scrolling in WebKit */
 }
-
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -11,91 +11,77 @@ body {
   line-height: 1.5;
 }
 
-form {
-  margin: 0;
-}
-
 .chat {
-  display: flex;
-}
-
-.room {
   height: 100%;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  position: relative;
 }
 
-.room-title {
-  font-size: 14px;
-  margin: 0;
-  padding: 4;
-  text-align: center;
-  background: hsl(55, 75%, 50%);
-  color: #333;
-  border-bottom: 1px solid #333;
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: lightblue;
+  border-bottom: 1px solid #666;
+  color: #666;
 }
+.chat-title,
+.chat-message-count {
+  display: inline-block;
+  margin: 0;
+}
+.chat-title {
+  font-size: 1.5em;
+}
+
 
 .messages {
   overflow: auto;
   flex: 1;
 }
 
-.channels {
-  width: 300px;
-  background: #444;
-  color: #fefefe;
-  overflow: auto;
+.new-message-form {
+  margin: 0;
 }
-
-.channels a {
-  color: #fefefe;
-}
-
-.channels a.active {
-  color: hsl(55, 75%, 50%);
-}
-
 .new-message {
   padding: 2px 5px 4px;
+  border-top: 1px solid #666;
   background: white;
-  border-top: 1px solid #999;
 }
-
 .new-message input {
   border: 0;
   width: 100%;
   outline: none;
   font-size: 1.2em;
-  padding: 4px;
+  padding: 0.5em;
 }
 
-.message-list {
+ol.message-groups,
+ol.messages {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
+.message-group {
+  position: relative;
+  min-height: 40px;
+  padding: 0 10px;
+  margin: 10px 0;
+}
+.message-group-avatar {
+  position: absolute;
+  background-color: lightblue;
+}
+.message-group-avatar img {
+  width: 40px;
+}
+
+ol.messages {
+  margin-left: 40px;
+}
+
 .message {
-  display: flex;
-  padding: 10px;
-}
-
-.message-avatar {
-  padding: 0 8px 8px 8px;
-}
-
-.message-username {
-  font-size: 12px;
-  color: #888;
-  font-style: italic;
-}
-
-.message-content {
-  flex: 1;
-}
-
-.own-message {
-  background-color: #ddd;
+  padding: 8px 10px;
 }
