@@ -11,19 +11,19 @@
 //
 // Got extra time?
 //
-// Refer to the docs here for help:
-// https://github.com/rackt/react-router/blob/latest/docs
-// https://github.com/rackt/react-router/blob/latest/docs/API.md
-//
+// - Move the Profile route to be a sibling to the app route, instead of nested
+//   as a child, what happens to the UI?
 // - Add a link to the profile page that links back to Home so users don't have
 //   to use the Back button to navigate
-// - Add a <Redirect> from "/users/:userID" to "/profile/:userID"
-// - Add a route that renders at urls the app doesn't understand (use "*" as the
-//   path)
-////////////////////////////////////////////////////////////////////////////////
+// - Add a <Redirect> from "/users/:userID" to "/profile/:userID", then type in
+//   the url "users/1" into the url and hit enter. Docs are at:
+//   https://github.com/rackt/react-router/blob/master/docs/API.md#redirect
+// - Add a route that renders at urls the app doesn't understand, read about
+//   route matching here to know what to use as your path:
+//   https://github.com/rackt/react-router/blob/master/docs/guides/basics/RouteMatching.md
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, Link, Redirect } from 'react-router'
+import { Router, Route, IndexRoute, Link, Redirect, hashHistory } from 'react-router'
 import Gravatar from './components/Gravatar'
 
 const USERS = [
@@ -92,7 +92,7 @@ const NoMatch = React.createClass({
 })
 
 ReactDOM.render((
-  <Router>
+  <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Home}/>
       <Route path="profile/:userID" component={Profile}/>
