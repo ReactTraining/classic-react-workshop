@@ -17,6 +17,18 @@ body {
   flex-direction: column;
 }
 
+.new-notifier {
+  display: none;
+  position: absolute;
+  right: 30px;
+  bottom: 70px;
+  width: 130px;
+  height: 50px;
+  background-color: yellow;
+  padding: 10px;
+  text-align: center;
+}
+
 .chat-header {
   display: flex;
   justify-content: space-between;
