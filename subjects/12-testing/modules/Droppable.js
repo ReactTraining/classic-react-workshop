@@ -9,10 +9,40 @@ const style = {
   display: 'inline-block'
 }
 
+function readFilesFromEvent(event, cb) {
+  const files = []
+  let needToLoadCounter = 0
+
+  for (let i = 0; i < event.dataTransfer.files.length; i++) {
+    let file = event.dataTransfer.files[i]
+    if (!file.type.match('image.*'))
+      continue
+    needToLoadCounter++
+    let reader = new FileReader()
+    reader.onload = (fileEvent) => {
+      needToLoadCounter--
+      files.push({
+        name: file.name, data: fileEvent.target.result
+      })
+      maybeFinish()
+    }
+    reader.readAsDataURL(file)
+  }
+
+  maybeFinish()
+
+  function maybeFinish() {
+    if (needToLoadCounter === 0) {
+      cb(files)
+    }
+  }
+}
+
 const Droppable = React.createClass({
   getInitialState() {
     return {
-      acceptDrop: false
+      acceptDrop: false,
+      files: null
     }
   },
 
@@ -26,12 +56,18 @@ const Droppable = React.createClass({
   },
 
   handleDrop(event) {
-    event.preventDefault()
     event.stopPropagation()
-    this.setState({ acceptDrop: false })
+    event.preventDefault()
+    this.setState({
+      acceptDrop: false
+    })
+    readFilesFromEvent(event, (files) => {
+      this.setState({ files })
+    })
   },
 
-  render () {
+  render() {
+    const { acceptDrop, files } = this.state
     return (
       <div
         className="Droppable"
@@ -39,7 +75,13 @@ const Droppable = React.createClass({
         onDrop={this.handleDrop}
         style={style}
       >
-        {this.state.acceptDrop ? 'Drop it!' : 'Drag a file here'}
+        {acceptDrop ? 'Drop it!' : 'Drag a file here'}
+        {files && files.map((file) => (
+          <div>
+            <p><b>{file.name}</b></p>
+            <img src={file.data} style={{ maxHeight: '100px', maxWidth: '100px' }}/>
+          </div>
+        ))}
       </div>
     )
   }
