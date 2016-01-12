@@ -16,6 +16,7 @@ const state = {
 function setState(newState) {
   assign(state, newState)
   events.emit(CHANGE_EVENT)
+  console.log('ContactStore state changed', state)
 }
 
 function addChangeListener(fn) {

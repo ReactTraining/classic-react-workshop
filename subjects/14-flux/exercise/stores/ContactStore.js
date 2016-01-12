@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import assign from 'object-assign'
 import { EventEmitter } from 'events'
 import AppDispatcher from '../AppDispatcher'
@@ -14,6 +15,7 @@ const state = {
 function setState(newState) {
   assign(state, newState)
   events.emit(CHANGE_EVENT)
+  console.log('ContactStore state changed', state)
 }
 
 export function addChangeListener(fn) {
