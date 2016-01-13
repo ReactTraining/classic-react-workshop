@@ -115,12 +115,12 @@ const CheckoutForm = React.createClass({
                   disabled={shippingSameAsBilling}
               /></label> {' '}
               <label>State: <input type="text" size="2"
-                  value={shippingSameAsBilling ? city : null}
+                  value={shippingSameAsBilling ? state : null}
                   readOnly={shippingSameAsBilling}
                   disabled={shippingSameAsBilling}
               /></label> {' '}
               <label>Zip: <input type="text" size="8"
-                  value={shippingSameAsBilling ? city : null}
+                  value={shippingSameAsBilling ? zip : null}
                   readOnly={shippingSameAsBilling}
                   disabled={shippingSameAsBilling}
                 /></label>
