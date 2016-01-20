@@ -8,8 +8,8 @@
 // - When the fields in the billing address change, make sure the shipping
 //   address fields stay up to date. You might want to use `formSerialize` here,
 //   also check out the docs, particularly nested objects because it might help
-//   you think about your state better https://www.npmjs.com/package/form-serialize#nested-objects
-// - When the form is submitted, console.log its values
+//   you think about your state better
+//   https://www.npmjs.com/package/form-serialize#nested-objects
 //
 // Got extra time?
 //
@@ -18,109 +18,145 @@
 //   before clicking the checkbox a second time
 // - If there are more than two characters in the "state" field, let the user
 //   know they should use the two-character abbreviation
-// - If you didn't already, abstract some of your render method into components
-
 import React from 'react'
-import { render, findDOMNode } from 'react-dom'
+import { render } from 'react-dom'
 import serializeForm from 'form-serialize'
 
 const CheckoutForm = React.createClass({
   getInitialState() {
     return {
-      billingAddr: {
-        name: 'Ryan Florence',
-        addr1: '123 Easy Street',
-        addr2: '',
-        city: 'Puyallup',
-        state: 'WA',
-        zip: '98374'
-      },
-      shippingSameAsBilling: true
+      billing: {},
+      shippingSameAsBilling: false,
+      shipping: {}
     }
   },
 
-  handleFormChange() {
-    const form = findDOMNode(this.refs.form)
-    const data = serializeForm(form, { hash: true })
-    this.setState({
-      billingAddr: data.billingAddr
-    })
+  handleChange() {
+    const formNode = this.refs.form
+    const nextState = serializeForm(formNode, { hash: true })
+
+    nextState.shippingSameAsBilling = (nextState.shippingSameAsBilling === 'on')
+
+    if (nextState.shippingSameAsBilling)
+      nextState.shipping = nextState.billing || {}
+
+    // If the checkbox changed, back up shipping so we can preserve it.
+    if (nextState.shippingSameAsBilling !== this.state.shippingSameAsBilling) {
+      if (nextState.shippingSameAsBilling) {
+        this.shippingBackup = this.state.shipping
+      } else {
+        nextState.shipping = this.shippingBackup
+      }
+    }
+
+    this.setState(nextState)
   },
 
   render() {
-    const { name, addr1, addr2, city, state, zip } = this.state.billingAddr
-    const { shippingSameAsBilling } = this.state
+    const { billing, shippingSameAsBilling, shipping } = this.state
 
     return (
       <div>
         <h1>Checkout</h1>
-        <form ref="form" onChange={this.handleFormChange}>
+        <form ref="form" onChange={this.handleChange}>
           <fieldset>
             <legend>Billing Address</legend>
             <p>
-              <label>Name: <input type="text" defaultValue={name} name="billingAddr[name]"/></label>
+              <label>Name: <input
+                  name="billing[name]"
+                  type="text"
+                  defaultValue={billing.name}
+                /></label>
             </p>
             <p>
-              <label>Address Line 1: <input type="text" defaultValue={addr1} name="billingAddr[addr1]"/></label>
+              <label>Address Line 1: <input
+                  name="billing[addr1]"
+                  type="text"
+                  defaultValue={billing.addr1}
+                /></label>
             </p>
             <p>
-              <label>Address Line 2: <input type="text" defaultValue={addr2} name="billingAddr[addr2]"/></label>
+              <label>Address Line 2: <input
+                  name="billing[addr2]"
+                  type="text"
+                  defaultValue={billing.addr2}
+                /></label>
             </p>
             <p>
-              <label>City: <input type="text" defaultValue={city} name="billingAddr[city]"/></label> {' '}
-              <label>State: <input type="text" size="3" defaultValue={state} name="billingAddr[state]"/></label> {' '}
-              <label>Zip: <input type="text" size="8" defaultValue={zip} name="billingAddr[zip]"/></label>
+              <label>City: <input
+                  name="billing[city]"
+                  type="text"
+                  defaultValue={billing.city}
+                /></label> {' '}
+              <label>State: <input
+                  name="billing[state]"
+                  type="text"
+                  size="3"
+                  defaultValue={billing.state}
+                /></label> {' '}
+              <label>Zip: <input
+                  name="billing[zip]"
+                  type="text"
+                  size="8"
+                  defaultValue={billing.zip}
+                /></label>
             </p>
           </fieldset>
-
           <fieldset>
             <legend>Shipping Address</legend>
             <p>
-              <label><input
+              <label>
+                <input
                   type="checkbox"
-                  checked={shippingSameAsBilling}
-                  onChange={(event) => this.setState({ shippingSameAsBilling: event.target.checked })}
-                /> Same as billing</label>
+                  name="shippingSameAsBilling"
+                  defaultChecked={shippingSameAsBilling}
+                /> Same as billing address
+              </label>
             </p>
             <p>
-              <label>Name: <input type="text"
-                  value={shippingSameAsBilling ? name : null}
+              <label>Name: <input
+                  name="shipping[name]"
+                  type="text"
+                  value={shipping.name}
                   readOnly={shippingSameAsBilling}
-                  disabled={shippingSameAsBilling}
                 /></label>
             </p>
-
             <p>
-              <label>Address Line 1: <input type="text"
-                  value={shippingSameAsBilling ? addr1 : null}
+              <label>Address Line 1: <input
+                  name="shipping[addr1]"
+                  type="text"
+                  value={shipping.addr1}
                   readOnly={shippingSameAsBilling}
-                  disabled={shippingSameAsBilling}
                 /></label>
             </p>
-
             <p>
-              <label>Address Line 2: <input type="text"
-                  value={shippingSameAsBilling ? addr2 : null}
+              <label>Address Line 2: <input
+                  name="shipping[addr2]"
+                  type="text"
+                  value={shipping.addr2}
                   readOnly={shippingSameAsBilling}
-                  disabled={shippingSameAsBilling}
                 /></label>
             </p>
-
             <p>
-              <label>City: <input type="text"
-                  value={shippingSameAsBilling ? city : null}
+              <label>City: <input
+                  name="shipping[city]"
+                  type="text"
+                  value={shipping.city}
                   readOnly={shippingSameAsBilling}
-                  disabled={shippingSameAsBilling}
-              /></label> {' '}
-              <label>State: <input type="text" size="2"
-                  value={shippingSameAsBilling ? city : null}
+                /></label> {' '}
+              <label>State: <input
+                  name="shipping[state]"
+                  type="text"
+                  size="3"
+                  value={shipping.state}
                   readOnly={shippingSameAsBilling}
-                  disabled={shippingSameAsBilling}
-              /></label> {' '}
-              <label>Zip: <input type="text" size="8"
-                  value={shippingSameAsBilling ? city : null}
+                /></label> {' '}
+              <label>Zip: <input
+                  name="shipping[zip]"
+                  type="text"
+                  size="8"
+                  value={shipping.zip}
                   readOnly={shippingSameAsBilling}
-                  disabled={shippingSameAsBilling}
                 /></label>
             </p>
           </fieldset>
