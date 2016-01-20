@@ -12,8 +12,8 @@
 //
 // Already done?
 //
-// Make a `StatefulTabs` component that manages some state that is passes as
-// props down to `Tabs` (since they should now be stateless)
+// Make a <StatefulTabs> component that manages some state that is passed as
+// props down to <Tabs> (since it should now be stateless).
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import { render } from 'react-dom'
@@ -81,13 +81,13 @@ const App = React.createClass({
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs ref="tabs" data={this.props.tabs} />
+        <Tabs data={this.props.tabs}/>
       </div>
     )
   }
 
 })
 
-render(<App tabs={data} />, document.getElementById('app'), function () {
+render(<App tabs={data}/>, document.getElementById('app'), function () {
   require('./tests').run(this)
 })
