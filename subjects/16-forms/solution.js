@@ -1,26 +1,24 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise
 //
-// - add the a "shipping address" fieldset with the same fields as billing
-// - add a checkbox labeled "same as billing address" above the fields
-// - when the checkbox is checked, automatically fill in the shipping fields
+// - Add a "shipping address" fieldset with the same fields as billing
+// - Add a checkbox labeled "same as billing address" above the fields
+// - When the checkbox is checked, automatically fill in the shipping fields
 //   and disable them
-// - when the fields in the billing address change, make sure the shipping
+// - When the fields in the billing address change, make sure the shipping
 //   address fields stay up to date. You might want to use `formSerialize` here,
 //   also check out the docs, particularly nested objects because it might help
-//   you think about your state better
-//   https://www.npmjs.com/package/form-serialize#nested-objects)
-// - when the form is submit, console.log the values
-// - if they type more than two characters in the `state` field, let the user
-//   know they should use the two-character abbreviation
+//   you think about your state better https://www.npmjs.com/package/form-serialize#nested-objects
+// - When the form is submitted, console.log its values
 //
-// got extra time?
-// - if the user types something into shipping, then clicked the checkbox, then
+// Got extra time?
+//
+// - If the user types something into shipping, then clicked the checkbox, then
 //   unchecks the checkbox, ensure the field has the information from
 //   before clicking the checkbox a second time
-// - if they type more than two characters in the `state` field,
-//   let the user know they should use the two-character abbreviation
-// - if you didn't already, abstract some of your render method into components
+// - If there are more than two characters in the "state" field, let the user
+//   know they should use the two-character abbreviation
+// - If you didn't already, abstract some of your render method into components
 
 import React from 'react'
 import { render, findDOMNode } from 'react-dom'
