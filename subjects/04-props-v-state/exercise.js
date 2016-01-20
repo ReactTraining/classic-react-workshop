@@ -81,7 +81,7 @@ const App = React.createClass({
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs data={this.props.tabs}/>
+        <Tabs ref="tabs" data={this.props.tabs}/>
       </div>
     )
   }

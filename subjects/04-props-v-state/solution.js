@@ -84,6 +84,7 @@ const App = React.createClass({
       <div>
         <h1>Props v. State</h1>
         <Tabs
+          ref="tabs"
           activeTabIndex={this.state.activeTabIndex}
           onActivate={activeTabIndex => this.setState({ activeTabIndex })}
           data={this.props.tabs}
