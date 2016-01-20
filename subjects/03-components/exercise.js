@@ -57,7 +57,7 @@ const App = React.createClass({
     return (
       <div>
         <h1>Countries</h1>
-        <Tabs data={this.props.countries} />
+        <Tabs data={this.props.countries}/>
       </div>
     )
   }
@@ -69,6 +69,6 @@ const DATA = [
   { id: 3, name: 'Russia', description: 'World Cup 2018!' }
 ]
 
-render(<App countries={DATA} />, document.getElementById('app'), function () {
+render(<App countries={DATA}/>, document.getElementById('app'), function () {
   require('./tests').run(this)
 })
