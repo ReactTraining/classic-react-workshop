@@ -2,22 +2,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Inside the exercise directory:
-//
-// - Use `npm install` to install all the app's dependencies
-// - Get karma.conf.js to load tests.webpack.js
-// - Use `npm start` to start the test server
-// - Fill in the test stubs in modules/__tests__ to make the tests pass
+// - Fill in the test stubs to make the tests pass
 ////////////////////////////////////////////////////////////////////////////////
 import './modules/mocha-setup'
-import assert from 'assert'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Simulate } from 'react-addons-test-utils'
+import expect from 'expect'
 import Tabs from './modules/Tabs'
 
 describe('when <Tabs> is rendered', () => {
-
   let node, tabs, panel, borderFixture
 
   const FixtureData = [
@@ -47,7 +41,7 @@ describe('when <Tabs> is rendered', () => {
   })
 
   it('renders the USA tab', () => {
-    assert(tabs[0].innerText === FixtureData[0].label, 'USA tab was rendered')
+    expect(tabs[0].innerText).toEqual(FixtureData[0].label, 'USA tab was not rendered')
   })
 
   it('renders the Brazil tab')
@@ -71,4 +65,3 @@ describe('when <Tabs> is rendered', () => {
     it('puts the correct content in the panel')
   })
 })
-

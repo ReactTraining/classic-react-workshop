@@ -2,17 +2,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Write some tests!
+// - Fill in the test stubs to make the tests pass
 ////////////////////////////////////////////////////////////////////////////////
 import './modules/mocha-setup'
-import assert from 'assert'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Simulate } from 'react-addons-test-utils'
+import expect from 'expect'
 import Tabs from './modules/Tabs'
 
 describe('when <Tabs> is rendered', function () {
-
   let node, tabs, panel, borderFixture
 
   const FixtureData = [
@@ -42,28 +41,28 @@ describe('when <Tabs> is rendered', function () {
   })
 
   it('renders the USA tab', function () {
-    assert(tabs[0].innerText === FixtureData[0].label, 'USA tab was rendered')
+    expect(tabs[0].innerText).toEqual(FixtureData[0].label, 'USA tab was not rendered')
   })
 
   it('renders the Brazil tab', function () {
-    assert(tabs[1].innerText === FixtureData[1].label, 'Brazil tab was rendered')
+    expect(tabs[1].innerText).toEqual(FixtureData[1].label, 'Brazil tab was not rendered')
   })
 
   it('renders the Russia tab', function () {
-    assert(tabs[2].innerText === FixtureData[2].label, 'Russia tab was rendered')
+    expect(tabs[2].innerText).toEqual(FixtureData[2].label, 'Russia tab was not rendered')
   })
 
   it('activates the first tab', function () {
-    assert(
-      tabs[0].style.borderBottomColor === borderFixture.style.borderBottomColor,
-      'the first tab is active'
+    expect(tabs[0].style.borderBottomColor).toEqual(
+      borderFixture.style.borderBottomColor,
+      'First tab is not active'
     )
   })
 
   it('does not activate the second tab', function () {
-    assert(
-      tabs[1].style.borderBottomColor !== borderFixture.style.borderBottomColor,
-      'the second tab is not active'
+    expect(tabs[1].style.borderBottomColor).toNotEqual(
+      borderFixture.style.borderBottomColor,
+      'Second tab is active'
     )
   })
 
@@ -73,23 +72,23 @@ describe('when <Tabs> is rendered', function () {
     })
 
     it('activates the second tab', function () {
-      assert(
-        tabs[1].style.borderBottomColor === borderFixture.style.borderBottomColor,
-        'the second tab is active'
+      expect(tabs[1].style.borderBottomColor).toEqual(
+        borderFixture.style.borderBottomColor,
+        'Second tab is not active'
       )
     })
 
     it('deactivates the first tab', function () {
-      assert(
-        tabs[0].style.borderBottomColor !== borderFixture.style.borderBottomColor,
-        'the first tab is inactive'
+      expect(tabs[0].style.borderBottomColor).toNotEqual(
+        borderFixture.style.borderBottomColor,
+        'First tab is active'
       )
     })
 
     it('puts the correct content in the panel', function () {
-      assert(
-        panel.innerText === FixtureData[1].content,
-        'the correct content is in the panel'
+      expect(panel.innerText).toEqual(
+        FixtureData[1].content,
+        'Correct content is not in the panel'
       )
     })
   })
