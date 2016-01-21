@@ -13,8 +13,47 @@
 //   and then you'll need to call it in the event handlers of the form controls
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 import sortBy from 'sort-by'
+
+let foodType = 'mexican'
+let sortOrder = 'descending'
+
+function handleChange(event) {
+  foodType = event.target.value
+  updateThePage()
+}
+
+function changeSort(order) {
+  sortOrder = order
+  updateThePage()
+}
+
+function Menu({ data }) {
+  const items = data.items
+    .filter(item => item.type === foodType)
+    .sort(sortBy(sortOrder === 'ascending' ? 'name' : '-name'))
+    .map(item => (
+      <li key={item.id}>{item.name}</li>
+    ))
+
+  return (
+    <div>
+      <h1>{data.title}</h1>
+      {sortOrder === 'ascending' ?
+        <button onClick={() => changeSort('descending')}>sort descending</button> :
+        <button onClick={() => changeSort('ascending')}>sort ascending</button>
+      }
+      <select onChange={handleChange}>
+        <option>mexican</option>
+        <option>english</option>
+      </select>
+      <ul>
+        {items}
+      </ul>
+    </div>
+  )
+}
 
 const DATA = {
   title: 'Menu',
@@ -22,25 +61,16 @@ const DATA = {
     { id: 1, name: 'tacos', type: 'mexican' },
     { id: 2, name: 'burrito', type: 'mexican' },
     { id: 3, name: 'tostada', type: 'mexican' },
-    { id: 4, name: 'hush puppies', type: 'southern' }
+    { id: 4, name: 'mushy peas', type: 'english' },
+    { id: 5, name: 'fish and chips', type: 'english' },
+    { id: 6, name: 'black pudding', type: 'english' }
   ]
 }
 
-function Menu() {
-  const items = DATA.items.filter((item) => {
-    return item.type === 'mexican'
-  }).sort(sortBy('name')).map((item) => {
-    return <li key={item.id}>{item.name}</li>
+function updateThePage() {
+  render(<Menu data={DATA}/>, document.getElementById('app'), function () {
+    require('./tests').run()
   })
-
-  return (
-    <div>
-      <h1>{DATA.title}</h1>
-      <ul>{items}</ul>
-    </div>
-  )
 }
 
-ReactDOM.render(<Menu />, document.getElementById('app'), function () {
-  require('./tests').run()
-})
+updateThePage()
