@@ -88,4 +88,3 @@ const Droppable = React.createClass({
 })
 
 export default Droppable
-

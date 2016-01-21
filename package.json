@@ -27,6 +27,7 @@
     "bootstrap-webpack": "0.0.3",
     "css-loader": "^0.10.1",
     "events": "^1.0.2",
+    "expect": "^1.13.4",
     "expose-loader": "^0.6.0",
     "file-loader": "^0.8.4",
     "firebase": "^2.2.7",
