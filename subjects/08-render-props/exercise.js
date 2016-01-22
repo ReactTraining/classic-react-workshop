@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Write a <Tail/> that only logs the last `n` number of rows in a dataset,
+// Write a <Tail> that only logs the last `n` number of rows in a dataset,
 // with an API that allows the developer to control the rendering.
 //
 // Hint: You can use a prop that renders a single item, or you can pass all
@@ -10,11 +10,11 @@
 //
 // Got extra time?
 //
-// - make the Tail scroll to the bottom when new rows come in
-// - if you didn't already do it this way, make it declarative with a
-//   <PinnedToBottom/> component
-// - now make sure if the user scrolls up, you don't scroll them down
-// - make a <JSONP/> component that fetches data with the jsonp package used in
+// - Make the <Tail> scroll to the bottom when new rows come in
+// - If you didn't already do it this way, make it declarative with a
+//   <PinnedToBottom> component
+// - Now make sure if the user scrolls up, you don't scroll them down
+// - Make a <JSONP> component that fetches data with the jsonp package used in
 //   `utils/githubSearch` that uses a render prop to pass its data back up
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
@@ -22,11 +22,9 @@ import { render } from 'react-dom'
 import { listen } from './utils/log'
 
 const Tail = React.createClass({
-
   render() {
-    let { lines } = this.props
+    const { lines } = this.props
 
-    // hint: get this rendering outta here and into App
     return (
       <ul>
         {lines.map((line, index) => (
@@ -35,11 +33,9 @@ const Tail = React.createClass({
       </ul>
     )
   }
-
 })
 
 const App = React.createClass({
-
   getInitialState() {
     return {
       lines: []
@@ -59,12 +55,11 @@ const App = React.createClass({
       <div>
         <h1>Heads up Eggman, here comes <code>&lt;Tails&gt;</code>s!</h1>
         <div style={{ height: 400, overflowY: 'scroll', border: '1px solid' }}>
-          <Tail lines={this.state.lines} />
+          <Tail lines={this.state.lines}/>
         </div>
       </div>
     )
   }
-
 })
 
-render(<App />, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Write a <Tail/> that only logs the last `n` number of rows in a dataset,
+// Write a <Tail> that only logs the last `n` number of rows in a dataset,
 // with an API that allows the developer to control the rendering.
 //
 // Hint: You can use a prop that renders a single item, or you can pass all
@@ -10,11 +10,11 @@
 //
 // Got extra time?
 //
-// - make the Tail scroll to the bottom when new rows come in
-// - if you didn't already do it this way, make it declarative with a
-//   <PinnedToBottom/> component
-// - now make sure if the user scrolls up, you don't scroll them down
-// - make a <JSONP/> component that fetches data with the jsonp package used in
+// - Make the <Tail> scroll to the bottom when new rows come in
+// - If you didn't already do it this way, make it declarative with a
+//   <PinnedToBottom> component
+// - Now make sure if the user scrolls up, you don't scroll them down
+// - Make a <JSONP> component that fetches data with the jsonp package used in
 //   `utils/githubSearch` that uses a render prop to pass its data back up
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
@@ -26,7 +26,6 @@ const { arrayOf, func, number, oneOfType, string } = React.PropTypes
 const component = oneOfType([ string, func ])
 
 const PinnedToBottom = React.createClass({
-
   propTypes: {
     component: component.isRequired,
     tolerance: number.isRequired
@@ -74,11 +73,9 @@ const PinnedToBottom = React.createClass({
       children
     })
   }
-
 })
 
 const Tail = React.createClass({
-
   propTypes: {
     lines: arrayOf(string).isRequired,
     n: number.isRequired
@@ -94,11 +91,9 @@ const Tail = React.createClass({
     const { children, lines, n } = this.props
     return children(lines.slice(-n))
   }
-
 })
 
 const App = React.createClass({
-
   getInitialState() {
     return {
       lines: []
@@ -133,7 +128,6 @@ const App = React.createClass({
       </div>
     )
   }
-
 })
 
-render(<App />, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))
