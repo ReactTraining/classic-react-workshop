@@ -16,7 +16,7 @@ styles.theremin = {
 
 const App = React.createClass({
 
-  componentWillMount() {
+  componentDidMount() {
     this.oscillator = createOscillator()
   },
 
@@ -67,7 +67,7 @@ const App = React.createClass({
 //    }
 //  },
 //
-//  componentWillMount() {
+//  componentDidMount() {
 //    this.oscillator = createOscillator()
 //  },
 //
@@ -129,11 +129,8 @@ const App = React.createClass({
 //    volume: number.isRequired
 //  },
 //
-//  componentWillMount() {
-//    this.oscillator = createOscillator()
-//  },
-//
 //  componentDidMount() {
+//    this.oscillator = createOscillator()
 //    this.doImperativeWork()
 //  },
 //
@@ -227,11 +224,8 @@ const App = React.createClass({
 //    }
 //  },
 //
-//  componentWillMount() {
-//    this.oscillator = createOscillator()
-//  },
-//
 //  componentDidMount() {
+//    this.oscillator = createOscillator()
 //    this.doImperativeWork()
 //  },
 //
