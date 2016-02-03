@@ -1,8 +1,8 @@
-We're excited to have you attend one of our workshops! Here's a JavaScript (re)fresher to help you get up-to-speed on some features of the language we'll be using.
+We're excited to have you attend one of our workshops! Here's a JavaScript (re)fresher to help you get up-to-speed on some of the newer features of the language we'll be using throughout the workshop to help you get the most out of it.
 
 ## Let and Const
 
-JavaScript has always had var:
+JavaScript has always had `var`:
 
 ```js
 var name = 'Ryan'
@@ -25,6 +25,7 @@ if (true) {
   let name = 'Michael'
   name // 'Michael'
 }
+name // 'Ryan'
 
 // const has block scope too
 const name = 'Ryan'
@@ -46,7 +47,7 @@ isOpen = false // throws error
 
 We find block scope to make more sense to people and is generally more useful, therefore we don't use `var`.
 
-We use `const` for everything, unless it can be reassigned later, only then do we use `let`. It's a way to let other people know (pun intented) to watch out for that value, cause it will likely change over time.
+We use `const` for everything, unless it can be reassigned later, only then do we use `let`. It's a way to let other people know (pun intended) to watch out for that value, because it will likely change over time.
 
 In practice, nearly everything is `const`.
 
@@ -173,4 +174,4 @@ import ReactDOM from 'react-dom'
 import { render } from 'react-dom'
 ```
 
-Our training material then uses Webpack, a module bundler, to graph the dependencies and create a build so that this works in the browser.
+Our training material then uses [Webpack](https://webpack.github.io/), a module bundler, to graph the dependencies and create a build so that this works in the browser.
