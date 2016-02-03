@@ -11,7 +11,7 @@ import { Simulate } from 'react-addons-test-utils'
 import expect from 'expect'
 import Tabs from './modules/Tabs'
 
-describe('when <Tabs> is rendered', () => {
+describe('when <Tabs> is rendered', function () {
   let node, tabs, panel, borderFixture
 
   const FixtureData = [
@@ -24,7 +24,7 @@ describe('when <Tabs> is rendered', () => {
     node = document.createElement('div')
     document.body.appendChild(node)
 
-    ReactDOM.render(<Tabs data={FixtureData} />, node, () => {
+    ReactDOM.render(<Tabs data={FixtureData} />, node, function () {
       tabs = node.querySelectorAll('.Tab')
       panel = node.querySelector('.TabPanel')
 
@@ -35,12 +35,12 @@ describe('when <Tabs> is rendered', () => {
     })
   })
 
-  afterEach(() => {
+  afterEach(function () {
     ReactDOM.unmountComponentAtNode(node)
     document.body.removeChild(node)
   })
 
-  it('renders the USA tab', () => {
+  it('renders the USA tab', function () {
     expect(tabs[0].innerText).toEqual(FixtureData[0].label, 'USA tab was not rendered')
   })
 
@@ -53,9 +53,9 @@ describe('when <Tabs> is rendered', () => {
 
   it('does not activate the second tab')
 
-  describe('after clicking the second tab', () => {
-    beforeEach(() => {
-      Simulate.click(tabs[1])
+  describe('after clicking the second tab', function () {
+    beforeEach(function () {
+      // TODO: simulate a click on the second tab
     })
 
     it('activates the second tab')
