@@ -1,5 +1,7 @@
 We're excited to have you attend one of our workshops! Here's a JavaScript (re)fresher to help you get up-to-speed on some of the newer features of the language we'll be using throughout the workshop to help you get the most out of it.
 
+Note: All of the syntax discussed here is actually part of the JavaScript spec, though you may not have seen it yet. See the [Babel](https://babeljs.io/docs/learn-es2015/) project for more info.
+
 ## Let and Const
 
 JavaScript has always had `var`:
@@ -174,4 +176,4 @@ import ReactDOM from 'react-dom'
 import { render } from 'react-dom'
 ```
 
-Our training material then uses [Webpack](https://webpack.github.io/), a module bundler, to graph the dependencies and create a build so that this works in the browser.
+Our training material then uses [Webpack](https://webpack.github.io/), a module bundler, to graph the dependencies and create a build so that this works in browsers that don't yet support some of these features natively.
