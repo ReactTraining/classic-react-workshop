@@ -20,7 +20,37 @@
 import React from 'react'
 import { render } from 'react-dom'
 
+const { bool, string, func } = React.PropTypes
+
+const RadioGroup = React.createClass({
+  propTypes: {
+    defaultValue: string
+  },
+
+  render() {
+    return <div>{this.props.children}</div>
+  }
+})
+
+const RadioOption = React.createClass({
+  propTypes: {
+    value: string
+  },
+
+  render() {
+    return (
+      <div>
+        <RadioIcon isSelected={false}/> {this.props.children}
+      </div>
+    )
+  }
+})
+
 const RadioIcon = React.createClass({
+  propTypes: {
+    isSelected: bool.isRequired
+  },
+
   render() {
     return (
       <div style={{
@@ -37,40 +67,13 @@ const RadioIcon = React.createClass({
   }
 })
 
-const RadioGroup = React.createClass({
-  render() {
-    return <div>{this.props.children}</div>
-  }
-})
-
-const RadioOption = React.createClass({
-  render() {
-    return (
-      <div>
-        <RadioIcon isSelected={false}/> {this.props.children}
-      </div>
-    )
-  }
-})
-
 const App = React.createClass({
-  getInitialState() {
-    return {
-      radioValue: 'fm'
-    }
-  },
-
   render() {
     return (
       <div>
         <h1>♬ It's about time that we all turned off the radio ♫</h1>
 
-        <h2>Radio Value: {this.state.radioValue}</h2>
-
-        <RadioGroup
-          defaultValue={this.state.radioValue}
-          onChange={(radioValue) => this.setState({ radioValue })}
-        >
+        <RadioGroup defaultValue="fm">
           <RadioOption value="am">AM</RadioOption>
           <RadioOption value="fm">FM</RadioOption>
           <RadioOption value="tape">Tape</RadioOption>
