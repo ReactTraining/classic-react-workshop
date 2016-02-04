@@ -19,7 +19,12 @@ const Select = React.createClass({
 
   render() {
     return (
-      <div/>
+      <div className="select">
+        <div className="label">label <span className="arrow">▾</span></div>
+        <div className="options">
+          {this.props.children}
+        </div>
+      </div>
     )
   }
 })
@@ -28,7 +33,7 @@ const Select = React.createClass({
 const Option = React.createClass({
   render() {
     return (
-      <div/>
+      <div className="option">{this.props.children}</div>
     )
   }
 })
