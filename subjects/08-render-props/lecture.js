@@ -77,12 +77,6 @@ render(<App/>, document.getElementById('app'))
 //    url: string.isRequired
 //  },
 //
-//  getDefaultProps() {
-//    return {
-//      url: DefaultFetchURL
-//    }
-//  },
-//
 //  getInitialState() {
 //    return {
 //      fetching: false,
@@ -91,7 +85,7 @@ render(<App/>, document.getElementById('app'))
 //    }
 //  },
 //
-//  fetch(url) {
+//  fetch() {
 //    this.setState({ fetching: true })
 //
 //    searchGitHubRepos(this.props.url, (err, repos, links) => {
@@ -107,10 +101,6 @@ render(<App/>, document.getElementById('app'))
 //    this.fetch()
 //  },
 //
-//  fetchNextPage() {
-//    this.fetch(this.state.links.next)
-//  },
-//
 //  render() {
 //    return <pre>{JSON.stringify(this.state, null, 2)}</pre>
 //  }
@@ -119,12 +109,12 @@ render(<App/>, document.getElementById('app'))
 //const App = React.createClass({
 //  render() {
 //    return (
-//      <GitHubSearch />
+//      <GitHubSearch url={DefaultFetchURL}/>
 //    )
 //  }
 //})
 //
-//render(<App />, document.getElementById('app'))
+//render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // So now we've got the thing kinda working, but not rendering anything useful.
@@ -135,13 +125,8 @@ render(<App/>, document.getElementById('app'))
 
 //const GitHubSearch = React.createClass({
 //  propTypes: {
-//    url: string.isRequired
-//  },
-//
-//  getDefaultProps() {
-//    return {
-//      url: DefaultFetchURL
-//    }
+//    url: string.isRequired,
+//    children: func.isRequired
 //  },
 //
 //  getInitialState() {
@@ -152,7 +137,7 @@ render(<App/>, document.getElementById('app'))
 //    }
 //  },
 //
-//  fetch(url) {
+//  fetch() {
 //    this.setState({ fetching: true })
 //
 //    searchGitHubRepos(this.props.url, (err, repos, links) => {
@@ -170,7 +155,7 @@ render(<App/>, document.getElementById('app'))
 //
 //  componentDidUpdate(prevProps) {
 //    if (prevProps.url !== this.props.url)
-//      this.fetch(this.props.url)
+//      this.fetch()
 //  },
 //
 //  render() {
@@ -181,26 +166,26 @@ render(<App/>, document.getElementById('app'))
 //const App = React.createClass({
 //  getInitialState() {
 //    return {
-//      url: DefaultFetchURL
+//      fetchURL: DefaultFetchURL
 //    }
 //  },
 //
-//  fetchNextPage(searchState) {
-//    if (!searchState.fetching && searchState.links.next)
-//      this.setState({ url: searchState.links.next })
+//  fetchNextPage(search) {
+//    if (!search.fetching && search.links.next)
+//      this.setState({ fetchURL: search.links.next })
 //  },
 //
 //  render() {
 //    return (
 //      <div>
-//        <GitHubSearch url={this.state.url}>
-//          {(searchState) => (
+//        <GitHubSearch url={this.state.fetchURL}>
+//          {search => (
 //            <ScrollBottomNotifier
 //              style={styles.repos}
-//              onScrollBottom={() => this.fetchNextPage(searchState)}
+//              onScrollBottom={() => this.fetchNextPage(search)}
 //            >
 //              <ul style={styles.repoList}>
-//                {searchState.repos.map(repo => (
+//                {search.repos.map(repo => (
 //                  <li key={repo.id}>
 //                    <a href={repo.html_url} style={styles.repo}>
 //                      <h3>{repo.full_name}</h3>
@@ -217,4 +202,4 @@ render(<App/>, document.getElementById('app'))
 //  }
 //})
 //
-//render(<App />, document.getElementById('app'))
+//render(<App/>, document.getElementById('app'))
