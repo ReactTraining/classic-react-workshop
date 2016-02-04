@@ -284,18 +284,96 @@ render(<App/>, document.getElementById('app'))
 ////////////////////////////////////////////////////////////////////////////////
 // Feels weird ... whenever your options affect rendering, its a great
 // opportunity to create child components instead
+
+////////////////////////////////////////////////////////////////////////////////
+//const TabList = React.createClass({
+//  render() {
+//    const children = this.props.children
+//    return <div style={styles.tabs}>{children}</div>
+//  }
+//})
 //
-// - just get them rendering again
-// - plumb activeIndex to TabPanels
-// - plumb activeIndex to TabList
-// - connect tab clicks
-// - get disabled back
-// - now its super flexible
-//    - can change order of panels v. tabs
-//    - can pass in our own styles to tabs
-//    - can even have unrelated elements inside
-//    - in other words, we now have control over rendering while
-//      Tabs handles the interaction
+//const Tab = React.createClass({
+//  render() {
+//    const disabled = false
+//    const isActive = false
+//    const style = disabled ?
+//      styles.disabledTab :
+//      isActive ?
+//        styles.activeTab :
+//        styles.tab
+//
+//    return (
+//      <div style={style}>
+//        {this.props.children}
+//      </div>
+//    )
+//  }
+//})
+//
+//const TabPanels = React.createClass({
+//  render() {
+//    return (
+//      <div style={styles.tabPanels}>
+//        {this.props.children}
+//      </div>
+//    )
+//  }
+//})
+//
+//const TabPanel = React.createClass({
+//  render() {
+//    return <div>{this.props.children}</div>
+//  }
+//})
+//
+//const Tabs = React.createClass({
+//  getInitialState() {
+//    return {
+//      activeIndex: 0
+//    }
+//  },
+//
+//  render() {
+//    const children = this.props.children
+//    return <div>{children}</div>
+//  }
+//})
+//
+//const App = React.createClass({
+//  render() {
+//    return (
+//      <div>
+//        <Tabs>
+//          <TabList>
+//            <Tab>Tacos</Tab>
+//            <Tab disabled>Burritos</Tab>
+//            <Tab>Coconut Korma</Tab>
+//          </TabList>
+//
+//          <TabPanels>
+//            <TabPanel>
+//              <p>Tacos are delicious</p>
+//            </TabPanel>
+//            <TabPanel>
+//              <p>Sometimes a burrito is what you really need.</p>
+//            </TabPanel>
+//            <TabPanel>
+//              <p>Might be your best option.</p>
+//            </TabPanel>
+//          </TabPanels>
+//        </Tabs>
+//      </div>
+//    )
+//  }
+//})
+//
+//render(<App/>, document.getElementById('app'))
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Now we can pass the props that matter to the components, and add the click
+// handlers
 
 //const TabList = React.createClass({
 //  render() {
@@ -399,6 +477,14 @@ render(<App/>, document.getElementById('app'))
 //render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
+// Now this is really flexible
+//
+// - can change order of panels v. tabs
+// - can pass in our own styles to tabs
+// - can even have unrelated elements inside
+// - in other words, we now have control over rendering while
+//   Tabs handles the interaction
+//
 // Oh but you really loved the old tabs yeah?
 
 //const DataTabs = React.createClass({
