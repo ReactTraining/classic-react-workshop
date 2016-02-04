@@ -1,0 +1,30 @@
+.select {
+  border: 1px solid #ccc;
+  display: inline-block;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.label {
+  padding: 4px;
+}
+
+.arrow {
+  float: right;
+  padding-left: 4;
+}
+
+.options {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.option {
+  padding: 4px;
+}
+
+.option:hover {
+  background: #eee;
+}
+
