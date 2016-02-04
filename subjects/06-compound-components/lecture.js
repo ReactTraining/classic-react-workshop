@@ -81,7 +81,6 @@ render(<App/>, document.getElementById('app'))
 // What if I wanted tabs on the bottom?
 
 //const Tabs = React.createClass({
-//
 //  getDefaultProps () {
 //    return {
 //      tabsPlacement: 'top'
@@ -140,7 +139,6 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//
 //})
 //
 //const App = React.createClass({
@@ -184,7 +182,6 @@ render(<App/>, document.getElementById('app'))
 // https://api.jqueryui.com/tabs/#option-disabled
 
 //const Tabs = React.createClass({
-//
 //  getDefaultProps () {
 //    return {
 //      tabsPlacement: 'top',
@@ -247,7 +244,6 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//
 //})
 //
 //const App = React.createClass({
@@ -295,9 +291,9 @@ render(<App/>, document.getElementById('app'))
 //
 //const Tab = React.createClass({
 //  render() {
-//    const disabled = false
+//    const isDisabled = false
 //    const isActive = false
-//    const style = disabled ?
+//    const style = isDisabled ?
 //      styles.disabledTab :
 //      isActive ?
 //        styles.activeTab :
@@ -347,10 +343,9 @@ render(<App/>, document.getElementById('app'))
 //        <Tabs>
 //          <TabList>
 //            <Tab>Tacos</Tab>
-//            <Tab disabled>Burritos</Tab>
+//            <Tab isDisabled>Burritos</Tab>
 //            <Tab>Coconut Korma</Tab>
 //          </TabList>
-//
 //          <TabPanels>
 //            <TabPanel>
 //              <p>Tacos are delicious</p>
@@ -369,7 +364,6 @@ render(<App/>, document.getElementById('app'))
 //})
 //
 //render(<App/>, document.getElementById('app'))
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Now we can pass the props that matter to the components, and add the click
@@ -392,8 +386,8 @@ render(<App/>, document.getElementById('app'))
 //  render() {
 //    return (
 //      <div
-//        onClick={this.props.disabled ? null : this.props.onClick}
-//        style={this.props.disabled ? styles.disabledTab : (
+//        onClick={this.props.isDisabled ? null : this.props.onClick}
+//        style={this.props.isDisabled ? styles.disabledTab : (
 //          this.props.isActive ? styles.activeTab : styles.tab
 //        )}
 //      >
@@ -453,7 +447,7 @@ render(<App/>, document.getElementById('app'))
 //        <Tabs>
 //          <TabList>
 //            <Tab>Tacos</Tab>
-//            <Tab disabled>Burritos</Tab>
+//            <Tab isDisabled>Burritos</Tab>
 //            <Tab>Coconut Korma</Tab>
 //          </TabList>
 //
