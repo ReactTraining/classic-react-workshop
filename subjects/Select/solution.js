@@ -7,19 +7,28 @@ let { func, any } = PropTypes
 // Requirements
 
 
-class Select extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-    this.state = {
+const Select = React.createClass({
+
+  propTypes: {
+    onChange: func,
+    value: any,
+    defaultValue: any
+  },
+
+  getInitialState() {
+    return {
       value: this.props.defaultValue || null,
       showChildren: false
     }
+  },
+
+  componentWillMount() {
     if (!this.isUncontrolled() && !this.props.onChange) {
       console.warn('This thing is gonna be read-only, etc. etc.')
     }
-  }
+  },
 
-  getLabel () {
+  getLabel() {
     let label = null
     React.Children.forEach(this.props.children, (child) => {
       let childValue = child.props.value
@@ -31,19 +40,19 @@ class Select extends React.Component {
       }
     })
     return label
-  }
+  },
 
-  toggle () {
+  toggle() {
     this.setState({
       showChildren: !this.state.showChildren
     })
-  }
+  },
 
-  isUncontrolled () {
+  isUncontrolled() {
     return this.props.value == null
-  }
+  },
 
-  handleSelect (value) {
+  handleSelect(value) {
     let nextState = { showChildren: false }
 
     if (this.isUncontrolled())
@@ -53,17 +62,17 @@ class Select extends React.Component {
       if (this.props.onChange)
         this.props.onChange(value)
     })
-  }
+  },
 
-  renderChildren () {
+  renderChildren() {
     return React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
         onSelect: (value) => this.handleSelect(value)
       })
     })
-  }
+  },
 
-  render () {
+  render() {
     return (
       <div className="select" onClick={() => this.toggle()}>
         <div className="label">{this.getLabel()} <span className="arrow">▾</span></div>
@@ -75,20 +84,14 @@ class Select extends React.Component {
       </div>
     )
   }
-}
+})
 
-Select.propTypes = {
-  onChange: func,
-  value: any,
-  defaultValue: any
-};
-
-class Option extends React.Component {
-  handleClick () {
+const Option = React.createClass({
+  handleClick() {
     this.props.onSelect(this.props.value)
-  }
+  },
 
-  render () {
+  render() {
     return (
       <div
         className="option"
@@ -96,18 +99,21 @@ class Option extends React.Component {
       >{this.props.children}</div>
     )
   }
-}
+})
 
-class App extends React.Component {
+const App = React.createClass({
 
-  constructor (props, context) {
-    super(props, context);
-    this.state = {
+  getInitialState() {
+    return {
       selectValue: 'dosa'
-    };
-  }
+    }
+  },
 
-  render () {
+  setToMintChutney() {
+    this.setState({ selectValue: 'mint-chutney' })
+  },
+
+  render() {
     return (
       <div>
         <h1>Select/Option</h1>
@@ -115,6 +121,10 @@ class App extends React.Component {
         <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
         <h2>Controlled</h2>
+        <p>
+          <button onClick={this.setToMintChutney}>Set to Mint Chutney</button>
+        </p>
+
         <Select
           value={this.state.selectValue}
           onChange={(selectValue) => this.setState({ selectValue })}
@@ -133,9 +143,9 @@ class App extends React.Component {
           <Option value="mint-chutney">Mint Chutney</Option>
         </Select>
       </div>
-    );
+    )
   }
-}
+})
 
-render(<App/>, document.getElementById('app'));
+render(<App/>, document.getElementById('app'))
 
