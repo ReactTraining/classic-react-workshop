@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, findDOMNode } from 'react-dom'
+import { render } from 'react-dom'
 import { Motion, StaggeredMotion, spring, presets } from 'react-motion'
 import $ from 'jquery'
 
@@ -49,10 +49,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //  },
 //  componentDidUpdate() {
 //    const x = this.state.isActive ? 400 : 0
-//
-//    $(findDOMNode(this))
-//      .find('.toggle-switch-knob')
-//      .animate({ left: x }, 'swing')
+//    $('.toggle-switch-knob').animate({ left: x }, 'swing')
 //  },
 //  render() {
 //    return (
