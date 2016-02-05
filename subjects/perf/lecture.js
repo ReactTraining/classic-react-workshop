@@ -42,15 +42,17 @@ const TodoList = React.createClass({
     }
   },
 
-  handleSubmit(e) {
-    e.preventDefault()
+  handleSubmit(event) {
+    event.preventDefault()
+
     const item = {
       id: ++guid,
-      body: e.target.elements[0].value
+      body: event.target.elements[0].value
     }
-    e.target.reset()
 
+    event.target.reset()
     Perf.start()
+
     this.setState({
       items: [ item ].concat(this.state.items)
     }, () => {
