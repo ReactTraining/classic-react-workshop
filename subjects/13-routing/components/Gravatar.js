@@ -15,7 +15,7 @@ const Gravatar = React.createClass({
   },
   render() {
     return (
-      <img src={GravatarURL + '/' + md5(this.props.email) + '?s=' + this.props.size} />
+      <img src={GravatarURL + '/' + md5(this.props.email) + '?s=' + this.props.size}/>
     )
   }
 })

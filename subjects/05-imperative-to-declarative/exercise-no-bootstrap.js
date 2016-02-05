@@ -71,9 +71,9 @@ const App = React.createClass({
     return (
       <div>
         <h1>Unbreakable</h1>
-        <button onClick={this.openModal}>remove from favorites</button><br /><br />
+        <button onClick={this.openModal}>remove from favorites</button><br/><br/>
 
-        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg" />
+        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg"/>
         <p>
           Your bones don’t break, mine do. That’s clear. Your cells react to
           bacteria and viruses differently than mine. You don’t get sick, I do.
@@ -93,4 +93,4 @@ const App = React.createClass({
 
 })
 
-render(<App />, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))

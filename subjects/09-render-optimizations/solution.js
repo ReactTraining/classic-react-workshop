@@ -84,6 +84,6 @@ const ListView = React.createClass({
 })
 
 render(
-  <RainbowList ListView={ListView} numRows={500000} period={1000} />,
+  <RainbowList ListView={ListView} numRows={500000} period={1000}/>,
   document.getElementById('app')
 )

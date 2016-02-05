@@ -111,4 +111,4 @@ const App = React.createClass({
 
 })
 
-render(<App />, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))

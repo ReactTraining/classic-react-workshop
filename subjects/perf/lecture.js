@@ -12,18 +12,18 @@ const TodoItem = React.createClass({
   render() {
     return (
       <li>
-        <span><input type="checkbox" /> </span>
+        <span><input type="checkbox"/> </span>
         <span>
           <span><b>item:</b> </span>
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
+          <span className="stuff"/>
+          <span className="stuff"/>
+          <span className="stuff"/>
+          <span className="stuff"/>
+          <span className="stuff"/>
+          <span className="stuff"/>
+          <span className="stuff"/>
+          <span className="stuff"/>
+          <span className="stuff"/>
         </span>
         <span tabIndex="-1">
           <span className="thing">
@@ -63,11 +63,11 @@ const TodoList = React.createClass({
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input ref="input" />
+          <input ref="input"/>
         </form>
         <ul>
           {this.state.items.map(item => (
-            <TodoItem key={item.id} body={item.body} />
+            <TodoItem key={item.id} body={item.body}/>
           ))}
         </ul>
       </div>
@@ -79,10 +79,10 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <TodoList />
+        <TodoList/>
       </div>
     )
   }
 })
 
-render(<App />, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))

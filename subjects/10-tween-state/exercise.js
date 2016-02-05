@@ -49,11 +49,11 @@ const ToggleSwitch = React.createClass({
 
     return (
       <div className="toggle-switch" onClick={this.handleClick}>
-        <div className="toggle-switch-knob" style={knobStyle} />
+        <div className="toggle-switch-knob" style={knobStyle}/>
       </div>
     )
   }
 
 })
 
-render(<ToggleSwitch />, document.getElementById('app'))
+render(<ToggleSwitch/>, document.getElementById('app'))

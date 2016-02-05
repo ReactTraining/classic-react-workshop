@@ -36,7 +36,7 @@ const ToggleSwitch = React.createClass({
           <div className="toggle-switch-knob" style={{
             WebkitTransform: `translate3d(${s.x}px,0,0)`,
             transform: `translate3d(${s.x}px,0,0)`
-          }} />
+          }}/>
         </div>
       )}
       </Motion>
@@ -88,19 +88,19 @@ const ToggleSwitch = React.createClass({
 //            <div className="toggle-switch-knob" style={{
 //              WebkitTransform: `translate3d(${s.x1}px,0,0)`,
 //              transform: `translate3d(${s.x1}px,0,0)`
-//            }} />
+//            }}/>
 //          </div>
 //          <div id="switch2" className="toggle-switch" onClick={e => this.handleClick(e)}>
 //            <div className="toggle-switch-knob" style={{
 //              WebkitTransform: `translate3d(${s.x2}px,0,0)`,
 //              transform: `translate3d(${s.x2}px,0,0)`
-//            }} />
+//            }}/>
 //          </div>
 //          <div id="switch3" className="toggle-switch" onClick={e => this.handleClick(e)}>
 //            <div className="toggle-switch-knob" style={{
 //              WebkitTransform: `translate3d(${s.x3}px,0,0)`,
 //              transform: `translate3d(${s.x3}px,0,0)`
-//            }} />
+//            }}/>
 //          </div>
 //        </div>
 //      )}
@@ -151,7 +151,7 @@ const ToggleSwitch = React.createClass({
 //              WebkitTransform: `translate3d(${s.x}px,0,0)`,
 //              transform: `translate3d(${s.x}px,0,0)`,
 //              opacity: 1 - (0.2 * i)
-//            }} />
+//            }}/>
 //          ))}
 //          </div>
 //        </div>
@@ -162,4 +162,4 @@ const ToggleSwitch = React.createClass({
 //
 //})
 
-render(<ToggleSwitch />, document.getElementById('app'))
+render(<ToggleSwitch/>, document.getElementById('app'))

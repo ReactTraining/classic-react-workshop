@@ -98,7 +98,7 @@ const MarkerGrid = React.createClass({
 
     return (
       <div className="grid">
-        <div className="marker" style={markerStyle} onMouseDown={this.handleMouseDown} />
+        <div className="marker" style={markerStyle} onMouseDown={this.handleMouseDown}/>
         <div className="cell">1</div>
         <div className="cell">2</div>
         <div className="cell">3</div>
@@ -114,4 +114,4 @@ const MarkerGrid = React.createClass({
 
 })
 
-render(<MarkerGrid />, document.getElementById('app'))
+render(<MarkerGrid/>, document.getElementById('app'))

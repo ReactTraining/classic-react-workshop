@@ -60,7 +60,7 @@ const App = React.createClass({
                 height: 200,
                 background: `url(${taco.src})`,
                 backgroundSize: 'cover'
-              }} />
+              }}/>
             </ContentToggle>
           ))}
         </div>
@@ -155,7 +155,7 @@ render(<App/>, document.getElementById('app'))
 //                height: 200,
 //                background: `url(${taco.src})`,
 //                backgroundSize: 'cover'
-//              }} />
+//              }}/>
 //            </ContentToggle>
 //          ))}
 //        </div>
@@ -267,7 +267,7 @@ render(<App/>, document.getElementById('app'))
 //                height: 200,
 //                background: `url(${taco.src})`,
 //                backgroundSize: 'cover'
-//              }} />
+//              }}/>
 //            </ContentToggle>
 //          ))}
 //        </div>

@@ -90,7 +90,7 @@ const MarkerGrid = React.createClass({
         <div className="drop-hint" style={{
           left: Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150,
           top: Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
-        }} />
+        }}/>
       )
     } else {
       markerLeft = Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150
@@ -113,7 +113,7 @@ const MarkerGrid = React.createClass({
           }}
         >
         {markerStyle => (
-          <div className="marker" style={markerStyle} onMouseDown={this.handleMouseDown} />
+          <div className="marker" style={markerStyle} onMouseDown={this.handleMouseDown}/>
         )}
         </Motion>
         <div className="cell">1</div>
@@ -131,4 +131,4 @@ const MarkerGrid = React.createClass({
 
 })
 
-render(<MarkerGrid />, document.getElementById('app'))
+render(<MarkerGrid/>, document.getElementById('app'))

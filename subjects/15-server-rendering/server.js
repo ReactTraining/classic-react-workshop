@@ -39,7 +39,7 @@ function createPage(appHTML, data) {
   <!doctype html>
   <html>
     <head>
-      <meta charset="utf-8" />
+      <meta charset="utf-8"/>
       <title>My Universal App</title>
     </head>
     <body>

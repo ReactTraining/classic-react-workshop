@@ -29,7 +29,7 @@ function ContentToggle() {
 }
 
 function updateThePage() {
-  render(<ContentToggle />, document.getElementById('app'))
+  render(<ContentToggle/>, document.getElementById('app'))
 }
 
 updateThePage()

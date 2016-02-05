@@ -24,7 +24,7 @@ const CreateContactForm = React.createClass({
   render() {
     return (
       <form onSubmit={this.handleSubmit} style={{ display: 'inline' }}>
-        <img style={{ background: '#ccc' }} height="50" width="50" src={transparentGif} />{' '}
+        <img style={{ background: '#ccc' }} height="50" width="50" src={transparentGif}/>{' '}
         <input name="first" type="text" placeholder="first name" size="8"/>
         <input name="last" type="text" placeholder="last name" size="15"/>
         <input name="avatar" type="text" placeholder="avatar url" size="15"/>

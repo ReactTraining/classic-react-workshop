@@ -39,7 +39,7 @@ const List = React.createClass({
     return (
       <div>
         <h1>{this.props.name}</h1>
-        <input onKeyPress={this.addItem} />
+        <input onKeyPress={this.addItem}/>
         <ul>
           {this.state.items.map(item => (
             <li key={item.id}>
@@ -58,11 +58,11 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <List name="Transition Group" />
+        <List name="Transition Group"/>
       </div>
     )
   }
 
 })
 
-render(<App />, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))

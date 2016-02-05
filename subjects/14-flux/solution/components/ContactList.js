@@ -44,7 +44,7 @@ const ContactList = React.createClass({
 
       return (
         <li key={contact.id} style={{ backgroundColor: error ? 'red' : 'transparent' }}>
-          <img src={contact.avatar} width="40" />
+          <img src={contact.avatar} width="40"/>
           {' '}{contact.first} {contact.last}{' '}
           {error
           ? <p>{error.message}</p>

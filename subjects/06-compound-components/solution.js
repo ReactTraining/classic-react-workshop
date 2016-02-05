@@ -45,7 +45,7 @@ const RadioIcon = React.createClass({
         display: 'inline-block',
         cursor: 'pointer',
         background: this.props.isSelected ? 'rgba(0, 0, 0, 0.05)' : ''
-      }} />
+      }}/>
     )
   }
 })

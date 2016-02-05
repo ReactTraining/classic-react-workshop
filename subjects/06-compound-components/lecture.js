@@ -160,7 +160,7 @@ render(<App/>, document.getElementById('app'))
 //
 //    return (
 //      <div>
-//        <Tabs data={tabData} tabsPlacement="bottom" />
+//        <Tabs data={tabData} tabsPlacement="bottom"/>
 //      </div>
 //    )
 //  }

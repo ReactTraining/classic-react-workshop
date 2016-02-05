@@ -50,7 +50,7 @@ class JSONTable extends React.Component {
       return content.map(this.formatContent)
 
     if (isImageURL(content))
-      return <p><img key={content} height="64" src={content} /></p>
+      return <p><img key={content} height="64" src={content}/></p>
 
     if (isURL(content))
       return <p><a key={content} href={content}>{content}</a></p>

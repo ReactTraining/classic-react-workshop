@@ -148,7 +148,7 @@ import { render } from 'react-dom'
   //return <select>{months.map(monthOption)}</select>
 //}
 
-//render(<MonthSelect />, document.getElementById('app'))
+//render(<MonthSelect/>, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////

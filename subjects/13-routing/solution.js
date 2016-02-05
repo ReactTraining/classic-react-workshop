@@ -79,7 +79,7 @@ const Profile = React.createClass({
 
     return (
       <div className="profile">
-        <Gravatar email={user.email} /> {user.name}
+        <Gravatar email={user.email}/> {user.name}
       </div>
     )
   }

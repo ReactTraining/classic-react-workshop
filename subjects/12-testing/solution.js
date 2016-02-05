@@ -24,7 +24,7 @@ describe('when <Tabs> is rendered', function () {
     node = document.createElement('div')
     document.body.appendChild(node)
 
-    ReactDOM.render(<Tabs data={FixtureData} />, node, function () {
+    ReactDOM.render(<Tabs data={FixtureData}/>, node, function () {
       tabs = node.querySelectorAll('.Tab')
       panel = node.querySelector('.TabPanel')
 

@@ -20,7 +20,7 @@ const ContactList = React.createClass({
     const items = contacts.map(contact => {
       return (
         <li key={contact.id}>
-          <img src={contact.avatar} width="40" /> {contact.first} {contact.last}
+          <img src={contact.avatar} width="40"/> {contact.first} {contact.last}
         </li>
       )
     })

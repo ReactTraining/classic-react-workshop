@@ -55,7 +55,7 @@ const TweenToggleSwitch = React.createClass({
 
     return (
       <div className="toggle-switch" onClick={this.handleClick}>
-        <div className="toggle-switch-knob" style={knobStyle} />
+        <div className="toggle-switch-knob" style={knobStyle}/>
       </div>
     )
   }
@@ -78,7 +78,7 @@ const SpringToggleSwitch = React.createClass({
           <div className="toggle-switch-knob" style={{
             WebkitTransform: `translate3d(${s.x}px,0,0)`,
             transform: `translate3d(${s.x}px,0,0)`
-          }} />
+          }}/>
         </div>
       )}
       </Motion>
@@ -108,8 +108,8 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <TweenToggleSwitch isActive={this.state.isActive} />
-        <SpringToggleSwitch isActive={this.state.isActive} />
+        <TweenToggleSwitch isActive={this.state.isActive}/>
+        <SpringToggleSwitch isActive={this.state.isActive}/>
         <button onClick={this.handleClick}>Toggle</button>
       </div>
     )
@@ -117,4 +117,4 @@ const App = React.createClass({
 
 })
 
-render(<App />, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))
