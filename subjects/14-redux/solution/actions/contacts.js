@@ -5,6 +5,20 @@ export const LOAD_CONTACTS = 'LOAD_CONTACTS'
 export const CONTACTS_WERE_LOADED = 'CONTACTS_WERE_LOADED'
 export const DELETE_CONTACT = 'DELETE_CONTACT'
 export const CONTACT_WAS_DELETED = 'CONTACT_WAS_DELETED'
+export const ERROR_DELETING_CONTACT = 'ERROR_DELETING_CONTACT'
+
+export function deleteContact(contactId) {
+  return (dispatch) => {
+    dispatch({ type: DELETE_CONTACT, contactId })
+    deleteContactById(contactId, ({ message }) => {
+      if (message) {
+        dispatch({ type: ERROR_DELETING_CONTACT, contactId, message })
+      } else {
+        dispatch({ type: CONTACT_WAS_DELETED, contactId })
+      }
+    })
+  }
+}
 
 export function loadContacts() {
   return (dispatch) => {
@@ -24,13 +38,3 @@ export function addContact(contact) {
     contact
   }
 }
-
-export function deleteContact(contactId) {
-  return (dispatch) => {
-    dispatch({ type: DELETE_CONTACT, contactId })
-    deleteContactById(contactId, (err) => {
-      dispatch({ type: CONTACT_WAS_DELETED, contactId })
-    })
-  }
-}
-

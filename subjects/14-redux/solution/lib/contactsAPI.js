@@ -1,6 +1,6 @@
 import { getJSON, deleteJSON } from './xhr'
 
-const API = 'https://addressbook-api.herokuapp.com'
+const API = 'http://addressbook-api.herokuapp.com'
 
 export function fetchContacts(cb) {
   getJSON(`${API}/contacts`, (error, res) => {

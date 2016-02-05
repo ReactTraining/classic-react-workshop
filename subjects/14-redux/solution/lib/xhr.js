@@ -32,11 +32,13 @@ export function postJSON(url, obj, callback) {
 export function deleteJSON(url, callback) {
   const req = new XMLHttpRequest()
   req.onload = function () {
-    if (req.status === 500) {
-      callback(new Error(req.responseText))
-    } else {
-      callback(null, req.responseText)
-    }
+    setTimeout(() => {
+      if (req.status === 500) {
+        callback(new Error(req.responseText))
+      } else {
+        callback(null, req.responseText)
+      }
+    }, Math.random() * 5000)
   }
   req.open('DELETE', url)
   setToken(req)

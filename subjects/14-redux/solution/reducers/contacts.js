@@ -6,7 +6,9 @@ export default function (state=[], action) {
   else if (action.type === CONTACTS_WERE_LOADED)
     return action.contacts
   else if (action.type === CONTACT_WAS_DELETED)
-    return state.filter(contact => contact.id !== action.contactId)
+    return state.filter((contact) => {
+      return contact.id !== action.contactId
+    })
   else
     return state
 }

@@ -22,19 +22,25 @@ const App = React.createClass({
   },
 
   render() {
+    const { contacts, contactsWithErrors, contactsBeingDeleted } = this.props
     return (
       <div>
         <h1>Contacts!</h1>
-
         <ul style={{ listStyleType: 'none', padding: 0 }}>
-          {this.props.contacts.map((contact) => (
-            <li key={contact.id}>
-              <img src={contact.avatar} height="50"/>{' '}
-              {contact.first} {contact.last}{' '}
-
-              <button onClick={() => {
-                this.props.dispatch(deleteContact(contact.id))
-              }}>Delete</button>
+          {contacts.map((contact) => (
+            <li key={contact.id} style={{
+              background: contactsWithErrors[contact.id] ? 'red' : '',
+              opacity: contactsBeingDeleted[contact.id] ? '0.25' : ''
+            }}>
+              <img src={contact.avatar} height={contactsWithErrors[contact.id] ? '200' : '50'}/>{' '}
+              {contact.first} {contact.last} {' '}
+              {contactsWithErrors[contact.id] ? (
+                <p>{contactsWithErrors[contact.id]}</p>
+              ) : (
+                <button onClick={() => {
+                  this.props.dispatch(deleteContact(contact.id))
+                }}>Delete</button>
+              )}
             </li>
           ))}
           <li><CreateContactForm onCreate={this.handleCreateContact}/></li>
@@ -52,7 +58,9 @@ const App = React.createClass({
 export default connect((state) => {
   return {
     counter: state.counter,
-    contacts: state.contacts
+    contacts: state.contacts,
+    contactsWithErrors: state.contactsWithErrors,
+    contactsBeingDeleted: state.contactsBeingDeleted
   }
 })(App)
 
