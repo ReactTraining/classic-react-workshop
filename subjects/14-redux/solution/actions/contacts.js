@@ -10,9 +10,13 @@ export const ERROR_DELETING_CONTACT = 'ERROR_DELETING_CONTACT'
 export function deleteContact(contactId) {
   return (dispatch) => {
     dispatch({ type: DELETE_CONTACT, contactId })
-    deleteContactById(contactId, ({ message }) => {
-      if (message) {
-        dispatch({ type: ERROR_DELETING_CONTACT, contactId, message })
+    deleteContactById(contactId, (error) => {
+      if (error) {
+        dispatch({
+          type: ERROR_DELETING_CONTACT,
+          message: error.message,
+          contactId
+        })
       } else {
         dispatch({ type: CONTACT_WAS_DELETED, contactId })
       }
