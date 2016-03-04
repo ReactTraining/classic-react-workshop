@@ -53,6 +53,8 @@ const App = React.createClass({
 
 })
 
+render(<App/>, document.getElementById('app'))
+
 ////////////////////////////////////////////////////////////////////////////////
 // Can't predict what the sound is going to be by looking at state or the render
 // method, but componentDidUpdate makes things a lot easier to think about.
@@ -113,6 +115,8 @@ const App = React.createClass({
 //  }
 //
 //})
+//
+//render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // We can do even better and make this fully declarative for the <App>. Instead
@@ -198,6 +202,8 @@ const App = React.createClass({
 //  }
 //
 //})
+//
+//render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pull out <Theremin> into its own component - you're most of the way there!
@@ -311,6 +317,8 @@ const App = React.createClass({
 //  }
 //
 //})
+//
+//render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // When you isolate all imperative work into components then the application
@@ -321,5 +329,3 @@ const App = React.createClass({
 // Additionally, when the components doing the imperative work do it all in
 // componentDidMount and componenDidUpdate, you even make the imperative
 // work predictable because it's based on a snapshot of state in time also.
-
-render(<App/>, document.getElementById('app'))
