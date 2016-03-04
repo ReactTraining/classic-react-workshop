@@ -97,7 +97,7 @@ render(<App/>, document.getElementById('app'))
 //  },
 //
 //  render() {
-//    const summaryClassName = "ContentToggle__Summary"
+//    let summaryClassName = "ContentToggle__Summary"
 //    if (this.state.isOpen)
 //      summaryClassName += " ContentToggle__Summary--is-open"
 //    return (
@@ -188,13 +188,17 @@ render(<App/>, document.getElementById('app'))
 //    })
 //  },
 //
+//  componentWillReceiveProps(nextProps) {
+//    this.setState({ isOpen: nextProps.isOpen })
+//  },
+//
 //  render() {
-//    const summaryClassName = "ContentToggle__Summary"
+//    let summaryClassName = "ContentToggle__Summary"
 //    if (this.state.isOpen)
 //      summaryClassName += " ContentToggle__Summary--is-open"
 //    return (
 //      <div {...this.props} className="ContentToggle">
-//        <button onClick={() => this.handleClick()} className={summaryClassName}>
+//        <button onClick={this.handleClick} className={summaryClassName}>
 //          {this.props.summary}
 //        </button>
 //        <div className="ContentToggle__Details">
@@ -220,7 +224,7 @@ render(<App/>, document.getElementById('app'))
 //
 //  openAll() {
 //    this.setState({
-//      tacos: this.state.tacos.map((taco) => {
+//      tacos: this.state.tacos.map(taco => {
 //        taco.isOpen = true
 //        return taco
 //      })
@@ -229,17 +233,18 @@ render(<App/>, document.getElementById('app'))
 //
 //  closeAll() {
 //    this.setState({
-//      tacos: this.state.tacos.map((taco) => {
+//      tacos: this.state.tacos.map(taco => {
 //        taco.isOpen = false
+//        return taco
 //      })
 //    })
 //  },
 //
-//  handleTacoToggle(toggledTaco, toggledIsOpen) {
+//  handleTacoToggle(toggledTaco, isOpen) {
 //    this.setState({
-//      tacos: this.state.tacos.map((taco) => {
-//        if (taco.id === toggledTaco.id)
-//          taco.isOpen = toggledTaco
+//      tacos: this.state.tacos.map(taco => {
+//        if (taco.name === toggledTaco.name)
+//          taco.isOpen = isOpen
 //        return taco
 //      })
 //    })
@@ -250,18 +255,18 @@ render(<App/>, document.getElementById('app'))
 //    return (
 //      <div>
 //        {shouldCloseAll ? (
-//          <button onClick={() => this.closeAll()}>Close All</button>
+//          <button onClick={this.closeAll}>Close All</button>
 //        ) : (
-//          <button onClick={() => this.openAll()}>Open All</button>
+//          <button onClick={this.openAll}>Open All</button>
 //        )}
 //        <div>
-//          {this.state.tacos.map((taco) => (
+//          {this.state.tacos.map(taco => (
 //            <ContentToggle
 //              key={taco.name}
 //              style={{ width: 300 }}
 //              summary={taco.name}
 //              isOpen={taco.isOpen}
-//              onToggle={(isOpen) => this.handleTacoToggle(taco, isOpen)}
+//              onToggle={isOpen => this.handleTacoToggle(taco, isOpen)}
 //            >
 //              <div style={{
 //                height: 200,
@@ -291,12 +296,12 @@ render(<App/>, document.getElementById('app'))
 //  },
 //
 //  render() {
-//    const summaryClassName = "ContentToggle__Summary"
+//    let summaryClassName = "ContentToggle__Summary"
 //    if (this.props.isOpen)
 //      summaryClassName += " ContentToggle__Summary--is-open"
 //    return (
 //      <div {...this.props} className="ContentToggle">
-//        <button onClick={() => this.handleClick()} className={summaryClassName}>
+//        <button onClick={this.handleClick} className={summaryClassName}>
 //          {this.props.summary}
 //        </button>
 //        <div className="ContentToggle__Details">
@@ -329,7 +334,7 @@ render(<App/>, document.getElementById('app'))
 //    return <ContentToggle
 //      {...this.props}
 //      isOpen={this.state.isOpen}
-//      onToggle={(isOpen) => this.setState({ isOpen })}
+//      onToggle={isOpen => this.setState({ isOpen })}
 //    />
 //  }
 //
