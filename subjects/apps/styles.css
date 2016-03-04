@@ -75,7 +75,7 @@ ol.messages {
   background-color: lightblue;
 }
 .message-group-avatar img {
-  width: 40px;
+  height: 40px;
 }
 
 ol.messages {

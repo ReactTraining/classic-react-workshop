@@ -17,6 +17,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
 
+require('./styles')
+
 /*
 Here's how to use the ChatUtils:
 
@@ -40,3 +42,65 @@ unsubscribe() // stop listening for new messages
 
 The world is your oyster!
 */
+
+const Chat = React.createClass({
+
+  render() {
+    return (
+      <div className="chat">
+        <header className="chat-header">
+          <h1 className="chat-title">HipReact</h1>
+          <p className="chat-message-count"># messages: 3</p>
+        </header>
+        <div className="messages">
+          <ol className="message-groups">
+            <li className="message-group">
+              <div className="message-group-avatar">
+                <img src="https://avatars1.githubusercontent.com/u/92839"/>
+              </div>
+              <ol className="messages">
+                <li className="message">So, check it out:</li>
+                <li className="message">QA Engineer walks into a bar.</li>
+                <li className="message">Orders a beer.</li>
+                <li className="message">Orders 0 beers.</li>
+                <li className="message">Orders 999999999 beers.</li>
+                <li className="message">Orders a lizard.</li>
+                <li className="message">Orders -1 beers.</li>
+                <li className="message">Orders a sfdeljknesv.</li>
+              </ol>
+            </li>
+          </ol>
+          <ol className="message-groups">
+            <li className="message-group">
+              <div className="message-group-avatar">
+                <img src="https://avatars2.githubusercontent.com/u/100200"/>
+              </div>
+              <ol className="messages">
+                <li className="message">Haha</li>
+                <li className="message">Stop stealing other people's jokes :P</li>
+              </ol>
+            </li>
+          </ol>
+          <ol className="message-groups">
+            <li className="message-group">
+              <div className="message-group-avatar">
+                <img src="https://avatars1.githubusercontent.com/u/92839"/>
+              </div>
+              <ol className="messages">
+                <li className="message">:'(</li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+        <form className="new-message-form">
+          <div className="new-message">
+            <input ref="message" type="text" placeholder="say something..."/>
+          </div>
+        </form>
+      </div>
+    )
+  }
+
+})
+
+render(<Chat/>, document.getElementById('app'))
