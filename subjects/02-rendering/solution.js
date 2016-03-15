@@ -16,45 +16,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import sortBy from 'sort-by'
 
-let foodType = 'mexican'
-let sortOrder = 'descending'
-
-function handleChange(event) {
-  foodType = event.target.value
-  updateThePage()
-}
-
-function changeSort(order) {
-  sortOrder = order
-  updateThePage()
-}
-
-function Menu({ data }) {
-  const items = data.items
-    .filter(item => item.type === foodType)
-    .sort(sortBy(sortOrder === 'ascending' ? 'name' : '-name'))
-    .map(item => (
-      <li key={item.id}>{item.name}</li>
-    ))
-
-  return (
-    <div>
-      <h1>{data.title}</h1>
-      {sortOrder === 'ascending' ?
-        <button onClick={() => changeSort('descending')}>sort descending</button> :
-        <button onClick={() => changeSort('ascending')}>sort ascending</button>
-      }
-      <select onChange={handleChange}>
-        <option>mexican</option>
-        <option>english</option>
-      </select>
-      <ul>
-        {items}
-      </ul>
-    </div>
-  )
-}
-
 const DATA = {
   title: 'Menu',
   items: [
@@ -67,10 +28,23 @@ const DATA = {
   ]
 }
 
-function updateThePage() {
-  render(<Menu data={DATA}/>, document.getElementById('app'), function () {
-    require('./tests').run()
+function Menu() {
+  const items = DATA.items.filter(function (item) {
+    return item.type === 'mexican'
+  }).sort(sortBy('name')).map(function (item) {
+    return <li key={item.id}>{item.name}</li>
   })
+
+  return (
+    <div>
+      <h1>{DATA.title}</h1>
+      <ul>
+        {items}
+      </ul>
+    </div>
+  )
 }
 
-updateThePage()
+render(<Menu/>, document.getElementById('app'), function () {
+  require('./tests').run()
+})

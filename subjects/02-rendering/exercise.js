@@ -16,14 +16,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import sortBy from 'sort-by'
 
-function Menu() {
-  return (
-    <div>
-      Open the console, you have failing tests
-    </div>
-  )
-}
-
 const DATA = {
   title: 'Menu',
   items: [
@@ -36,6 +28,16 @@ const DATA = {
   ]
 }
 
+function Menu() {
+
+  return (
+    <div>
+      Open the console, you have failing tests.
+    </div>
+  )
+}
+
 render(<Menu/>, document.getElementById('app'), function () {
   require('./tests').run()
 })
+
