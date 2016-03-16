@@ -1,7 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-//
 // - Add some code to App's render method that renders the child route
 //   (hint: use this.props.children)
 // - Add a new child route beneath App at "/profile/:userID" that shows the
@@ -101,4 +100,3 @@ ReactDOM.render((
     <Route path="*" component={NoMatch}/>
   </Router>
 ), document.getElementById('app'))
-
