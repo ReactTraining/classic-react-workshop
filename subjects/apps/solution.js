@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { render, findDOMNode } from 'react-dom'
 import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
 import sortBy from 'sort-by'
 
@@ -95,8 +95,11 @@ const Chat = React.createClass({
   },
 
   componentDidUpdate() {
-    if (this.pinToBottom)
+    if (this.pinToBottom) {
       this.scrollToBottom()
+    } else {
+      this.refs.newNotifier.style = "display: block"
+    }
   },
 
   scrollToBottom() {
@@ -124,6 +127,9 @@ const Chat = React.createClass({
   handleScroll(event) {
     const { clientHeight, scrollTop, scrollHeight } = event.target
     this.pinToBottom = clientHeight + scrollTop > (scrollHeight - 10)
+    if (this.pinToBottom) {
+      this.refs.newNotifier.style = "display: none"
+    }
   },
 
   render() {
@@ -140,6 +146,9 @@ const Chat = React.createClass({
         </header>
         <div ref="messages" className="messages" onScroll={this.handleScroll}>
           <MessageList auth={auth} messages={messages}/>
+        </div>
+        <div ref="newNotifier" className="new-notifier">
+          new messages
         </div>
         <form className="new-message-form" onSubmit={this.handleSubmit}>
           <div className="new-message">
