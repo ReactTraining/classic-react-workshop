@@ -8,7 +8,7 @@ import Tabs from './modules/Tabs'
 import ContentToggle from './modules/ContentToggle'
 import Droppable from './modules/Droppable'
 import StatefulContentToggle from './modules/StatefulContentToggle'
-import ContactList from '../14-flux/solution/components/ContactList'
+import ContactList from '../Flux/solution/components/ContactList'
 
 //describe('ContentToggle', () => {
 //  let div

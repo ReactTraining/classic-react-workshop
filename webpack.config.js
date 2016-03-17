@@ -1,14 +1,14 @@
-var fs = require('fs')
-var path = require('path')
-var mkdirp = require('mkdirp')
-var webpack = require('webpack')
-var React = require('react')
-var ReactDOMServer = require('react-dom/server')
+const fs = require('fs')
+const path = require('path')
+const webpack = require('webpack')
 
-var SubjectsDir = path.join(__dirname, 'subjects')
-var SubjectDirs = fs.readdirSync(SubjectsDir).filter(function (dir) {
-  return isDirectory(path.join(SubjectsDir, dir))
-})
+const isDirectory = (dir) =>
+  fs.lstatSync(dir).isDirectory()
+
+const SubjectsDir = path.join(__dirname, 'subjects')
+const SubjectDirs = fs.readdirSync(SubjectsDir).filter(
+  dir => isDirectory(path.join(SubjectsDir, dir))
+)
 
 module.exports = {
 
@@ -16,13 +16,13 @@ module.exports = {
 
   entry: SubjectDirs.reduce(function (entries, dir) {
     if (fs.existsSync(path.join(SubjectsDir, dir, 'exercise.js')))
-      entries[dir+ '-exercise'] = path.join(SubjectsDir, dir, 'exercise.js')
+      entries[dir + '-exercise'] = path.join(SubjectsDir, dir, 'exercise.js')
 
     if (fs.existsSync(path.join(SubjectsDir, dir, 'solution.js')))
-      entries[dir+ '-solution'] = path.join(SubjectsDir, dir, 'solution.js')
+      entries[dir + '-solution'] = path.join(SubjectsDir, dir, 'solution.js')
 
     if (fs.existsSync(path.join(SubjectsDir, dir, 'lecture.js')))
-      entries[dir+ '-lecture'] = path.join(SubjectsDir, dir, 'lecture.js')
+      entries[dir + '-lecture'] = path.join(SubjectsDir, dir, 'lecture.js')
 
     return entries
   }, {}),
@@ -69,52 +69,4 @@ module.exports = {
     }
   }
 
-}
-
-makeIndex()
-
-function makeIndex() {
-  var list = SubjectDirs.map(function (dir) {
-    return React.DOM.li({ key: dir },
-      React.DOM.a({ href: '/' + dir }, dir.replace(/-/g, ' '))
-    )
-  })
-
-  var markup = ReactDOMServer.renderToStaticMarkup(
-    React.DOM.html({},
-      React.DOM.head({},
-        React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
-      ),
-      React.DOM.body({ id: 'index' },
-        React.DOM.ul({}, list)
-      )
-    )
-  )
-
-  fs.writeFileSync('./subjects/index.html', markup)
-
-  SubjectDirs.forEach(function (dir) {
-    fs.writeFileSync('./subjects/' + dir + '/index.html', makeMarkup(dir + '-exercise'))
-    fs.writeFileSync('./subjects/' + dir + '/solution.html', makeMarkup(dir + '-solution'))
-    fs.writeFileSync('./subjects/' + dir + '/lecture.html', makeMarkup(dir + '-lecture'))
-  })
-}
-
-function makeMarkup(mainFile) {
-  return ReactDOMServer.renderToStaticMarkup(
-    React.DOM.html({},
-      React.DOM.head({},
-        React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
-      ),
-      React.DOM.body({},
-        React.DOM.div({ id: 'app' }),
-        React.DOM.script({ src: '/__build__/shared.js' }),
-        React.DOM.script({ src: '/__build__/' + mainFile + '.js' })
-      )
-    )
-  )
-}
-
-function isDirectory(dir) {
-  return fs.lstatSync(dir).isDirectory()
 }
