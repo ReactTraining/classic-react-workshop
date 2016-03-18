@@ -1,8 +1,8 @@
-## Welcome to React.js Training!
+## Welcome to React Training!
 
-This repo contains the course material for [React.js Training](https://reactjs-training.com/). Before attending the training, make sure you can run this repository.
+This repo contains the course material for [React Training](https://reactjs-training.com/). Before attending the training, please make sure you can run this repository.
 
-First, install [git](http://git-scm.com/downloads) and [node.js](https://nodejs.org/). Then:
+First, install [git](http://git-scm.com/downloads) and [node](https://nodejs.org/). Then:
 
 ```sh
 $ git clone https://github.com/ReactJSTraining/react-subjects.git
