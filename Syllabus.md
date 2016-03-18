@@ -14,7 +14,7 @@ Objectives:
 We'll explore the lowest level of React: rendering UI. We'll take a look at what the "Virtual DOM" and JSX are, brush up on some JavaScript array methods, and do our first coding exercise.
 
 Objectives:
-- Render UI with react
+- Render UI with React
 - Transform and massage data into UI
 - Become familiar with JSX
 - Brush up on JavaScript expressions and scope
