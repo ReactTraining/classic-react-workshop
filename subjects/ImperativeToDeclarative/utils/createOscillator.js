@@ -22,8 +22,10 @@ function Oscillator(audioContext) {
   }
 
   this.stop = function () {
-    if (hasConnected)
+    if (hasConnected) {
       oscillatorNode.disconnect(gainNode)
+      hasConnected = false
+    }
   }
 
   this.setType = function (type) {
