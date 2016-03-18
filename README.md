@@ -11,17 +11,15 @@ $ npm install
 $ npm start
 ```
 
-Then open your browser to `http://localhost:8080`. You should see a list of subjects.
+Then open your browser to [http://localhost:8080](http://localhost:8080). You should see a list of subjects.
 
-**IMPORTANT**
-
-Please read the [JavaScript Primer](https://github.com/ReactJSTraining/react-subjects/blob/master/JavaScriptPrimer.md) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
+**IMPORTANT:** Please read the [JavaScript Primer](https://github.com/ReactJSTraining/react-subjects/blob/master/JavaScriptPrimer.md) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
 
 ### Troubleshooting
 
 A few common problems:
 
-- You're having problems cloning the repository. Some corporate networks block port 22, which git uses to communicate with GitHub over SSH. Instead of using SSH, clone the repo over HTTPS. Use the following command to tell git to always use `https` instead of `git`:
+- **You're having problems cloning the repository.** Some corporate networks block port 22, which git uses to communicate with GitHub over SSH. Instead of using SSH, clone the repo over HTTPS. Use the following command to tell git to always use `https` instead of `git`:
 
 ```sh
 $ git config --global url."https://".insteadOf git://
@@ -31,13 +29,13 @@ $ git config --global url."https://".insteadOf git://
   insteadOf = git://
 ```
 
-- You're having trouble installing node. We recommend using [nvm](https://github.com/creationix/nvm). nvm makes it really easy to use multiple versions of node on the same machine painlessly. After you install nvm, install node version 4 with the following command:
+- **You're having trouble installing node.** We recommend using [nvm](https://github.com/creationix/nvm). nvm makes it really easy to use multiple versions of node on the same machine painlessly. After you install nvm, install the latest stable version of node with the following command:
 
 ```sh
-$ nvm use default 4
+$ nvm use default stable
 ```
 
-- You don't have permissions to install stuff. You might see an error like `EACCES` during the `npm install` step. If that's the case, it probably means that at some point you did an `sudo npm install` and installed some stuff with root permissions. To fix this, you need to forcefully remove all files that npm caches on your machine and re-install without sudo.
+- **You don't have permissions to install stuff.** You might see an error like `EACCES` during the `npm install` step. If that's the case, it probably means that at some point you did an `sudo npm install` and installed some stuff with root permissions. To fix this, you need to forcefully remove all files that npm caches on your machine and re-install without sudo.
 
 ```sh
 $ sudo rm -rf node_modules
