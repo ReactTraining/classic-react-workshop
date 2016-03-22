@@ -12,16 +12,20 @@
 //
 // Now let's write some code:
 //
-// 1. In this file, inside of `createServer`, render `App` with the contacts
-//    as a prop, you can use `fetchContacts` to request them. Visit the page
-//    to see it render server-side only.
-//
-// 2. Now that you've got the server working, open up `exercise.js`
+// 1. Right now we're rendering the entire application client-side. Check
+//    out the source of <App>. Our server is essentially sending an empty
+//    <body> tag down to the client.
+// 2. We'd like to render *something* on the server. Use one of react-dom/server's
+//    render methods to render some HTML before we send the response. We'll
+//    need to inject the HTML into the #app element in createPage.
+// 3. That's a little better, but we're still just sending a lonely <p> tag
+//    down to the client and then fetching the data once we mount. We can do better.
+// 4. Move the data-fetching into the request handler on the server and inject
+//    it into <App> via a prop. This requires us to pass some data to the client
+//    somehow in exercise.js.
 ////////////////////////////////////////////////////////////////////////////////
 import http from 'http'
 import React from 'react'
-import App from './lib/App'
-import fetchContacts from './lib/fetchContacts'
 
 const webpackServer = 'http://localhost:8080'
 
@@ -34,7 +38,7 @@ function write(res, string) {
   res.end()
 }
 
-function createPage(appHTML, data) {
+function createPage() {
   return `
   <!doctype html>
   <html>
@@ -44,20 +48,17 @@ function createPage(appHTML, data) {
     </head>
     <body>
 
-      <div id="app">${appHTML}</div>
-      <script>const __DATA__ = ${JSON.stringify(data)};</script>
+      <div id="app"></div>
 
       <script src=${webpackServer + '/__build__/shared.js'}></script>
-      <script src=${webpackServer + '/__build__/19-server-rendering-exercise.js'}></script>
+      <script src=${webpackServer + '/__build__/ServerRendering-exercise.js'}></script>
     </body>
   </html>
   `
 }
 
 const app = http.createServer(function (req, res) {
-  // fetch data and render `App` here,
-  // you'll use `fetchContacts`, `App`, and `createPage`
-  write(res, '[fill in with the react app]')
+  write(res, createPage())
 })
 
 app.listen(5000)

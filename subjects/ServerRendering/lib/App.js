@@ -1,16 +1,37 @@
 import React from 'react'
-import axios from 'axios'
+import fetchContacts from '../lib/fetchContacts'
 
 const App = React.createClass({
+  getInitialState() {
+    return {
+      // TODO: Move this state to a prop. That will make it
+      // possible to render on the server.
+      contacts: []
+    }
+  },
+
+  componentDidMount() {
+    // TODO: Move this call into the request handler on the server.
+    fetchContacts((error, contacts) => {
+      this.setState({ contacts })
+    })
+  },
+
   render() {
+    const { contacts } = this.state
+
     return (
       <div>
         <h1>¡Universal App!</h1>
-        <ul>
-          {this.props.contacts.map(contact => (
-            <li key={contact.id}>{contact.first} {contact.last}</li>
-          ))}
-        </ul>
+        {contacts ? (
+          <ul>
+            {contacts.map(contact => (
+              <li key={contact.id}>{contact.first} {contact.last}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     )
   }

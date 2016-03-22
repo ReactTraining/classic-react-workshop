@@ -2,8 +2,8 @@ import axios from 'axios'
 
 function fetchContacts(cb) {
   axios.get('https://addressbook-api.herokuapp.com/contacts').then((res) => {
-    cb(res.data.contacts)
-  })
+    cb(null, res.data.contacts)
+  }, cb)
 }
 
 export default fetchContacts

@@ -7,4 +7,8 @@
 // the server rendered in the `<script/>`.
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
+import { render } from 'react-dom'
 import App from './lib/App'
+
+// TODO: Pass contacts data into the <App> via a prop.
+render(<App/>, document.getElementById('app'))
