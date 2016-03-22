@@ -18,7 +18,7 @@ const App = React.createClass({
   },
 
   componentDidMount() {
-    this.props.dispatch(loadContacts())
+    loadContacts(this.props.dispatch)
   },
 
   render() {
@@ -47,7 +47,8 @@ const App = React.createClass({
 
 export default connect((state) => {
   return {
-    counter: state.counter
+    counter: state.counter,
+    contacts: state.contacts
   }
 })(App)
 

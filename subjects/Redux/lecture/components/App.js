@@ -1,5 +1,6 @@
 import React from 'react'
 import CreateContactForm from './CreateContactForm'
+import { fetchContacts } from '../lib/contactsAPI'
 
 const { func, number, array } = React.PropTypes
 
@@ -7,15 +8,24 @@ const App = React.createClass({
 
   getInitialState() {
     return {
-      contacts: [ { id: 'ryan', first: 'Ryan', last: 'Florence', avatar: 'http://ryanflorence.com/jsconf-avatars/avatars/ryan.jpg' } ]
+      contacts: []
     }
   },
 
+  addContactsToState(contacts) {
+    this.setState({
+      contacts: this.state.contacts.concat(contacts)
+    })
+  },
+
+  componentDidMount() {
+    fetchContacts((error, contacts) => {
+      this.addContactsToState(contacts)
+    })
+  },
 
   handleCreateContact(contact) {
-    this.setState({
-      contacts: this.state.contacts.concat([ contact ])
-    })
+    this.addContactsToState([ contact ])
   },
 
   render() {
@@ -30,7 +40,9 @@ const App = React.createClass({
               {contact.first} {contact.last}
             </li>
           ))}
-          <li><CreateContactForm onCreate={this.handleCreateContact}/></li>
+          <li>
+            <CreateContactForm onCreate={this.handleCreateContact}/>
+          </li>
         </ul>
 
       </div>

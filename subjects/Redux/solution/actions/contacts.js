@@ -7,33 +7,29 @@ export const DELETE_CONTACT = 'DELETE_CONTACT'
 export const CONTACT_WAS_DELETED = 'CONTACT_WAS_DELETED'
 export const ERROR_DELETING_CONTACT = 'ERROR_DELETING_CONTACT'
 
-export function deleteContact(contactId) {
-  return (dispatch) => {
-    dispatch({ type: DELETE_CONTACT, contactId })
-    deleteContactById(contactId, (error) => {
-      if (error) {
-        dispatch({
-          type: ERROR_DELETING_CONTACT,
-          message: error.message,
-          contactId
-        })
-      } else {
-        dispatch({ type: CONTACT_WAS_DELETED, contactId })
-      }
-    })
-  }
+export function deleteContact(contactId, dispatch) {
+  dispatch({ type: DELETE_CONTACT, contactId })
+  deleteContactById(contactId, (error) => {
+    if (error) {
+      dispatch({
+        type: ERROR_DELETING_CONTACT,
+        message: error.message,
+        contactId
+      })
+    } else {
+      dispatch({ type: CONTACT_WAS_DELETED, contactId })
+    }
+  })
 }
 
-export function loadContacts() {
-  return (dispatch) => {
-    dispatch({ type: LOAD_CONTACTS })
-    fetchContacts((error, contacts) => {
-      dispatch({
-        type: CONTACTS_WERE_LOADED,
-        contacts
-      })
+export function loadContacts(dispatch) {
+  dispatch({ type: LOAD_CONTACTS })
+  fetchContacts((error, contacts) => {
+    dispatch({
+      type: CONTACTS_WERE_LOADED,
+      contacts
     })
-  }
+  })
 }
 
 export function addContact(contact) {

@@ -18,7 +18,8 @@ const App = React.createClass({
   },
 
   componentDidMount() {
-    this.props.dispatch(loadContacts())
+    const { dispatch } = this.props
+    loadContacts(dispatch)
   },
 
   render() {
@@ -38,7 +39,7 @@ const App = React.createClass({
                 <p>{contactsWithErrors[contact.id]}</p>
               ) : (
                 <button onClick={() => {
-                  this.props.dispatch(deleteContact(contact.id))
+                  deleteContact(contact.id, this.props.dispatch)
                 }}>Delete</button>
               )}
             </li>
