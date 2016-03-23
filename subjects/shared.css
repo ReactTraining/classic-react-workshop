@@ -8,6 +8,11 @@ button:focus {
   outline: 2px solid hsl(200, 50%, 50%);
 }
 
+a:link,
+a:visited {
+  color: #00D;
+}
+
 #index ul {
   padding: 0;
   list-style: none;
