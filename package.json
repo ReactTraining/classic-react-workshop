@@ -16,7 +16,7 @@
     "Ryan Florence",
     "Michael Jackson"
   ],
-  "license": "GPL3",
+  "license": "GPLv3",
   "dependencies": {
     "angular": "1.4.9",
     "assert": "1.3.0",
