@@ -20,7 +20,7 @@ const App = React.createClass({
     }
   },
 
-  fetch(url=DefaultFetchURL) {
+  fetch(url) {
     this.setState({ fetching: true })
 
     searchGitHubRepos(url, (err, repos, links) => {
@@ -33,7 +33,7 @@ const App = React.createClass({
   },
 
   componentDidMount() {
-    this.fetch()
+    this.fetch(DefaultFetchURL)
   },
 
   fetchNextPage() {
