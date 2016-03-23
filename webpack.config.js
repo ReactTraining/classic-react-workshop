@@ -2,13 +2,14 @@ const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 
-const isDirectory = (dir) =>
-  fs.lstatSync(dir).isDirectory()
+function isDirectory(dir) {
+  return fs.lstatSync(dir).isDirectory()
+}
 
 const SubjectsDir = path.join(__dirname, 'subjects')
-const SubjectDirs = fs.readdirSync(SubjectsDir).filter(
-  dir => isDirectory(path.join(SubjectsDir, dir))
-)
+const SubjectDirs = fs.readdirSync(SubjectsDir).filter(function (dir) {
+  return isDirectory(path.join(SubjectsDir, dir))
+})
 
 module.exports = {
 
