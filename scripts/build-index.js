@@ -3,8 +3,8 @@ const path = require('path')
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 
-const createMarkup = (mainFile) =>
-  ReactDOMServer.renderToStaticMarkup(
+function createMarkup(mainFile) {
+  return ReactDOMServer.renderToStaticMarkup(
     React.DOM.html({},
       React.DOM.head({},
         React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
@@ -16,6 +16,7 @@ const createMarkup = (mainFile) =>
       )
     )
   )
+}
 
 const RootDir = path.resolve(__dirname, '..')
 const SubjectsDir = path.join(RootDir, 'subjects')
@@ -57,11 +58,11 @@ const markup = ReactDOMServer.renderToStaticMarkup(
     ),
     React.DOM.body({ id: 'index' },
       React.DOM.ul({},
-        SubjectDirNames.map(dir => (
-          React.DOM.li({ key: dir },
+        SubjectDirNames.map(function (dir) {
+          return React.DOM.li({ key: dir },
             React.DOM.a({ href: '/' + dir }, Subjects[dir])
           )
-        ))
+        })
       )
     )
   )
@@ -69,7 +70,7 @@ const markup = ReactDOMServer.renderToStaticMarkup(
 
 fs.writeFileSync(path.join(SubjectsDir, 'index.html'), markup)
 
-SubjectDirNames.forEach(dir => {
+SubjectDirNames.forEach(function (dir) {
   fs.writeFileSync(path.join(SubjectsDir, dir, 'index.html'), createMarkup(dir + '-exercise'))
   fs.writeFileSync(path.join(SubjectsDir, dir, 'solution.html'), createMarkup(dir + '-solution'))
   fs.writeFileSync(path.join(SubjectsDir, dir, 'lecture.html'), createMarkup(dir + '-lecture'))
