@@ -1,12 +1,9 @@
-import React from 'react'
-
-const { func, number } = React.PropTypes
+import React, { PropTypes } from 'react'
 
 const ScrollBottomNotifier = React.createClass({
-
   propTypes: {
-    buffer: number.isRequired,
-    onScrollBottom: func
+    buffer: PropTypes.number.isRequired,
+    onScrollBottom: PropTypes.func
   },
 
   getDefaultProps() {
@@ -32,7 +29,6 @@ const ScrollBottomNotifier = React.createClass({
       onScroll={this.handleScroll}
     />
   }
-
 })
 
 export default ScrollBottomNotifier

@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 import * as styles from './utils/styles'
 import searchGitHubRepos from './utils/searchGitHubRepos'
 import ScrollBottomNotifier from './utils/ScrollBottomNotifier'
 
-const { string } = React.PropTypes
 const DefaultFetchURL = 'https://api.github.com/search/repositories?q=react&sort=stars'
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -74,7 +73,7 @@ render(<App/>, document.getElementById('app'))
 
 //const GitHubSearch = React.createClass({
 //  propTypes: {
-//    url: string.isRequired
+//    url: PropTypes.string.isRequired
 //  },
 //
 //  getInitialState() {
@@ -125,8 +124,8 @@ render(<App/>, document.getElementById('app'))
 
 //const GitHubSearch = React.createClass({
 //  propTypes: {
-//    url: string.isRequired,
-//    children: func.isRequired
+//    url: PropTypes.string.isRequired,
+//    children: PropTypes.func.isRequired
 //  },
 //
 //  getInitialState() {
