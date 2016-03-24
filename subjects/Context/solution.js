@@ -17,12 +17,12 @@
 // - Implement a ResetButton that resets the TextInputs in the Form
 //
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 
 const Form = React.createClass({
   childContextTypes: {
-    onFormSubmit: React.PropTypes.func
+    onFormSubmit: PropTypes.func
   },
 
   getChildContext() {
