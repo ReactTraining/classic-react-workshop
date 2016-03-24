@@ -1,4 +1,4 @@
-/*eslint-disable no-console, prefer-template, prefer-arrow-callback */
+/*eslint-disable no-console */
 import http from 'http'
 import React from 'react'
 
@@ -25,19 +25,19 @@ function createPage() {
 
       <div id="app"></div>
 
-      <script src=${webpackServer + '/__build__/shared.js'}></script>
-      <script src=${webpackServer + '/__build__/ServerRendering-exercise.js'}></script>
+      <script src="${webpackServer}/__build__/shared.js"></script>
+      <script src="${webpackServer}/__build__/ServerRendering-exercise.js"></script>
     </body>
   </html>
   `
 }
 
-const app = http.createServer(function (req, res) {
+const app = http.createServer((req, res) => {
   // TODO: We'd like to render the <App> on the server
   // instead of just sending a practically empty page.
   write(res, createPage())
 })
 
-app.listen(5000, function () {
+app.listen(5000, () => {
   console.log('Server listening on port %s', 5000)
 })
