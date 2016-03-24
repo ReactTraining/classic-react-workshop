@@ -16,7 +16,7 @@ const StoreContext = React.createClass({
   },
 
   componentWillUnmount() {
-    this.props.store.listen(this.listener)
+    this.props.store.removeListener(this.listener)
   },
 
   listener() {
