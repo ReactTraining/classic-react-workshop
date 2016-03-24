@@ -23,6 +23,7 @@
     "react/prefer-es6-class": [2, "never"],
     "react/prefer-stateless-function": 0,
     "react/prop-types": 0,
+    "react/sort-comp": 0,
     "react/wrap-multilines": 2,
     "semi": [2, "never"],
     "spaced-comment": 0,
