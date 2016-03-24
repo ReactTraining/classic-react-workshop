@@ -3,6 +3,7 @@ import http from 'http'
 import React from 'react'
 
 const webpackServer = 'http://localhost:8080'
+const port = 8081
 
 function write(res, string) {
   res.writeHead(200, {
@@ -38,6 +39,6 @@ const app = http.createServer((req, res) => {
   write(res, createPage())
 })
 
-app.listen(5000, () => {
-  console.log('Server listening on port %s', 5000)
+app.listen(port, () => {
+  console.log('\nOpen http://localhost:%s', port)
 })

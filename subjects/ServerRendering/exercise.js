@@ -3,11 +3,9 @@
 //
 // First, fire up the server:
 //
-// 1. Run `node_modules/.bin/babel-node subjects/ServerRendering/server.js`
+// 1. Run `node_modules/.bin/supervisor -- -r babel/register subjects/ServerRendering/server.js`
 //    from the root of this repository
-// 2. Open http://localhost:5000 (not the typical 8080)
-// 3. You will need to restart the server every time you change a file, sorry.
-//    (or feel free to make `supervisor -- -r 'babel/register' server.js` to work)
+// 2. Open http://localhost:8081 (not 8080)
 //
 // Now let's write some code:
 //
