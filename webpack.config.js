@@ -42,7 +42,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.css$/, loader: 'style!css' },
-      { test: /\.js$/, exclude: /node_modules|mocha-browser\.js/, loader: 'babel?stage=0&loose=all' },
+      { test: /\.js$/, exclude: /node_modules|mocha-browser\.js/, loader: 'babel' },
       { test: /\.woff(2)?$/,   loader: 'url?limit=10000&mimetype=application/font-woff' },
       { test: /\.ttf$/, loader: 'file' },
       { test: /\.eot$/, loader: 'file' },
