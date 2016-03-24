@@ -1,29 +1,4 @@
 /*eslint-disable no-console, prefer-template, prefer-arrow-callback */
-////////////////////////////////////////////////////////////////////////////////
-// Exercise
-//
-// First, fire up the server:
-//
-// 1. run `node_modules/.bin/babel-node subjects/ServerRendering/server.js`
-//    from the root of this repository
-// 2. open http://localhost:5000 (not the typical 8080)
-// 3. You will need to restart the server every time you change a file, sorry.
-//    (or feel free to make `supervisor -- -r 'babel/register' server.js` to work)
-//
-// Now let's write some code:
-//
-// 1. Right now we're rendering the entire application client-side. Check
-//    out the source of <App>. Our server is essentially sending an empty
-//    <body> tag down to the client.
-// 2. We'd like to render *something* on the server. Use one of react-dom/server's
-//    render methods to render some HTML before we send the response. We'll
-//    need to inject the HTML into the #app element in createPage.
-// 3. That's a little better, but we're still just sending a lonely <p> tag
-//    down to the client and then fetching the data once we mount. We can do better.
-// 4. Move the data-fetching into the request handler on the server and inject
-//    it into <App> via a prop. This requires us to pass some data to the client
-//    somehow in exercise.js.
-////////////////////////////////////////////////////////////////////////////////
 import http from 'http'
 import React from 'react'
 
@@ -58,8 +33,11 @@ function createPage() {
 }
 
 const app = http.createServer(function (req, res) {
+  // TODO: We'd like to render the <App> on the server
+  // instead of just sending a practically empty page.
   write(res, createPage())
 })
 
-app.listen(5000)
-console.log('listening on port 5000')
+app.listen(5000, function () {
+  console.log('Server listening on port %s', 5000)
+})
