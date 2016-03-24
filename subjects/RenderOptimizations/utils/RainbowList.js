@@ -32,7 +32,7 @@ const RainbowList = React.createClass({
 
           return (
             <div style={{ height: rowHeight, color, fontSize: 24, padding: '5px 10px' }}>
-              {convertNumberToEnglish(index + 1)}
+              {convertNumberToEnglish(index)}
             </div>
           )
         }}
