@@ -36,7 +36,7 @@ export function run(component) {
     'first tab is inactive'
   )
   assert(
-    panel.textContent.trim() == 'Sunshine, beaches, and Carnival',
+    panel.textContent.trim() === 'Sunshine, beaches, and Carnival',
     'panel has the correct content'
   )
 

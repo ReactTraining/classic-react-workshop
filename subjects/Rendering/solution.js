@@ -29,11 +29,10 @@ const DATA = {
 }
 
 function Menu() {
-  const items = DATA.items.filter(function (item) {
-    return item.type === 'mexican'
-  }).sort(sortBy('name')).map(function (item) {
-    return <li key={item.id}>{item.name}</li>
-  })
+  const items = DATA.items
+    .filter(item => item.type === 'mexican')
+    .sort(sortBy('name'))
+    .map(item => <li key={item.id}>{item.name}</li>)
 
   return (
     <div>
@@ -45,6 +44,6 @@ function Menu() {
   )
 }
 
-render(<Menu/>, document.getElementById('app'), function () {
+render(<Menu/>, document.getElementById('app'), () => {
   require('./tests').run()
 })

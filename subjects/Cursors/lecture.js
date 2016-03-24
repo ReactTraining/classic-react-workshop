@@ -17,9 +17,9 @@ const DrawingPad = React.createClass({
 
   maybeDraw(e) {
     if (this.state.drawing)
-      this.props.cursor.update('points', (points) => {
-        return points.push([ e.clientX, e.clientY ])
-      })
+      this.props.cursor.update('points', (points) => (
+        points.push([ e.clientX, e.clientY ])
+      ))
   },
 
   render() {
@@ -42,15 +42,18 @@ const DrawingPad = React.createClass({
           onMouseMove={this.maybeDraw}
         >
           {points.map((point, i) => (
-            <div key={i} style={{
-              position: 'absolute',
-              width: 10,
-              height: 10,
-              background: '#333',
-              left: point[0],
-              top: point[1] - 120,
-              borderRadius: '50%'
-            }}/>
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                width: 10,
+                height: 10,
+                background: '#333',
+                left: point[0],
+                top: point[1] - 120,
+                borderRadius: '50%'
+              }}
+            />
           ))}
         </div>
       </div>
@@ -64,9 +67,9 @@ const App = React.createClass({
   },
 
   render() {
-    const { structure } = this.props
-    const cursor = structure.cursor()
-    const historyCount = structure.history.count()
+    const { struct } = this.props
+    const cursor = struct.cursor()
+    const historyCount = struct.history.count()
     return (
       <div>
         <h1>{cursor.get('name')}</h1>
@@ -77,7 +80,7 @@ const App = React.createClass({
             onChange={this.handleSlider}
             min="0"
             max={historyCount}
-            value={structure._currentRevision}
+            value={struct._currentRevision}
             style={{ width: 400 }}
           />
         </div>
@@ -93,11 +96,11 @@ render()
 function setHistory(frame) {
   const count = structure.history.count()
   const current = structure._currentRevision
+
   if (frame > current)
     redo(frame - current)
   else if (frame < current)
     undo(current - frame)
-
 }
 
 function undo(amt) {

@@ -1,6 +1,5 @@
 /*eslint-disable no-console */
-import React from 'react'
-import ReactDOM from 'react-dom'
+import { findDOMNode } from 'react-dom'
 import { Simulate } from 'react-addons-test-utils'
 import assert from '../assert'
 
@@ -11,7 +10,7 @@ function toArray(nodeList) {
 export function run(component) {
   window.location.hash = ''
 
-  const node = ReactDOM.findDOMNode(component)
+  const node = findDOMNode(component)
   const peopleList = node.querySelector('.people-list')
   const profileLinks = toArray(node.querySelectorAll('.people-list a'))
   const profileHrefFormat = /\/profile\/\d+$/
@@ -20,9 +19,9 @@ export function run(component) {
 
   assert(peopleList, 'render the list of people')
   assert(
-    profileLinks.length && profileLinks.every(function (link) {
-      return link && profileHrefFormat.test(link.getAttribute('href'))
-    }),
+    profileLinks.length && profileLinks.every((link) => (
+      link && profileHrefFormat.test(link.getAttribute('href'))
+    )),
     'render links to the profile page'
   )
 

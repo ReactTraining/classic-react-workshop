@@ -1,10 +1,7 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import connect from '../mini-redux/connect'
 
-const { func, number, array } = React.PropTypes
-
 const App = React.createClass({
-
   increment() {
     this.props.dispatch({ type: 'INCREMENT' })
   },
@@ -28,4 +25,3 @@ const App = React.createClass({
 export default connect((state) => {
   return { counter: state }
 })(App)
-

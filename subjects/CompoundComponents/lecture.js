@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 import * as styles from './lib/styles'
-
-const { instanceOf, oneOf, array, arrayOf, shape, node, string } = React.PropTypes
 
 ////////////////////////////////////////////////////////////////////////////////
 // Let's make some tabs...

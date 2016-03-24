@@ -4,7 +4,6 @@ import TransitionGroup from 'react-addons-transition-group'
 import HeightFader from './components/HeightFader'
 
 const List = React.createClass({
-
   getInitialState() {
     return {
       items: []
@@ -50,11 +49,9 @@ const List = React.createClass({
       </div>
     )
   }
-
 })
 
 const App = React.createClass({
-
   render() {
     return (
       <div>
@@ -62,7 +59,6 @@ const App = React.createClass({
       </div>
     )
   }
-
 })
 
 render(<App/>, document.getElementById('app'))

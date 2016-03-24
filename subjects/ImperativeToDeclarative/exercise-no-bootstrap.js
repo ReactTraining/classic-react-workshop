@@ -9,6 +9,9 @@ import React from 'react'
 import { render } from 'react-dom'
 
 const Modal = React.createClass({
+  getInitialState() {
+    return { isOpen: false }
+  },
 
   containerStyle: {
     position: 'fixed',
@@ -29,10 +32,6 @@ const Modal = React.createClass({
     background: '#fff',
     border: '1px solid',
     textAlign: 'center'
-  },
-
-  getInitialState() {
-    return { isOpen: false }
   },
 
   open() {
@@ -58,7 +57,6 @@ const Modal = React.createClass({
 })
 
 const App = React.createClass({
-
   openModal() {
     this.refs.modal.open()
   },
@@ -90,7 +88,6 @@ const App = React.createClass({
       </div>
     )
   }
-
 })
 
 render(<App/>, document.getElementById('app'))

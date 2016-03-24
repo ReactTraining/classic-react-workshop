@@ -86,7 +86,6 @@
 // of us leading to lot of bugs.
 
 
-
 ////////////////////////////////////////////////////////////////////////////////
 //import Backbone from 'backbone'
 //import $ from 'jquery'
@@ -370,4 +369,3 @@
 // > changes in one part of the app on another (seemingly unrelated) part
 // > of it.
 //   https://twitter.com/teozaurus/status/518071391959388160
-

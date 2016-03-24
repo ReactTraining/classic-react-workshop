@@ -1,18 +1,13 @@
+/*eslint-disable no-console */
 import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 import './styles.css'
-let { func, any } = PropTypes
-
-////////////////////////////////////////////////////////////////////////////////
-// Requirements
-
 
 const Select = React.createClass({
-
   propTypes: {
-    onChange: func,
-    value: any,
-    defaultValue: any
+    onChange: PropTypes.func,
+    value: PropTypes.any,
+    defaultValue: PropTypes.any
   },
 
   getInitialState() {
@@ -23,15 +18,16 @@ const Select = React.createClass({
   },
 
   componentWillMount() {
-    if (!this.isUncontrolled() && !this.props.onChange) {
+    if (!this.isUncontrolled() && !this.props.onChange)
       console.warn('This thing is gonna be read-only, etc. etc.')
-    }
   },
 
   getLabel() {
     let label = null
+
     React.Children.forEach(this.props.children, (child) => {
-      let childValue = child.props.value
+      const childValue = child.props.value
+
       if (
         (this.isUncontrolled() && childValue === this.state.value) ||
         (child.props.value === this.props.value)
@@ -39,6 +35,7 @@ const Select = React.createClass({
         label = child.props.children
       }
     })
+
     return label
   },
 
@@ -53,7 +50,7 @@ const Select = React.createClass({
   },
 
   handleSelect(value) {
-    let nextState = { showChildren: false }
+    const nextState = { showChildren: false }
 
     if (this.isUncontrolled())
       nextState.value = value
@@ -65,11 +62,11 @@ const Select = React.createClass({
   },
 
   renderChildren() {
-    return React.Children.map(this.props.children, (child) => {
-      return React.cloneElement(child, {
+    return React.Children.map(this.props.children, (child) => (
+      React.cloneElement(child, {
         onSelect: (value) => this.handleSelect(value)
       })
-    })
+    ))
   },
 
   render() {
@@ -102,7 +99,6 @@ const Option = React.createClass({
 })
 
 const App = React.createClass({
-
   getInitialState() {
     return {
       selectValue: 'dosa'
@@ -148,4 +144,3 @@ const App = React.createClass({
 })
 
 render(<App/>, document.getElementById('app'))
-

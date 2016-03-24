@@ -18,24 +18,24 @@ function isImageURL(content) {
   return isURL(content) && (/\.(jpe?g|gif|png)$/).test(content)
 }
 
-class JSONTable extends React.Component {
-  static propTypes = {
+const JSONTable = React.createClass({
+  propTypes: {
     src: React.PropTypes.string.isRequired,
     getData: React.PropTypes.func.isRequired,
     getKey: React.PropTypes.func.isRequired
-  }
+  },
 
-  static defaultProps = {
-    getKey: (item) => item.id
-  }
+  getDefaultProps() {
+    return {
+      getKey: (item) => item.id
+    }
+  },
 
-  constructor(props, context) {
-    super(props, context)
-
-    this.state = {
+  getInitialState() {
+    return {
       data: null
     }
-  }
+  },
 
   componentDidMount() {
     getJSON(this.props.src, (error, payload) => {
@@ -43,7 +43,7 @@ class JSONTable extends React.Component {
         data: this.props.getData(payload)
       })
     })
-  }
+  },
 
   formatContent(content) {
     if (Array.isArray(content))
@@ -56,15 +56,15 @@ class JSONTable extends React.Component {
       return <p><a key={content} href={content}>{content}</a></p>
 
     return content
-  }
+  },
 
   render() {
-    let { data } = this.state
+    const { data } = this.state
 
     if (data == null || data.length === 0)
       return null
 
-    let fields = Object.keys(data[0])
+    const fields = Object.keys(data[0])
 
     return (
       <table className="pure-table pure-table-striped">
@@ -85,9 +85,9 @@ class JSONTable extends React.Component {
       </table>
     )
   }
-}
+})
 
-class App extends React.Component {
+const App = React.createClass({
   render() {
     return (
       <div>
@@ -106,6 +106,6 @@ class App extends React.Component {
       </div>
     )
   }
-}
+})
 
 render(<App/>, document.getElementById('app'))

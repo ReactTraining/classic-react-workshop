@@ -51,13 +51,11 @@ const App = React.createClass({
 
 const Home = React.createClass({
   render() {
-    const contactItems = USERS.map(function (user) {
-      return (
-        <li key={user.email}>
-          <Link to={`/profile/${user.id}`}>{user.name}</Link>
-        </li>
-      )
-    })
+    const contactItems = USERS.map(user => (
+      <li key={user.email}>
+        <Link to={`/profile/${user.id}`}>{user.name}</Link>
+      </li>
+    ))
 
     return (
       <div>

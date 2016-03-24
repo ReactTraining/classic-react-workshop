@@ -36,16 +36,18 @@ import { render } from 'react-dom'
 const RadioIcon = React.createClass({
   render() {
     return (
-      <div style={{
-        borderColor: '#ccc',
-        borderSize: '3px',
-        borderStyle: this.props.isSelected ? 'inset' : 'outset',
-        height: 16,
-        width: 16,
-        display: 'inline-block',
-        cursor: 'pointer',
-        background: this.props.isSelected ? 'rgba(0, 0, 0, 0.05)' : ''
-      }}/>
+      <div
+        style={{
+          borderColor: '#ccc',
+          borderSize: '3px',
+          borderStyle: this.props.isSelected ? 'inset' : 'outset',
+          height: 16,
+          width: 16,
+          display: 'inline-block',
+          cursor: 'pointer',
+          background: this.props.isSelected ? 'rgba(0, 0, 0, 0.05)' : ''
+        }}
+      />
     )
   }
 })
@@ -64,12 +66,12 @@ const RadioGroup = React.createClass({
   },
 
   render() {
-    const children = React.Children.map(this.props.children, (child) => {
-      return React.cloneElement(child, {
+    const children = React.Children.map(this.props.children, (child) => (
+      React.cloneElement(child, {
         isSelected: child.props.value === this.state.value,
         onClick: () => this.select(child.props.value)
       })
-    })
+    ))
 
     return <div>{children}</div>
   }
@@ -115,4 +117,3 @@ const App = React.createClass({
 })
 
 render(<App/>, document.getElementById('app'))
-

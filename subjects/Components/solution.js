@@ -11,20 +11,18 @@
 // - Make <Tabs> generic so that it doesn't know anything about
 //   country data (Hint: good propTypes help)
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 
-const { arrayOf, string, number, shape } = React.PropTypes
-
-const tab = shape({
-  label: string.isRequired,
-  content: string.isRequired
+const tabType = PropTypes.shape({
+  label: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired
 })
 
-const country = shape({
-  id: number.isRequired,
-  name: string.isRequired,
-  description: string.isRequired
+const countryType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 })
 
 const styles = {}
@@ -49,7 +47,7 @@ styles.panel = {
 
 const Tabs = React.createClass({
   propTypes: {
-    data: arrayOf(tab)
+    data: PropTypes.arrayOf(tabType)
   },
   getInitialState() {
     return {
@@ -95,7 +93,7 @@ const Tabs = React.createClass({
 
 const App = React.createClass({
   propTypes: {
-    countries: arrayOf(country).isRequired
+    countries: PropTypes.arrayOf(countryType).isRequired
   },
   render() {
     const data = this.props.countries.map(country => ({

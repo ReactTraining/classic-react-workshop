@@ -15,5 +15,3 @@
  */
 
 import './lecture/index'
-
-

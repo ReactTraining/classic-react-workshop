@@ -17,18 +17,19 @@
 // - Make a <JSONP> component that fetches data with the jsonp package used in
 //   `utils/githubSearch` that uses a render prop to pass its data back up
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render, findDOMNode } from 'react-dom'
 import { listen } from './utils/log'
 
-const { arrayOf, func, number, oneOfType, string } = React.PropTypes
-
-const component = oneOfType([ string, func ])
+const componentType = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.func
+])
 
 const PinnedToBottom = React.createClass({
   propTypes: {
-    component: component.isRequired,
-    tolerance: number.isRequired
+    component: componentType.isRequired,
+    tolerance: PropTypes.number.isRequired
   },
 
   getDefaultProps() {
@@ -38,31 +39,25 @@ const PinnedToBottom = React.createClass({
     }
   },
 
-  scrollToBottom() {
-    const node = findDOMNode(this)
-    node.scrollTop = node.scrollHeight
-  },
-
-  adjustScrollPosition() {
-    if (this.pinToBottom)
-      this.scrollToBottom()
-  },
-
-  componentWillMount() {
-    this.pinToBottom = true
-  },
-
   componentDidMount() {
-    this.adjustScrollPosition()
+    this.autoScroll = true
+    this.scrollToBottom()
   },
 
   componentWillUpdate() {
     const { clientHeight, scrollHeight, scrollTop } = findDOMNode(this)
-    this.pinToBottom = (scrollHeight - (clientHeight + scrollTop)) < this.props.tolerance
+    const distanceToBottom = scrollHeight - (clientHeight + scrollTop)
+    this.autoScroll = distanceToBottom < this.props.tolerance
   },
 
   componentDidUpdate() {
-    this.adjustScrollPosition()
+    if (this.autoScroll)
+      this.scrollToBottom()
+  },
+
+  scrollToBottom() {
+    const node = findDOMNode(this)
+    node.scrollTop = node.scrollHeight
   },
 
   render() {
@@ -77,8 +72,8 @@ const PinnedToBottom = React.createClass({
 
 const Tail = React.createClass({
   propTypes: {
-    lines: arrayOf(string).isRequired,
-    n: number.isRequired
+    lines: PropTypes.arrayOf(PropTypes.string).isRequired,
+    n: PropTypes.number.isRequired
   },
 
   getDefaultProps() {

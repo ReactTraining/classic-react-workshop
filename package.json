@@ -3,6 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "description": "Course material for http://reactjs-training.com",
+  "authors": [
+    "Ryan Florence",
+    "Michael Jackson"
+  ],
+  "license": "GPLv3",
   "main": "index.js",
   "scripts": {
     "start": "node ./scripts/build-index.js && webpack-dev-server --inline --content-base subjects",
@@ -12,11 +17,6 @@
     "type": "git",
     "url": "https://github.com/ReactJSTraining/react-subjects.git"
   },
-  "authors": [
-    "Ryan Florence",
-    "Michael Jackson"
-  ],
-  "license": "GPLv3",
   "dependencies": {
     "angular": "1.4.9",
     "assert": "1.3.0",
@@ -67,8 +67,9 @@
     "webpack-dev-server": "^1.8.0"
   },
   "devDependencies": {
-    "babel-eslint": "^3.1.23",
-    "eslint": "^1.7.3",
-    "eslint-plugin-react": "^3.6.3"
+    "babel-eslint": "^5.0.0",
+    "eslint": "^2.4.0",
+    "eslint-config-airbnb": "^6.2.0",
+    "eslint-plugin-react": "^4.2.3"
   }
 }

@@ -15,5 +15,3 @@
  */
 
 import './solution/index'
-
-

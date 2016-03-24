@@ -29,7 +29,6 @@ const DATA = {
 }
 
 function Menu() {
-
   return (
     <div>
       Open the console, you have failing tests.
@@ -37,7 +36,6 @@ function Menu() {
   )
 }
 
-render(<Menu/>, document.getElementById('app'), function () {
+render(<Menu/>, document.getElementById('app'), () => {
   require('./tests').run()
 })
-

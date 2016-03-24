@@ -19,6 +19,14 @@ const App = React.createClass({
     }
   },
 
+  componentDidMount() {
+    this.fetch(DefaultFetchURL)
+  },
+
+  fetchNextPage() {
+    this.fetch(this.state.links.next)
+  },
+
   fetch(url) {
     this.setState({ fetching: true })
 
@@ -29,14 +37,6 @@ const App = React.createClass({
         links
       })
     })
-  },
-
-  componentDidMount() {
-    this.fetch(DefaultFetchURL)
-  },
-
-  fetchNextPage() {
-    this.fetch(this.state.links.next)
   },
 
   render() {
@@ -84,6 +84,10 @@ render(<App/>, document.getElementById('app'))
 //    }
 //  },
 //
+//  componentDidMount() {
+//    this.fetch()
+//  },
+//
 //  fetch() {
 //    this.setState({ fetching: true })
 //
@@ -94,10 +98,6 @@ render(<App/>, document.getElementById('app'))
 //        links
 //      })
 //    })
-//  },
-//
-//  componentDidMount() {
-//    this.fetch()
 //  },
 //
 //  render() {
@@ -136,6 +136,15 @@ render(<App/>, document.getElementById('app'))
 //    }
 //  },
 //
+//  componentDidMount() {
+//    this.fetch()
+//  },
+//
+//  componentDidUpdate(prevProps) {
+//    if (prevProps.url !== this.props.url)
+//      this.fetch()
+//  },
+//
 //  fetch() {
 //    this.setState({ fetching: true })
 //
@@ -146,15 +155,6 @@ render(<App/>, document.getElementById('app'))
 //        links
 //      })
 //    })
-//  },
-//
-//  componentDidMount() {
-//    this.fetch()
-//  },
-//
-//  componentDidUpdate(prevProps) {
-//    if (prevProps.url !== this.props.url)
-//      this.fetch()
 //  },
 //
 //  render() {

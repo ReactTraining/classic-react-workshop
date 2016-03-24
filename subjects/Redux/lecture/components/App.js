@@ -1,11 +1,8 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import CreateContactForm from './CreateContactForm'
 import { fetchContacts } from '../lib/contactsAPI'
 
-const { func, number, array } = React.PropTypes
-
 const App = React.createClass({
-
   getInitialState() {
     return {
       contacts: []
@@ -51,4 +48,3 @@ const App = React.createClass({
 })
 
 export default App
-

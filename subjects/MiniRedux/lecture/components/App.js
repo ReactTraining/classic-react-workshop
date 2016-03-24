@@ -1,7 +1,5 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import CreateContactForm from './CreateContactForm'
-
-const { func, number, array } = React.PropTypes
 
 const App = React.createClass({
 

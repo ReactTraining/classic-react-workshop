@@ -17,14 +17,12 @@
 // - make the RadioGroup update accordingly
 //
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
-
-const { bool, string, func } = React.PropTypes
 
 const RadioGroup = React.createClass({
   propTypes: {
-    defaultValue: string
+    defaultValue: PropTypes.string
   },
 
   render() {
@@ -34,7 +32,7 @@ const RadioGroup = React.createClass({
 
 const RadioOption = React.createClass({
   propTypes: {
-    value: string
+    value: PropTypes.string
   },
 
   render() {
@@ -48,21 +46,23 @@ const RadioOption = React.createClass({
 
 const RadioIcon = React.createClass({
   propTypes: {
-    isSelected: bool.isRequired
+    isSelected: PropTypes.bool.isRequired
   },
 
   render() {
     return (
-      <div style={{
-        borderColor: '#ccc',
-        borderSize: '3px',
-        borderStyle: this.props.isSelected ? 'inset' : 'outset',
-        height: 16,
-        width: 16,
-        display: 'inline-block',
-        cursor: 'pointer',
-        background: this.props.isSelected ? 'rgba(0, 0, 0, 0.05)' : ''
-      }}/>
+      <div
+        style={{
+          borderColor: '#ccc',
+          borderSize: '3px',
+          borderStyle: this.props.isSelected ? 'inset' : 'outset',
+          height: 16,
+          width: 16,
+          display: 'inline-block',
+          cursor: 'pointer',
+          background: this.props.isSelected ? 'rgba(0, 0, 0, 0.05)' : ''
+        }}
+      />
     )
   }
 })

@@ -1,35 +1,31 @@
 {
-  "extends": "eslint:recommended",
-  "ecmaFeatures": {
-    "jsx": true,
-    "modules": true
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  },
+  "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
-    "array-bracket-spacing": [ 2, "always" ],
-    "comma-dangle": [ 2, "never" ],
-    "eol-last": 2,
-    "indent": [ 2, 2, { "SwitchCase": 1 } ],
-    "jsx-quotes": [ 2, "prefer-double" ],
-    "no-multiple-empty-lines": 2,
+    "array-bracket-spacing": [2, "always"],
+    "comma-dangle": [2, "never"],
+    "curly": 0,
+    "eqeqeq": [2, "smart"],
+    "func-names": 0,
+    "jsx-quotes": [2, "prefer-double"],
+    "max-len": 0,
+    "no-return-assign": 0,
+    "no-use-before-define": 0,
     "no-unused-vars": 1,
-    "no-var": 2,
-    "object-curly-spacing": [ 2, "always" ],
-    "quotes": [ 2, "single", "avoid-escape" ],
+    "no-param-reassign": [2, { "props": false }],
+    "object-curly-spacing": [2, "always"],
+    "one-var": 0,
+    "one-var-declaration-per-line": 0,
+    "quotes": [2, "single", "avoid-escape"],
+    "react/jsx-space-before-closing": [2, "never"],
     "react/jsx-uses-react": 1,
-    "react/jsx-no-undef": 2,
+    "react/no-multi-comp": 0,
+    "react/prefer-es6-class": [2, "never"],
+    "react/prefer-stateless-function": 0,
+    "react/prop-types": 0,
     "react/wrap-multilines": 2,
-    "semi": [ 2, "never" ],
-    "strict": 0,
-    "space-before-blocks": [ 2, "always" ],
-    "space-before-function-paren": [ 2, { "anonymous": "always", "named": "never" } ]
-  },
-  "plugins": [
-    "react"
-  ]
+    "semi": [2, "never"],
+    "spaced-comment": 0,
+    "space-before-blocks": [2, "always"]
+  }
 }

@@ -1,26 +1,24 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
 import sortBy from 'sort-by'
 
 require('./styles')
 
-const { arrayOf, shape, string, number, object, bool } = React.PropTypes
-
-const message = shape({
-  _key: string.isRequired,
-  uid: string.isRequired,
-  avatarURL: string.isRequired,
-  timestamp: number.isRequired,
-  username: string.isRequired,
-  text: string.isRequired
+const messageType = PropTypes.shape({
+  _key: PropTypes.string.isRequired,
+  uid: PropTypes.string.isRequired,
+  avatarURL: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 })
 
 const MessageList = React.createClass({
 
   propTypes: {
-    auth: object.isRequired,
-    messages: arrayOf(message).isRequired
+    auth: PropTypes.object.isRequired,
+    messages: PropTypes.arrayOf(messageType).isRequired
   },
 
   render() {
@@ -49,13 +47,13 @@ const MessageList = React.createClass({
     if (currentMessageGroup && currentMessageGroup.length)
       messageGroups.push(currentMessageGroup)
 
-    const items = messageGroups.map(messages => (
-      <li key={messages[0]._key} className="message-group">
+    const items = messageGroups.map(group => (
+      <li key={group[0]._key} className="message-group">
         <div className="message-group-avatar">
-          <img title={messages[0].username} src={messages[0].avatarURL}/>
+          <img title={group[0].username} src={group[0].avatarURL}/>
         </div>
         <ol className="messages">
-        {messages.map(message => (
+        {group.map(message => (
           <li key={message._key} className="message">{message.text}</li>
         ))}
         </ol>

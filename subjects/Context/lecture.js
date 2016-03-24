@@ -1,3 +1,4 @@
+/*eslint-disable no-nested-ternary */
 import React from 'react'
 import { render } from 'react-dom'
 import * as styles from './lib/styles'
@@ -243,12 +244,13 @@ const TabList = React.createClass({
   },
 
   render() {
-    const children = React.Children.map(this.props.children, (child, index) => {
-      return React.cloneElement(child, {
+    const children = React.Children.map(this.props.children, (child, index) => (
+      React.cloneElement(child, {
         isActive: index === this.context.activeIndex,
         onClick: () => this.context.onActivate(index)
       })
-    })
+    ))
+
     return <div style={styles.tabs}>{children}</div>
   }
 })
@@ -283,16 +285,15 @@ const TabPanels = React.createClass({
 })
 
 const Tabs = React.createClass({
+  childContextTypes: {
+    activeIndex: React.PropTypes.number,
+    onActivate: React.PropTypes.func
+  },
 
   getInitialState() {
     return {
       activeIndex: 0
     }
-  },
-
-  childContextTypes: {
-    activeIndex: React.PropTypes.number,
-    onActivate: React.PropTypes.func
   },
 
   getChildContext() {

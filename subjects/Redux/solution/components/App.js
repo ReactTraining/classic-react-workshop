@@ -1,16 +1,14 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import CreateContactForm from './CreateContactForm'
 import { connect } from 'react-redux'
 import { addContact, loadContacts, deleteContact } from '../actions/contacts'
 
-const { func, number, array } = React.PropTypes
-
 const App = React.createClass({
 
   propTypes: {
-    dispatch: func.isRequired,
-    counter: number.isRequired,
-    contacts: array.isRequired
+    dispatch: PropTypes.func.isRequired,
+    counter: PropTypes.number.isRequired,
+    contacts: PropTypes.array.isRequired
   },
 
   handleCreateContact(contact) {
@@ -64,4 +62,3 @@ export default connect((state) => {
     contactsBeingDeleted: state.contactsBeingDeleted
   }
 })(App)
-

@@ -2,30 +2,27 @@
 // Exercise:
 //
 // - Use TweenStateMixin to animate a sliding animation
-// - Experiment with different types of easing (hint: use easingTypes at 
+// - Experiment with different types of easing (hint: use easingTypes at
 //   https://github.com/chenglou/tween-functions/blob/master/index.js)
 //
 // Got more time?
 //
 // - Use a <Spring> to animate the transition
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 import { Mixin as TweenStateMixin } from 'react-tween-state'
 import { Motion, spring } from 'react-motion'
 
 require('./styles')
 
-const { bool, number } = React.PropTypes
-
 const TweenToggleSwitch = React.createClass({
+  propTypes: {
+    animationDuration: PropTypes.number,
+    isActive: PropTypes.bool.isRequired
+  },
 
   mixins: [ TweenStateMixin ],
-
-  propTypes: {
-    animationDuration: number,
-    isActive: bool.isRequired
-  },
 
   getDefaultProps() {
     return {
@@ -59,13 +56,11 @@ const TweenToggleSwitch = React.createClass({
       </div>
     )
   }
-
 })
 
 const SpringToggleSwitch = React.createClass({
-
   propTypes: {
-    isActive: bool.isRequired
+    isActive: PropTypes.bool.isRequired
   },
 
   render() {
@@ -77,18 +72,16 @@ const SpringToggleSwitch = React.createClass({
         <div id="switch1" className="toggle-switch" onClick={this.handleClick}>
           <div className="toggle-switch-knob" style={{
             WebkitTransform: `translate3d(${s.x}px,0,0)`,
-            transform: `translate3d(${s.x}px,0,0)`
-          }}/>
+            transform: `translate3d(${s.x}px,0,0)` }}
+          />
         </div>
       )}
       </Motion>
     )
   }
-
 })
 
 const App = React.createClass({
-
   getInitialState() {
     return {
       isActive: false
@@ -114,7 +107,6 @@ const App = React.createClass({
       </div>
     )
   }
-
 })
 
 render(<App/>, document.getElementById('app'))

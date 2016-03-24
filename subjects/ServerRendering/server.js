@@ -1,4 +1,4 @@
-/*eslint-disable no-console */
+/*eslint-disable no-console, prefer-template, prefer-arrow-callback */
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise
 //

@@ -40,7 +40,7 @@ const MarkerGrid = React.createClass({
 
   getRelativeXY({ clientX, clientY }) {
     const { offsetLeft, offsetTop } = findDOMNode(this)
-    
+
     return {
       x: clientX - offsetLeft,
       y: clientY - offsetTop

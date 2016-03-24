@@ -10,20 +10,17 @@
 // - Try rendering a few rows above and beneath the visible area to prevent
 //   tearing when scrolling quickly
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render, findDOMNode } from 'react-dom'
 import RainbowList from './utils/RainbowList'
 
 require('./styles')
 
-const { array, func, number } = React.PropTypes
-
 const ListView = React.createClass({
-
   propTypes: {
-    rowHeight: number.isRequired,
-    numRows: number.isRequired,
-    renderRowAtIndex: func.isRequired
+    rowHeight: PropTypes.number.isRequired,
+    numRows: PropTypes.number.isRequired,
+    renderRowAtIndex: PropTypes.func.isRequired
   },
 
   render() {
@@ -46,7 +43,6 @@ const ListView = React.createClass({
       </div>
     )
   }
-
 })
 
 render(

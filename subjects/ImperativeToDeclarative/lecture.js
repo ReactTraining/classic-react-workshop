@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 import createOscillator from './utils/createOscillator'
 
@@ -15,7 +15,6 @@ styles.theremin = {
 }
 
 const App = React.createClass({
-
   componentDidMount() {
     this.oscillator = createOscillator()
   },
@@ -50,7 +49,6 @@ const App = React.createClass({
       </div>
     )
   }
-
 })
 
 render(<App/>, document.getElementById('app'))
@@ -60,7 +58,6 @@ render(<App/>, document.getElementById('app'))
 // method, but componentDidUpdate makes things a lot easier to think about.
 
 //const App = React.createClass({
-//
 //  getInitialState() {
 //    return {
 //      isPlaying: false,
@@ -123,14 +120,11 @@ render(<App/>, document.getElementById('app'))
 // of using this.oscillator (an imperative API), let's wrap that up into a
 // <Tone> component and control it declaratively.
 
-//const { bool, number } = React.PropTypes
-//
 //const Tone = React.createClass({
-//
 //  propTypes: {
-//    isPlaying: bool.isRequired,
-//    pitch: number.isRequired,
-//    volume: number.isRequired
+//    isPlaying: PropTypes.bool.isRequired,
+//    pitch: PropTypes.number.isRequired,
+//    volume: PropTypes.number.isRequired
 //  },
 //
 //  componentDidMount() {
@@ -156,7 +150,7 @@ render(<App/>, document.getElementById('app'))
 //  render() {
 //    return null
 //  }
-//  
+//
 //})
 //
 //const App = React.createClass({
@@ -212,15 +206,18 @@ render(<App/>, document.getElementById('app'))
 // Add a <Tone waveType> prop that changes the type of sound wave that is
 // generated and render many of them.
 
-//const { bool, number, oneOf } = React.PropTypes
-//const waveType = oneOf([ 'sine', 'triangle', 'square', 'sawtooth' ])
+//const waveType = PropTypes.oneOf([
+// 'sine',
+// 'triangle',
+// 'square',
+// 'sawtooth'
+//])
 //
 //const Tone = React.createClass({
-//
 //  propTypes: {
-//    isPlaying: bool.isRequired,
-//    pitch: number.isRequired,
-//    volume: number.isRequired,
+//    isPlaying: PropTypes.bool.isRequired,
+//    pitch: PropTypes.number.isRequired,
+//    volume: PropTypes.number.isRequired,
 //    waveType: waveType.isRequired
 //  },
 //
@@ -254,7 +251,7 @@ render(<App/>, document.getElementById('app'))
 //  render() {
 //    return null
 //  }
-//  
+//
 //})
 //
 //const Theremin = React.createClass({

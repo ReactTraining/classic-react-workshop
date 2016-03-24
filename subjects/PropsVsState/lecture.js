@@ -2,7 +2,6 @@ import React from 'react'
 import { render } from 'react-dom'
 
 const ContentToggle = React.createClass({
-
   getInitialState() {
     return {
       isOpen: false
@@ -18,8 +17,10 @@ const ContentToggle = React.createClass({
 
   render() {
     let summaryClassName = 'ContentToggle__Summary'
+
     if (this.state.isOpen)
       summaryClassName += ' ContentToggle__Summary--is-open'
+
     return (
       <div {...this.props} className="ContentToggle">
         <button onClick={() => this.handleClick()} className={summaryClassName}>
@@ -31,11 +32,9 @@ const ContentToggle = React.createClass({
       </div>
     )
   }
-
 })
 
 const App = React.createClass({
-
   getInitialState() {
     return {
       tacos: [
@@ -56,18 +55,19 @@ const App = React.createClass({
               style={{ width: 300 }}
               summary={taco.name}
             >
-              <div style={{
-                height: 200,
-                background: `url(${taco.src})`,
-                backgroundSize: 'cover'
-              }}/>
+              <div
+                style={{
+                  height: 200,
+                  background: `url(${taco.src})`,
+                  backgroundSize: 'cover'
+                }}
+              />
             </ContentToggle>
           ))}
         </div>
       </div>
     )
   }
-
 })
 
 render(<App/>, document.getElementById('app'))

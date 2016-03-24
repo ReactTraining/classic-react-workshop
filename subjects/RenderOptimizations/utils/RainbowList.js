@@ -1,15 +1,12 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { computeHSLRainbowColor, convertNumberToEnglish } from './RainbowUtils'
 
-const { func, number } = React.PropTypes
-
 const RainbowList = React.createClass({
-
   propTypes: {
-    ListView: func.isRequired,
-    rowHeight: number.isRequired,
-    numRows: number.isRequired,
-    period: number.isRequired
+    ListView: PropTypes.func.isRequired,
+    rowHeight: PropTypes.number.isRequired,
+    numRows: PropTypes.number.isRequired,
+    period: PropTypes.number.isRequired
   },
 
   getDefaultProps() {
@@ -39,7 +36,6 @@ const RainbowList = React.createClass({
       />
     )
   }
-
 })
 
 export default RainbowList

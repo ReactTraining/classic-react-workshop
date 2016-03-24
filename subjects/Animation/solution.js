@@ -40,7 +40,7 @@ const MarkerGrid = React.createClass({
 
   getRelativeXY({ clientX, clientY }) {
     const { offsetLeft, offsetTop } = findDOMNode(this)
-    
+
     return {
       x: clientX - offsetLeft,
       y: clientY - offsetTop
@@ -87,10 +87,13 @@ const MarkerGrid = React.createClass({
       markerLeft = mouseX - markerX
       markerTop = mouseY - markerY
       dropHint = (
-        <div className="drop-hint" style={{
-          left: Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150,
-          top: Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
-        }}/>
+        <div
+          className="drop-hint"
+          style={{
+            left: Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150,
+            top: Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
+          }}
+        />
       )
     } else {
       markerLeft = Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150
@@ -112,8 +115,8 @@ const MarkerGrid = React.createClass({
             top: isDraggingMarker ? markerTop : spring(markerTop)
           }}
         >
-        {markerStyle => (
-          <div className="marker" style={markerStyle} onMouseDown={this.handleMouseDown}/>
+        {style => (
+          <div className="marker" style={style} onMouseDown={this.handleMouseDown}/>
         )}
         </Motion>
         <div className="cell">1</div>

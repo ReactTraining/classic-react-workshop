@@ -1,10 +1,8 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
-const { arrayOf, string, shape } = React.PropTypes
-
-const tab = shape({
-  label: string.isRequired,
-  content: string.isRequired
+const tabType = PropTypes.shape({
+  label: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired
 })
 
 const styles = {}
@@ -29,18 +27,21 @@ styles.panel = {
 
 const Tabs = React.createClass({
   propTypes: {
-    data: arrayOf(tab)
+    data: PropTypes.arrayOf(tabType)
   },
+
   getInitialState() {
     return {
       activeTabIndex: 0
     }
   },
+
   selectTabIndex(activeTabIndex) {
     this.setState({
       activeTabIndex
     })
   },
+
   render() {
     const { data } = this.props
     const { activeTabIndex } = this.state
