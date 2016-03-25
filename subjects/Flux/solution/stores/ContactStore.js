@@ -1,4 +1,3 @@
-import assign from 'object-assign'
 import { EventEmitter } from 'events'
 import AppDispatcher from '../AppDispatcher'
 import { ActionTypes } from '../Constants'
@@ -14,7 +13,7 @@ const state = {
 }
 
 function setState(newState) {
-  assign(state, newState)
+  Object.assign(state, newState)
   events.emit(CHANGE_EVENT)
   console.log('ContactStore state changed', state)
 }
