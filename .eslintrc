@@ -17,6 +17,7 @@
     "one-var": 0,
     "one-var-declaration-per-line": 0,
     "quotes": [2, "single", "avoid-escape"],
+    "react/jsx-no-bind": 0,
     "react/jsx-space-before-closing": [2, "never"],
     "react/jsx-uses-react": 1,
     "react/no-multi-comp": 0,
