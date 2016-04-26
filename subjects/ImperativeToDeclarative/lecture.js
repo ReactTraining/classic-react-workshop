@@ -30,8 +30,8 @@ const App = React.createClass({
   changeTone(event) {
     const { clientX, clientY } = event
     const { top, right, bottom, left } = event.target.getBoundingClientRect()
-    const pitch = (clientX - left) / right
-    const volume = 1 - (clientY - top) / bottom
+    const pitch = (clientX - left) / (right - left)
+    const volume = 1 - (clientY - top) / (bottom - top)
     this.oscillator.setPitchBend(pitch)
     this.oscillator.setVolume(volume)
   },
@@ -81,8 +81,8 @@ render(<App/>, document.getElementById('app'))
 //  changeTone(event) {
 //    const { clientX, clientY } = event
 //    const { top, right, bottom, left } = event.target.getBoundingClientRect()
-//    const pitch = (clientX - left) / right
-//    const volume = 1 - (clientY - top) / bottom
+//    const pitch = (clientX - left) / (right - left)
+//    const volume = 1 - (clientY - top) / (bottom - top)
 //    this.setState({ pitch, volume })
 //  },
 //
@@ -174,8 +174,8 @@ render(<App/>, document.getElementById('app'))
 //  changeTone(event) {
 //    const { clientX, clientY } = event
 //    const { top, right, bottom, left } = event.target.getBoundingClientRect()
-//    const pitch = (clientX - left) / right
-//    const volume = 1 - (clientY - top) / bottom
+//    const pitch = (clientX - left) / (right - left)
+//    const volume = 1 - (clientY - top) / (bottom - top)
 //    this.setState({ pitch, volume })
 //  },
 //
@@ -279,8 +279,8 @@ render(<App/>, document.getElementById('app'))
 //  changeTone(event) {
 //    const { clientX, clientY } = event
 //    const { top, right, bottom, left } = event.target.getBoundingClientRect()
-//    const pitch = (clientX - left) / right
-//    const volume = 1 - (clientY - top) / bottom
+//    const pitch = (clientX - left) / (right - left)
+//    const volume = 1 - (clientY - top) / (bottom - top)
 //    this.setState({ pitch, volume })
 //  },
 //
