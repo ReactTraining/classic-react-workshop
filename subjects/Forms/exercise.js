@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise
 //
-// - When the checkbox is checked, automatically fill in the shipping fields
-//   you can get the value from `event.target.checked`
-// - When the checkbox is checked disable the the shipping fields
-// - When the fields in the billing address change, make sure the shipping
-//   address fields stay up to date.
-// - When the form is submits, console.log the values
+// - When the checkbox is checked:
+//   - Fill in the shipping fields with the values from billing
+//   - Disable the shipping fields so they are not directly editable
+//   - Keep the shipping fields up to date as billing fields change
+//   - Hint: you can get the checkbox value from `event.target.checked`
+// - When the form submits, console.log the values
 //
 // Got extra time?
 //
