@@ -12,9 +12,9 @@
 //
 // - If there are more than two characters in the "state" field, let the user
 //   know they should use the two-character abbreviation
-// - If the user types something into shipping, then clicked the checkbox, then
+// - If the user types something into shipping, then checks the checkbox, then
 //   unchecks the checkbox, ensure the field has the information from
-//   before clicking the checkbox a second time
+//   before clicking the checkbox the first time
 
 import React from 'react'
 import { render } from 'react-dom'
