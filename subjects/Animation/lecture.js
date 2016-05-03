@@ -107,7 +107,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //render(<ToggleSwitch/>, document.getElementById('app'))
 
 ///////////////////////////////////////////////////////////////////////////////
-// The way that you move an animation or transition is important. Certain 
+// The way that you move an animation or transition is important. Certain
 // properties are more costly than others- transforms and opacity are cheaper
 // than margins, paddings, or left and right. We can also hardware accelerate
 // it with a null z transform hack.
