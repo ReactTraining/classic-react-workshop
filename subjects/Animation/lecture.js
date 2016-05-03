@@ -100,58 +100,13 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //render(<ToggleSwitch/>, document.getElementById('app'))
 
 ///////////////////////////////////////////////////////////////////////////////
-// Use the same <Motion> to animate several springs at once. All animations
-// should run concurrently and finish at roughly the same time. They're
-// completely coordinated!
+// The way that you move an animation or transition is important. Certain 
+// properties are more costly than others- transforms and opacity are cheaper
+// than margins, paddings, or left and right.
+// We can also hardware accelerate it with a null z transform hack. 
+// Check the last demo in the console in rendering, enable paint flashing vs. this one.
 
-//const ToggleSwitch = React.createClass({
-//
-//  getInitialState() {
-//    return {
-//      isActive: false
-//    }
-//  },
-//
-//  toggle() {
-//    this.setState({
-//      isActive: !this.state.isActive
-//    })
-//  },
-//
-//  render() {
-//    const x1 = this.state.isActive ? 400 : 0
-//    const x2 = this.state.isActive ? 600 : 0
-//    const x3 = this.state.isActive ? 300 : 0
-//
-//    return (
-//      <Motion style={{ x1: spring(x1), x2: spring(x2), x3: spring(x3) }}>
-//        {style => (
-//          <div>
-//            <div id="switch1" className="toggle-switch" onClick={this.toggle}>
-//              <div className="toggle-switch-knob" style={{ left: style.x1 }}/>
-//            </div>
-//            <div id="switch2" className="toggle-switch" onClick={this.toggle}>
-//              <div className="toggle-switch-knob" style={{ left: style.x2 }}/>
-//            </div>
-//            <div id="switch3" className="toggle-switch" onClick={this.toggle}>
-//              <div className="toggle-switch-knob" style={{ left: style.x3 }}/>
-//            </div>
-//          </div>
-//        )}
-//      </Motion>
-//    )
-//  }
-//
-//})
-//
-//render(<ToggleSwitch/>, document.getElementById('app'))
-
-///////////////////////////////////////////////////////////////////////////////
-// Use a <StaggeredMotion> to render 5 knobs, each one showing the previous
-// frame of the animation. This technique gives us a blur effect. It's also
-// known as onion skinning.
-
-//const ToggleSwitch = React.createClass({
+// const ToggleSwitch = React.createClass({
 //  getInitialState() {
 //    return {
 //      isActive: false
@@ -164,7 +119,103 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //  },
 //  render() {
 //    const x = this.state.isActive ? 400 : 0
-//
+
+//    return (
+//      <Motion style={{ x: spring(x, { stiffness: 170, damping: 26 }) }}>
+//        {style =>
+//          <div id="switch1" className="toggle-switch" onClick={this.toggle}>
+//            <div className="toggle-switch-knob" 
+//                 style={{ 
+//                   WebkitTransform: `translate3d(${style.x}px, 0, 0)`,
+//                   transform: `translate3d(${style.x}px, 0, 0)`,
+//                 }}/>
+//          </div>
+//        }
+//      </Motion>
+//    )
+//  }
+// })
+
+// render(<ToggleSwitch/>, document.getElementById('app'))
+
+///////////////////////////////////////////////////////////////////////////////
+// Use the same <Motion> to animate several springs at once. All animations
+// should run concurrently and finish at roughly the same time. They're
+// completely coordinated!
+
+// const ToggleSwitch = React.createClass({
+
+//  getInitialState() {
+//    return {
+//      isActive: false
+//    }
+//  },
+
+//  toggle() {
+//    this.setState({
+//      isActive: !this.state.isActive
+//    })
+//  },
+
+//  render() {
+//    const x1 = this.state.isActive ? 400 : 0
+//    const x2 = this.state.isActive ? 600 : 0
+//    const x3 = this.state.isActive ? 300 : 0
+
+//    return (
+//      <Motion style={{ x1: spring(x1), x2: spring(x2), x3: spring(x3) }}>
+//        {style => (
+//          <div>
+//            <div id="switch1" className="toggle-switch" onClick={this.toggle}>
+//              <div className="toggle-switch-knob" 
+//                   style={{ 
+//                     WebkitTransform: `translate3d(${style.x1}px, 0, 0)`,
+//                     transform: `translate3d(${style.x1}px, 0, 0)`,
+//                   }}/>
+//            </div>
+//            <div id="switch2" className="toggle-switch" onClick={this.toggle}>
+//              <div className="toggle-switch-knob" 
+//                   style={{ 
+//                     WebkitTransform: `translate3d(${style.x2}px, 0, 0)`,
+//                     transform: `translate3d(${style.x2}px, 0, 0)`,
+//                   }}/>
+//            </div>
+//            <div id="switch3" className="toggle-switch" onClick={this.toggle}>
+//              <div className="toggle-switch-knob" 
+//                   style={{ 
+//                     WebkitTransform: `translate3d(${style.x3}px, 0, 0)`,
+//                     transform: `translate3d(${style.x3}px, 0, 0)`,
+//                   }}/>
+//            </div>
+//          </div>
+//        )}
+//      </Motion>
+//    )
+//  }
+
+// })
+
+// render(<ToggleSwitch/>, document.getElementById('app'))
+
+///////////////////////////////////////////////////////////////////////////////
+// Use a <StaggeredMotion> to render 5 knobs, each one showing the previous
+// frame of the animation. This technique gives us a blur effect. It's also
+// known as onion skinning.
+
+// const ToggleSwitch = React.createClass({
+//  getInitialState() {
+//    return {
+//      isActive: false
+//    }
+//  },
+//  toggle() {
+//    this.setState({
+//      isActive: !this.state.isActive
+//    })
+//  },
+//  render() {
+//    const x = this.state.isActive ? 400 : 0
+
 //    return (
 //      <StaggeredMotion
 //        defaultStyles={[{ x }, { x }, { x }, { x }, { x }]}
@@ -176,7 +227,8 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //          <div id="switch1" className="toggle-switch" onClick={this.toggle}>
 //            {styles.map((style, i) => (
 //              <div key={i} className="toggle-switch-knob" style={{
-//                left: style.x,
+//                WebkitTransform: `translate3d(${style.x}px, 0, 0)`,
+//                transform: `translate3d(${style.x}px, 0, 0)`,
 //                opacity: 1 - (0.2 * i)
 //              }}/>
 //            ))}
@@ -185,7 +237,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //      </StaggeredMotion>
 //    )
 //  }
-//
-//})
-//
-//render(<ToggleSwitch/>, document.getElementById('app'))
+
+// })
+
+// render(<ToggleSwitch/>, document.getElementById('app'))
