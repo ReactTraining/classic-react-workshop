@@ -32,9 +32,8 @@ function readFilesFromEvent(event, cb) {
   maybeFinish()
 
   function maybeFinish() {
-    if (needToLoadCounter === 0) {
+    if (needToLoadCounter === 0)
       cb(files)
-    }
   }
 }
 
@@ -68,6 +67,7 @@ const Droppable = React.createClass({
 
   render() {
     const { acceptDrop, files } = this.state
+
     return (
       <div
         className="Droppable"

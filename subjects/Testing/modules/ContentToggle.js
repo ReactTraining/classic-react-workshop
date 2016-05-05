@@ -1,18 +1,20 @@
 import React from 'react'
 
 const ContentToggle = React.createClass({
-  handleClick () {
+  handleClick() {
     if (this.props.onToggle)
       this.props.onToggle(!this.props.isOpen)
   },
 
-  render () {
+  render() {
     let summaryClassName = "ContentToggle__Summary"
+
     if (this.props.isOpen)
       summaryClassName += " ContentToggle__Summary--is-open"
+
     return (
       <div {...this.props} className="ContentToggle">
-        <button onClick={() => this.handleClick()} className={summaryClassName}>
+        <button onClick={this.handleClick} className={summaryClassName}>
           {this.props.summary}
         </button>
         <div className="ContentToggle__Details">
