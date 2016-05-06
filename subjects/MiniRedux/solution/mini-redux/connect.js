@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function connect(selectState) {
+export default function connect(mapStateToProps) {
   return function (Component) {
     return React.createClass({
       contextTypes: {
@@ -8,7 +8,7 @@ export default function connect(selectState) {
       },
       render() {
         const store = this.context.store
-        const props = selectState(store.getState())
+        const props = mapStateToProps(store.getState())
         return <Component {...props} dispatch={store.dispatch}/>
       }
     })
