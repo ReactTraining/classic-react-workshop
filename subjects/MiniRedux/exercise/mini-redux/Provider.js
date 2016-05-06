@@ -1,9 +1,9 @@
 import React from 'react'
 
-const StoreContext = React.createClass({
+const Provider = React.createClass({
   render() {
     return <div>{this.props.children}</div>
   }
 })
 
-export default StoreContext
+export default Provider

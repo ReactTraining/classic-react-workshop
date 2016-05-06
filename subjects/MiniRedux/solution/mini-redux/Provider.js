@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StoreContext = React.createClass({
+const Provider = React.createClass({
   childContextTypes: {
     store: React.PropTypes.object
   },
@@ -28,4 +28,4 @@ const StoreContext = React.createClass({
   }
 })
 
-export default StoreContext
+export default Provider

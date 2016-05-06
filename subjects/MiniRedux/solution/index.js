@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise
 //
-// 1. Implement StoreContext to make the store accessible on context to the rest
+// 1. Implement Provider to make the store accessible on context to the rest
 //    of the components rendered below it
 //
 // 2. Implement `connect` it should:
@@ -22,9 +22,9 @@ import React from 'react'
 import App from './components/App'
 import { render } from 'react-dom'
 import createStore from './mini-redux/createStore'
-import StoreContext from './mini-redux/StoreContext'
+import Provider from './mini-redux/Provider'
 
-const store = createStore((state=0, action) => {
+const store = createStore((state = 0, action) => {
   if (action.type === 'INCREMENT') {
     return state + 1
   } else if (action.type === 'DECREMENT') {
@@ -35,7 +35,7 @@ const store = createStore((state=0, action) => {
 })
 
 render((
-  <StoreContext store={store}>
+  <Provider store={store}>
     <App/>
-  </StoreContext>
+  </Provider>
 ), document.getElementById('app'))
