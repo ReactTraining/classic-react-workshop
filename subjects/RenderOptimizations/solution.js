@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Write a <ListView> that only shows the elements in the view.
+// Write a <RainbowList> that only shows the elements in the view.
 //
 // Got extra time?
 //
@@ -12,14 +12,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
 import { render, findDOMNode } from 'react-dom'
-import RainbowList from './utils/RainbowList'
+import * as RainbowListDelegate from './RainbowListDelegate'
+import './styles'
 
-require('./styles')
-
-const ListView = React.createClass({
+const RainbowList = React.createClass({
   propTypes: {
-    rowHeight: PropTypes.number.isRequired,
     numRows: PropTypes.number.isRequired,
+    rowHeight: PropTypes.number.isRequired,
     renderRowAtIndex: PropTypes.func.isRequired
   },
 
@@ -43,7 +42,7 @@ const ListView = React.createClass({
   },
 
   render() {
-    const { rowHeight, numRows, renderRowAtIndex } = this.props
+    const { numRows, rowHeight, renderRowAtIndex } = this.props
     const totalHeight = rowHeight * numRows
 
     const { availableHeight, scrollTop } = this.state
@@ -71,6 +70,10 @@ const ListView = React.createClass({
 })
 
 render(
-  <RainbowList ListView={ListView} numRows={500000} period={1000}/>,
+  <RainbowList
+    numRows={500000}
+    rowHeight={RainbowListDelegate.rowHeight}
+    renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
+  />,
   document.getElementById('app')
 )

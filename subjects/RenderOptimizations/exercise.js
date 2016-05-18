@@ -5,27 +5,26 @@
 //
 // Got extra time?
 //
-// - Render fewer rows as the size of the window changes (Hint: You'll need
-//   to listen for the window's "resize" event)
-// - Try rendering a few rows above and beneath the visible area to prevent
-//   tearing when scrolling quickly
+// - Render fewer rows as the size of the window changes (Hint: Listen
+//   for the window's "resize" event)
+// - Try rendering a few rows above and beneath the visible area to
+//   prevent tearing when scrolling quickly
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
 import { render, findDOMNode } from 'react-dom'
-import RainbowList from './utils/RainbowList'
-
-require('./styles')
+import * as RainbowListDelegate from './RainbowListDelegate'
+import './styles'
 
 const ListView = React.createClass({
   propTypes: {
-    rowHeight: PropTypes.number.isRequired,
     numRows: PropTypes.number.isRequired,
+    rowHeight: PropTypes.number.isRequired,
     renderRowAtIndex: PropTypes.func.isRequired
   },
 
   render() {
-    const { rowHeight, numRows, renderRowAtIndex } = this.props
-    const totalHeight = rowHeight * numRows
+    const { numRows, rowHeight, renderRowAtIndex } = this.props
+    const totalHeight = numRows * rowHeight
 
     const items = []
 
@@ -46,6 +45,10 @@ const ListView = React.createClass({
 })
 
 render(
-  <RainbowList ListView={ListView} numRows={500}/>,
+  <ListView
+    numRows={500}
+    rowHeight={RainbowListDelegate.rowHeight}
+    renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
+  />,
   document.getElementById('app')
 )
