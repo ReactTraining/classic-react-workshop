@@ -5,10 +5,10 @@
 //
 // Got extra time?
 //
-// - Render fewer rows as the size of the window changes (Hint: You'll need
-//   to listen for the window's "resize" event)
-// - Try rendering a few rows above and beneath the visible area to prevent
-//   tearing when scrolling quickly
+// - Render fewer rows as the size of the window changes (Hint: Listen
+//   for the window's "resize" event)
+// - Try rendering a few rows above and beneath the visible area to
+//   prevent tearing when scrolling quickly
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
 import { render, findDOMNode } from 'react-dom'
@@ -31,15 +31,6 @@ const ListView = React.createClass({
   },
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleWindowResize)
-    this.handleWindowResize()
-  },
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize)
-  },
-
-  handleWindowResize() {
     this.setState({
       availableHeight: findDOMNode(this).clientHeight
     })
