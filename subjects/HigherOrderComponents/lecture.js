@@ -41,6 +41,9 @@ const App = React.createClass({
 render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
+// We can move all of that code into a higher-order component. A higher-order
+// component (HoC) is a function that takes a `Component` as an argument,
+// and returns a new component renders the `Component` with some extra props.
 
 //const mediaComponent = (Component, mediaQueries) => {
   //const media = createMediaListener(mediaQueries)
