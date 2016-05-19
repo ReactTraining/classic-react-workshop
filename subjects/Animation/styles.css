@@ -29,13 +29,13 @@ body {
   background-color: rgb(130, 181, 198);
 }
 
-#switch1 {
+.switch1 {
   width: 450px;
 }
-#switch2 {
+.switch2 {
   width: 650px;
 }
-#switch3 {
+.switch3 {
   width: 350px;
 }
 

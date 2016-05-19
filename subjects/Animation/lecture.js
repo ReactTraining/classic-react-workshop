@@ -24,7 +24,7 @@ const ToggleSwitch = React.createClass({
     const x = this.state.isActive ? 400 : 0
 
     return (
-      <div id="switch1" className="toggle-switch" onClick={this.toggle}>
+      <div className="toggle-switch switch1" onClick={this.toggle}>
         <div className="toggle-switch-knob" style={{ left: x }}/>
       </div>
     )
@@ -57,7 +57,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //
 //  render() {
 //    return (
-//      <div id="switch1" className="toggle-switch" onClick={this.toggle}>
+//      <div className="toggle-switch switch1" onClick={this.toggle}>
 //        <div className="toggle-switch-knob"/>
 //      </div>
 //    )
@@ -94,7 +94,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //    return (
 //      <Motion style={{ x: spring(x, { stiffness: 170, damping: 26 }) }}>
 //        {style =>
-//          <div id="switch1" className="toggle-switch" onClick={this.toggle}>
+//          <div className="toggle-switch switch1" onClick={this.toggle}>
 //            <div className="toggle-switch-knob" style={{ left: style.x }}/>
 //          </div>
 //        }
@@ -133,7 +133,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //    return (
 //      <Motion style={{ x: spring(x, { stiffness: 170, damping: 26 }) }}>
 //        {style =>
-//          <div id="switch1" className="toggle-switch" onClick={this.toggle}>
+//          <div className="toggle-switch switch1" onClick={this.toggle}>
 //            <div
 //              className="toggle-switch-knob"
 //              style={{
@@ -177,7 +177,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //      <Motion style={{ x1: spring(x1), x2: spring(x2), x3: spring(x3) }}>
 //        {style => (
 //          <div>
-//            <div id="switch1" className="toggle-switch" onClick={this.toggle}>
+//            <div className="toggle-switch switch1" onClick={this.toggle}>
 //              <div
 //                className="toggle-switch-knob"
 //                style={{
@@ -186,7 +186,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //                }}
 //              />
 //            </div>
-//            <div id="switch2" className="toggle-switch" onClick={this.toggle}>
+//            <div className="toggle-switch switch2" onClick={this.toggle}>
 //              <div
 //                className="toggle-switch-knob"
 //                style={{
@@ -195,7 +195,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //                }}
 //              />
 //            </div>
-//            <div id="switch3" className="toggle-switch" onClick={this.toggle}>
+//            <div className="toggle-switch switch3" onClick={this.toggle}>
 //              <div
 //                className="toggle-switch-knob"
 //                style={{
@@ -242,7 +242,7 @@ render(<ToggleSwitch/>, document.getElementById('app'))
 //        ))}
 //      >
 //        {styles => (
-//          <div id="switch1" className="toggle-switch" onClick={this.toggle}>
+//          <div className="toggle-switch switch1" onClick={this.toggle}>
 //            {styles.map((style, i) => (
 //              <div
 //                key={i}
