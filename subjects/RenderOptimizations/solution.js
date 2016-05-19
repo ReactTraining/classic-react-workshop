@@ -9,6 +9,7 @@
 //   for the window's "resize" event)
 // - Try rendering a few rows above and beneath the visible area to
 //   prevent tearing when scrolling quickly
+// - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
 import { render, findDOMNode } from 'react-dom'
