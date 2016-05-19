@@ -15,8 +15,7 @@ import React, { PropTypes } from 'react'
 import { render, findDOMNode } from 'react-dom'
 import { Motion, spring } from 'react-motion'
 import Draggable from './utils/Draggable'
-
-require('./styles')
+import './styles'
 
 const DropGrid = React.createClass({
   getInitialState() {
