@@ -46,8 +46,7 @@ const Subjects = {
   Slider: 'Slider',
   ChatApp: 'Chat App',
   Cursors: 'Cursors',
-  MigratingToReact: 'Migrating to React',
-  Perf: 'Perf'
+  MigratingToReact: 'Migrating to React'
 }
 
 const SubjectDirNames = Object.keys(Subjects)
