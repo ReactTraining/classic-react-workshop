@@ -1,9 +1,8 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { render, findDOMNode } from 'react-dom'
 import { Motion, StaggeredMotion, spring, presets } from 'react-motion'
 import $ from 'jquery'
-
-require('./styles')
+import './styles'
 
 ///////////////////////////////////////////////////////////////////////////////
 // Let's create a simple toggle switch that moves back and forth.
