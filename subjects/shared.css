@@ -13,18 +13,26 @@ a:visited {
   color: #00D;
 }
 
+#index {
+  background: hsl(10, 50%, 50%)
+}
+
 #index ul {
   padding: 0;
   list-style: none;
 }
 
 #index a {
-  font-size: 50px;
+  font-size: 20px;
   display: block;
   text-align: center;
   text-decoration: none;
-  color: hsl(200, 50%, 50%);
-  margin: 20px;
+  color: white;
+  margin: 10px;
+}
+
+#index a:hover {
+  color: hsl(10, 50%, 80%)
 }
 
 a.active {
