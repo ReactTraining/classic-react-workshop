@@ -1,6 +1,6 @@
 import { ADD_CONTACT, CONTACTS_WERE_LOADED, ERROR_DELETING_CONTACT } from '../actions/contacts'
 
-export default function (state={}, action) {
+export default function (state = {}, action) {
   if (action.type === ERROR_DELETING_CONTACT)
     return {
       ...state,
@@ -9,4 +9,3 @@ export default function (state={}, action) {
   else
     return state
 }
-

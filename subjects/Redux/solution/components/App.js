@@ -4,24 +4,26 @@ import { connect } from 'react-redux'
 import { addContact, loadContacts, deleteContact } from '../actions/contacts'
 
 const App = React.createClass({
-
   propTypes: {
     dispatch: PropTypes.func.isRequired,
-    counter: PropTypes.number.isRequired,
     contacts: PropTypes.array.isRequired
+  },
+
+  componentDidMount() {
+    loadContacts(this.props.dispatch)
   },
 
   handleCreateContact(contact) {
     this.props.dispatch(addContact(contact))
   },
 
-  componentDidMount() {
-    const { dispatch } = this.props
-    loadContacts(dispatch)
+  deleteContact(contact) {
+    deleteContact(this.props.dispatch, contact.id)
   },
 
   render() {
     const { contacts, contactsWithErrors, contactsBeingDeleted } = this.props
+
     return (
       <div>
         <h1>Contacts!</h1>
@@ -36,19 +38,12 @@ const App = React.createClass({
               {contactsWithErrors[contact.id] ? (
                 <p>{contactsWithErrors[contact.id]}</p>
               ) : (
-                <button onClick={() => {
-                  deleteContact(contact.id, this.props.dispatch)
-                }}>Delete</button>
+                <button onClick={() => this.deleteContact(contact)}>Delete</button>
               )}
             </li>
           ))}
           <li><CreateContactForm onCreate={this.handleCreateContact}/></li>
         </ul>
-
-        <button onClick={() => {
-          this.props.dispatch({ type: 'INCREMENT_COUNTER' })
-        }}>counter</button>
-        <pre>{this.props.counter}</pre>
       </div>
     )
   }
@@ -56,7 +51,6 @@ const App = React.createClass({
 
 export default connect((state) => {
   return {
-    counter: state.counter,
     contacts: state.contacts,
     contactsWithErrors: state.contactsWithErrors,
     contactsBeingDeleted: state.contactsBeingDeleted

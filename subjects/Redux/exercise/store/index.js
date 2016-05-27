@@ -4,6 +4,5 @@ import logger from './logger'
 
 const createStoreWithMiddleware = applyMiddleware(logger)(createStore)
 const reducer = combineReducers(reducers)
+
 export default createStoreWithMiddleware(reducer)
-
-

@@ -3,12 +3,10 @@ import serializeForm from 'form-serialize'
 
 const transparentGif = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
-function generateId() {
-  return Math.random().toString(36).substring(7)
-}
+const generateId = () =>
+  Math.random().toString(36).substring(7)
 
 const CreateContactForm = React.createClass({
-
   propTypes: {
     onCreate: React.PropTypes.func.isRequired
   },
@@ -35,4 +33,3 @@ const CreateContactForm = React.createClass({
 })
 
 export default CreateContactForm
-

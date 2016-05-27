@@ -6,6 +6,7 @@ export const CONTACTS_WERE_LOADED = 'CONTACTS_WERE_LOADED'
 
 export function loadContacts(dispatch) {
   dispatch({ type: LOAD_CONTACTS })
+
   fetchContacts((error, contacts) => {
     dispatch({
       type: CONTACTS_WERE_LOADED,
