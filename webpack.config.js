@@ -26,7 +26,9 @@ module.exports = {
       entries[dir + '-lecture'] = path.join(SubjectsDir, dir, 'lecture.js')
 
     return entries
-  }, {}),
+  }, {
+    shared: [ 'react', 'react-dom' ]
+  }),
 
   output: {
     path: '__build__',
@@ -52,7 +54,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('shared.js')
+    new webpack.optimize.CommonsChunkPlugin({ name: 'shared' })
   ],
 
   devServer: {
@@ -60,11 +62,11 @@ module.exports = {
     noInfo: false,
     stats: {
       // Config for minimal console.log mess.
-      assets: false,
+      assets: true,
       colors: true,
-      version: false,
-      hash: false,
-      timings: false,
+      version: true,
+      hash: true,
+      timings: true,
       chunks: false,
       chunkModules: false
     }
