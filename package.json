@@ -48,6 +48,7 @@
     "md5": "2.0.0",
     "mkdirp": "^0.5.0",
     "mocha": "2.3.4",
+    "mustache": "^2.2.1",
     "purecss": "0.6.0",
     "react": "^0.14.7",
     "react-addons-css-transition-group": "0.14.7",
