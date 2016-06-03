@@ -1,5 +1,31 @@
 import Firebase from 'firebase/lib/firebase-web'
 
+const ReservedRefNameChars = /[\.#\$\[\]]/g
+
+const escapeKey = (name) =>
+  name.replace(ReservedRefNameChars, '_')
+
+const escapeValue = (rawValue) => {
+  const value = (rawValue && typeof rawValue.toJSON === 'function')
+    ? rawValue.toJSON()
+    : rawValue
+
+  if (value == null)
+    return null // Remove undefined values
+
+  if (Array.isArray(value))
+    return value.map(escapeValue)
+
+  if (typeof value === 'object') {
+    return Object.keys(value).reduce((memo, key) => {
+      memo[escapeKey(key)] = escapeValue(value[key])
+      return memo
+    }, {})
+  }
+
+  return value
+}
+
 const BaseRef = new Firebase('https://hip-react.firebaseio.com')
 const MessagesRef = BaseRef.child('messages')
 
@@ -8,11 +34,10 @@ BaseRef.child('.info/serverTimeOffset').on('value', function (snapshot) {
   serverTimeOffset = snapshot.val()
 })
 
-function saveAuth(auth) {
-  BaseRef.child('users/' + auth.uid).set(auth)
-}
+const saveAuth = (auth) =>
+  BaseRef.child('users/' + auth.uid).set(escapeValue(auth))
 
-export function login(callback) {
+export const login = (callback) => {
   const auth = BaseRef.getAuth()
 
   if (auth) {
@@ -28,7 +53,7 @@ export function login(callback) {
   }
 }
 
-export function sendMessage(uid, username, avatarURL, text) {
+export const sendMessage = (uid, username, avatarURL, text) => {
   MessagesRef.push({
     uid,
     timestamp: Date.now() + serverTimeOffset,
@@ -38,7 +63,7 @@ export function sendMessage(uid, username, avatarURL, text) {
   })
 }
 
-export function subscribeToMessages(callback) {
+export const subscribeToMessages = (callback) => {
   function handleValue(snapshot) {
     const messages = []
 
