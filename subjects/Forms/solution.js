@@ -55,7 +55,7 @@ const CheckoutForm = React.createClass({
             <p>
               <label>Billing Name: <input
                 type="text"
-                value={billingName}
+                defaultValue={billingName}
                 onChange={(e) => {
                   this.setState({ billingName: e.target.value })
                 }}
@@ -65,7 +65,7 @@ const CheckoutForm = React.createClass({
               <label>Billing State: <input
                 type="text"
                 size="3"
-                value={billingState}
+                defaultValue={billingState}
                 onChange={(e) => {
                   this.setState({ billingState: e.target.value })
                 }}
