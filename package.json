@@ -5,7 +5,7 @@
     "Ryan Florence",
     "Michael Jackson"
   ],
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "main": "index.js",
   "scripts": {
     "start": "node ./scripts/build-index.js && webpack-dev-server --inline --content-base subjects",
