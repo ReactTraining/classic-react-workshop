@@ -1,5 +1,5 @@
 import React from 'react'
-import fetchContacts from './utils/fetchContacts'
+import fetchContacts from './fetchContacts'
 
 const App = React.createClass({
   getInitialState() {

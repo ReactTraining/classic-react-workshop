@@ -1,9 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Exercise
+// Solution
 //
 // First, fire up the server:
 //
-// 1. Run `npm run server-exercise` from the root of this repository
+// 1. Run `npm run server-solution` from the root of this repository
 // 2. Open http://localhost:8081 (not 8080)
 //
 // Now let's write some code:
@@ -30,7 +30,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import { render } from 'react-dom'
-import App from './exercise/App'
+import App from './solution/App'
 
-// TODO: Pass contacts data into the <App> via a prop.
-render(<App/>, document.getElementById('app'))
+render(<App contacts={window.DATA.contacts}/>, document.getElementById('app'))
