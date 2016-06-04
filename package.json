@@ -75,6 +75,7 @@
   "devDependencies": {
     "babel-eslint": "^5.0.0",
     "eslint": "2.2.x",
+    "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-react": "^4.3.0"
   },
   "babel": {

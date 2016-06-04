@@ -5,7 +5,7 @@
     "browser": true,
     "node": true
   },
-  "plugins": [ "react" ],
+  "plugins": [ "import", "react" ],
   "rules": {
     "array-bracket-spacing": [2, "always"],
     "comma-dangle": [2, "never"],
