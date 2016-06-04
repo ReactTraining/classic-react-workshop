@@ -1,7 +1,5 @@
 {
   "name": "react-subjects",
-  "private": true,
-  "version": "1.0.0",
   "description": "Course material for http://reactjs-training.com",
   "authors": [
     "Ryan Florence",
