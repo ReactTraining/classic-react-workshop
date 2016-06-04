@@ -1,11 +1,12 @@
 {
   "name": "react-subjects",
   "description": "Course material for http://reactjs-training.com",
+  "repository": "ReactJSTraining/react-subjects",
+  "license": "GPL-3.0",
   "authors": [
     "Ryan Florence",
     "Michael Jackson"
   ],
-  "license": "GPL-3.0",
   "main": "index.js",
   "scripts": {
     "start": "node ./scripts/build-index.js && webpack-dev-server --inline --content-base subjects",
@@ -13,10 +14,6 @@
     "server-solution": "supervisor -- -r babel-register subjects/ServerRendering/solution/server.js",
     "lint": "eslint subjects/**/*.js",
     "test": "npm run lint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ReactJSTraining/react-subjects.git"
   },
   "dependencies": {
     "angular": "1.4.9",
