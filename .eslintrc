@@ -11,7 +11,7 @@
     "comma-dangle": [2, "never"],
     "eqeqeq": [2, "smart"],
     "jsx-quotes": [1, "prefer-double"],
-    "no-unused-vars": 1,
+    "no-unused-vars": 0,
     "object-curly-spacing": [2, "always"],
     "quotes": [2, "single", "avoid-escape"],
     "react/jsx-space-before-closing": [2, "never"],
