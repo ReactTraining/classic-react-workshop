@@ -1,22 +1,33 @@
 {
-  "extends": "eslint:recommended",
   "parser": "babel-eslint",
   "env": {
     "browser": true,
     "node": true
   },
-  "plugins": [ "import", "react" ],
+  "plugins": [
+    "import",
+    "react"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommended"
+  ],
   "rules": {
-    "array-bracket-spacing": [2, "always"],
-    "comma-dangle": [2, "never"],
-    "eqeqeq": [2, "smart"],
-    "jsx-quotes": [1, "prefer-double"],
+    "array-bracket-spacing": [ 1, "always" ],
+    "comma-dangle": [ 1, "never" ],
+    "eqeqeq": [ 2, "smart" ],
+    "jsx-quotes": [ 1, "prefer-double" ],
     "no-unused-vars": 0,
-    "object-curly-spacing": [2, "always"],
-    "quotes": [2, "single", "avoid-escape"],
-    "react/jsx-space-before-closing": [2, "never"],
-    "react/jsx-uses-react": 1,
-    "semi": [2, "never"],
-    "space-before-blocks": [2, "always"]
+    "object-curly-spacing": [ 1, "always" ],
+    "quotes": [ 1, "single", "avoid-escape" ],
+    "react/jsx-space-before-closing": [ 1, "never" ],
+    "react/no-did-mount-set-state": 0,
+    "react/prop-types": 1,
+    "semi": [ 1, "never" ],
+    "space-before-blocks": [ 1, "always" ]
+  },
+  "settings": {
+    "import/resolver": "webpack"
   }
 }

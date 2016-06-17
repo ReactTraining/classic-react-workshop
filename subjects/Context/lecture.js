@@ -1,7 +1,7 @@
 /*eslint-disable no-nested-ternary */
 import React from 'react'
 import { render } from 'react-dom'
-import * as styles from './lib/styles'
+import * as styles from './styles'
 
 ////////////////////////////////////////////////////////////////////////////////
 // Sometimes you don't want to specify how deep in the view tree the child
