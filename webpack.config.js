@@ -12,7 +12,6 @@ const SubjectDirs = fs.readdirSync(SubjectsDir).filter(function (dir) {
 })
 
 module.exports = {
-
   devtool: 'source-map',
 
   entry: SubjectDirs.reduce(function (entries, dir) {
@@ -71,5 +70,4 @@ module.exports = {
       chunkModules: false
     }
   }
-
 }
