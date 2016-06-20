@@ -77,8 +77,8 @@
   "babel": {
     "presets": [
       "es2015",
-      "stage-1",
-      "react"
+      "react",
+      "stage-1"
     ],
     "plugins": [
       "transform-object-assign"
