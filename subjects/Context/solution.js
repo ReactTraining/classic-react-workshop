@@ -2,19 +2,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Using context, implement the Form, SubmitButton, and TextInput components
-// such that:
+// Using context, implement the <Form>, <SubmitButton>, and <TextInput>
+// components such that:
 //
-// - clicking the SubmitButton submits the form
-// - hitting "Enter" while in a TextInput submits the form
-// - Don't use a <form/> element, we're intentionally recreating the
-//   browser's built in behavior
+// - Clicking the <SubmitButton> "submits" the form
+// - Hitting "Enter" while in a <TextInput> submits the form
+// - Don't use a <form> element, we're intentionally recreating the
+//   browser's built-in behavior
 //
 // Got extra time?
 //
-// - send the values of all the TextInput's to the Form `onChange` handler
-//   without using DOM traversal APIs.
-// - Implement a ResetButton that resets the TextInputs in the Form
+// - Send the values of all the <TextInput>s to the <Form onChange> handler
+//   without using DOM traversal APIs
+// - Implement a <ResetButton> that resets the <TextInput>s in the form
 //
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
