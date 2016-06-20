@@ -1,5 +1,4 @@
 {
-  "name": "react-subjects",
   "description": "Course material for http://reactjs-training.com",
   "repository": "ReactJSTraining/react-subjects",
   "license": "GPL-3.0",
@@ -7,9 +6,8 @@
     "Ryan Florence",
     "Michael Jackson"
   ],
-  "main": "index.js",
   "scripts": {
-    "start": "node ./scripts/build-index.js && webpack-dev-server --inline --content-base subjects",
+    "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects",
     "server-exercise": "supervisor -- -r babel-register subjects/ServerRendering/exercise/server.js",
     "server-solution": "supervisor -- -r babel-register subjects/ServerRendering/solution/server.js",
     "lint": "eslint subjects/**/*.js",
