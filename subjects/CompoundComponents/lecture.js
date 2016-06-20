@@ -79,7 +79,7 @@ render(<App/>, document.getElementById('app'))
 // What if I wanted tabs on the bottom?
 
 //const Tabs = React.createClass({
-//  getDefaultProps () {
+//  getDefaultProps() {
 //    return {
 //      tabsPlacement: 'top'
 //    }
@@ -180,7 +180,7 @@ render(<App/>, document.getElementById('app'))
 // https://api.jqueryui.com/tabs/#option-disabled
 
 //const Tabs = React.createClass({
-//  getDefaultProps () {
+//  getDefaultProps() {
 //    return {
 //      tabsPlacement: 'top',
 //      disabled: []
@@ -266,7 +266,7 @@ render(<App/>, document.getElementById('app'))
 //        <Tabs
 //          data={tabData}
 //          tabsPlacement="top"
-//          disabled={[1]}
+//          disabled={[ 1 ]}
 //        />
 //      </div>
 //    )
@@ -480,7 +480,7 @@ render(<App/>, document.getElementById('app'))
 // Oh but you really loved the old tabs yeah?
 
 //const DataTabs = React.createClass({
-//  getDefaultProps () {
+//  getDefaultProps() {
 //    return {
 //      disabled: []
 //    }
@@ -507,7 +507,6 @@ render(<App/>, document.getElementById('app'))
 //})
 //
 //const App = React.createClass({
-//
 //  render() {
 //    const tabData = [
 //      {
