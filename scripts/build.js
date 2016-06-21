@@ -3,7 +3,7 @@ const path = require('path')
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 
-function createMarkup(mainFile) {
+function createMarkup(mainBundle) {
   return ReactDOMServer.renderToStaticMarkup(
     React.DOM.html({},
       React.DOM.head({},
@@ -12,7 +12,7 @@ function createMarkup(mainFile) {
       React.DOM.body({},
         React.DOM.div({ id: 'app' }),
         React.DOM.script({ src: '/__build__/shared.js' }),
-        React.DOM.script({ src: '/__build__/' + mainFile + '.js' })
+        React.DOM.script({ src: '/__build__/' + mainBundle + '.js' })
       )
     )
   )
@@ -55,12 +55,22 @@ const markup = ReactDOMServer.renderToStaticMarkup(
       React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
     ),
     React.DOM.body({ id: 'index' },
-      React.DOM.ul({},
-        SubjectDirNames.map(function (dir) {
-          return React.DOM.li({ key: dir },
-            React.DOM.a({ href: '/' + dir }, Subjects[dir])
-          )
-        })
+      React.DOM.table({ cellSpacing: 0, cellPadding: 0 },
+        React.DOM.tbody({},
+          SubjectDirNames.map(function (dir, index) {
+            return React.DOM.tr({ key: dir, className: (index % 2) ? 'odd' : 'even' },
+              React.DOM.td({ className: 'lecture-link' },
+                React.DOM.a({ href: '/' + dir + '/lecture.html' }, Subjects[dir])
+              ),
+              React.DOM.td({ className: 'exercise-link' },
+                React.DOM.a({ href: '/' + dir + '/exercise.html' }, 'exercise')
+              ),
+              React.DOM.td({ className: 'solution-link' },
+                React.DOM.a({ href: '/' + dir + '/solution.html' }, 'solution')
+              )
+            )
+          })
+        ) 
       )
     )
   )
@@ -69,7 +79,7 @@ const markup = ReactDOMServer.renderToStaticMarkup(
 fs.writeFileSync(path.join(SubjectsDir, 'index.html'), markup)
 
 SubjectDirNames.forEach(function (dir) {
-  fs.writeFileSync(path.join(SubjectsDir, dir, 'index.html'), createMarkup(dir + '-exercise'))
-  fs.writeFileSync(path.join(SubjectsDir, dir, 'solution.html'), createMarkup(dir + '-solution'))
   fs.writeFileSync(path.join(SubjectsDir, dir, 'lecture.html'), createMarkup(dir + '-lecture'))
+  fs.writeFileSync(path.join(SubjectsDir, dir, 'exercise.html'), createMarkup(dir + '-exercise'))
+  fs.writeFileSync(path.join(SubjectsDir, dir, 'solution.html'), createMarkup(dir + '-solution'))
 })

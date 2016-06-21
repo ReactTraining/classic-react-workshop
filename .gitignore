@@ -1,6 +1,6 @@
 subjects/index.html
-subjects/**/index.html
-subjects/**/solution.html
 subjects/**/lecture.html
+subjects/**/exercise.html
+subjects/**/solution.html
 !subjects/**/backbone-todomvc/index.html
 node_modules
