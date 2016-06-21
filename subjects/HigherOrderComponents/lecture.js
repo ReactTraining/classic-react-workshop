@@ -80,6 +80,7 @@ render(<App/>, document.getElementById('app'))
 //
 //  render() {
 //    const { media } = this.props
+//
 //    return media.big ? (
 //      <h1>Hey, this is a big screen</h1>
 //    ) : media.tiny ? (
