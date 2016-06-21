@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 import createMediaListener from './lib/createMediaListener'
 
@@ -72,9 +72,9 @@ render(<App/>, document.getElementById('app'))
 //
 //const App = React.createClass({
 //  propTypes: {
-//    media: React.PropTypes.shape({
-//      big: React.PropTypes.bool,
-//      tiny: React.PropTypes.bool
+//    media: PropTypes.shape({
+//      big: PropTypes.bool,
+//      tiny: PropTypes.bool
 //    })
 //  },
 //
