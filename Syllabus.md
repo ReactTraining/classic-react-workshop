@@ -1,3 +1,7 @@
+# Syllabus
+
+This document contains a list of subjects we cover in our React training workshops. The stuff near the top is generally part of our "React Fundamentals" workshop and the stuff further down we generally cover in "Advanced React" workshops.
+
 ## Eliminating Time
 
 Solutions are nonsense without understanding the problems they solve. We'll take a trip down memory lane to shine a light on the stuff that led to all the bugs we've written in the past to prime us to see clearly how React is going to help.
