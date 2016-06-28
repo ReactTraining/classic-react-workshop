@@ -32,72 +32,36 @@ Objectives:
 - Handle user interaction
 
 
-## Props v. State
+## Props vs. State
 
-One of the first questions that comes up when you start using React is "when do I use state, and when do I use props?" We'll explore an app with changing requirements that lets us experience state moving to props and why. We'll discuss how data flows, or rather, how components communicate with each other. Finally, we'll explore how component composition helps answer the "props v. state" question.
+One of the first questions that comes up when you start using React is "when do I use state, and when do I use props?" We'll explore an app with changing requirements that lets us experience state moving to props and why. We'll discuss how data flows, or rather, how components communicate with each other. Finally, we'll explore how component composition helps answer the "props vs. state" question.
 
 Objectives:
 - Understand the difference between props and state
-- Know when to use props v. state
+- Know when to use props vs. state
 - Pass data up and down the view hierarchy
 - Compose generic components into specialized components
 
 
-## The Imperative to Declarative Shift
+## Imperative to Declarative
 
-React is "declarative". What does that mean? What is imperative code?  We'll answer these questions, and show the power that comes from shifting your imperative code into declarative components using more of the React component lifecycle.
+React is "declarative". What does that mean? What is imperative code? We'll answer these questions, and show the power that comes from shifting your imperative code into declarative components using more of the React component lifecycle.
 
 Objectives:
 - Turn imperative code into declarative code
 - Experience the benefits that come from declarative programming
 - Learn to use existing JS libraries declaratively
 - Use more of the React component lifecycle
+- Understand how and when to use `ref`s
 
 
-## Compound Components
+## Forms
 
-Some components get really, really big. Not only do their render methods get large, but as more people try to use the component, the props it takes grow as well. Eventually you end up with way too many properties and a really difficult component to work with that has to change with every new use-case you throw at it. There's a better way with compound components.
-
-Objectives:
-- Create reusable components by compounding related components together
-- Dynamically flow data between components
-
-
-## Context
-
-Context is an advanced, slightly-unstable, and powerful tool that solves a handful of use-cases really elegantly. We'll discuss when and why it's a good solution, and when it's not.
-
-Prerequisites: Compound Components
+Solidify your [declarative](#imperative-to-declarative) understanding by working with forms in React. We'll discuss the various use-cases for forms and how to handle them in React.
 
 Objectives:
-- Learn to use context
-- Learn when it's useful and when to use a different pattern
-
-
-## Render Props
-
-As we begin to make more things declarative we run into code that seems unlikely to be made declarative.  We'll explore this pattern and see how it allows us to make anything in our app declarative.
-
-Objectives:
-- Learn to use render props
-- Learn when they are most useful
-
-
-## Performance and Rendering Optimizations
-
-As your app grows you'll eventually hit some slow interactions. We'll explore how to identify the bottlenecks and how to fix them. We'll also see how React can help us avoid the bottlenecks in the first place.
-
-Objectives:
-- Identify performance bottlenecks
-- Learn how to do "windowing" with React
-
-
-## Animation
-
-Name says it all. We'll showcase several ways to do animation declaratively with React.
-
-Objectives:
-- Animate elements
+- Understand [controlled vs. uncontrolled](https://facebook.github.io/react/docs/forms.html) components
+- Work with forms
 
 
 ## Testing
@@ -110,48 +74,113 @@ Objectives:
 - Simulate events
 
 
-## Higher Order Components
+## Compound Components
 
-Higher order components allow you to compose behavior into components without inheritence or modifying the component itself with a wide range of use-cases.
-
-Objectives:
-- Create a higher order component
-- Understand when higher order components are useful
-- Know thier limitations
-
-
-## Forms
-
-Solidify your "declarative" understanding by working with forms in React. We'll discuss the various use-cases for forms and how to handle them in React
+Some components get really, really big. Not only do their render methods get large, but as more people try to use the component, the props it takes grow as well. Eventually you end up with way too many properties and a really difficult component to work with that has to change with every new use-case you throw at it. There's a better way with compound components.
 
 Objectives:
-- Understand controlled v. uncontrolled components
-- Work with forms
+- Create reusable components by compounding related components together
+- Dynamically flow data between components
 
 
 ## Controlled Compound Components
-
-Prerequisites: [Forms](#forms)
 
 Some reusable components are a lot like form elements and need to be controlled or uncontrolled. We'll examine techniques to implement components with this kind of behavior.
 
 Objectives:
 - Create a component that can be controlled or uncontrolled
 
+Prerequisites:
+- [Compound Components](#compound-components)
+- [Forms](#forms)
 
-## Migrating to React
 
-Here we'll discuss a technique to migrate, instead of rewrite, your app to React in way that won't block your team. You'll writing and shipping your new code incrementally. We'll also discuss how to integrate with existing JS libs as you encounter them in your app.
+## Context
+
+Context is an advanced, slightly-unstable, and powerful tool that solves a handful of use-cases really elegantly. We'll discuss when and why it's a good solution, and when it's not.
 
 Objectives:
-- Learn how to integrate React into an existing code-base
+- Learn to use context
+- Learn when it's useful and when to use a different pattern
+
+Prerequisites:
+- [Compound Components](#compound-components)
 
 
-## React Router
+## Higher Order Components
+
+Higher order components allow you to compose behavior into components without inheritence or modifying the component itself with a wide range of use-cases.
+
+Objectives:
+- Create a higher order component
+- Understand when to use a higher order component
+
+
+## Render Props
+
+As we begin to make more things declarative we run into code that seems unlikely to be made declarative.  We'll explore this pattern and see how it allows us to make anything in our app declarative.
+
+Objectives:
+- Learn to use render props
+- Learn when they are most useful
+
+
+## Performance and Render Optimizations
+
+As your app grows you'll eventually hit some slow interactions. We'll explore how to identify the bottlenecks and how to fix them. We'll also see how React can help us avoid the bottlenecks in the first place.
+
+Objectives:
+- Identify performance bottlenecks
+- Learn how to do "windowing" with React
+
+
+## Animation
+
+We'll showcase several ways to do animation including imperatively with 3rd-party animation libs like jQuery and declaratively with [react-motion](https://github.com/chenglou/react-motion).
+
+Objectives:
+- Animate elements
+
+Prerequisites:
+- [Imperative to Declarative](#imperative-to-declarative)
+- [Render Props](#render-props)
+
+
+## Routing
 
 Keep your application UI and the URL in sync, no more broken back buttons. We'll introduce some basic uses of React Router, and how it helps you stitch together your components into an application.
 
 Objectives:
+- Understand principles of client-side "routing"
+- Understand use-cases for routing
 - Create UI at specific URLs
 - Transition between screens
-- Understand basic use-cases for routing
+
+
+## Server Rendering
+
+React lets you render your components server-side for improved SEO and performance. In this section we'll discuss the techniques and trade-offs of rendering your React components on the server.
+
+Objectives:
+- Understand principles of server-side rendering and when it's useful
+- Render components server-side
+- Fetch data before rendering server-side
+- Seamlessly transition to the client page without replacing HTML already in the page
+
+
+## Flux
+
+Flux is a pattern for data flow that can be useful when using React. We'll work on a real Flux app that makes requests to a real server and explore some techniques for managing data flow client-side.
+
+Objectives:
+- Understand one-way data flow
+- Implement a feature using Flux
+- Handle latency and errors using Flux
+
+
+## Migrating to React
+
+Here we'll discuss a technique to migrate, instead of rewrite, your app to React in way that won't block your team. You'll be writing and shipping your new code incrementally. We'll also discuss how to integrate with existing JS libs as you encounter them in your app.
+
+Objectives:
+- Learn how to integrate React into an existing code-base
