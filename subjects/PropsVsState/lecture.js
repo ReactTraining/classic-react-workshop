@@ -77,7 +77,6 @@ render(<App/>, document.getElementById('app'))
 // <button>Toggle All</button>
 
 //const ContentToggle = React.createClass({
-//
 //  getInitialState() {
 //    return {
 //      isOpen: this.props.isOpen
@@ -111,11 +110,9 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//
 //})
 //
 //const App = React.createClass({
-//
 //  getInitialState() {
 //    return {
 //      allOpen: true,
@@ -162,7 +159,6 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//
 //})
 //
 //render(<App/>, document.getElementById('app'))
@@ -174,7 +170,6 @@ render(<App/>, document.getElementById('app'))
 // state and synchronize it
 
 //const ContentToggle = React.createClass({
-//
 //  getInitialState() {
 //    return {
 //      isOpen: this.props.isOpen
@@ -207,11 +202,9 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//
 //})
 //
 //const App = React.createClass({
-//
 //  getInitialState() {
 //    return {
 //      tacos: [
@@ -279,7 +272,6 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//
 //})
 //
 //render(<App/>, document.getElementById('app'))
@@ -289,7 +281,6 @@ render(<App/>, document.getElementById('app'))
 // ContentToggle anymore?
 
 //const ContentToggle = React.createClass({
-//
 //  handleClick() {
 //    if (this.props.onToggle)
 //      this.props.onToggle(!this.props.isOpen)
@@ -310,7 +301,6 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//
 //})
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -325,7 +315,6 @@ render(<App/>, document.getElementById('app'))
 // We can create a Controller Component that wraps our pure component,
 
 //const StatefulContentToggle = React.createClass({
-//
 //  getInitialState() {
 //    return { isOpen: false }
 //  },
@@ -337,7 +326,6 @@ render(<App/>, document.getElementById('app'))
 //      onToggle={isOpen => this.setState({ isOpen })}
 //    />
 //  }
-//
 //})
 //
 //render(<App/>, document.getElementById('app'))
