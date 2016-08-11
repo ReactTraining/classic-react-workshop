@@ -119,8 +119,10 @@ const Chat = React.createClass({
 
     // Array of arrays of messages grouped by user.
     const messageGroups = messages.reduce((groups, message) => {
-      if (groups.length && groups[groups.length - 1][0].uid === message.uid) {
-        groups[groups.length - 1].push(message)
+      const lastGroup = groups.length && groups[groups.length - 1]
+
+      if (lastGroup && lastGroup[0].uid === message.uid) {
+        lastGroup.push(message)
       } else {
         groups.push([ message ])
       }
@@ -146,7 +148,7 @@ const Chat = React.createClass({
     return (
       <div className="chat">
         <header className="chat-header">
-          <h1 className="chat-title">HipReact, hello {auth.github.username}</h1>
+          <h1 className="chat-title">HipReact</h1>
           <p className="chat-message-count"># messages: {messages.length}</p>
         </header>
         <SmartScroller className="messages">
