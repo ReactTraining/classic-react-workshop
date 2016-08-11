@@ -1,85 +1,85 @@
-import React, { PropTypes } from 'react'
+////////////////////////////////////////////////////////////////////////////////
+// Exercise:
+//
+// - Create a chat application using the utility methods we give you
+//
+// Need some ideas?
+//
+// - Cause the message list to automatically scroll as new
+//   messages come in
+// - Highlight messages from you to make them easy to find
+// - Highlight messages that mention you by your GitHub username
+// - Group subsequent messages from the same sender
+// - Create a filter that lets you filter messages in the chat by
+//   sender and/or content
+////////////////////////////////////////////////////////////////////////////////
+import React from 'react'
 import { render } from 'react-dom'
 import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
-import sortBy from 'sort-by'
+import './styles'
 
-require('./styles')
+/*
+Here's how to use the ChatUtils:
 
-const messageType = PropTypes.shape({
-  _key: PropTypes.string.isRequired,
-  uid: PropTypes.string.isRequired,
-  avatarURL: PropTypes.string.isRequired,
-  timestamp: PropTypes.number.isRequired,
-  username: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
+login((error, auth) => {
+  // hopefully the error is `null` and you have a auth.github object
 })
 
-const MessageList = React.createClass({
+sendMessage(
+  auth.uid,                       // the auth.uid string
+  auth.github.username,           // the username
+  auth.github.profileImageURL,    // the user's profile image
+  'hello, this is a message'      // the text of the message
+)
 
-  propTypes: {
-    auth: PropTypes.object.isRequired,
-    messages: PropTypes.arrayOf(messageType).isRequired
+const unsubscribe = subscribeToMessages(messages => {
+  // here are your messages as an array, it will be called
+  // every time the messages change
+})
+
+unsubscribe() // stop listening for new messages
+
+The world is your oyster!
+*/
+
+const SmartScroller = React.createClass({
+  componentDidMount() {
+    this.autoScroll = true
+    this.scrollToBottom()
+  },
+
+  componentDidUpdate() {
+    if (this.autoScroll)
+      this.scrollToBottom()
+  },
+
+  scrollToBottom() {
+    this.node.scrollTop = this.node.scrollHeight
+  },
+
+  handleScroll() {
+    const { scrollTop, scrollHeight, clientHeight } = this.node
+    const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
+    this.autoScroll = distanceToBottom < 10
   },
 
   render() {
-    const { auth, messages } = this.props
-    const sortedMessages = messages
-      .filter(m => (/\S/).test(m.text)) // Only keep non-empty messages
-      .sort(sortBy('timestamp')) // Sort by timestamp
-
-    // Group subsequent messages from the same sender.
-    const messageGroups = []
-
-    let lastMessage, currentMessageGroup
-    sortedMessages.forEach(message => {
-      if (lastMessage && lastMessage.uid === message.uid) {
-        currentMessageGroup.push(message)
-      } else {
-        if (currentMessageGroup)
-          messageGroups.push(currentMessageGroup)
-
-        currentMessageGroup = [ message ]
-      }
-
-      lastMessage = message
-    })
-
-    if (currentMessageGroup && currentMessageGroup.length)
-      messageGroups.push(currentMessageGroup)
-
-    const items = messageGroups.map(group => (
-      <li key={group[0]._key} className="message-group">
-        <div className="message-group-avatar">
-          <img title={group[0].username} src={group[0].avatarURL}/>
-        </div>
-        <ol className="messages">
-        {group.map(message => (
-          <li key={message._key} className="message">{message.text}</li>
-        ))}
-        </ol>
-      </li>
-    ))
-
     return (
-      <ol className="message-groups">
-        {items}
-      </ol>
+      <div
+        {...this.props}
+        ref={node => this.node = node}
+        onScroll={this.handleScroll}
+      />
     )
   }
-
 })
 
 const Chat = React.createClass({
-
   getInitialState() {
     return {
       auth: null,
       messages: []
     }
-  },
-
-  componentWillMount() {
-    this.pinToBottom = true
   },
 
   componentDidMount() {
@@ -92,63 +92,76 @@ const Chat = React.createClass({
     })
   },
 
-  componentDidUpdate() {
-    if (this.pinToBottom)
-      this.scrollToBottom()
-  },
-
-  scrollToBottom() {
-    const node = this.refs.messages
-
-    if (node)
-      node.scrollTop = node.scrollHeight
-  },
-
   handleSubmit(event) {
     event.preventDefault()
 
-    const input = this.refs.message
-    const value = input.value
-    input.value = ''
-
     const { auth } = this.state
-    sendMessage(auth.uid, auth.github.username, auth.github.profileImageURL, value)
+    const messageText = this.messageInput.value
 
-    // Always pin to bottom when we send
-    // a new message from this window
-    this.pinToBottom = true
-  },
+    if (messageText !== '') {
+      sendMessage(
+        auth.uid,                       // the auth.uid string
+        auth.github.username,           // the username
+        auth.github.profileImageURL,    // the user's profile image
+        messageText                     // the text of the message
+      )
 
-  handleScroll(event) {
-    const { clientHeight, scrollTop, scrollHeight } = event.target
-    this.pinToBottom = clientHeight + scrollTop > (scrollHeight - 10)
+      // Clear the message input.
+      this.messageInput.value = ''
+    }
   },
 
   render() {
     const { auth, messages } = this.state
 
     if (auth == null)
-      return <p>Logging in...</p>
+      return <p>Loading...</p>
+
+    // Array of arrays of messages grouped by user.
+    const messageGroups = messages.reduce((groups, message) => {
+      if (groups.length && groups[groups.length - 1][0].uid === message.uid) {
+        groups[groups.length - 1].push(message)
+      } else {
+        groups.push([ message ])
+      }
+
+      return groups
+    }, [])
+
+    const messageGroupItems = messageGroups.map(messages => {
+      return (
+        <li className="message-group">
+          <div className="message-group-avatar">
+            <img src={messages[0].avatarURL}/>
+          </div>
+          <ol className="messages">
+            {messages.map(m => (
+              <li key={m._key} className="message">{m.text}</li>
+            ))}
+          </ol>
+        </li>
+      )
+    })
 
     return (
       <div className="chat">
         <header className="chat-header">
-          <h1 className="chat-title">HipReact</h1>
+          <h1 className="chat-title">HipReact, hello {auth.github.username}</h1>
           <p className="chat-message-count"># messages: {messages.length}</p>
         </header>
-        <div ref="messages" className="messages" onScroll={this.handleScroll}>
-          <MessageList auth={auth} messages={messages}/>
-        </div>
+        <SmartScroller className="messages">
+          <ol className="message-groups">
+            {messageGroupItems}
+          </ol>
+        </SmartScroller>
         <form className="new-message-form" onSubmit={this.handleSubmit}>
           <div className="new-message">
-            <input ref="message" type="text" placeholder="say something..."/>
-            <input type="submit" style={{ position: 'absolute', left: -9999 }} tabIndex="-1"/>
+            <input ref={node => this.messageInput = node} type="text" placeholder="say something..."/>
           </div>
         </form>
       </div>
     )
   }
-
 })
 
 render(<Chat/>, document.getElementById('app'))

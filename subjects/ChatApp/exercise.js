@@ -16,8 +16,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { login, sendMessage, subscribeToMessages } from './utils/ChatUtils'
-
-require('./styles')
+import './styles'
 
 /*
 Here's how to use the ChatUtils:
@@ -44,7 +43,6 @@ The world is your oyster!
 */
 
 const Chat = React.createClass({
-
   render() {
     return (
       <div className="chat">
@@ -69,8 +67,6 @@ const Chat = React.createClass({
                 <li className="message">Orders a sfdeljknesv.</li>
               </ol>
             </li>
-          </ol>
-          <ol className="message-groups">
             <li className="message-group">
               <div className="message-group-avatar">
                 <img src="https://avatars2.githubusercontent.com/u/100200"/>
@@ -80,8 +76,6 @@ const Chat = React.createClass({
                 <li className="message">Stop stealing other people's jokes :P</li>
               </ol>
             </li>
-          </ol>
-          <ol className="message-groups">
             <li className="message-group">
               <div className="message-group-avatar">
                 <img src="https://avatars1.githubusercontent.com/u/92839"/>
@@ -100,7 +94,6 @@ const Chat = React.createClass({
       </div>
     )
   }
-
 })
 
 render(<Chat/>, document.getElementById('app'))
