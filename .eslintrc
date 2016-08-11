@@ -13,6 +13,9 @@
     "plugin:import/errors",
     "plugin:react/recommended"
   ],
+  "settings": {
+    "import/resolver": "webpack"
+  },
   "rules": {
     "array-bracket-spacing": [ 1, "always" ],
     "comma-dangle": [ 1, "never" ],
@@ -26,8 +29,5 @@
     "react/prop-types": 1,
     "semi": [ 1, "never" ],
     "space-before-blocks": [ 1, "always" ]
-  },
-  "settings": {
-    "import/resolver": "webpack"
   }
 }

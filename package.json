@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
-    "eslint": "3.2.2",
+    "eslint": "^3.2.2",
     "eslint-import-resolver-webpack": "^0.4.0",
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-react": "^6.0.0"
@@ -73,8 +73,8 @@
   "babel": {
     "presets": [
       "es2015",
-      "react",
-      "stage-1"
+      "stage-1",
+      "react"
     ],
     "plugins": [
       "transform-object-assign"
