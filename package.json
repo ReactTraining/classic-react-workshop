@@ -69,15 +69,5 @@
     "eslint-import-resolver-webpack": "^0.4.0",
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-react": "^6.0.0"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-1",
-      "react"
-    ],
-    "plugins": [
-      "transform-object-assign"
-    ]
   }
 }
