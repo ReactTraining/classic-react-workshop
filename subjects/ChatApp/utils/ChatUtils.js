@@ -1,4 +1,4 @@
-import Firebase from 'firebase/lib/firebase-web'
+import Firebase from 'firebase'
 
 const ReservedRefNameChars = /[\.#\$\[\]]/g
 
