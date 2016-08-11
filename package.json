@@ -66,9 +66,9 @@
   "devDependencies": {
     "babel-eslint": "^5.0.0",
     "eslint": "2.2.x",
-    "eslint-import-resolver-webpack": "^0.3.0",
-    "eslint-plugin-import": "^1.8.1",
-    "eslint-plugin-react": "^4.3.0"
+    "eslint-import-resolver-webpack": "^0.4.0",
+    "eslint-plugin-import": "^1.12.0",
+    "eslint-plugin-react": "^6.0.0"
   },
   "babel": {
     "presets": [
