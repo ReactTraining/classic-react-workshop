@@ -50,7 +50,7 @@
     "mocha": "3.0.2",
     "mustache": "^2.2.1",
     "purecss": "0.6.0",
-    "react": "^15.1.0",
+    "react": "^15.3.0",
     "react-addons-css-transition-group": "^15.1.0",
     "react-addons-perf": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
