@@ -38,13 +38,14 @@ const Subjects = {
   Animation: 'Animation',
   Routing: 'Routing',
   ServerRendering: 'Server Rendering',
-  Flux: 'Flux',
   JSONTable: 'JSON Table',
   Select: 'Select',
   Slider: 'Slider',
   ChatApp: 'Chat App',
   Cursors: 'Cursors',
-  MigratingToReact: 'Migrating to React'
+  MigratingToReact: 'Migrating to React',
+  Redux: 'Redux',
+  MiniRedux: 'Implementing Redux'
 }
 
 const SubjectDirNames = Object.keys(Subjects)
