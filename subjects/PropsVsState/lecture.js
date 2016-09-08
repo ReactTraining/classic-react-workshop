@@ -101,7 +101,7 @@ render(<App/>, document.getElementById('app'))
 //      summaryClassName += " ContentToggle__Summary--is-open"
 //    return (
 //      <div {...this.props} className="ContentToggle">
-//        <button onClick={() => this.handleClick()} className={summaryClassName}>
+//        <button onClick={this.handleClick} className={summaryClassName}>
 //          {this.props.summary}
 //        </button>
 //        <div className="ContentToggle__Details">
