@@ -21,7 +21,6 @@ import * as styles from './lib/styles'
 import data from './lib/data'
 
 const Tabs = React.createClass({
-
   propTypes: {
     data: React.PropTypes.array.isRequired
   },
@@ -72,11 +71,9 @@ const Tabs = React.createClass({
       </div>
     )
   }
-
 })
 
 const App = React.createClass({
-
   render() {
     return (
       <div>
@@ -85,7 +82,6 @@ const App = React.createClass({
       </div>
     )
   }
-
 })
 
 render(<App tabs={data}/>, document.getElementById('app'), function () {

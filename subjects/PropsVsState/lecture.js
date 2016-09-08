@@ -23,7 +23,7 @@ const ContentToggle = React.createClass({
 
     return (
       <div {...this.props} className="ContentToggle">
-        <button onClick={() => this.handleClick()} className={summaryClassName}>
+        <button onClick={this.handleClick} className={summaryClassName}>
           {this.props.summary}
         </button>
         <div className="ContentToggle__Details">

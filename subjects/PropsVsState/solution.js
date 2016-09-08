@@ -21,7 +21,6 @@ import * as styles from './lib/styles'
 import data from './lib/data'
 
 const Tabs = React.createClass({
-
   propTypes: {
     activeTabIndex: React.PropTypes.number.isRequired,
     onActivate: React.PropTypes.func.isRequired,
@@ -68,11 +67,9 @@ const Tabs = React.createClass({
       </div>
     )
   }
-
 })
 
 const App = React.createClass({
-
   getInitialState() {
     return {
       activeTabIndex: 0
@@ -92,7 +89,6 @@ const App = React.createClass({
       </div>
     )
   }
-
 })
 
 render(<App tabs={data}/>, document.getElementById('app'), function () {
