@@ -15,7 +15,7 @@
 //   <PinnedToBottom> component
 // - Now make sure if the user scrolls up, you don't scroll them down
 // - Make a <JSONP> component that fetches data with the jsonp package used in
-//   `utils/githubSearch` that uses a render prop to pass its data back up
+//   `utils/searchGitHubRepos` that uses a render prop to pass its data back up
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import { render } from 'react-dom'
@@ -53,7 +53,7 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <h1>Heads up Eggman, here comes <code>&lt;Tails&gt;</code>s!</h1>
+        <h1>Heads up Eggman, here comes <code>&lt;Tail&gt;</code>s!</h1>
         <div style={{ height: 400, overflowY: 'scroll', border: '1px solid' }}>
           <Tail lines={this.state.lines}/>
         </div>
