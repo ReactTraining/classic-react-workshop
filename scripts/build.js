@@ -41,6 +41,7 @@ const Subjects = {
   JSONTable: 'JSON Table',
   Select: 'Select',
   Slider: 'Slider',
+  Calculator: 'Calculator',
   ChatApp: 'Chat App',
   Cursors: 'Cursors',
   MigratingToReact: 'Migrating to React',
