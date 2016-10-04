@@ -10,6 +10,7 @@
     "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects",
     "server-exercise": "supervisor -- -r babel-register subjects/ServerRendering/exercise/server.js",
     "server-solution": "supervisor -- -r babel-register subjects/ServerRendering/solution/server.js",
+    "start-api": "node api.js",
     "lint": "eslint subjects/**/*.js",
     "test": "npm run lint"
   },
@@ -23,6 +24,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.9.0",
     "backbone": "^1.2.3",
+    "body-parser": "^1.15.2",
     "bootstrap": "^3.3.4",
     "bootstrap-webpack": "0.0.5",
     "css-loader": "^0.23.1",
@@ -30,6 +32,7 @@
     "expect": "^1.13.4",
     "exports-loader": "^0.6.3",
     "expose-loader": "^0.7.1",
+    "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "firebase": "^2.4.2",
