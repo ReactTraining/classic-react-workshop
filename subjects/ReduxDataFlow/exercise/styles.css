@@ -1,0 +1,269 @@
+/* resets from shared.css */
+* { box-sizing: border-box }
+body { background: white; margin: 0 }
+a, a:visited, a:hover { color: inherit; text-decoration: none; }
+h2 { margin: 0; }
+ul { margin: 0; padding: 0; list-style-type: none; }
+button:focus { outline: auto; }
+
+.app {
+  display: flex;
+  height: 100%;
+}
+
+a.friend-list-item {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  transition: background 200ms ease;
+}
+
+a.friend-list-item:hover {
+  text-decoration: none;
+}
+
+a.friend-list-item.active,
+a.book-list-item.active {
+  background: linear-gradient(
+    hsl(165, 81%, 63%),
+    hsl(199, 95%, 67%)
+  );
+}
+
+.friend-list-avatar {
+  position: relative;
+  margin: 10px;
+}
+
+.friend-list-avatar-image {
+  display: inline-block;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  background-position: center center;
+}
+
+.book-count {
+  display: inline-block;
+  text-align: center;
+  line-height: 20px;
+  color: white;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  border-radius: 50%;
+  background: #FFCC00;
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  border: 2px solid white;
+}
+
+.friend-list-first-name {
+  font-size: 150%;
+}
+
+.sidebar {
+  margin: 10px;
+  border-right: solid 1px #ccc;
+  max-width: 300px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content {
+  flex: 1;
+  padding: 10px 0;
+  overflow: auto;
+}
+
+.nav-links {
+  display: flex;
+}
+
+a.nav-link {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  transition: color 200ms ease;
+}
+
+a.nav-link:hover {
+  text-decoration: none;
+}
+
+a.nav-link:not(.active):hover {
+  text-decoration: none;
+  color: hsl(165, 81%, 63%);
+}
+
+.nav-link.active {
+  color: hsl(199, 95%, 67%);
+}
+
+.main {
+  flex: 1;
+  padding: 10px 20px;
+}
+
+a.book-list-item {
+  height: 100px;
+  margin: 20px 0;
+  display: flex;
+  color: inherit;
+}
+
+a.book-list-item:hover {
+  text-decoration: none;
+}
+
+.book-list-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.book-list-item-text {
+  font-size: 125%;
+}
+
+.borrower-text {
+  padding-bottom: 10px;
+  color: #8E8E93;
+}
+
+.active .borrower-text {
+  color: white;
+}
+
+.book-list-item-image-wrapper {
+  width: 100px;
+  text-align: center;
+  position: relative;
+  padding: 10px;
+}
+
+.borrower-avatar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.book-list-image {
+  height: 100%;
+}
+
+.home {
+  text-align: center;
+}
+
+.friend {
+  display: flex;
+}
+
+.friend-header {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-right: 40px;
+}
+
+.friend-avatar-image {
+  display: inline-block;
+  background-size: cover;
+  background-position: center center;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  margin: 20px;
+}
+
+.friend-books {
+}
+
+.book-picker {
+  height: 200px;
+  width: 200px;
+  display: inline-flex;
+  vertical-align: text-top;
+  margin: 20px;
+  flex-direction: column;
+  background: #f7f7f7;
+}
+
+.book-picker-input {
+  font-size: 14px;
+  padding: 6px;
+  margin: 5px;
+  text-align: center
+}
+
+.book-picker-result {
+  flex: 1;
+  display: flex;
+  text-align: center;
+  padding: 10px;
+}
+
+.result-image-wrapper, .result-text {
+  flex: 1;
+}
+
+.result-image {
+  height: 100%;
+}
+
+.lent-book {
+  display: inline-block;
+  vertical-align: text-top;
+  margin: 20px;
+  transform: scale(1);
+  transition: transform 300ms ease;
+}
+
+.lent-book.lent-book-new {
+  transform: scale(0);
+}
+
+.book {
+  display: flex;
+  padding: 20px;
+}
+
+.book-image {
+  padding-right: 20px;
+  width: 200px;
+}
+
+.book-name {
+  margin-bottom: 20px;
+}
+
+.book-borrower {
+  margin: 20px 0;
+  display: flex;
+}
+
+.book-borrower-avatar {
+  display: inline-block;
+  background-size: cover;
+  background-position: center center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.return-button {
+  margin-top: 5px;
+}
+

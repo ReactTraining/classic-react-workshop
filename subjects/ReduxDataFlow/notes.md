@@ -1,0 +1,11 @@
+- what state is there, when does it change?
+- create a store, mess w/ it in the console with a counter
+- connect it to the app
+- logger middleware
+- explicit actions
+- move contacts into a reducer
+- connect it to the app
+- combineReducers
+- load contacts from server
+- async actions and thunk
+
