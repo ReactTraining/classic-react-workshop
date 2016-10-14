@@ -1,4 +1,4 @@
-import { fetchContacts, deleteContactById } from '../lib/contactsAPI'
+import { fetchContacts, deleteContactById } from './utils/api'
 
 export const ADD_CONTACT = 'ADD_CONTACT'
 export const LOAD_CONTACTS = 'LOAD_CONTACTS'
@@ -7,7 +7,14 @@ export const DELETE_CONTACT = 'DELETE_CONTACT'
 export const CONTACT_WAS_DELETED = 'CONTACT_WAS_DELETED'
 export const ERROR_DELETING_CONTACT = 'ERROR_DELETING_CONTACT'
 
-export function loadContacts(dispatch) {
+export const addContact = (contact) => {
+  return {
+    type: ADD_CONTACT,
+    contact
+  }
+}
+
+export const loadContacts = (dispatch) => {
   dispatch({ type: LOAD_CONTACTS })
 
   fetchContacts((error, contacts) => {
@@ -18,14 +25,7 @@ export function loadContacts(dispatch) {
   })
 }
 
-export function addContact(contact) {
-  return {
-    type: ADD_CONTACT,
-    contact
-  }
-}
-
-export function deleteContact(dispatch, contactId) {
+export const deleteContact = (dispatch, contactId) => {
   // We can handle latency with two actions: one when we begin...
   dispatch({ type: DELETE_CONTACT, contactId })
 

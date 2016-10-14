@@ -1,1 +1,0 @@
-export contacts from './contacts'

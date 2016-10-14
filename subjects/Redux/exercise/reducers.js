@@ -1,6 +1,9 @@
-import { ADD_CONTACT, CONTACTS_WERE_LOADED } from '../actions/contacts'
+import {
+  ADD_CONTACT,
+  CONTACTS_WERE_LOADED
+} from './actions'
 
-export default function (state = [], action) {
+export const contacts = (state = [], action) => {
   if (action.type === ADD_CONTACT)
     return state.concat([ action.contact ])
   else if (action.type === CONTACTS_WERE_LOADED)

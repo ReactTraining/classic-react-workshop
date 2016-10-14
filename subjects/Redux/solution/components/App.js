@@ -1,34 +1,39 @@
 import React, { PropTypes } from 'react'
 import CreateContactForm from './CreateContactForm'
-import { connect } from 'react-redux'
-import { addContact, loadContacts, deleteContact } from '../actions/contacts'
+import { addContact, loadContacts, deleteContact } from '../actions'
+import store from '../store'
 
-const App = React.createClass({
-  propTypes: {
-    dispatch: PropTypes.func.isRequired,
-    contacts: PropTypes.array.isRequired
-  },
+class App extends React.Component {
+  state = {
+    contacts: [],
+    contactsWithErrors: {},
+    contactsBeingDeleted: {}
+  }
 
   componentDidMount() {
-    loadContacts(this.props.dispatch)
-  },
+    store.subscribe(() => {
+      this.setState(store.getState())
+    })
 
-  handleCreateContact(contact) {
-    this.props.dispatch(addContact(contact))
-  },
+    loadContacts(store.dispatch)
+  }
+
+  createContact(contact) {
+    store.dispatch(addContact(contact))
+  }
 
   deleteContact(contact) {
-    deleteContact(this.props.dispatch, contact.id)
-  },
+    deleteContact(store.dispatch, contact.id)
+  }
 
   render() {
-    const { contacts, contactsWithErrors, contactsBeingDeleted } = this.props
+    const { contacts, contactsWithErrors, contactsBeingDeleted } = this.state
 
     return (
       <div>
         <h1>Contacts!</h1>
         <ul style={{ listStyleType: 'none', padding: 0 }}>
-          {contacts.map((contact) => (
+          {contacts.map(contact => (
             <li key={contact.id} style={{
               background: contactsWithErrors[contact.id] ? 'red' : '',
               opacity: contactsBeingDeleted[contact.id] ? '0.25' : ''
@@ -42,17 +47,11 @@ const App = React.createClass({
               )}
             </li>
           ))}
-          <li><CreateContactForm onCreate={this.handleCreateContact}/></li>
+          <li><CreateContactForm onCreate={contact => this.createContact(contact)}/></li>
         </ul>
       </div>
     )
   }
-})
+}
 
-export default connect((state) => {
-  return {
-    contacts: state.contacts,
-    contactsWithErrors: state.contactsWithErrors,
-    contactsBeingDeleted: state.contactsBeingDeleted
-  }
-})(App)
+export default App

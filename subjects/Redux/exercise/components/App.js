@@ -1,42 +1,38 @@
 import React, { PropTypes } from 'react'
 import CreateContactForm from './CreateContactForm'
-import { connect } from 'react-redux'
-import { addContact, loadContacts } from '../actions/contacts'
+import { addContact, loadContacts } from '../actions'
+import store from '../store'
 
-const App = React.createClass({
-  propTypes: {
-    dispatch: PropTypes.func.isRequired,
-    contacts: PropTypes.array.isRequired
-  },
-
-  handleCreateContact(contact) {
-    this.props.dispatch(addContact(contact))
-  },
+class App extends React.Component {
+  state = {
+    contacts: []
+  }
 
   componentDidMount() {
-    loadContacts(this.props.dispatch)
-  },
+    loadContacts(store.dispatch)
+  }
+
+  createContact(contact) {
+    store.dispatch(addContact(contact))
+  }
 
   render() {
+    const { contacts } = this.state
+
     return (
       <div>
         <h1>Contacts!</h1>
         <ul style={{ listStyleType: 'none', padding: 0 }}>
-          {this.props.contacts.map((contact) => (
+          {contacts.map(contact => (
             <li key={contact.id}>
-              <img src={contact.avatar} height="50"/>{' '}
-              {contact.first} {contact.last}
+              <img src={contact.avatar} height="50"/> {contact.first} {contact.last}
             </li>
           ))}
-          <li><CreateContactForm onCreate={this.handleCreateContact}/></li>
+          <li><CreateContactForm onCreate={contact => this.createContact(contact)}/></li>
         </ul>
       </div>
     )
   }
-})
+}
 
-export default connect((state) => {
-  return {
-    contacts: state.contacts
-  }
-})(App)
+export default App

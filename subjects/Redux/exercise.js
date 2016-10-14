@@ -1,31 +1,31 @@
 /*
-The goal of this exercise is to add a button beside each contact in the list
-that can be used to delete that contact. To do this, you'll need to perform
-the following steps:
+The goal of this exercise is to gain some hands-on experience using Redux to
+manage the state of a React application. In the process, we'll also learn how to
+use Redux to communicate changes to a real API server.
 
-Remember, redux models all changes to state with an action. Mimic what we've
-done to load the contacts with a new "thunk" action.
+  - Make the <App> update its state so it displays the contacts when the store
+    changes (hint: use store.subscribe). If you open the console, you'll see the
+    contacts are already being loaded from the API.
+  - Add a delete <button> next to each contact that dispatches a DELETE_CONTACT
+    action. Check the console to make sure the action is being dispatched.
+  - Add some logic to the contacts reducer to remove that contact when it sees
+    the DELETE_CONTACT action come through. Also, send a request to the API server
+    to actually delete the contact on the server. When you refresh the page, that
+    contact should not appear.
+  - To start with a fresh list of contacts, use `localStorage.clear()` in the
+    browser's console.
 
-The order you do things makes the code easier to iterate: write some code,
-app runs, write some code, app runs. We've found the best workflow with redux
-is to:
+We've added the logger middleware to show you all changes as they are happening
+in the browser console. If you get stuck, be sure to check the logs!
 
-1. add a reducer, in this exercise the reducer is already there (reducers/contacts)
-   so this part is already done.
-2. Add propTypes to your component for the state and then "mapStateToProps" it in `connect`
-3. add a new action, it doesn't have to do much yet, just exist
-4. add the UI and dispatch the action
-5. finish up the action's logic
-6. handle the action in the reducer by returning new state, remember don't mutate
-   the reducer state, return new objects/arrays.
+Got extra time?
 
-Doing it in this order ensures your app will continue to run when you save code.
-
-If you run into problems, check the logger's output:
-
-- Did you dispatch the right action? Check your component code.
-- Did you send the right data in the action? Check your action code.
-- Is the next state what you'd expect? Check the reducer.
-
+  - Use the throttling feature in Chrome's Network tab to simulate a really slow
+    connection. How does the UI respond to your actions? What can you do to improve
+    the UX?
 */
-import './exercise/index'
+import React from 'react'
+import { render } from 'react-dom'
+import App from './exercise/components/App'
+
+render(<App/>, document.getElementById('app'))

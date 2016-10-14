@@ -1,10 +1,17 @@
-import { fetchContacts, deleteContactById } from '../lib/contactsAPI'
+import { fetchContacts, deleteContactById } from './utils/api'
 
 export const ADD_CONTACT = 'ADD_CONTACT'
 export const LOAD_CONTACTS = 'LOAD_CONTACTS'
 export const CONTACTS_WERE_LOADED = 'CONTACTS_WERE_LOADED'
 
-export function loadContacts(dispatch) {
+export const addContact = (contact) => {
+  return {
+    type: ADD_CONTACT,
+    contact
+  }
+}
+
+export const loadContacts = (dispatch) => {
   dispatch({ type: LOAD_CONTACTS })
 
   fetchContacts((error, contacts) => {
@@ -13,11 +20,4 @@ export function loadContacts(dispatch) {
       contacts
     })
   })
-}
-
-export function addContact(contact) {
-  return {
-    type: ADD_CONTACT,
-    contact
-  }
 }

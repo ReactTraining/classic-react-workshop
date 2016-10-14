@@ -1,3 +1,22 @@
+import { createStore } from 'redux'
+
+const store = createStore((state = 0, action) => {
+  if (action.type === 'INCREMENT') {
+    return state + (action.by || 1)
+  } else {
+    return state
+  }
+})
+
+store.subscribe(() => {
+  console.log(store.getState())
+})
+
+store.dispatch({ type: 'INCREMENT' })
+store.dispatch({ type: 'INCREMENT', by: 5 })
+store.dispatch({ type: 'INCREMENT' })
+store.dispatch({ type: 'INCREMENT' })
+
 /*
 - Flux is an architecture, not a framework
   - DO NOT START BUILDING STUFF WITH FLUX WHEN YOU'RE FIRST GETTING STARTED WITH REACT
