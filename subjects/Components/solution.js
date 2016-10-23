@@ -11,19 +11,8 @@
 // - Make <Tabs> generic so that it doesn't know anything about
 //   country data (Hint: good propTypes help)
 ////////////////////////////////////////////////////////////////////////////////
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { render } from 'react-dom'
-
-const tabType = PropTypes.shape({
-  label: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
-})
-
-const countryType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
-})
 
 const styles = {}
 
@@ -45,20 +34,17 @@ styles.panel = {
   padding: 10
 }
 
-const Tabs = React.createClass({
-  propTypes: {
-    data: PropTypes.arrayOf(tabType)
-  },
-  getInitialState() {
-    return {
-      activeTabIndex: 0
-    }
-  },
+class Tabs extends React.Component {
+  state = {
+    activeTabIndex: 0
+  }
+
   selectTabIndex(activeTabIndex) {
     this.setState({
       activeTabIndex
     })
-  },
+  }
+
   render() {
     const { data } = this.props
     const { activeTabIndex } = this.state
@@ -89,26 +75,18 @@ const Tabs = React.createClass({
       </div>
     )
   }
-})
+}
 
-const App = React.createClass({
-  propTypes: {
-    countries: PropTypes.arrayOf(countryType).isRequired
-  },
+class App extends React.Component {
   render() {
-    const data = this.props.countries.map(country => ({
-      label: country.name,
-      content: country.description
-    }))
-
     return (
       <div>
         <h1>Countries</h1>
-        <Tabs data={data}/>
+        <Tabs data={this.props.countries}/>
       </div>
     )
   }
-})
+}
 
 const DATA = [
   { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },

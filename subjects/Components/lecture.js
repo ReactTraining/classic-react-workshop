@@ -59,19 +59,10 @@ updateThePage()
 // Side note: Be careful to use the React.Children utility methods.
 // this.props.children is opaque!
 
-//const ContentToggle = React.createClass({
-//
-//  propTypes: {
-//    title: React.PropTypes.string.isRequired,
-//    onToggle: React.PropTypes.func,
-//    children: React.PropTypes.node
-//  },
-//
-//  getInitialState() {
-//    return {
-//      isOpen: false
-//    }
-//  },
+//class ContentToggle extends React.Component {
+//  state = {
+//    isOpen: false
+//  }
 //
 //  handleClick() {
 //    this.setState({
@@ -80,7 +71,7 @@ updateThePage()
 //
 //    if (this.props.onToggle)
 //      this.props.onToggle()
-//  },
+//  }
 //
 //  render() {
 //    let summaryClassName = 'ContentToggle__Summary'
@@ -101,22 +92,18 @@ updateThePage()
 //      </div>
 //    )
 //  }
+//}
 //
-//})
-//
-//const ToggleTracker = React.createClass({
-//
-//  getInitialState() {
-//    return {
-//      numToggles: 0
-//    }
-//  },
+//class ToggleTracker extends React.Component {
+//  state = {
+//    numToggles: 0
+//  }
 //
 //  handleToggle() {
 //    this.setState({
 //      numToggles: this.state.numToggles + 1
 //    })
-//  },
+//  }
 //
 //  render() {
 //    let { children } = this.props
@@ -134,8 +121,7 @@ updateThePage()
 //      </div>
 //    )
 //  }
-//
-//})
+//}
 //
 //render((
 //  <ToggleTracker>
