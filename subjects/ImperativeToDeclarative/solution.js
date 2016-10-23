@@ -5,17 +5,17 @@
 // open and close it. Can you convert it to a declarative API?
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
-import { render, findDOMNode } from 'react-dom'
+import ReactDOM, { findDOMNode } from 'react-dom'
 import $ from 'jquery'
 import 'bootstrap-webpack'
 
-const Modal = React.createClass({
-  propTypes: {
+class Modal extends React.Component {
+  static propTypes = {
     isOpen: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
     onClose: PropTypes.func,
     children: PropTypes.node
-  },
+  }
 
   componentDidMount() {
     this.doImperativeWork()
@@ -27,12 +27,12 @@ const Modal = React.createClass({
       if (this.props.onClose)
         this.props.onClose()
     })
-  },
+  }
 
   componentDidUpdate(prevProps) {
     if (prevProps.isOpen !== this.props.isOpen)
       this.doImperativeWork()
-  },
+  }
 
   doImperativeWork() {
     if (this.props.isOpen === true) {
@@ -40,7 +40,7 @@ const Modal = React.createClass({
     } else {
       $(findDOMNode(this)).modal('hide')
     }
-  },
+  }
 
   render() {
     return (
@@ -58,22 +58,20 @@ const Modal = React.createClass({
       </div>
     )
   }
-})
+}
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      isModalOpen: false
-    }
-  },
+class App extends React.Component {
+  state = {
+    isModalOpen: false
+  }
 
-  openModal() {
+  openModal = () => {
     this.setState({ isModalOpen: true })
-  },
+  }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ isModalOpen: false })
-  },
+  }
 
   render() {
     return (
@@ -103,6 +101,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))

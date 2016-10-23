@@ -1,10 +1,10 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 
 ////////////////////////////////////////////////////////////////////////////////
 // React components are really just functions that take attributes
 //const element = React.DOM.input({type: 'text'})
-//render(element, document.getElementById('app'))
+//ReactDOM.render(element, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // You can also pass in children as extra arguments
@@ -13,7 +13,7 @@ import { render } from 'react-dom'
                                 //React.DOM.option({value: '2'}, 'two'),
                                 //React.DOM.option({value: '3'}, 'three')
                               //)
-//render(element, document.getElementById('app'))
+//ReactDOM.render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ import { render } from 'react-dom'
                     //option({value: '3'}, 'three')
                   //)
                  //)
-//render(element, document.getElementById('app'))
+//ReactDOM.render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ import { render } from 'react-dom'
 ////////////////////////////////////////////////////////////////////////////////
 // can pass in functions as event handlers
 //const element = React.DOM.button({onClick: function() { alert('clicked!') }}, 'alert!')
-//render(element, document.getElementById('app'))
+//ReactDOM.render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ import { render } from 'react-dom'
   //alert('clicked some more!')
 //}
 //const element = React.DOM.button({onClick: handleClick}, 'alert!')
-//render(element, document.getElementById('app'))
+//ReactDOM.render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ import { render } from 'react-dom'
   //console.log(event.button)
 //}
 //const element = React.DOM.button({ onMouseDown: handleClick }, 'log button')
-//render(element, document.getElementById('app'))
+//ReactDOM.render(element, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ import { render } from 'react-dom'
                 //p({}, 'Pork Carnitas street tacos are the best')
               //)
 
-//render(element, document.getElementById('app'))
+//ReactDOM.render(element, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // no special template syntax/helpers, just use Array methods on lists
@@ -85,7 +85,7 @@ import { render } from 'react-dom'
 //const items = tacos.map(function(taco) {
   //return <li>{taco.name}</li>
 //})
-//render(<ul>{items}</ul>), document.getElementById('app'))
+//ReactDOM.render(<ul>{items}</ul>), document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +118,7 @@ import { render } from 'react-dom'
   //return realIndex > 9 ? ''+realIndex : '0'+realIndex
 //}
 
-//render((
+//ReactDOM.render((
   //<select>
     //{months.map((month, index) => (
       //<option>({padMonth(index)}) {month}</option>
@@ -131,7 +131,7 @@ import { render } from 'react-dom'
 // - JSX ... or not
 
 //const { select, option } = React.DOM
-//render(select({}, months.map((month, index) => (
+//ReactDOM.render(select({}, months.map((month, index) => (
   //option({}, `(${padMonth(index)}) ${month}`)
 //))), document.getElementById('app'))
 
@@ -148,7 +148,7 @@ import { render } from 'react-dom'
   //return <select>{months.map(monthOption)}</select>
 //}
 
-//render(<MonthSelect/>, document.getElementById('app'))
+//ReactDOM.render(<MonthSelect/>, document.getElementById('app'))
 
 
 ////////////////////////////////////////////////////////////////////////////////

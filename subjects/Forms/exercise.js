@@ -15,12 +15,11 @@
 // - If the user types something into shipping, then checks the checkbox, then
 //   unchecks the checkbox, ensure the field has the information from
 //   before clicking the checkbox the first time
-
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import serializeForm from 'form-serialize'
 
-const CheckoutForm = React.createClass({
+class CheckoutForm extends React.Component {
   render() {
     return (
       <div>
@@ -52,6 +51,6 @@ const CheckoutForm = React.createClass({
       </div>
     )
   }
-})
+}
 
-render(<CheckoutForm/>, document.getElementById('app'))
+ReactDOM.render(<CheckoutForm/>, document.getElementById('app'))

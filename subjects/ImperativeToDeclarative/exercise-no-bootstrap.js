@@ -6,23 +6,21 @@
 //   imperative API D: Make it declarative!
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 
-const Modal = React.createClass({
-  getInitialState() {
-    return { isOpen: false }
-  },
+class Modal extends React.Component {
+  state = { isOpen: false }
 
-  containerStyle: {
+  containerStyle = {
     position: 'fixed',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
     background: 'rgba(255, 255, 255, 0.75)'
-  },
+  }
 
-  contentStyle: {
+  contentStyle = {
     position: 'fixed',
     padding: 10,
     left: 50,
@@ -32,15 +30,15 @@ const Modal = React.createClass({
     background: '#fff',
     border: '1px solid',
     textAlign: 'center'
-  },
+  }
 
   open() {
     this.setState({ isOpen: true })
-  },
+  }
 
   close() {
     this.setState({ isOpen: false })
-  },
+  }
 
   render() {
     if (this.state.isOpen === false)
@@ -54,16 +52,16 @@ const Modal = React.createClass({
       </div>
     )
   }
-})
+}
 
-const App = React.createClass({
-  openModal() {
+class App extends React.Component {
+  openModal = () => {
     this.refs.modal.open()
-  },
+  }
 
-  closeModal() {
+  closeModal = () => {
     this.refs.modal.close()
-  },
+  }
 
   render() {
     return (
@@ -88,6 +86,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))

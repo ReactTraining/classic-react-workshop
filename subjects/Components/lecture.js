@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 
 let isOpen = false
 
@@ -29,7 +29,7 @@ function ContentToggle() {
 }
 
 function updateThePage() {
-  render(<ContentToggle/>, document.getElementById('app'))
+  ReactDOM.render(<ContentToggle/>, document.getElementById('app'))
 }
 
 updateThePage()
@@ -123,7 +123,7 @@ updateThePage()
 //  }
 //}
 //
-//render((
+//ReactDOM.render((
 //  <ToggleTracker>
 //    <ContentToggle title="Tacos">
 //      <p>A taco is a traditional Mexican dish composed of a corn or wheat tortilla folded or rolled around a filling.</p>

@@ -16,24 +16,22 @@
 // props down to <Tabs> (since it should now be stateless).
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import * as styles from './lib/styles'
 import data from './lib/data'
 
-const Tabs = React.createClass({
-  propTypes: {
+class Tabs extends React.Component {
+  static propTypes = {
     data: React.PropTypes.array.isRequired
-  },
+  }
 
-  getInitialState() {
-    return {
-      activeTabIndex: 0
-    }
-  },
+  state = {
+    activeTabIndex: 0
+  }
 
   handleTabClick(activeTabIndex) {
     this.setState({ activeTabIndex })
-  },
+  }
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
@@ -48,7 +46,7 @@ const Tabs = React.createClass({
         >{tab.name}</div>
       )
     })
-  },
+  }
 
   renderPanel() {
     const tab = this.props.data[this.state.activeTabIndex]
@@ -57,7 +55,7 @@ const Tabs = React.createClass({
         <p>{tab.description}</p>
       </div>
     )
-  },
+  }
 
   render() {
     return (
@@ -71,9 +69,9 @@ const Tabs = React.createClass({
       </div>
     )
   }
-})
+}
 
-const App = React.createClass({
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -82,8 +80,8 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
-render(<App tabs={data}/>, document.getElementById('app'), function () {
+ReactDOM.render(<App tabs={data}/>, document.getElementById('app'), function () {
   require('./tests').run(this)
 })
