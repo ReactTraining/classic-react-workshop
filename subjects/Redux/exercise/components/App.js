@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import CreateContactForm from './CreateContactForm'
 import { addContact, loadContacts } from '../actions'
 import store from '../store'
