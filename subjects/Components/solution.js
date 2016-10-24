@@ -49,22 +49,22 @@ class Tabs extends React.Component {
     const { data } = this.props
     const { activeTabIndex } = this.state
 
-    const tabs = data.map((tab, index) => {
+    const tabs = data.map((country, index) => {
       const isActive = index === activeTabIndex
       const style = isActive ? styles.activeTab : styles.tab
 
       return (
         <div
-          key={tab.label}
+          key={country.id}
           className="Tab"
           style={style}
           onClick={() => this.selectTabIndex(index)}
-        >{tab.label}</div>
+        >{country.name}</div>
       )
     })
 
-    const activeTab = data[activeTabIndex]
-    const content = activeTab && activeTab.content
+    const activeCountry = data[activeTabIndex]
+    const content = activeCountry && activeCountry.description
 
     return (
       <div className="Tabs">
