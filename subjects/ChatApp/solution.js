@@ -42,26 +42,26 @@ unsubscribe() // stop listening for new messages
 The world is your oyster!
 */
 
-const SmartScroller = React.createClass({
+class SmartScroller extends React.Component {
   componentDidMount() {
     this.autoScroll = true
     this.scrollToBottom()
-  },
+  }
 
   componentDidUpdate() {
     if (this.autoScroll)
       this.scrollToBottom()
-  },
+  }
 
   scrollToBottom() {
     this.node.scrollTop = this.node.scrollHeight
-  },
+  }
 
   handleScroll() {
     const { scrollTop, scrollHeight, clientHeight } = this.node
     const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
     this.autoScroll = distanceToBottom < 10
-  },
+  }
 
   render() {
     return (
@@ -72,15 +72,13 @@ const SmartScroller = React.createClass({
       />
     )
   }
-})
+}
 
-const Chat = React.createClass({
-  getInitialState() {
-    return {
-      auth: null,
-      messages: []
-    }
-  },
+class Chat extends React.Component {
+  state = {
+    auth: null,
+    messages: []
+  }
 
   componentDidMount() {
     login((error, auth) => {
@@ -90,15 +88,15 @@ const Chat = React.createClass({
         this.setState({ messages })
       })
     })
-  },
+  }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault()
 
     const { auth } = this.state
     const messageText = this.messageInput.value
 
-    if (messageText !== '') {
+    if ((/\S/).test(messageText)) {
       sendMessage(
         auth.uid,                       // the auth.uid string
         auth.github.username,           // the username
@@ -106,10 +104,10 @@ const Chat = React.createClass({
         messageText                     // the text of the message
       )
 
-      // Clear the message input.
-      this.messageInput.value = ''
+      // Clear the form.
+      event.target.reset()
     }
-  },
+  }
 
   render() {
     const { auth, messages } = this.state
@@ -119,31 +117,16 @@ const Chat = React.createClass({
 
     // Array of arrays of messages grouped by user.
     const messageGroups = messages.reduce((groups, message) => {
-      const lastGroup = groups.length && groups[groups.length - 1]
+      const prevGroup = groups.length && groups[groups.length - 1]
 
-      if (lastGroup && lastGroup[0].uid === message.uid) {
-        lastGroup.push(message)
+      if (prevGroup && prevGroup[0].uid === message.uid) {
+        prevGroup.push(message)
       } else {
         groups.push([ message ])
       }
 
       return groups
     }, [])
-
-    const messageGroupItems = messageGroups.map(messages => {
-      return (
-        <li className="message-group">
-          <div className="message-group-avatar">
-            <img src={messages[0].avatarURL}/>
-          </div>
-          <ol className="messages">
-            {messages.map(m => (
-              <li key={m._key} className="message">{m.text}</li>
-            ))}
-          </ol>
-        </li>
-      )
-    })
 
     return (
       <div className="chat">
@@ -153,7 +136,18 @@ const Chat = React.createClass({
         </header>
         <SmartScroller className="messages">
           <ol className="message-groups">
-            {messageGroupItems}
+          {messageGroups.map(messages => (
+            <li className="message-group">
+              <div className="message-group-avatar">
+                <img src={messages[0].avatarURL}/>
+              </div>
+              <ol className="messages">
+              {messages.map(message => (
+                <li key={message._key} className="message">{message.text}</li>
+              ))}
+              </ol>
+            </li>
+          ))}
           </ol>
         </SmartScroller>
         <form className="new-message-form" onSubmit={this.handleSubmit}>
@@ -164,6 +158,6 @@ const Chat = React.createClass({
       </div>
     )
   }
-})
+}
 
 render(<Chat/>, document.getElementById('app'))
