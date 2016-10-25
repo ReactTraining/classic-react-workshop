@@ -21,22 +21,18 @@ import serializeForm from 'form-serialize'
 
 class CheckoutForm extends React.Component {
   state = {
-    billingName: 'Jane Doe',
-    billingState: 'WA',
+    billingName: 'Michael Jackson',
+    billingState: 'CA',
     shippingName: '',
     shippingState: '',
     shippingSameAsBilling: false
   }
 
-  handleCheckboxChange = (event) => {
-    this.setState({
-      shippingSameAsBilling: event.target.checked
-    })
-  }
-
   handleSubmit = (event) => {
     event.preventDefault()
+
     const values = serializeForm(event.target, { hash: true })
+
     console.log(values)
   }
 
@@ -78,8 +74,10 @@ class CheckoutForm extends React.Component {
 
           <fieldset>
             <label>
-              <input type="checkbox" onChange={this.handleCheckboxChange}/>{' '}
-              Same as billing
+              <input
+                type="checkbox"
+                onChange={event => this.setState({ shippingSameAsBilling: event.target.checked })}
+              /> Same as billing
             </label>
             <legend>Shipping Address</legend>
             <p>

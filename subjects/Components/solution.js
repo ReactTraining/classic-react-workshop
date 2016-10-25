@@ -40,9 +40,7 @@ class Tabs extends React.Component {
   }
 
   selectTabIndex(activeTabIndex) {
-    this.setState({
-      activeTabIndex
-    })
+    this.setState({ activeTabIndex })
   }
 
   render() {
