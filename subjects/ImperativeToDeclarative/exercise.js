@@ -34,11 +34,11 @@ class Modal extends React.Component {
 }
 
 class App extends React.Component {
-  openModal() {
+  openModal = () => {
     $(findDOMNode(this.refs.modal)).modal('show')
   }
 
-  closeModal() {
+  closeModal = () => {
     $(findDOMNode(this.refs.modal)).modal('hide')
   }
 
