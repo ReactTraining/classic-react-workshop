@@ -70,30 +70,26 @@ const PinnedToBottom = React.createClass({
   }
 })
 
-const Tail = React.createClass({
-  propTypes: {
+class Tail extends React.Component {
+  static propTypes = {
     lines: PropTypes.arrayOf(PropTypes.string).isRequired,
     n: PropTypes.number.isRequired
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      n: 15
-    }
-  },
+  static defaultProps = {
+    n: 15
+  }
 
   render() {
     const { children, lines, n } = this.props
     return children(lines.slice(-n))
   }
-})
+}
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      lines: []
-    }
-  },
+class App extends React.Component {
+  state = {
+    lines: []
+  }
 
   componentDidMount() {
     listen(newLines => {
@@ -101,7 +97,7 @@ const App = React.createClass({
         lines: this.state.lines.concat(newLines)
       })
     })
-  },
+  }
 
   render() {
     return (
@@ -123,6 +119,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 render(<App/>, document.getElementById('app'))

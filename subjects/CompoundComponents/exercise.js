@@ -32,20 +32,20 @@
 import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 
-const RadioGroup = React.createClass({
-  propTypes: {
+class RadioGroup extends React.Component {
+  static propTypes = {
     defaultValue: PropTypes.string
-  },
+  }
 
   render() {
     return <div>{this.props.children}</div>
   }
-})
+}
 
-const RadioOption = React.createClass({
-  propTypes: {
+class RadioOption extends React.Component {
+  static propTypes = {
     value: PropTypes.string
-  },
+  }
 
   render() {
     return (
@@ -54,12 +54,12 @@ const RadioOption = React.createClass({
       </div>
     )
   }
-})
+}
 
-const RadioIcon = React.createClass({
-  propTypes: {
+class RadioIcon extends React.Component {
+  static propTypes = {
     isSelected: PropTypes.bool.isRequired
-  },
+  }
 
   render() {
     return (
@@ -77,9 +77,9 @@ const RadioIcon = React.createClass({
       />
     )
   }
-})
+}
 
-const App = React.createClass({
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -94,6 +94,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 render(<App/>, document.getElementById('app'))

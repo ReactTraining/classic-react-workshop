@@ -3,24 +3,22 @@ import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 import './styles.css'
 
-const Select = React.createClass({
-  propTypes: {
+class Select extends React.Component {
+  static propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.any,
     defaultValue: PropTypes.any
-  },
+  }
 
-  getInitialState() {
-    return {
-      value: this.props.defaultValue || null,
-      showChildren: false
-    }
-  },
+  state = {
+    value: this.props.defaultValue || null,
+    showChildren: false
+  }
 
   componentWillMount() {
     if (!this.isUncontrolled() && !this.props.onChange)
       console.warn('This thing is gonna be read-only, etc. etc.')
-  },
+  }
 
   getLabel() {
     let label = null
@@ -37,17 +35,17 @@ const Select = React.createClass({
     })
 
     return label
-  },
+  }
 
   toggle() {
     this.setState({
       showChildren: !this.state.showChildren
     })
-  },
+  }
 
   isUncontrolled() {
     return this.props.value == null
-  },
+  }
 
   handleSelect(value) {
     const nextState = { showChildren: false }
@@ -59,7 +57,7 @@ const Select = React.createClass({
       if (this.props.onChange)
         this.props.onChange(value)
     })
-  },
+  }
 
   renderChildren() {
     return React.Children.map(this.props.children, (child) => (
@@ -67,7 +65,7 @@ const Select = React.createClass({
         onSelect: (value) => this.handleSelect(value)
       })
     ))
-  },
+  }
 
   render() {
     return (
@@ -81,12 +79,12 @@ const Select = React.createClass({
       </div>
     )
   }
-})
+}
 
-const Option = React.createClass({
+class Option extends React.Component {
   handleClick() {
     this.props.onSelect(this.props.value)
-  },
+  }
 
   render() {
     return (
@@ -96,18 +94,16 @@ const Option = React.createClass({
       >{this.props.children}</div>
     )
   }
-})
+}
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      selectValue: 'dosa'
-    }
-  },
+class App extends React.Component {
+  state = {
+    selectValue: 'dosa'
+  }
 
-  setToMintChutney() {
+  setToMintChutney = () => {
     this.setState({ selectValue: 'mint-chutney' })
-  },
+  }
 
   render() {
     return (
@@ -141,6 +137,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 render(<App/>, document.getElementById('app'))

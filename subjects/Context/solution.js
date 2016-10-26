@@ -20,45 +20,45 @@
 import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
 
-const Form = React.createClass({
-  childContextTypes: {
+class Form extends React.Component {
+  static childContextTypes = {
     onFormSubmit: PropTypes.func
-  },
+  }
 
   getChildContext() {
     return {
       onFormSubmit: this.props.onSubmit
     }
-  },
+  }
 
   render() {
     return <div>{this.props.children}</div>
   }
-})
+}
 
-const SubmitButton = React.createClass({
-  contextTypes: {
+class SubmitButton extends React.Component {
+  static contextTypes = {
     onFormSubmit: React.PropTypes.func
-  },
+  }
 
-  handleClick() {
+  handleClick = () => {
     this.context.onFormSubmit()
-  },
+  }
 
   render() {
     return <button onClick={this.handleClick}>{this.props.children}</button>
   }
-})
+}
 
-const TextInput = React.createClass({
-  contextTypes: {
+class TextInput extends React.Component {
+  static contextTypes = {
     onFormSubmit: React.PropTypes.func
-  },
+  }
 
-  handleKeyDown(event) {
+  handleKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === 'Space')
       this.context.onFormSubmit()
-  },
+  }
 
   render() {
     return (
@@ -70,12 +70,12 @@ const TextInput = React.createClass({
       />
     )
   }
-})
+}
 
-const App = React.createClass({
-  handleSubmit() {
+class App extends React.Component {
+  handleSubmit = () => {
     alert('YOU WIN!')
-  },
+  }
 
   render() {
     return (
@@ -94,6 +94,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 render(<App/>, document.getElementById('app'))
