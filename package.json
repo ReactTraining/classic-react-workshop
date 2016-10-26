@@ -68,11 +68,13 @@
     "redux": "3.0.4",
     "redux-logger": "2.2.1",
     "redux-thunk": "1.0.0",
+    "resolve-pathname": "2.0.2",
     "sort-by": "^1.1.0",
     "style-loader": "^0.13.1",
     "supervisor": "^0.11.0",
     "underscore": "^1.8.3",
     "url-loader": "^0.5.6",
+    "warning": "3.0.0",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.8.0"
   },
