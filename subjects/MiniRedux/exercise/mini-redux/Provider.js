@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Provider = React.createClass({
+class Provider extends React.Component {
   render() {
     return <div>{this.props.children}</div>
   }
-})
+}
 
 export default Provider

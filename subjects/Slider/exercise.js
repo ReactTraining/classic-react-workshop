@@ -3,85 +3,77 @@ import { render } from 'react-dom'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './styles.css'
 
-const Slider = React.createClass({
-  propTypes: {
+class Slider extends React.Component {
+  static propTypes = {
     initialIndex: PropTypes.number.isRequired,
     autoplay: PropTypes.bool,
     onTogglePlay: PropTypes.func,
     duration: PropTypes.number
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      autoplay: false,
-      duration: 5000,
-      initialIndex: 0
-    }
-  },
+  static defaultProps = {
+    autoplay: false,
+    duration: 5000,
+    initialIndex: 0
+  }
 
   render() {
     return (
       <div {...this.props}/>
     )
   }
-})
+}
 
-const SliderStage = React.createClass({
+class SliderStage extends React.Component {
   render() {
     return (
       <div {...this.props}/>
     )
   }
-})
+}
 
-const Slide = React.createClass({
+class Slide extends React.Component {
   render() {
     return <img {...this.props}/>
   }
-})
+}
 
-const SliderControls = React.createClass({
+class SliderControls extends React.Component {
   render() {
     return (
       <div {...this.props}/>
     )
   }
-})
+}
 
-const SliderPrevious = React.createClass({
+class SliderPrevious extends React.Component {
   render() {
     return (
       <button {...this.props}/>
     )
   }
-})
+}
 
-const SliderPlayPause = React.createClass({
+class SliderPlayPause extends React.Component {
   render() {
     return (
       <button {...this.props}/>
     )
   }
-})
+}
 
-const SliderNext = React.createClass({
-  contextTypes: {
-    next: PropTypes.func.isRequired
-  },
-
+class SliderNext extends React.Component {
   render() {
     return (
       <button {...this.props}/>
     )
   }
-})
+}
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      isPlaying: true
-    }
-  },
+class App extends React.Component {
+  state = {
+    isPlaying: true
+  }
 
   render() {
     return (
@@ -109,6 +101,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 render(<App/>, document.getElementById('app'))

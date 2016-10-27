@@ -8,7 +8,7 @@ const ITEMS = []
 for (let i = 0; i < 200; i++)
   ITEMS.push({ id: ++guid, body: `item ${guid}` })
 
-const TodoItem = React.createClass({
+class TodoItem extends React.Component {
   render() {
     return (
       <li>
@@ -33,16 +33,14 @@ const TodoItem = React.createClass({
       </li>
     )
   }
-})
+}
 
-const TodoList = React.createClass({
-  getInitialState() {
-    return {
-      items: ITEMS
-    }
-  },
+class TodoList extends React.Component {
+  state = {
+    items: ITEMS
+  }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault()
 
     const item = {
@@ -51,15 +49,11 @@ const TodoList = React.createClass({
     }
 
     event.target.reset()
-    Perf.start()
 
     this.setState({
       items: [ item ].concat(this.state.items)
-    }, () => {
-      Perf.stop()
-      Perf.printWasted()
     })
-  },
+  }
 
   render() {
     return (
@@ -75,7 +69,7 @@ const TodoList = React.createClass({
       </div>
     )
   }
-})
+}
 
 render(<TodoList/>, document.getElementById('app'))
 

@@ -3,77 +3,69 @@ import { render } from 'react-dom'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './styles.css'
 
-const Slider = React.createClass({
-  propTypes: {
+class Slider extends React.Component {
+  static propTypes = {
     initialIndex: PropTypes.number.isRequired,
-    autoPlay: PropTypes.bool,
+    autoplay: PropTypes.bool,
     onTogglePlay: PropTypes.func,
     duration: PropTypes.number
-  },
+  }
 
-  childContextTypes: {
+  static defaultProps = {
+    autoplay: false,
+    duration: 5000,
+    initialIndex: 0
+  }
+
+  static childContextTypes = {
     currentIndex: PropTypes.number,
     next: PropTypes.func,
     prev: PropTypes.func,
     registerCount: PropTypes.func,
     toggleAutoPlay: PropTypes.func
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      autoPlay: false,
-      duration: 5000,
-      initialIndex: 0
-    }
-  },
+  state = {
+    currentIndex: this.props.initialIndex || 0
+  }
 
-  getInitialState() {
-    return {
-      currentIndex: this.props.initialIndex || 0
-    }
-  },
+  slideCount = null
+  interval = null
 
   getChildContext() {
     return {
       currentIndex: this.state.currentIndex,
-      next: () => this.next(),
-      prev: () => this.prev(),
+      next: this.next,
+      prev: this.prev,
       registerCount: (count) => this.slideCount = count,
       toggleAutoPlay: () => this.toggleAutoPlay()
     }
-  },
-
-  componentWillMount() {
-    this.slideCount = null
-    this.interval = null
-  },
+  }
 
   componentDidMount() {
     if (this.props.autoPlay)
       this.startAutoPlay()
-  },
+  }
 
   toggleAutoPlay() {
-    // I'm lookin' at this method with a side-eye, I can't predict
-    // the component looking at state, props, and render ...
     if (this.interval)
       this.stopAutoPlay()
     else
       this.startAutoPlay()
 
     this.props.onTogglePlay(!!this.interval)
-  },
+  }
 
   startAutoPlay() {
     this.interval = setInterval(this.next, this.props.duration)
-  },
+  }
 
   stopAutoPlay() {
     clearInterval(this.interval)
     this.interval = null
-  },
+  }
 
-  prev() {
+  prev = () => {
     let { currentIndex } = this.state
 
     currentIndex--
@@ -82,9 +74,9 @@ const Slider = React.createClass({
       currentIndex = this.slideCount - 1
 
     this.setState({ currentIndex })
-  },
+  }
 
-  next() {
+  next = () => {
     let { currentIndex } = this.state
 
     currentIndex++
@@ -93,31 +85,44 @@ const Slider = React.createClass({
       currentIndex = 0
 
     this.setState({ currentIndex })
-  },
+  }
 
   render() {
+    const {
+      initialIndex,
+      autoplay,
+      onTogglePlay,
+      duration,
+      ...props
+    } = this.props
     return (
-      <div {...this.props}/>
+      <div {...props}/>
     )
   }
-})
+}
 
-const SliderStage = React.createClass({
-  contextTypes: {
+class SliderStage extends React.Component {
+  static contextTypes = {
     currentIndex: PropTypes.number.isRequired,
     registerCount: PropTypes.func.isRequired
-  },
+  }
 
-  componentWillMount() {
-    this.context.registerCount(React.Children.count(this.props.children))
-  },
+  componentDidMount() {
+    this.context.registerCount(
+      React.Children.count(this.props.children)
+    )
+  }
 
   render() {
     const style = { ...this.props.style, position: 'relative' }
 
     return (
       <div {...this.props} style={style}>
-        <CSSTransitionGroup transitionName="fade">
+        <CSSTransitionGroup
+          transitionName="fade"
+          transitionEnterTimeout={600}
+          transitionLeaveTimeout={600}
+        >
           {React.cloneElement(this.props.children[this.context.currentIndex], {
             key: this.context.currentIndex
           })}
@@ -125,69 +130,67 @@ const SliderStage = React.createClass({
       </div>
     )
   }
-})
+}
 
-const Slide = React.createClass({
+class Slide extends React.Component {
   componentWillMount() {
     // preload 'em
     new Image().src = this.props.src
-  },
+  }
 
   render() {
     return <img {...this.props} style={{ position: 'absolute' }}/>
   }
-})
+}
 
-const SliderControls = React.createClass({
+class SliderControls extends React.Component {
   render() {
     return (
       <div {...this.props}/>
     )
   }
-})
+}
 
-const SliderPrevious = React.createClass({
-  contextTypes: {
+class SliderPrevious extends React.Component {
+  static contextTypes = {
     prev: PropTypes.func.isRequired
-  },
+  }
 
   render() {
     return (
       <button {...this.props} onClick={this.context.prev}/>
     )
   }
-})
+}
 
-const SliderPlayPause = React.createClass({
-  contextTypes: {
+class SliderPlayPause extends React.Component {
+  static contextTypes = {
     toggleAutoPlay: PropTypes.func.isRequired
-  },
+  }
 
   render() {
     return (
       <button {...this.props} onClick={this.context.toggleAutoPlay}/>
     )
   }
-})
+}
 
-const SliderNext = React.createClass({
-  contextTypes: {
+class SliderNext extends React.Component {
+  static contextTypes = {
     next: PropTypes.func.isRequired
-  },
+  }
 
   render() {
     return (
-      <button {...this.props} onClick={() => this.context.next()}/>
+      <button {...this.props} onClick={this.context.next}/>
     )
   }
-})
+}
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      isPlaying: true
-    }
-  },
+class App extends React.Component {
+  state = {
+    isPlaying: true
+  }
 
   render() {
     return (
@@ -215,6 +218,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 render(<App/>, document.getElementById('app'))
