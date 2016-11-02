@@ -43,6 +43,10 @@ class App extends React.Component {
     selectValue: 'dosa'
   }
 
+  setToMintChutney() {
+   this.setState({selectValue: 'mint-chutney'})
+  }
+
   render() {
     return (
       <div>
