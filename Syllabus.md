@@ -174,19 +174,33 @@ Objectives:
 - Seamlessly transition to the client page without replacing HTML already in the page
 
 
-## Flux
+## Redux
 
-Flux is a pattern for data flow that can be useful when using React. We'll work on a real Flux app that makes requests to a real server and explore some techniques for managing data flow client-side.
+Redux is a library for managing application state that can be useful when using React. We'll work on a real Redux app that makes requests to a real server and explore some techniques for managing shared state client-side.
 
 Objectives:
 - Understand one-way data flow
-- Implement a feature using Flux
-- Handle latency and errors using Flux
+- Understand Redux concepts like stores and actions
+- Implement a feature using Redux
+- Handle latency and errors using Redux
+
+
+## Implementing Redux
+
+The react-redux bindings make use of several advanced features of React including [context](#context) and [higher-order components](#higher-order-components). We'll use both of these concepts to build our own "mini Redux" and discover how Redux really works behind the scenes.
+
+Objectives:
+- Use higher-order components to put stuff on context
+- Use context to pass state down the hierarchy
+
+Prerequisites:
+- [Context](#context)
+- [Higher Order Components](#higher-order-components)
 
 
 ## Migrating to React
 
-Here we'll discuss a technique to migrate, instead of rewrite, your app to React in way that won't block your team. You'll be writing and shipping your new code incrementally. We'll also discuss how to integrate with existing JS libs as you encounter them in your app.
+This section is designed for teams that want to migrate, instead of rewrite, their existing app to React in a way that won't block everyone else on the team. You'll be writing and shipping your new code incrementally. We'll also discuss how to integrate with existing JS libs as you encounter them in your app.
 
 Objectives:
 - Learn how to integrate React into an existing code-base
