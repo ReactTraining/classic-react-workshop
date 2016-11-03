@@ -154,7 +154,7 @@ Prerequisites:
 
 ## Routing
 
-Keep your application UI and the URL in sync, no more broken back buttons. We'll introduce some basic uses of React Router, and how it helps you stitch together your components into an application.
+Keep your application UI and the URL in sync, no more broken back buttons. We'll introduce some basic uses of [React Router](https://github.com/ReactTraining/react-router), and how it helps you weave together your components into an application with multiple screens.
 
 Objectives:
 - Understand principles of client-side "routing"
@@ -162,10 +162,13 @@ Objectives:
 - Create UI at specific URLs
 - Transition between screens
 
+Prerequisites:
+- [Render Props](#render-props)
+
 
 ## Server Rendering
 
-React lets you render your components server-side for improved SEO and performance. In this section we'll discuss the techniques and trade-offs of rendering your React components on the server.
+React lets you render your components server-side for improved SEO and performance. In this section we'll discuss the techniques and trade-offs of rendering your React components on the server. We'll also transition a fully client-side app to server-side rendering, and discuss the use cases we solve each step of the way.
 
 Objectives:
 - Understand principles of server-side rendering and when it's useful
