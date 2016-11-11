@@ -1,124 +1,136 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Write a <Tail> that only logs the last `n` number of rows in a dataset,
-// with an API that allows the developer to control the rendering.
-//
-// Hint: You can use a prop that renders a single item, or you can pass all
-// the items to the render prop handing over all rendering control to the
-// developer
-//
-// Got extra time?
-//
-// - Make the <Tail> scroll to the bottom when new rows come in
-// - If you didn't already do it this way, make it declarative with a
-//   <PinnedToBottom> component
-// - Now make sure if the user scrolls up, you don't scroll them down
-// - Make a <JSONP> component that fetches data with the jsonp package used in
-//   `utils/githubSearch` that uses a render prop to pass its data back up
+// - Refactor App by creating a new component named `<GeoPosition>`
+// - <GeoPosition> should use a child render callback that passes
+//   to <App> the latitude and longitude state
+// - When you're done, <App> should no longer have anything but
+//   a render method
+// - now create a <GeoAddress> component that also uses a render
+//   callback with the current address. You will use
+//   `getAddressFromCoords(latitude, longitude)` to get the
+//   address, it returns a promise.
+// - Render another <GeoPosition> with <GeoAddress>
+//   beneath it to naturally compose both the UI and the state
+//   needed to render it, then render the address
+// - Make sure GeoAddress supports the user moving positions
 ////////////////////////////////////////////////////////////////////////////////
-import React, { PropTypes } from 'react'
-import { render, findDOMNode } from 'react-dom'
-import { listen } from './utils/log'
+import React from 'react'
+import { render } from 'react-dom'
+import LoadingDots from './utils/LoadingDots'
+import getAddressFromCoords from './utils/getAddressFromCoords'
 
-const componentType = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.func
-])
+class GeoPosition extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.func.isRequired
+  }
 
-const PinnedToBottom = React.createClass({
-  propTypes: {
-    component: componentType.isRequired,
-    tolerance: PropTypes.number.isRequired
-  },
-
-  getDefaultProps() {
-    return {
-      component: 'div',
-      tolerance: 10
-    }
-  },
+  state = {
+    coords: {
+      latitude: null,
+      longitude: null
+    },
+    error: null
+  }
 
   componentDidMount() {
-    this.autoScroll = true
-    this.scrollToBottom()
-  },
+    this.geoId = navigator.geolocation.watchPosition(
+      (position) => {
+        this.setState({
+          coords: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        })
+      },
+      (error) => {
+        this.setState({ error })
+      }
+    )
+  }
 
-  componentWillUpdate() {
-    const { clientHeight, scrollHeight, scrollTop } = findDOMNode(this)
-    const distanceToBottom = scrollHeight - (clientHeight + scrollTop)
-    this.autoScroll = distanceToBottom < this.props.tolerance
-  },
-
-  componentDidUpdate() {
-    if (this.autoScroll)
-      this.scrollToBottom()
-  },
-
-  scrollToBottom() {
-    const node = findDOMNode(this)
-    node.scrollTop = node.scrollHeight
-  },
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.geoId)
+  }
 
   render() {
-    const { children, component, style } = this.props
-
-    return React.createElement(component, {
-      style: { ...style, overflowY: 'scroll' },
-      children
-    })
+    return this.props.children(this.state)
   }
-})
+}
 
-class Tail extends React.Component {
+class GeoAddress extends React.Component {
   static propTypes = {
-    lines: PropTypes.arrayOf(PropTypes.string).isRequired,
-    n: PropTypes.number.isRequired
+    latitude: React.PropTypes.number,
+    longitude: React.PropTypes.number,
+    children: React.PropTypes.func.isRequired
   }
 
-  static defaultProps = {
-    n: 15
+  state = { address: null }
+
+  componentDidMount() {
+    if (this.props.latitude && this.props.longitude)
+      this.fetch()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.longitude !== this.props.longitude ||
+      prevProps.latitude !== this.props.latitude
+    ) {
+      this.fetch()
+    }
+  }
+
+  fetch() {
+    const { latitude, longitude } = this.props
+    getAddressFromCoords(latitude, longitude).then(
+      (address) => this.setState({ address })
+    )
   }
 
   render() {
-    const { children, lines, n } = this.props
-    return children(lines.slice(-n))
+    return this.props.children(this.state)
   }
 }
 
 class App extends React.Component {
-  state = {
-    lines: []
-  }
-
-  componentDidMount() {
-    listen(newLines => {
-      this.setState({
-        lines: this.state.lines.concat(newLines)
-      })
-    })
-  }
-
   render() {
     return (
       <div>
-        <h1>Heads up Eggman, here comes <code>&lt;Tails&gt;</code>s!</h1>
-        <div style={{ height: 400, overflowY: 'scroll', border: '1px solid' }}>
-        {/* <PinnedToBottom style={{ height: 400, border: '1px solid' }}> */}
-          <Tail lines={this.state.lines} n={5}>
-            {truncatedLines =>
-              <ul>
-                {truncatedLines.map((line, index) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ul>
-            }
-          </Tail>
-        {/* </PinnedToBottom> */}
-        </div>
+        <h1>Geolocation</h1>
+
+        <h2>GeoPosition</h2>
+        <GeoPosition>
+          {(state) => state.error ? (
+            <div>{state.error.message}</div>
+          ) : (
+            <dl>
+              <dt>Latitude</dt>
+              <dd>{state.coords.latitude || <LoadingDots/>}</dd>
+              <dt>Longitude</dt>
+              <dd>{state.coords.longitude || <LoadingDots/>}</dd>
+            </dl>
+          )}
+        </GeoPosition>
+
+        <h2>GeoAddress Composition</h2>
+        <GeoPosition>
+          {({ coords }) => (
+            <GeoAddress
+              latitude={coords.latitude}
+              longitude={coords.longitude}
+            >
+              {({ address }) => (
+                <p>{address || <LoadingDots/>}</p>
+              )}
+            </GeoAddress>
+          )}
+        </GeoPosition>
+
       </div>
     )
   }
 }
 
 render(<App/>, document.getElementById('app'))
+
