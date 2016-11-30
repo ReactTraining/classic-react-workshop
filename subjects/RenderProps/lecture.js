@@ -10,9 +10,9 @@ document.body.style.background = `
   )
 `
 
-const getHeaderStyle = (scrollY) => {
-  const pin = scrollY >= 100
-  const top = -scrollY / 2
+const getHeaderStyle = (y) => {
+  const pin = y >= 100
+  const top = -y / 2
   return {
     textTransform: 'uppercase',
     textAlign: 'center',
@@ -20,34 +20,33 @@ const getHeaderStyle = (scrollY) => {
     margin: 0,
     position: 'fixed',
     top: pin ? '0px' : `${top + 50}px`,
-    textShadow: pin ?  `0px ${(scrollY-100)/5}px ${Math.min((scrollY-100)/10, 20)}px rgba(0, 0, 0, 0.5)` : 'none'
+    textShadow: pin ?  `0px ${(y-100)/5}px ${Math.min((y-100)/10, 20)}px rgba(0, 0, 0, 0.5)` : 'none'
   }
 }
 
 class App extends React.Component {
-  state = {
-    scrollY: 0
-  }
+  state = { y: 0 }
 
-  setScroll = () => {
-    this.setState({
-      scrollY: window.scrollY
-    })
+  handleWindowScroll = () => {
+    this.setState({ y: window.scrollY })
   }
 
   componentDidMount() {
-    this.setScroll()
-    window.addEventListener('scroll', this.setScroll)
+    this.handleWindowScroll()
+    window.addEventListener('scroll', this.handleWindowScroll)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.setScroll)
+    window.removeEventListener('scroll', this.handleWindowScroll)
   }
 
   render() {
+    const { y } = this.state
+
     return (
-      <div style={{ height: '200vh', color: 'white' }}>
-        <h1 style={getHeaderStyle(scrollY)}>
+      <div style={{ height: '300vh', color: 'white' }}>
+        <ScrollPosition/>
+        <h1 style={getHeaderStyle(y)}>
           Scroll down!
         </h1>
       </div>
@@ -56,4 +55,3 @@ class App extends React.Component {
 }
 
 render(<App/>, document.getElementById('app'))
-
