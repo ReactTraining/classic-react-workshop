@@ -20,6 +20,7 @@ class TabList extends React.Component {
         onClick: () => this.props.onActivate(index)
       })
     })
+
     return <div style={styles.tabs}>{children}</div>
   }
 }
@@ -90,17 +91,10 @@ class App extends React.Component {
             <Tab isDisabled>Burritos</Tab>
             <Tab>Coconut Korma</Tab>
           </TabList>
-
           <TabPanels>
-            <TabPanel>
-              <p>Tacos are delicious</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Sometimes a burrito is what you really need</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Might be your best option</p>
-            </TabPanel>
+            <TabPanel><p>Tacos are delicious</p></TabPanel>
+            <TabPanel><p>Sometimes a burrito is what you really need</p></TabPanel>
+            <TabPanel><p>Might be your best option</p></TabPanel>
           </TabPanels>
         </Tabs>
       </div>
@@ -202,18 +196,11 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //            <Tab isDisabled>Burritos</Tab>
 //            <Tab>Coconut Korma</Tab>
 //          </TabList>
-//
 //          <div>
 //            <TabPanels>
-//              <TabPanel>
-//                <p>Tacos are delicious</p>
-//              </TabPanel>
-//              <TabPanel>
-//                <p>Sometimes a burrito is what you really need</p>
-//              </TabPanel>
-//              <TabPanel>
-//                <p>Might be your best option</p>
-//              </TabPanel>
+//              <TabPanel><p>Tacos are delicious</p></TabPanel>
+//              <TabPanel><p>Sometimes a burrito is what you really need</p></TabPanel>
+//              <TabPanel><p>Might be your best option</p></TabPanel>
 //            </TabPanels>
 //          </div>
 //        </Tabs>
@@ -311,12 +298,11 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //              <Tab>Coconut Korma</Tab>
 //            </TabList>
 //          </div>
-//
 //          <div>
 //            <TabPanels>
-//              <p>Tacos are delicious</p>
-//              <p>Sometimes a burrito is what you really need</p>
-//              <p>Might be your best option</p>
+//              <TabPanel><p>Tacos are delicious</p></TabPanel>
+//              <TabPanel><p>Sometimes a burrito is what you really need</p></TabPanel>
+//              <TabPanel><p>Might be your best option</p></TabPanel>
 //            </TabPanels>
 //          </div>
 //        </Tabs>
