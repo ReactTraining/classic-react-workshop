@@ -30,7 +30,7 @@
 // - Arrow left, arrow up should select the previous option
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 
 class RadioGroup extends React.Component {
   static propTypes = {
@@ -96,4 +96,4 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))

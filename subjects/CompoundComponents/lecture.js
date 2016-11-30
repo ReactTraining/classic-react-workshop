@@ -1,19 +1,16 @@
 import React, { PropTypes } from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import * as styles from './lib/styles'
 
-////////////////////////////////////////////////////////////////////////////////
-// Let's make some tabs...
+class Tabs extends React.Component {
+  state = {
+    activeIndex: 0
+  }
 
-const Tabs = React.createClass({
-  getInitialState() {
-    return {
-      activeIndex: 0
-    }
-  },
   selectTabIndex(activeIndex) {
     this.setState({ activeIndex })
-  },
+  }
+
   renderTabs() {
     return this.props.data.map((tab, index) => {
       const isActive = this.state.activeIndex === index
@@ -25,7 +22,8 @@ const Tabs = React.createClass({
         >{tab.label}</div>
       )
     })
-  },
+  }
+
   renderPanel() {
     const tab = this.props.data[this.state.activeIndex]
     return (
@@ -33,7 +31,8 @@ const Tabs = React.createClass({
         <p>{tab.description}</p>
       </div>
     )
-  },
+  }
+
   render() {
     return (
       <div>
@@ -46,22 +45,19 @@ const Tabs = React.createClass({
       </div>
     )
   }
-})
+}
 
-const App = React.createClass({
+class App extends React.Component {
   render() {
     const tabData = [
-      {
-        label: 'Tacos',
+      { label: 'Tacos',
         description: <p>Tacos are delicious</p>
       },
-      {
-        label: 'Burritos',
-        description: <p>Sometimes a burrito is what you really need.</p>
+      { label: 'Burritos',
+        description: <p>Sometimes a burrito is what you really need</p>
       },
-      {
-        label: 'Coconut Korma',
-        description: <p>Might be your best option.</p>
+      { label: 'Coconut Korma',
+        description: <p>Might be your best option</p>
       }
     ]
 
@@ -71,29 +67,25 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // What if I wanted tabs on the bottom?
 
-//const Tabs = React.createClass({
-//  getDefaultProps() {
-//    return {
-//      tabsPlacement: 'top'
-//    }
-//  },
+//class Tabs extends React.Component {
+//  static defaultProps = {
+//    tabsPlacement: 'top'
+//  }
 //
-//  getInitialState() {
-//    return {
-//      activeIndex: 0
-//    }
-//  },
+//  state = {
+//    activeIndex: 0
+//  }
 //
 //  selectTabIndex(activeIndex) {
 //    this.setState({ activeIndex })
-//  },
+//  }
 //
 //  renderTabs() {
 //    return this.props.data.map((tab, index) => {
@@ -106,7 +98,7 @@ render(<App/>, document.getElementById('app'))
 //        >{tab.label}</div>
 //      )
 //    })
-//  },
+//  }
 //
 //  renderPanel() {
 //    const tab = this.props.data[this.state.activeIndex]
@@ -115,7 +107,7 @@ render(<App/>, document.getElementById('app'))
 //        <p>{tab.description}</p>
 //      </div>
 //    )
-//  },
+//  }
 //
 //  render() {
 //    const tabs = (
@@ -137,22 +129,19 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//})
+//}
 //
-//const App = React.createClass({
+//class App extends React.Component {
 //  render() {
 //    const tabData = [
-//      {
-//        label: 'Tacos',
+//      { label: 'Tacos',
 //        description: <p>Tacos are delicious</p>
 //      },
-//      {
-//        label: 'Burritos',
-//        description: <p>Sometimes a burrito is what you really need.</p>
+//      { label: 'Burritos',
+//        description: <p>Sometimes a burrito is what you really need</p>
 //      },
-//      {
-//        label: 'Coconut Korma',
-//        description: <p>Might be your best option.</p>
+//      { label: 'Coconut Korma',
+//        description: <p>Might be your best option</p>
 //      }
 //    ]
 //
@@ -162,9 +151,9 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//})
+//}
 //
-//render(<App/>, document.getElementById('app'))
+//ReactDOM.render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // That wasn't too bad, but it added a lot of complexity for something that
@@ -179,23 +168,19 @@ render(<App/>, document.getElementById('app'))
 // Lets add "disabled" to a tab, what does jQuery UI do?
 // https://api.jqueryui.com/tabs/#option-disabled
 
-//const Tabs = React.createClass({
-//  getDefaultProps() {
-//    return {
-//      tabsPlacement: 'top',
-//      disabled: []
-//    }
-//  },
+//class Tabs extends React.Component {
+//  static defaultProps = {
+//    tabsPlacement: 'top',
+//    disabled: []
+//  }
 //
-//  getInitialState() {
-//    return {
-//      activeIndex: 0
-//    }
-//  },
+//  state = {
+//    activeIndex: 0
+//  }
 //
 //  selectTabIndex(activeIndex) {
 //    this.setState({ activeIndex })
-//  },
+//  }
 //
 //  renderTabs() {
 //    return this.props.data.map((tab, index) => {
@@ -211,7 +196,7 @@ render(<App/>, document.getElementById('app'))
 //        props.onClick = () => this.selectTabIndex(index)
 //      return <div {...props}>{tab.label}</div>
 //    })
-//  },
+//  }
 //
 //  renderPanel() {
 //    const tab = this.props.data[this.state.activeIndex]
@@ -220,7 +205,7 @@ render(<App/>, document.getElementById('app'))
 //        <p>{tab.description}</p>
 //      </div>
 //    )
-//  },
+//  }
 //
 //  render() {
 //    const tabs = (
@@ -242,22 +227,19 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//})
+//}
 //
-//const App = React.createClass({
+//class App extends React.Component {
 //  render() {
 //    const tabData = [
-//      {
-//        label: 'Tacos',
+//      { label: 'Tacos',
 //        description: <p>Tacos are delicious</p>
 //      },
-//      {
-//        label: 'Burritos',
-//        description: <p>Sometimes a burrito is what you really need.</p>
+//      { label: 'Burritos',
+//        description: <p>Sometimes a burrito is what you really need</p>
 //      },
-//      {
-//        label: 'Coconut Korma',
-//        description: <p>Might be your best option.</p>
+//      { label: 'Coconut Korma',
+//        description: <p>Might be your best option</p>
 //      }
 //    ]
 //
@@ -271,103 +253,15 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//})
+//}
 //
-//render(<App/>, document.getElementById('app'))
+//ReactDOM.render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Feels weird ... whenever your options affect rendering, its a great
 // opportunity to create child components instead
 
-////////////////////////////////////////////////////////////////////////////////
-//const TabList = React.createClass({
-//  render() {
-//    const children = this.props.children
-//    return <div style={styles.tabs}>{children}</div>
-//  }
-//})
-//
-//const Tab = React.createClass({
-//  render() {
-//    const isDisabled = false
-//    const isActive = false
-//    const style = isDisabled ?
-//      styles.disabledTab :
-//      isActive ?
-//        styles.activeTab :
-//        styles.tab
-//
-//    return (
-//      <div style={style}>
-//        {this.props.children}
-//      </div>
-//    )
-//  }
-//})
-//
-//const TabPanels = React.createClass({
-//  render() {
-//    return (
-//      <div style={styles.tabPanels}>
-//        {this.props.children}
-//      </div>
-//    )
-//  }
-//})
-//
-//const TabPanel = React.createClass({
-//  render() {
-//    return <div>{this.props.children}</div>
-//  }
-//})
-//
-//const Tabs = React.createClass({
-//  getInitialState() {
-//    return {
-//      activeIndex: 0
-//    }
-//  },
-//
-//  render() {
-//    const children = this.props.children
-//    return <div>{children}</div>
-//  }
-//})
-//
-//const App = React.createClass({
-//  render() {
-//    return (
-//      <div>
-//        <Tabs>
-//          <TabList>
-//            <Tab>Tacos</Tab>
-//            <Tab isDisabled>Burritos</Tab>
-//            <Tab>Coconut Korma</Tab>
-//          </TabList>
-//          <TabPanels>
-//            <TabPanel>
-//              <p>Tacos are delicious</p>
-//            </TabPanel>
-//            <TabPanel>
-//              <p>Sometimes a burrito is what you really need.</p>
-//            </TabPanel>
-//            <TabPanel>
-//              <p>Might be your best option.</p>
-//            </TabPanel>
-//          </TabPanels>
-//        </Tabs>
-//      </div>
-//    )
-//  }
-//})
-//
-//render(<App/>, document.getElementById('app'))
-
-////////////////////////////////////////////////////////////////////////////////
-// Now we can pass the props that matter to the components, and add the click
-// handlers
-
-//const TabList = React.createClass({
+//class TabList extends React.Component {
 //  render() {
 //    const children = React.Children.map(this.props.children, (child, index) => {
 //      return React.cloneElement(child, {
@@ -378,9 +272,9 @@ render(<App/>, document.getElementById('app'))
 //
 //    return <div style={styles.tabs}>{children}</div>
 //  }
-//})
+//}
 //
-//const Tab = React.createClass({
+//class Tab extends React.Component {
 //  render() {
 //    return (
 //      <div
@@ -393,9 +287,9 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//})
+//}
 //
-//const TabPanels = React.createClass({
+//class TabPanels extends React.Component {
 //  render() {
 //    return (
 //      <div style={styles.tabPanels}>
@@ -403,20 +297,18 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//})
+//}
 //
-//const TabPanel = React.createClass({
+//class TabPanel extends React.Component {
 //  render() {
 //    return <div>{this.props.children}</div>
 //  }
-//})
+//}
 //
-//const Tabs = React.createClass({
-//  getInitialState() {
-//    return {
-//      activeIndex: 0
-//    }
-//  },
+//class Tabs extends React.Component {
+//  state = {
+//    activeIndex: 0
+//  }
 //
 //  render() {
 //    const children = React.Children.map(this.props.children, (child, index) => {
@@ -436,9 +328,9 @@ render(<App/>, document.getElementById('app'))
 //
 //    return <div>{children}</div>
 //  }
-//})
+//}
 //
-//const App = React.createClass({
+//class App extends React.Component {
 //  render() {
 //    return (
 //      <div>
@@ -454,19 +346,19 @@ render(<App/>, document.getElementById('app'))
 //              <p>Tacos are delicious</p>
 //            </TabPanel>
 //            <TabPanel>
-//              <p>Sometimes a burrito is what you really need.</p>
+//              <p>Sometimes a burrito is what you really need</p>
 //            </TabPanel>
 //            <TabPanel>
-//              <p>Might be your best option.</p>
+//              <p>Might be your best option</p>
 //            </TabPanel>
 //          </TabPanels>
 //        </Tabs>
 //      </div>
 //    )
 //  }
-//})
+//}
 //
-//render(<App/>, document.getElementById('app'))
+//ReactDOM.render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Now this is really flexible
@@ -479,12 +371,11 @@ render(<App/>, document.getElementById('app'))
 //
 // Oh but you really loved the old tabs yeah?
 
-//const DataTabs = React.createClass({
-//  getDefaultProps() {
-//    return {
-//      disabled: []
-//    }
-//  },
+//class DataTabs extends React.Component {
+//  static defaultProps = {
+//    disabled: []
+//  }
+//
 //  render() {
 //    return (
 //      <Tabs>
@@ -504,22 +395,19 @@ render(<App/>, document.getElementById('app'))
 //      </Tabs>
 //    )
 //  }
-//})
+//}
 //
-//const App = React.createClass({
+//class App extends React.Component {
 //  render() {
 //    const tabData = [
-//      {
-//        label: 'Tacos',
+//      { label: 'Tacos',
 //        description: <p>Tacos are delicious</p>
 //      },
-//      {
-//        label: 'Burritos',
-//        description: <p>Sometimes a burrito is what you really need.</p>
+//      { label: 'Burritos',
+//        description: <p>Sometimes a burrito is what you really need</p>
 //      },
-//      {
-//        label: 'Coconut Korma',
-//        description: <p>Might be your best option.</p>
+//      { label: 'Coconut Korma',
+//        description: <p>Might be your best option</p>
 //      }
 //    ]
 //
@@ -529,9 +417,9 @@ render(<App/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//})
+//}
 //
-//render(<App/>, document.getElementById('app'))
+//ReactDOM.render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Instead of creating a handful of options, compose several components together
