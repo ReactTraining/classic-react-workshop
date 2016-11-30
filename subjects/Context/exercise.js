@@ -18,7 +18,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 
 class Form extends React.Component {
   render() {
@@ -68,4 +68,4 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))
