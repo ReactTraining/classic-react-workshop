@@ -1,7 +1,8 @@
-const api = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
+const GoogleMapsAPI = 'https://maps.googleapis.com/maps/api'
 
 const getAddressFromCoords = (latitude, longitude) => {
-  const url = `${api}${latitude},${longitude}`
+  const url = `${GoogleMapsAPI}/geocode/json?latlng=${latitude},${longitude}`
+
   return fetch(url).then(res => res.json()).then(json => {
     return json.results[0].formatted_address
   })
