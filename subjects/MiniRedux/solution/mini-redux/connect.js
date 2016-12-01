@@ -1,24 +1,13 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
-export default function connect(mapStateToProps) {
-  return function (Component) {
-    return class Connected extends React.Component {
+const connect = (mapStateToProps) => {
+  return (Component) => {
+    return class extends React.Component {
       static contextTypes = {
-        store: React.PropTypes.object
+        store: PropTypes.object
       }
 
-      constructor(props, context) {
-        super(props, context)
-        this.state = this.getStateFromStore()
-      }
-
-      componentDidMount() {
-        this.context.store.listen(this.listener)
-      }
-
-      componentWillUnmount() {
-        this.context.store.removeListener(this.listener)
-      }
+      state = this.getStateFromStore()
 
       listener = () => {
         this.setState(this.getStateFromStore())
@@ -29,9 +18,19 @@ export default function connect(mapStateToProps) {
         return mapStateToProps(storeState)
       }
 
+      componentDidMount() {
+        this.context.store.listen(this.listener)
+      }
+
+      componentWillUnmount() {
+        this.context.store.removeListener(this.listener)
+      }
+
       render() {
         return <Component {...this.state} dispatch={this.context.store.dispatch}/>
       }
     }
   }
 }
+
+export default connect

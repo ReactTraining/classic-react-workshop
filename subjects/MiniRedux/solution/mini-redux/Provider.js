@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 class Provider extends React.Component {
   static childContextTypes = {
-    store: React.PropTypes.object
+    store: PropTypes.object
   }
 
   getChildContext() {

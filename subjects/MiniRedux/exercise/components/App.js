@@ -25,4 +25,5 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return { counter: state }
 }
+
 export default connect(mapStateToProps)(App)

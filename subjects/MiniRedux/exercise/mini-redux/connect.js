@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function connect(mapStateToProps) {
-  return function (Component) {
+const connect = (mapStateToProps) => {
+  return (Component) => {
     return Component
   }
 }
+
+export default connect
