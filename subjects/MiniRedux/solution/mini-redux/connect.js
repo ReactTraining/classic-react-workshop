@@ -7,27 +7,26 @@ const connect = (mapStateToProps) => {
         store: PropTypes.object
       }
 
-      state = this.getStateFromStore()
-
-      listener = () => {
-        this.setState(this.getStateFromStore())
-      }
-
-      getStateFromStore() {
-        const storeState = this.context.store.getState()
-        return mapStateToProps(storeState)
-      }
-
       componentDidMount() {
-        this.context.store.listen(this.listener)
+        this.unsubscribe = this.context.store.subscribe(() => {
+          this.forceUpdate()
+        })
       }
 
       componentWillUnmount() {
-        this.context.store.removeListener(this.listener)
+        this.unsubscribe()
       }
 
       render() {
-        return <Component {...this.state} dispatch={this.context.store.dispatch}/>
+        const props = mapStateToProps(this.context.store.getState())
+
+        return (
+          <Component
+            {...this.props}
+            {...props}
+            dispatch={this.context.store.dispatch}
+          />
+        )
       }
     }
   }

@@ -1,27 +1,28 @@
-import { EventEmitter } from 'events'
-
-const CHANGE = 'change'
-
-export default function createStore(reducer) {
+const createStore = (reducer) => {
   let state = reducer(undefined, { type: '@INIT' })
-  const events = new EventEmitter()
+  let listeners = []
 
-  return {
-    getState() {
-      return state
-    },
+  const getState = () =>
+    state
 
-    dispatch(action) {
-      state = reducer(state, action)
-      events.emit(CHANGE)
-    },
+  const dispatch = (action) => {
+    state = reducer(state, action)
+    listeners.forEach(listener => listener())
+  }
 
-    listen(listener) {
-      events.on(CHANGE, listener)
-    },
+  const subscribe = (listener) => {
+    listeners.push(listener)
 
-    removeListener(listener) {
-      event.removeListener(CHANGE, listener)
+    return () => {
+      listeners = listeners.filter(item => item !== listener)
     }
   }
+
+  return {
+    getState,
+    dispatch,
+    subscribe
+  }
 }
+
+export default createStore
