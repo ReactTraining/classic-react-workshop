@@ -1,17 +1,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Make `withMousePosition`a a "higher-order component" that sends the mouse
+// Make `withMousePosition` a "higher-order component" that sends the mouse
 // position to the component as props.
 //
-// hint: use `event.clientX` and `event.clientY`
-
-import React from 'react'
-import { render } from 'react-dom'
+// Hint: use `event.clientX` and `event.clientY`
+import React, { PropTypes } from 'react'
+import ReactDOM from 'react-dom'
 
 const withMousePosition = (Component) => {
-  return class MousePosition extends React.Component {
-
+  return class extends React.Component {
     state = { x: 0, y: 0 }
 
     handleMouseMove = (event) => {
@@ -33,17 +31,22 @@ const withMousePosition = (Component) => {
 
 class App extends React.Component {
   static propTypes = {
-    mouse: React.PropTypes.shape({
-      x: React.PropTypes.number.isRequired,
-      y: React.PropTypes.number.isRequired
+    mouse: PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired
     }).isRequired
   }
 
   render() {
+    const { mouse } = this.props
+
     return (
       <div style={{ height: '100%' }}>
-        <h1>With the mouse!</h1>
-        <pre>{JSON.stringify(this.props.mouse, null, 2)}</pre>
+        {mouse ? (
+          <h1>The mouse position is ({mouse.x}, {mouse.y})</h1>
+        ) : (
+          <h1>We don't know the mouse position yet :(</h1>
+        )}
       </div>
     )
   }
@@ -51,4 +54,4 @@ class App extends React.Component {
 
 const AppWithMouse = withMousePosition(App)
 
-render(<AppWithMouse/>, document.getElementById('app'))
+ReactDOM.render(<AppWithMouse/>, document.getElementById('app'))

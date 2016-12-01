@@ -1,28 +1,24 @@
 import React, { PropTypes } from 'react'
-import { render } from 'react-dom'
-import createMediaListener from './lib/createMediaListener'
+import ReactDOM from 'react-dom'
+import createMediaListener from './utils/createMediaListener'
 
 const media = createMediaListener({
   big: '(min-width : 1000px)',
   tiny: '(max-width: 400px)'
 })
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      media: media.getState()
-    }
-  },
+class App extends React.Component {
+  state = {
+    media: media.getState()
+  }
 
   componentDidMount() {
-    media.listen((media) => {
-      this.setState({ media })
-    })
-  },
+    media.listen(media => this.setState({ media }))
+  }
 
   componentWillUnmount() {
     media.dispose()
-  },
+  }
 
   render() {
     const { media } = this.state
@@ -32,12 +28,12 @@ const App = React.createClass({
     ) : media.tiny ? (
       <h6>tiny tiny tiny</h6>
     ) : (
-      <h3>Meh...</h3>
+      <h3>Somewhere in between</h3>
     )
   }
-})
+}
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // We can move all of that code into a higher-order component. A higher-order
@@ -47,36 +43,32 @@ render(<App/>, document.getElementById('app'))
 //const mediaComponent = (Component, mediaQueries) => {
 //  const media = createMediaListener(mediaQueries)
 //
-//  return React.createClass({
-//    getInitialState() {
-//      return {
-//        media: media.getState()
-//      }
-//    },
+//  return class extends React.Component {
+//    state = {
+//      media: media.getState()
+//    }
 //
 //    componentDidMount() {
-//      media.listen((media) => {
-//        this.setState({ media })
-//      })
-//    },
+//      media.listen(media => this.setState({ media }))
+//    }
 //
 //    componentWillUnmount() {
 //      media.dispose()
-//    },
+//    }
 //
 //    render() {
 //      return <Component {...this.props} media={this.state.media}/>
 //    }
-//  })
+//  }
 //}
 //
-//const App = React.createClass({
-//  propTypes: {
+//class App extends React.Component {
+//  static propTypes = {
 //    media: PropTypes.shape({
 //      big: PropTypes.bool,
 //      tiny: PropTypes.bool
 //    })
-//  },
+//  }
 //
 //  render() {
 //    const { media } = this.props
@@ -86,14 +78,14 @@ render(<App/>, document.getElementById('app'))
 //    ) : media.tiny ? (
 //      <h6>tiny tiny tiny</h6>
 //    ) : (
-//      <h3>Meh ...</h3>
+//      <h3>Somewhere in between</h3>
 //    )
 //  }
-//})
+//}
 //
 //const AppWithMedia = mediaComponent(App, {
 //  big: '(min-width : 1000px)',
 //  tiny: '(max-width: 400px)'
 //})
 //
-//render(<AppWithMedia/>, document.getElementById('app'))
+//ReactDOM.render(<AppWithMedia/>, document.getElementById('app'))
