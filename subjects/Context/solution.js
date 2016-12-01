@@ -56,7 +56,7 @@ class TextInput extends React.Component {
   }
 
   handleKeyDown = (event) => {
-    if (event.key === 'Enter' || event.key === 'Space')
+    if (event.key === 'Enter')
       this.context.onFormSubmit()
   }
 
