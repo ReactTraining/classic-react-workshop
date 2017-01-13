@@ -5,25 +5,24 @@
 // open and close it. Can you convert it to a declarative API?
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
-import ReactDOM, { findDOMNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import 'bootstrap-webpack'
 
 class Modal extends React.Component {
   static propTypes = {
-    isOpen: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
-    onClose: PropTypes.func,
-    children: PropTypes.node
+    children: PropTypes.node,
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func
   }
 
   componentDidMount() {
     this.doImperativeWork()
 
-    // This is only necessary to keep state in sync
-    // with the DOM. Since we're keeping state now,
-    // we should make sure it's accurate.
-    $(findDOMNode(this)).on('hidden.bs.modal', () => {
+    // This is only necessary to sync the state back up to
+    // the parent when the user clicks on the overlay.
+    $(this.node).on('hidden.bs.modal', () => {
       if (this.props.onClose)
         this.props.onClose()
     })
@@ -35,16 +34,24 @@ class Modal extends React.Component {
   }
 
   doImperativeWork() {
-    if (this.props.isOpen === true) {
-      $(findDOMNode(this)).modal('show')
+    if (this.props.isOpen) {
+      this.open()
     } else {
-      $(findDOMNode(this)).modal('hide')
+      this.close()
     }
+  }
+
+  open() {
+    $(this.node).modal('show')
+  }
+
+  close() {
+    $(this.node).modal('hide')
   }
 
   render() {
     return (
-      <div className="modal fade">
+      <div className="modal fade" ref={node => this.node = node}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -84,9 +91,9 @@ class App extends React.Component {
         >open modal</button>
 
         <Modal
+          title="Declarative is better"
           isOpen={this.state.isModalOpen}
           onClose={this.closeModal}
-          title="Declarative is better"
         >
           <p>Calling methods on instances is a FLOW not a STOCK!</p>
           <p>It’s the dynamic process, not the static program in text space.</p>

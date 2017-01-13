@@ -5,7 +5,7 @@
 // open and close it. Can you convert it to a declarative API?
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
-import ReactDOM, { findDOMNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import 'bootstrap-webpack'
 
@@ -15,9 +15,17 @@ class Modal extends React.Component {
     children: PropTypes.node
   }
 
+  open() {
+    $(this.node).modal('show')
+  }
+
+  close() {
+    $(this.node).modal('hide')
+  }
+
   render() {
     return (
-      <div className="modal fade">
+      <div className="modal fade" ref={node => this.node = node}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -35,11 +43,11 @@ class Modal extends React.Component {
 
 class App extends React.Component {
   openModal = () => {
-    $(findDOMNode(this.refs.modal)).modal('show')
+    this.modal.open()
   }
 
   closeModal = () => {
-    $(findDOMNode(this.refs.modal)).modal('hide')
+    this.modal.close()
   }
 
   render() {
@@ -52,7 +60,7 @@ class App extends React.Component {
           onClick={this.openModal}
         >open modal</button>
 
-        <Modal ref="modal" title="Declarative is better">
+        <Modal title="Declarative is better" ref={modal => this.modal = modal}>
           <p>Calling methods on instances is a FLOW not a STOCK!</p>
           <p>It’s the dynamic process, not the static program in text space.</p>
           <p>You have to experience it over time, rather than in snapshots of state.</p>
