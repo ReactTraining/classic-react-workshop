@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import Perf from 'react-addons-perf'
 
 let guid = 0
@@ -71,10 +71,10 @@ class TodoList extends React.Component {
   }
 }
 
-render(<TodoList/>, document.getElementById('app'))
+ReactDOM.render(<TodoList/>, document.getElementById('app'))
 
 //import React, { PropTypes } from 'react'
-//import { render, findDOMNode } from 'react-dom'
+//import ReactDOM from 'react-dom'
 //import Perf from 'react-addons-perf'
 //import { convertNumberToEnglish } from './NumberUtils'
 //import { createRange } from './RangeUtils'
@@ -156,12 +156,12 @@ render(<TodoList/>, document.getElementById('app'))
 //  },
 //
 //  componentDidMount() {
-//    findDOMNode(this).querySelector('input').focus()
+//    this.node.querySelector('input').focus()
 //  },
 //
 //  render() {
 //    return (
-//      <div>
+//      <div ref={node => this.node = node}>
 //        <form onSubmit={this.handleSubmit}>
 //          <input ref="input"/>
 //        </form>
@@ -180,7 +180,7 @@ render(<TodoList/>, document.getElementById('app'))
 //  }
 //})
 //
-//render(<TodoList/>, document.getElementById('app'))
+//ReactDOM.render(<TodoList/>, document.getElementById('app'))
 
 ///////////////////////////////////////////////////////////////////////////////
 // Rendering large lists can be super slow. This is an old UI problem.

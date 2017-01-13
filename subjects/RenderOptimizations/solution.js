@@ -12,7 +12,7 @@
 // - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
-import { render, findDOMNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import * as RainbowListDelegate from './RainbowListDelegate'
 import './styles'
 
@@ -30,7 +30,7 @@ class RainbowList extends React.Component {
 
   componentDidMount() {
     this.setState({
-      availableHeight: findDOMNode(this).clientHeight
+      availableHeight: this.node.clientHeight
     })
   }
 
@@ -59,7 +59,11 @@ class RainbowList extends React.Component {
     }
 
     return (
-      <div style={{ height: '100%', overflowY: 'scroll' }} onScroll={this.handleScroll}>
+      <div
+        style={{ height: '100%', overflowY: 'scroll' }}
+        onScroll={this.handleScroll}
+        ref={node => this.node = node}
+      >
         <ol style={{ paddingTop: (startIndex * rowHeight), pointerEvents: 'none', height: totalHeight }}>
           {items}
         </ol>
@@ -68,7 +72,7 @@ class RainbowList extends React.Component {
   }
 }
 
-render(
+ReactDOM.render(
   <RainbowList
     numRows={500000}
     rowHeight={RainbowListDelegate.rowHeight}

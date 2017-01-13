@@ -12,7 +12,7 @@
 // - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
-import { render, findDOMNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import * as RainbowListDelegate from './RainbowListDelegate'
 import './styles'
 
@@ -45,7 +45,7 @@ class RainbowList extends React.Component {
   }
 }
 
-render(
+ReactDOM.render(
   <RainbowList
     numRows={500}
     rowHeight={RainbowListDelegate.rowHeight}
