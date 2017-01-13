@@ -27,9 +27,7 @@ class Tabs extends React.Component {
   renderPanel() {
     const tab = this.props.data[this.state.activeIndex]
     return (
-      <div>
-        <p>{tab.description}</p>
-      </div>
+      <div>{tab.description}</div>
     )
   }
 
