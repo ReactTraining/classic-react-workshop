@@ -12,7 +12,7 @@
 //   the marker when it is dropped to improve usability
 ////////////////////////////////////////////////////////////////////////////////
 import React, { PropTypes } from 'react'
-import { render, findDOMNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Motion, spring } from 'react-motion'
 import Draggable from './utils/Draggable'
 import './styles'
@@ -29,7 +29,7 @@ const DropGrid = React.createClass({
   },
 
   getRelativeXY({ clientX, clientY }) {
-    const { offsetLeft, offsetTop } = findDOMNode(this)
+    const { offsetLeft, offsetTop } = this.node
 
     return {
       x: clientX - offsetLeft,
@@ -87,7 +87,7 @@ const DropGrid = React.createClass({
     }
 
     return (
-      <div className="grid">
+      <div className="grid" ref={node => this.node = node}>
         <Motion style={markerStyle}>
           {style => (
             <Draggable
@@ -113,4 +113,4 @@ const DropGrid = React.createClass({
   }
 })
 
-render(<DropGrid/>, document.getElementById('app'))
+ReactDOM.render(<DropGrid/>, document.getElementById('app'))

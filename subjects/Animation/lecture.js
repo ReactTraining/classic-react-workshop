@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM, { findDOMNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Motion, StaggeredMotion, spring, presets } from 'react-motion'
 import $ from 'jquery'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM, { findDOMNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import serializeForm from 'form-serialize'
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +58,7 @@ ReactDOM.render(<Forms/>, document.getElementById('app'))
 // Or use a ref.
 //class Forms extends React.Component {
 //  handleChange = () => {
-//    console.log(findDOMNode(this.refs.someInput).value)
+//    console.log(this.input.value)
 //  }
 //
 //  render() {
@@ -66,7 +66,7 @@ ReactDOM.render(<Forms/>, document.getElementById('app'))
 //      <div>
 //        <h1>Forms</h1>
 //        <form>
-//          <input ref="someInput" type="text" onChange={this.handleChange}/>
+//          <input type="text" onChange={this.handleChange} ref={node => this.input = node}/>
 //        </form>
 //      </div>
 //    )
@@ -78,12 +78,12 @@ ReactDOM.render(<Forms/>, document.getElementById('app'))
 // What happens if we don't have an `onChange` but provide a value?
 //class Forms extends React.Component {
 //  state = {
-//    someInputValue: 'lol'
+//    inputValue: 'lol'
 //  }
 //
 //  handleChange = () => {
 //    this.setState({
-//      someInputValue: findDOMNode(this.refs.someInput).value
+//      inputValue: this.input.value
 //    })
 //  }
 //
@@ -93,8 +93,8 @@ ReactDOM.render(<Forms/>, document.getElementById('app'))
 //        <h1>Forms</h1>
 //        <form>
 //          <input
-//            ref="someInput"
-//            value={this.state.someInputValue}
+//            ref={node => this.input = node }
+//            value={this.state.inputValue}
 //            type="text"
 //            onChange={this.handleChange}
 //          />
@@ -109,12 +109,12 @@ ReactDOM.render(<Forms/>, document.getElementById('app'))
 // When it's controlled, we can set state elsewhere and it stays in sync
 //class Forms extends React.Component {
 //  state = {
-//    someInputValue: 'lol'
+//    inputValue: 'lol'
 //  }
 //
 //  handleChange = () => {
 //    this.setState({
-//      someInputValue: findDOMNode(this.refs.someInput).value
+//      inputValue: this.input.value
 //    })
 //  }
 //
@@ -123,12 +123,12 @@ ReactDOM.render(<Forms/>, document.getElementById('app'))
 //      <div>
 //        <h1>Forms</h1>
 //        <form>
-//          <button onClick={() => this.setState({ someInputValue: 'changed!' })}>
+//          <button onClick={() => this.setState({ inputValue: 'changed!' })}>
 //            Change the value
 //          </button>
 //          <input
-//            ref="someInput"
-//            value={this.state.someInputValue}
+//            ref={node => this.input = node }
+//            value={this.state.inputValue}
 //            type="text"
 //            onChange={this.handleChange}
 //          />
@@ -194,8 +194,7 @@ ReactDOM.render(<Forms/>, document.getElementById('app'))
 //
 //  handleFormChange = (event) => {
 //    event.preventDefault()
-//    const form = findDOMNode(this.refs.form)
-//    const values = serializeForm(form, { hash: true })
+//    const values = serializeForm(this.form, { hash: true })
 //    this.setState(values)
 //  }
 //
@@ -203,7 +202,7 @@ ReactDOM.render(<Forms/>, document.getElementById('app'))
 //    return (
 //      <div>
 //        <h1>Forms</h1>
-//        <form ref="form" onChange={this.handleFormChange}>
+//        <form onChange={this.handleFormChange} ref={node => this.form = node}>
 //          <p>
 //            <label>First Name: <input
 //              name="firstName"
