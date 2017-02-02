@@ -85,7 +85,7 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="shippingName"
                 value={shippingSameAsBilling ? billingName : shippingName}
-                disabled={shippingSameAsBilling}
+                readOnly={shippingSameAsBilling}
                 onChange={event => this.setState({ shippingName: event.target.value })}
               /></label>
             </p>
@@ -95,11 +95,15 @@ class CheckoutForm extends React.Component {
                 size="2"
                 name="shippingState"
                 value={shippingSameAsBilling ? billingState : shippingState}
-                disabled={shippingSameAsBilling}
+                readOnly={shippingSameAsBilling}
                 onChange={event => this.setState({ shippingState: event.target.value })}
               /></label>
             </p>
           </fieldset>
+
+          <p>
+            <button>Submit</button>
+          </p>
         </form>
       </div>
     )

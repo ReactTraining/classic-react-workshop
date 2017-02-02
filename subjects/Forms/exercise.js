@@ -47,6 +47,10 @@ class CheckoutForm extends React.Component {
               <label>Shipping State: <input type="text" size="2"/></label>
             </p>
           </fieldset>
+
+          <p>
+            <button>Submit</button>
+          </p>
         </form>
       </div>
     )
