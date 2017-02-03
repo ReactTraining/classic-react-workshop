@@ -1,10 +1,10 @@
 import React from 'react'
 
-const ContentToggle = React.createClass({
-  handleClick() {
+class ContentToggle extends React.Component {
+  handleClick = () => {
     if (this.props.onToggle)
       this.props.onToggle(!this.props.isOpen)
-  },
+  }
 
   render() {
     let summaryClassName = "ContentToggle__Summary"
@@ -23,6 +23,6 @@ const ContentToggle = React.createClass({
       </div>
     )
   }
-})
+}
 
 export default ContentToggle
