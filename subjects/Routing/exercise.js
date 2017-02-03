@@ -1,30 +1,33 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Add some code to App's render method that renders the child route
-//   (hint: use this.props.children)
-// - Add a new child route beneath App at "/profile/:userID" that shows the
-//   user with the given ID (hint: use the Profile component)
-// - Add links to the Home view that link to the profile page for each user
-// - Move the links to `App`, whats different now?
+// - Wrap the <Home> component in <App>'s render method in a <Router>. This
+//   provides the right context for the <Link>s and <Route>s we will create
+// - Create a <Link> to /user/:userId for each person in <Home>
+// - When a person's <Link> is clicked, render <Profile> instead of <Home>.
+//   Hints: You can get the person's userId from <Profile>'s "match" prop
+//   which it gets from the router. Also, you'll probably want to wrap
+//   <Home> and <Profile> in a <Switch> in <App>'s render method
 //
 // Got extra time?
 //
-// - Move the Profile route to be a sibling to the app route, instead of nested
-//   as a child, what happens to the UI?
-// - Add a link to the profile page that links back to Home so users don't have
-//   to use the Back button to navigate
+// - Render a <NoMatch> when the URL is something other than / or a user profile
+//   URL. Manually type in a bad URL to get the <NoMatch> component to show up.
+// - Add a <Link> to the profile page that links back to Home so users don't
+//   have to use the Back button to get back to the home page
 // - Add a <Redirect> from "/users/:userID" to "/profile/:userID", then type in
-//   the url "users/1" into the url and hit enter. Docs are at:
-//   https://github.com/rackt/react-router/blob/master/docs/API.md#redirect
-// - Add a route that renders at urls the app doesn't understand, read about
-//   route matching here to know what to use as your path:
-//   https://github.com/rackt/react-router/blob/master/docs/guides/basics/RouteMatching.md
+//   the url "users/1" into the url and hit enter
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, hashHistory, Link, Redirect } from 'react-router'
 import Gravatar from './components/Gravatar'
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom'
 
 const USERS = [
   { id: 1, name: 'Ryan Florence', email: 'rpflorence@gmail.com' },
@@ -39,23 +42,10 @@ function getUserByID(id) {
   return null
 }
 
-const App = React.createClass({
-  render() {
-    return (
-      <div>
-        <h1>People Viewer</h1>
-        {this.props.children}
-      </div>
-    )
-  }
-})
-
-const Home = React.createClass({
+class Home extends React.Component {
   render() {
     const contactItems = USERS.map(user => (
-      <li key={user.email}>
-        {user.name}
-      </li>
+      <li key={user.email}>{user.name}</li>
     ))
 
     return (
@@ -65,15 +55,15 @@ const Home = React.createClass({
       </div>
     )
   }
-})
+}
 
-const Profile = React.createClass({
+class Profile extends React.Component {
   render() {
-    const { userID } = this.props.params
-    const user = getUserByID(userID)
+    const { userId } = 1 // TODO: Get this from the URL!
+    const user = getUserByID(userId)
 
     if (user == null)
-      return <p>Cannot find user with id {userID}</p>
+      return <p>Cannot find user with id {userId}</p>
 
     return (
       <div className="profile">
@@ -81,18 +71,28 @@ const Profile = React.createClass({
       </div>
     )
   }
-})
+}
 
-const NoMatch = React.createClass({
+class NoMatch extends React.Component {
   render() {
-    return <h1>No routes matched</h1>
+    return (
+      <div>
+        <h1>No routes matched...</h1>
+        <p><Link to="/">Go home</Link></p>
+      </div>
+    )
   }
-})
+}
 
-ReactDOM.render((
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Home}/>
-    </Route>
-  </Router>
-), document.getElementById('app'))
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>People Viewer</h1>
+        <Home/>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App/>, document.getElementById('app'))
