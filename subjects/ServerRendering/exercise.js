@@ -4,7 +4,7 @@
 // First, fire up the server:
 //
 // 1. Run `npm run server-exercise` from the root of this repository
-// 2. Open http://localhost:8081 (not 8080)
+// 2. Open http://localhost:8090 (not 8080)
 //
 // Now let's write some code:
 //

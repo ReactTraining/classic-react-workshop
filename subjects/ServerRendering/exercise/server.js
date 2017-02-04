@@ -3,7 +3,7 @@ import http from 'http'
 import React from 'react'
 
 const webpackServer = 'http://localhost:8080'
-const port = 8081
+const port = 8090
 
 const createPage = () => `
 <!doctype html>
@@ -14,6 +14,7 @@ const createPage = () => `
   </head>
   <body>
 
+    <!-- TODO: Put some content in this div -->
     <div id="app"></div>
 
     <script src="${webpackServer}/__build__/shared.js"></script>
