@@ -29,8 +29,11 @@
 // your web browser to see the actual HTML you're rendering on the server.
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import App from './exercise/App'
 
 // TODO: Pass contacts data into the <App> via a prop.
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(
+  <App/>,
+  document.getElementById('app')
+)

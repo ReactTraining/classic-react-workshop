@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import http from 'http'
 import React from 'react'
-import { renderToString } from 'react-dom/server'
+import ReactDOMServer from 'react-dom/server'
 import fetchContacts from './fetchContacts'
 import App from './App'
 
@@ -18,8 +18,8 @@ const createPage = (markup, data) => `
   <body>
 
     <div id="app">${markup}</div>
+    <script>window.__DATA__ = ${JSON.stringify(data)}</script>
 
-    <script>window.DATA = ${JSON.stringify(data)}</script>
     <script src="${webpackServer}/__build__/shared.js"></script>
     <script src="${webpackServer}/__build__/ServerRendering-solution.js"></script>
   </body>
@@ -28,7 +28,7 @@ const createPage = (markup, data) => `
 
 const app = http.createServer((req, res) => {
   fetchContacts((error, contacts) => {
-    const markup = renderToString(<App contacts={contacts}/>)
+    const markup = ReactDOMServer.renderToString(<App contacts={contacts}/>)
     const html = createPage(markup, { contacts })
 
     res.writeHead(200, {

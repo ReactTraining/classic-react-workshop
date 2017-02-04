@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 import http from 'http'
 import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import fetchContacts from './fetchContacts'
+import App from './App'
 
 const webpackServer = 'http://localhost:8080'
 const port = 8090

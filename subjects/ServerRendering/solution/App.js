@@ -1,9 +1,9 @@
 import React from 'react'
 
-const App = React.createClass({
-  propTypes: {
+class App extends React.Component {
+  static propTypes = {
     contacts: React.PropTypes.array
-  },
+  }
 
   render() {
     const { contacts } = this.props
@@ -23,6 +23,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 export default App

@@ -1,21 +1,19 @@
 import React from 'react'
 import fetchContacts from './fetchContacts'
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      // TODO: Move this state to a prop. That will make it
-      // possible to render on the server.
-      contacts: []
-    }
-  },
+class App extends React.Component {
+  // TODO: Move this state to a prop. That will make it
+  // possible to render on the server.
+  state = {
+    contacts: []
+  }
 
   componentDidMount() {
     // TODO: Move this call into the request handler on the server.
     fetchContacts((error, contacts) => {
       this.setState({ contacts })
     })
-  },
+  }
 
   render() {
     const { contacts } = this.state
@@ -35,6 +33,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 export default App

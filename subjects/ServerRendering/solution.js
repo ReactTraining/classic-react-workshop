@@ -29,7 +29,12 @@
 // your web browser to see the actual HTML you're rendering on the server.
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import App from './solution/App'
 
-render(<App contacts={window.DATA.contacts}/>, document.getElementById('app'))
+const contacts = window.__DATA__.contacts
+
+ReactDOM.render(
+  <App contacts={contacts}/>,
+  document.getElementById('app')
+)
