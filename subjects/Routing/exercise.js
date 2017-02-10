@@ -59,7 +59,7 @@ class Home extends React.Component {
 
 class Profile extends React.Component {
   render() {
-    const { userId } = 1 // TODO: Get this from the URL!
+    const userId = 1 // TODO: Get this from the URL!
     const user = getUserByID(userId)
 
     if (user == null)
