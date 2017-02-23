@@ -43,7 +43,7 @@ class Droppable extends React.Component {
     files: null
   }
 
-  handleDragOver(event) {
+  handleDragOver = (event) => {
     if (event.dataTransfer.types[0] === 'Files') {
       event.preventDefault()
       this.setState({
@@ -52,7 +52,7 @@ class Droppable extends React.Component {
     }
   }
 
-  handleDrop(event) {
+  handleDrop = (event) => {
     event.stopPropagation()
     event.preventDefault()
     this.setState({
