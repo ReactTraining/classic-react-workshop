@@ -46,7 +46,7 @@ const Subjects = {
   Cursors: 'Cursors',
   MigratingToReact: 'Migrating to React',
   Redux: 'Redux',
-  MiniRedux: 'Implementing Redux'
+  MiniRedux: 'Mini Redux'
 }
 
 const SubjectDirNames = Object.keys(Subjects)
@@ -72,7 +72,7 @@ const markup = ReactDOMServer.renderToStaticMarkup(
               )
             )
           })
-        ) 
+        )
       )
     )
   )
