@@ -60,7 +60,7 @@
     "react-addons-perf": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-addons-transition-group": "^15.1.0",
-    "react-dom": "^15.1.0",
+    "react-dom": "^15.3.0",
     "react-motion": "^0.4.2",
     "react-point": "^2.1.0",
     "react-redux": "^5.0.2",
