@@ -46,7 +46,8 @@ const Subjects = {
   Cursors: 'Cursors',
   MigratingToReact: 'Migrating to React',
   Redux: 'Redux',
-  MiniRedux: 'Mini Redux'
+  MiniRedux: 'Mini Redux',
+  MiniRouter: 'Mini Router',
 }
 
 const SubjectDirNames = Object.keys(Subjects)
