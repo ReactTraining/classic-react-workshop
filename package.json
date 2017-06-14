@@ -7,11 +7,12 @@
     "Michael Jackson"
   ],
   "scripts": {
-    "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects",
+    "format": "prettier --single-quote --no-semi --trailing-comma es5 --write \"**/*.js\"",
+    "lint": "eslint subjects/**/*.js",
     "server-exercise": "supervisor -- -r babel-register subjects/ServerRendering/exercise/server.js",
     "server-solution": "supervisor -- -r babel-register subjects/ServerRendering/solution/server.js",
+    "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects",
     "start-api": "node api.js",
-    "lint": "eslint subjects/**/*.js",
     "test": "npm run lint"
   },
   "dependencies": {
@@ -83,6 +84,7 @@
     "eslint": "^3.2.2",
     "eslint-import-resolver-webpack": "^0.5.1",
     "eslint-plugin-import": "^1.13.0",
-    "eslint-plugin-react": "^6.0.0"
+    "eslint-plugin-react": "^6.0.0",
+    "prettier": "^1.4.4"
   }
 }
