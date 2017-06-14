@@ -5,25 +5,26 @@ import Perf from 'react-addons-perf'
 let guid = 0
 
 const ITEMS = []
-for (let i = 0; i < 200; i++)
-  ITEMS.push({ id: ++guid, body: `item ${guid}` })
+for (let i = 0; i < 200; i++) ITEMS.push({ id: ++guid, body: `item ${guid}` })
 
 class TodoItem extends React.Component {
   render() {
     return (
       <li>
-        <span><input type="checkbox"/> </span>
+        <span>
+          <input type="checkbox" />{' '}
+        </span>
         <span>
           <span><b>item:</b> </span>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
+          <span className="stuff" />
+          <span className="stuff" />
+          <span className="stuff" />
+          <span className="stuff" />
+          <span className="stuff" />
+          <span className="stuff" />
+          <span className="stuff" />
+          <span className="stuff" />
+          <span className="stuff" />
         </span>
         <span tabIndex="-1">
           <span className="thing">
@@ -40,7 +41,7 @@ class TodoList extends React.Component {
     items: ITEMS
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault()
 
     const item = {
@@ -51,7 +52,7 @@ class TodoList extends React.Component {
     event.target.reset()
 
     this.setState({
-      items: [ item ].concat(this.state.items)
+      items: [item].concat(this.state.items)
     })
   }
 
@@ -59,19 +60,19 @@ class TodoList extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input ref="input"/>
+          <input ref="input" />
         </form>
         <ul>
-          {this.state.items.map(item => (
-            <TodoItem key={item.id} body={item.body}/>
-          ))}
+          {this.state.items.map(item =>
+            <TodoItem key={item.id} body={item.body} />
+          )}
         </ul>
       </div>
     )
   }
 }
 
-ReactDOM.render(<TodoList/>, document.getElementById('app'))
+ReactDOM.render(<TodoList />, document.getElementById('app'))
 
 //import React, { PropTypes } from 'react'
 //import ReactDOM from 'react-dom'

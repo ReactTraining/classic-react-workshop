@@ -33,7 +33,4 @@ import ReactDOM from 'react-dom'
 import App from './exercise/App'
 
 // TODO: Pass contacts data into the <App> via a prop.
-ReactDOM.render(
-  <App/>,
-  document.getElementById('app')
-)
+ReactDOM.render(<App />, document.getElementById('app'))

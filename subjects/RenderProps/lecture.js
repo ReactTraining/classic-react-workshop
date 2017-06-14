@@ -10,7 +10,7 @@ document.body.style.background = `
   )
 `
 
-const getHeaderStyle = (y) => {
+const getHeaderStyle = y => {
   const pin = y >= 100
   const top = -y / 2
   return {
@@ -20,7 +20,12 @@ const getHeaderStyle = (y) => {
     margin: 0,
     position: 'fixed',
     top: pin ? '0px' : `${top + 50}px`,
-    textShadow: pin ?  `0px ${(y-100)/5}px ${Math.min((y-100)/10, 20)}px rgba(0, 0, 0, 0.5)` : 'none'
+    textShadow: pin
+      ? `0px ${(y - 100) / 5}px ${Math.min(
+          (y - 100) / 10,
+          20
+        )}px rgba(0, 0, 0, 0.5)`
+      : 'none'
   }
 }
 
@@ -53,7 +58,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))
 
 ///////////////////////////////////////////////////////////////////////////////
 // We can wrap up the scroll listening into a <ScrollPosition> component with

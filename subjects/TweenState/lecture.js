@@ -12,8 +12,7 @@ const List = React.createClass({
 
   addItem(e) {
     if (e.key === 'Enter') {
-      if (this.guid == null)
-        this.guid = 1
+      if (this.guid == null) this.guid = 1
 
       const newItem = {
         id: this.guid++,
@@ -21,7 +20,7 @@ const List = React.createClass({
       }
 
       this.setState({
-        items: [ newItem ].concat(this.state.items)
+        items: [newItem].concat(this.state.items)
       })
 
       e.target.value = ''
@@ -38,13 +37,14 @@ const List = React.createClass({
     return (
       <div>
         <h1>{this.props.name}</h1>
-        <input onKeyPress={this.addItem}/>
+        <input onKeyPress={this.addItem} />
         <ul>
-          {this.state.items.map(item => (
+          {this.state.items.map(item =>
             <li key={item.id}>
-              {item.label} <button onClick={() => this.removeItem(item)}>remove</button>
+              {item.label}{' '}
+              <button onClick={() => this.removeItem(item)}>remove</button>
             </li>
-          ))}
+          )}
         </ul>
       </div>
     )
@@ -55,10 +55,10 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <List name="Transition Group"/>
+        <List name="Transition Group" />
       </div>
     )
   }
 })
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById('app'))

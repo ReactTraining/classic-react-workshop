@@ -3,7 +3,7 @@ import AppDispatcher from '../AppDispatcher'
 import { ActionTypes } from '../Constants'
 
 const CHANGE_EVENT = 'CHANGE'
-const events = new EventEmitter
+const events = new EventEmitter()
 
 const state = {
   contacts: [],
@@ -30,7 +30,7 @@ function getState() {
   return state
 }
 
-AppDispatcher.register(function (payload) {
+AppDispatcher.register(function(payload) {
   const { action } = payload
 
   if (action.type === ActionTypes.CONTACTS_WERE_LOADED) {
@@ -42,7 +42,7 @@ AppDispatcher.register(function (payload) {
 
   if (action.type === ActionTypes.DELETE_CONTACT) {
     setState({
-      deletingContacts: state.deletingContacts.concat([ action.contact ])
+      deletingContacts: state.deletingContacts.concat([action.contact])
     })
   }
 
@@ -51,7 +51,9 @@ AppDispatcher.register(function (payload) {
     errors[action.contact.id] = action.error
 
     setState({
-      deletingContacts: state.deletingContacts.filter(c => c.id !== action.contact.id),
+      deletingContacts: state.deletingContacts.filter(
+        c => c.id !== action.contact.id
+      ),
       errors
     })
   }
@@ -59,10 +61,11 @@ AppDispatcher.register(function (payload) {
   if (action.type === ActionTypes.CONTACT_WAS_DELETED) {
     setState({
       contacts: state.contacts.filter(c => c.id !== action.contact.id),
-      deletingContacts: state.deletingContacts.filter(c => c.id !== action.contact.id)
+      deletingContacts: state.deletingContacts.filter(
+        c => c.id !== action.contact.id
+      )
     })
   }
 })
 
 export default { getState, removeChangeListener, addChangeListener }
-

@@ -17,9 +17,9 @@ const DrawingPad = React.createClass({
 
   maybeDraw(e) {
     if (this.state.drawing)
-      this.props.cursor.update('points', (points) => (
-        points.push([ e.clientX, e.clientY ])
-      ))
+      this.props.cursor.update('points', points =>
+        points.push([e.clientX, e.clientY])
+      )
   },
 
   render() {
@@ -41,7 +41,7 @@ const DrawingPad = React.createClass({
           onMouseUp={() => this.setState({ drawing: false })}
           onMouseMove={this.maybeDraw}
         >
-          {points.map((point, i) => (
+          {points.map((point, i) =>
             <div
               key={i}
               style={{
@@ -54,7 +54,7 @@ const DrawingPad = React.createClass({
                 borderRadius: '50%'
               }}
             />
-          ))}
+          )}
         </div>
       </div>
     )
@@ -73,7 +73,7 @@ const App = React.createClass({
     return (
       <div>
         <h1>{cursor.get('name')}</h1>
-        <input onChange={(e) => cursor.update('name', () => e.target.value)}/>
+        <input onChange={e => cursor.update('name', () => e.target.value)} />
         <div>
           <input
             type="range"
@@ -84,7 +84,7 @@ const App = React.createClass({
             style={{ width: 400 }}
           />
         </div>
-        <DrawingPad cursor={cursor}/>
+        <DrawingPad cursor={cursor} />
       </div>
     )
   }
@@ -97,10 +97,8 @@ function setHistory(frame) {
   const count = structure.history.count()
   const current = structure._currentRevision
 
-  if (frame > current)
-    redo(frame - current)
-  else if (frame < current)
-    undo(current - frame)
+  if (frame > current) redo(frame - current)
+  else if (frame < current) undo(current - frame)
 }
 
 function undo(amt) {
@@ -114,5 +112,5 @@ function redo(amt) {
 }
 
 function render() {
-  ReactDOM.render(<App structure={structure}/>, document.getElementById('app'))
+  ReactDOM.render(<App structure={structure} />, document.getElementById('app'))
 }

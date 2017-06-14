@@ -78,8 +78,7 @@ const DropGrid = React.createClass({
       markerTop = Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
     }
 
-    const bouncySpring = (style) =>
-      spring(style, { stiffness: 170, damping: 8 })
+    const bouncySpring = style => spring(style, { stiffness: 170, damping: 8 })
 
     const markerStyle = {
       left: isDraggingMarker ? markerLeft : bouncySpring(markerLeft),
@@ -87,17 +86,16 @@ const DropGrid = React.createClass({
     }
 
     return (
-      <div className="grid" ref={node => this.node = node}>
+      <div className="grid" ref={node => (this.node = node)}>
         <Motion style={markerStyle}>
-          {style => (
+          {style =>
             <Draggable
               className="marker"
               style={style}
               onDragStart={this.handleDragStart}
               onDrag={this.handleDrag}
               onDrop={this.handleDrop}
-            />
-          )}
+            />}
         </Motion>
         <div className="cell">1</div>
         <div className="cell">2</div>
@@ -113,4 +111,4 @@ const DropGrid = React.createClass({
   }
 })
 
-ReactDOM.render(<DropGrid/>, document.getElementById('app'))
+ReactDOM.render(<DropGrid />, document.getElementById('app'))

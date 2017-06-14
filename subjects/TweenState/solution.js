@@ -22,7 +22,7 @@ const TweenToggleSwitch = React.createClass({
     isActive: PropTypes.bool.isRequired
   },
 
-  mixins: [ TweenStateMixin ],
+  mixins: [TweenStateMixin],
 
   getDefaultProps() {
     return {
@@ -39,7 +39,7 @@ const TweenToggleSwitch = React.createClass({
   componentWillReceiveProps(nextProps) {
     this.tweenState('knobLeft', {
       duration: this.props.animationDuration,
-      endValue: (nextProps.isActive ? 400 : 0)
+      endValue: nextProps.isActive ? 400 : 0
     })
   },
 
@@ -52,7 +52,7 @@ const TweenToggleSwitch = React.createClass({
 
     return (
       <div className="toggle-switch" onClick={this.handleClick}>
-        <div className="toggle-switch-knob" style={knobStyle}/>
+        <div className="toggle-switch-knob" style={knobStyle} />
       </div>
     )
   }
@@ -68,14 +68,20 @@ const SpringToggleSwitch = React.createClass({
 
     return (
       <Motion defaultStyle={{ x }} style={{ x: spring(x) }}>
-      {s => (
-        <div id="switch1" className="toggle-switch" onClick={this.handleClick}>
-          <div className="toggle-switch-knob" style={{
-            WebkitTransform: `translate3d(${s.x}px,0,0)`,
-            transform: `translate3d(${s.x}px,0,0)` }}
-          />
-        </div>
-      )}
+        {s =>
+          <div
+            id="switch1"
+            className="toggle-switch"
+            onClick={this.handleClick}
+          >
+            <div
+              className="toggle-switch-knob"
+              style={{
+                WebkitTransform: `translate3d(${s.x}px,0,0)`,
+                transform: `translate3d(${s.x}px,0,0)`
+              }}
+            />
+          </div>}
       </Motion>
     )
   }
@@ -101,12 +107,12 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <TweenToggleSwitch isActive={this.state.isActive}/>
-        <SpringToggleSwitch isActive={this.state.isActive}/>
+        <TweenToggleSwitch isActive={this.state.isActive} />
+        <SpringToggleSwitch isActive={this.state.isActive} />
         <button onClick={this.handleClick}>Toggle</button>
       </div>
     )
   }
 })
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById('app'))

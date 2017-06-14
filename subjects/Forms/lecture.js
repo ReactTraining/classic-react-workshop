@@ -11,14 +11,14 @@ class Forms extends React.Component {
       <div>
         <h1>Forms</h1>
         <form>
-          <input type="text"/>
+          <input type="text" />
         </form>
       </div>
     )
   }
 }
 
-ReactDOM.render(<Forms/>, document.getElementById('app'))
+ReactDOM.render(<Forms />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Give the <input> a default value.

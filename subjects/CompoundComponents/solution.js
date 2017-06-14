@@ -71,12 +71,12 @@ class RadioGroup extends React.Component {
   }
 
   render() {
-    const children = React.Children.map(this.props.children, (child) => (
+    const children = React.Children.map(this.props.children, child =>
       React.cloneElement(child, {
         isSelected: child.props.value === this.state.value,
         onClick: () => this.select(child.props.value)
       })
-    ))
+    )
 
     return <div>{children}</div>
   }
@@ -90,7 +90,7 @@ class RadioOption extends React.Component {
   render() {
     return (
       <div onClick={this.props.onClick}>
-        <RadioIcon isSelected={this.props.isSelected}/> {this.props.children}
+        <RadioIcon isSelected={this.props.isSelected} /> {this.props.children}
       </div>
     )
   }
@@ -110,7 +110,7 @@ class App extends React.Component {
 
         <RadioGroup
           defaultValue={this.state.radioValue}
-          onChange={(radioValue) => this.setState({ radioValue })}
+          onChange={radioValue => this.setState({ radioValue })}
         >
           <RadioOption value="am">AM</RadioOption>
           <RadioOption value="fm">FM</RadioOption>
@@ -122,4 +122,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

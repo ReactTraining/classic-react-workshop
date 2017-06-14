@@ -23,12 +23,12 @@ class Select extends React.Component {
   getLabel() {
     let label = null
 
-    React.Children.forEach(this.props.children, (child) => {
+    React.Children.forEach(this.props.children, child => {
       const childValue = child.props.value
 
       if (
         (this.isUncontrolled() && childValue === this.state.value) ||
-        (child.props.value === this.props.value)
+        child.props.value === this.props.value
       ) {
         label = child.props.children
       }
@@ -50,32 +50,31 @@ class Select extends React.Component {
   handleSelect(value) {
     const nextState = { showChildren: false }
 
-    if (this.isUncontrolled())
-      nextState.value = value
+    if (this.isUncontrolled()) nextState.value = value
 
     this.setState(nextState, () => {
-      if (this.props.onChange)
-        this.props.onChange(value)
+      if (this.props.onChange) this.props.onChange(value)
     })
   }
 
   renderChildren() {
-    return React.Children.map(this.props.children, (child) => (
+    return React.Children.map(this.props.children, child =>
       React.cloneElement(child, {
-        onSelect: (value) => this.handleSelect(value)
+        onSelect: value => this.handleSelect(value)
       })
-    ))
+    )
   }
 
   render() {
     return (
       <div className="select" onClick={() => this.toggle()}>
-        <div className="label">{this.getLabel()} <span className="arrow">▾</span></div>
-        {this.state.showChildren && (
+        <div className="label">
+          {this.getLabel()} <span className="arrow">▾</span>
+        </div>
+        {this.state.showChildren &&
           <div className="options">
             {this.renderChildren()}
-          </div>
-        )}
+          </div>}
       </div>
     )
   }
@@ -88,10 +87,9 @@ class Option extends React.Component {
 
   render() {
     return (
-      <div
-        className="option"
-        onClick={() => this.handleClick()}
-      >{this.props.children}</div>
+      <div className="option" onClick={() => this.handleClick()}>
+        {this.props.children}
+      </div>
     )
   }
 }
@@ -119,7 +117,7 @@ class App extends React.Component {
 
         <Select
           value={this.state.selectValue}
-          onChange={(selectValue) => this.setState({ selectValue })}
+          onChange={selectValue => this.setState({ selectValue })}
         >
           <Option value="tikka-masala">Tikka Masala</Option>
           <Option value="tandoori-chicken">Tandoori Chicken</Option>
@@ -139,4 +137,4 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById('app'))

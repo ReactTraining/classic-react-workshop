@@ -28,7 +28,7 @@ const createPage = (markup, data) => `
 
 const app = http.createServer((req, res) => {
   fetchContacts((error, contacts) => {
-    const markup = ReactDOMServer.renderToString(<App contacts={contacts}/>)
+    const markup = ReactDOMServer.renderToString(<App contacts={contacts} />)
     const html = createPage(markup, { contacts })
 
     res.writeHead(200, {

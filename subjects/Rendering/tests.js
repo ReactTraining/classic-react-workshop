@@ -9,6 +9,12 @@ export function run() {
   assert(!!html.match(/tacos/), 'render tacos')
   assert(!!html.match(/tostada/), 'render tostada')
   assert(!html.match(/mushy peas/), 'only show mexican food')
-  assert(html.indexOf('burrito') < html.indexOf('tacos'), 'burrito rendered first')
-  assert(html.indexOf('tacos') < html.indexOf('tostada'), 'tacos rendered second')
+  assert(
+    html.indexOf('burrito') < html.indexOf('tacos'),
+    'burrito rendered first'
+  )
+  assert(
+    html.indexOf('tacos') < html.indexOf('tostada'),
+    'tacos rendered second'
+  )
 }

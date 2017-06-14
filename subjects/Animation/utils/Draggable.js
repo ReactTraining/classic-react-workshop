@@ -2,10 +2,8 @@ import React, { PropTypes } from 'react'
 
 const Draggable = React.createClass({
   propTypes: {
-    component: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func
-    ]).isRequired,
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+      .isRequired,
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
     onDrop: PropTypes.func
@@ -35,22 +33,19 @@ const Draggable = React.createClass({
       // Prevent Chrome from displaying a text cursor
       event.preventDefault()
 
-      if (this.props.onDragStart)
-        this.props.onDragStart(event)
+      if (this.props.onDragStart) this.props.onDragStart(event)
     }
   },
 
   handleMouseMove(event) {
-    if (this.isDragging && this.props.onDrag)
-      this.props.onDrag(event)
+    if (this.isDragging && this.props.onDrag) this.props.onDrag(event)
   },
 
   handleMouseUp(event) {
     if (this.isDragging) {
       this.isDragging = false
-      
-      if (this.props.onDrop)
-        this.props.onDrop(event)
+
+      if (this.props.onDrop) this.props.onDrop(event)
     }
   },
 

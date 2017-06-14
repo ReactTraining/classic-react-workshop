@@ -36,19 +36,18 @@ const USERS = [
 
 function getUserByID(id) {
   for (let i = 0; i < USERS.length; ++i)
-    if (USERS[i].id === parseInt(id, 10))
-      return USERS[i]
+    if (USERS[i].id === parseInt(id, 10)) return USERS[i]
 
   return null
 }
 
 class Home extends React.Component {
   render() {
-    const contactItems = USERS.map(user => (
+    const contactItems = USERS.map(user =>
       <li key={user.email}>
         <Link to={`/profile/${user.id}`}>{user.name}</Link>
       </li>
-    ))
+    )
 
     return (
       <div>
@@ -65,12 +64,11 @@ class Profile extends React.Component {
     const { userId } = match.params
     const user = getUserByID(userId)
 
-    if (user == null)
-      return <p>Cannot find user with id {userId}</p>
+    if (user == null) return <p>Cannot find user with id {userId}</p>
 
     return (
       <div className="profile">
-        <Gravatar email={user.email}/> {user.name}
+        <Gravatar email={user.email} /> {user.name}
       </div>
     )
   }
@@ -95,12 +93,14 @@ class App extends React.Component {
 
         <Router>
           <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/profile/:userId" component={Profile}/>
-            <Route path="/users/:userId" render={({ match }) => (
-              <Redirect to={`/profile/${match.params.userId}`}/>
-            )}/>
-            <Route component={NoMatch}/>
+            <Route exact path="/" component={Home} />
+            <Route path="/profile/:userId" component={Profile} />
+            <Route
+              path="/users/:userId"
+              render={({ match }) =>
+                <Redirect to={`/profile/${match.params.userId}`} />}
+            />
+            <Route component={NoMatch} />
           </Switch>
         </Router>
       </div>
@@ -108,4 +108,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

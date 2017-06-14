@@ -20,11 +20,11 @@ describe('when <Tabs> is rendered', () => {
     { label: 'Russia', content: 'World Cup 2018!' }
   ]
 
-  beforeEach((done) => {
+  beforeEach(done => {
     node = document.createElement('div')
     document.body.appendChild(node)
 
-    ReactDOM.render(<Tabs data={FixtureData}/>, node, () => {
+    ReactDOM.render(<Tabs data={FixtureData} />, node, () => {
       tabs = node.querySelectorAll('.Tab')
       panel = node.querySelector('.TabPanel')
 
@@ -41,15 +41,24 @@ describe('when <Tabs> is rendered', () => {
   })
 
   it('renders the USA tab', () => {
-    expect(tabs[0].innerText).toEqual(FixtureData[0].label, 'USA tab was not rendered')
+    expect(tabs[0].innerText).toEqual(
+      FixtureData[0].label,
+      'USA tab was not rendered'
+    )
   })
 
   it('renders the Brazil tab', () => {
-    expect(tabs[1].innerText).toEqual(FixtureData[1].label, 'Brazil tab was not rendered')
+    expect(tabs[1].innerText).toEqual(
+      FixtureData[1].label,
+      'Brazil tab was not rendered'
+    )
   })
 
   it('renders the Russia tab', () => {
-    expect(tabs[2].innerText).toEqual(FixtureData[2].label, 'Russia tab was not rendered')
+    expect(tabs[2].innerText).toEqual(
+      FixtureData[2].label,
+      'Russia tab was not rendered'
+    )
   })
 
   it('activates the first tab', () => {

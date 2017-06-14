@@ -36,17 +36,16 @@ const USERS = [
 
 function getUserByID(id) {
   for (let i = 0; i < USERS.length; ++i)
-    if (USERS[i].id === parseInt(id, 10))
-      return USERS[i]
+    if (USERS[i].id === parseInt(id, 10)) return USERS[i]
 
   return null
 }
 
 class Home extends React.Component {
   render() {
-    const contactItems = USERS.map(user => (
+    const contactItems = USERS.map(user =>
       <li key={user.email}>{user.name}</li>
-    ))
+    )
 
     return (
       <div>
@@ -62,12 +61,11 @@ class Profile extends React.Component {
     const userId = 1 // TODO: Get this from the URL!
     const user = getUserByID(userId)
 
-    if (user == null)
-      return <p>Cannot find user with id {userId}</p>
+    if (user == null) return <p>Cannot find user with id {userId}</p>
 
     return (
       <div className="profile">
-        <Gravatar email={user.email}/> {user.name}
+        <Gravatar email={user.email} /> {user.name}
       </div>
     )
   }
@@ -89,10 +87,10 @@ class App extends React.Component {
     return (
       <div>
         <h1>People Viewer</h1>
-        <Home/>
+        <Home />
       </div>
     )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

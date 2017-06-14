@@ -7,7 +7,7 @@
     "Michael Jackson"
   ],
   "scripts": {
-    "format": "prettier --single-quote --no-semi --trailing-comma es5 --write \"**/*.js\"",
+    "format": "prettier --single-quote --no-semi --write \"**/*.js\"",
     "lint": "eslint subjects/**/*.js",
     "server-exercise": "supervisor -- -r babel-register subjects/ServerRendering/exercise/server.js",
     "server-solution": "supervisor -- -r babel-register subjects/ServerRendering/solution/server.js",

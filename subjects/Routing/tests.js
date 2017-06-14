@@ -19,19 +19,16 @@ export function run(component) {
 
   assert(peopleList, 'render the list of people')
   assert(
-    profileLinks.length && profileLinks.every((link) => (
-      link && profileHrefFormat.test(link.getAttribute('href'))
-    )),
+    profileLinks.length &&
+      profileLinks.every(
+        link => link && profileHrefFormat.test(link.getAttribute('href'))
+      ),
     'render links to the profile page'
   )
 
   console.log('after clicking on a profile link...')
 
-  if (profileLinks.length)
-    Simulate.click(profileLinks[1], { button: 0 })
+  if (profileLinks.length) Simulate.click(profileLinks[1], { button: 0 })
 
-  assert(
-    node.querySelector('.profile'),
-    'show the profile page'
-  )
+  assert(node.querySelector('.profile'), 'show the profile page')
 }

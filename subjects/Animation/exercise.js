@@ -84,7 +84,7 @@ const DropGrid = React.createClass({
     }
 
     return (
-      <div className="grid" ref={node => this.node = node}>
+      <div className="grid" ref={node => (this.node = node)}>
         <Draggable
           className="marker"
           style={markerStyle}
@@ -106,4 +106,4 @@ const DropGrid = React.createClass({
   }
 })
 
-ReactDOM.render(<DropGrid/>, document.getElementById('app'))
+ReactDOM.render(<DropGrid />, document.getElementById('app'))

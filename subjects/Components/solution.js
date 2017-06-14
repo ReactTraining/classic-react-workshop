@@ -57,7 +57,9 @@ class Tabs extends React.Component {
           className="Tab"
           style={style}
           onClick={() => this.selectTabIndex(index)}
-        >{country.name}</div>
+        >
+          {country.name}
+        </div>
       )
     })
 
@@ -80,7 +82,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Countries</h1>
-        <Tabs data={this.props.countries}/>
+        <Tabs data={this.props.countries} />
       </div>
     )
   }
@@ -92,6 +94,10 @@ const DATA = [
   { id: 3, name: 'Russia', description: 'World Cup 2018!' }
 ]
 
-ReactDOM.render(<App countries={DATA}/>, document.getElementById('app'), function () {
-  require('./tests').run(this)
-})
+ReactDOM.render(
+  <App countries={DATA} />,
+  document.getElementById('app'),
+  function() {
+    require('./tests').run(this)
+  }
+)

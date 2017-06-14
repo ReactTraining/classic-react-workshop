@@ -52,7 +52,9 @@ class Tabs extends React.Component {
           className="Tab"
           style={style}
           onClick={() => this.selectTabIndex(index)}
-        >{tab.label}</div>
+        >
+          {tab.label}
+        </div>
       )
     })
 

@@ -37,7 +37,7 @@ class GeoPosition extends React.Component {
 
   componentDidMount() {
     this.geoId = navigator.geolocation.watchPosition(
-      (position) => {
+      position => {
         this.setState({
           coords: {
             latitude: position.coords.latitude,
@@ -45,7 +45,7 @@ class GeoPosition extends React.Component {
           }
         })
       },
-      (error) => {
+      error => {
         this.setState({ error })
       }
     )
@@ -70,8 +70,7 @@ class GeoAddress extends React.Component {
   state = { address: null }
 
   componentDidMount() {
-    if (this.props.latitude && this.props.longitude)
-      this.fetch()
+    if (this.props.latitude && this.props.longitude) this.fetch()
   }
 
   componentDidUpdate(prevProps) {
@@ -103,34 +102,27 @@ class App extends React.Component {
 
         <h2>GeoPosition</h2>
         <GeoPosition>
-          {state => state.error ? (
-            <div>Error: {state.error.message}</div>
-          ) : (
-            <dl>
-              <dt>Latitude</dt>
-              <dd>{state.coords.latitude || <LoadingDots/>}</dd>
-              <dt>Longitude</dt>
-              <dd>{state.coords.longitude || <LoadingDots/>}</dd>
-            </dl>
-          )}
+          {state =>
+            state.error
+              ? <div>Error: {state.error.message}</div>
+              : <dl>
+                  <dt>Latitude</dt>
+                  <dd>{state.coords.latitude || <LoadingDots />}</dd>
+                  <dt>Longitude</dt>
+                  <dd>{state.coords.longitude || <LoadingDots />}</dd>
+                </dl>}
         </GeoPosition>
 
         <h2>GeoAddress Composition</h2>
         <GeoPosition>
-          {({ coords }) => (
-            <GeoAddress
-              latitude={coords.latitude}
-              longitude={coords.longitude}
-            >
-              {({ address }) => (
-                <p>{address || <LoadingDots/>}</p>
-              )}
-            </GeoAddress>
-          )}
+          {({ coords }) =>
+            <GeoAddress latitude={coords.latitude} longitude={coords.longitude}>
+              {({ address }) => <p>{address || <LoadingDots />}</p>}
+            </GeoAddress>}
         </GeoPosition>
       </div>
     )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, Link } from './mini-router'
 
-const App = () => (
+const App = () =>
   <div>
     <ul>
       <li><Link to="/dashboard">Dashboard</Link></li>
@@ -10,25 +10,25 @@ const App = () => (
       <li><Link to="/topics">Topics</Link></li>
     </ul>
 
-    <hr/>
+    <hr />
 
-    <Route path="/dashboard" render={() => (
-      <div>
-        <h2>Dashboard</h2>
-      </div>
-    )}/>
-    <Route path="/about" component={About}/>
-    <Route path="/topics" component={Topics}/>
+    <Route
+      path="/dashboard"
+      render={() =>
+        <div>
+          <h2>Dashboard</h2>
+        </div>}
+    />
+    <Route path="/about" component={About} />
+    <Route path="/topics" component={Topics} />
   </div>
-)
 
-const About = () => (
+const About = () =>
   <div>
     <h2>About</h2>
   </div>
-)
 
-const Topics = ({ match }) => (
+const Topics = ({ match }) =>
   <div>
     <h2>Topics</h2>
     <ul>
@@ -37,10 +37,10 @@ const Topics = ({ match }) => (
       <li>Props v. State</li>
     </ul>
   </div>
-)
 
-ReactDOM.render((
+ReactDOM.render(
   <Router>
-    <App/>
-  </Router>
-), document.getElementById('app'))
+    <App />
+  </Router>,
+  document.getElementById('app')
+)

@@ -8,8 +8,7 @@ class ContentToggle extends React.Component {
 
   handleClick() {
     this.setState({ isOpen: !this.state.isOpen }, () => {
-      if (this.props.onToggle)
-        this.props.onToggle(this.state.isOpen)
+      if (this.props.onToggle) this.props.onToggle(this.state.isOpen)
     })
   }
 
@@ -45,7 +44,7 @@ class App extends React.Component {
     return (
       <div>
         <div>
-          {this.state.tacos.map((taco) => (
+          {this.state.tacos.map(taco =>
             <ContentToggle
               key={taco.name}
               style={{ width: 300 }}
@@ -59,14 +58,14 @@ class App extends React.Component {
                 }}
               />
             </ContentToggle>
-          ))}
+          )}
         </div>
       </div>
     )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////
 // But what about when we add this feature?

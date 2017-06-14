@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
 import serializeForm from 'form-serialize'
 
-const transparentGif = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+const transparentGif =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
-const generateId = () =>
-  Math.random().toString(36).substring(7)
+const generateId = () => Math.random().toString(36).substring(7)
 
 class CreateContactForm extends React.Component {
   handleSubmit(event) {
@@ -17,11 +17,19 @@ class CreateContactForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={event => this.handleSubmit(event)} style={{ display: 'inline' }}>
-        <img style={{ background: '#ccc' }} height="50" width="50" src={transparentGif}/>{' '}
-        <input name="first" type="text" placeholder="first name" size="13"/>
-        <input name="last" type="text" placeholder="last name" size="13"/>
-        <input name="avatar" type="text" placeholder="avatar url" size="20"/>
+      <form
+        onSubmit={event => this.handleSubmit(event)}
+        style={{ display: 'inline' }}
+      >
+        <img
+          style={{ background: '#ccc' }}
+          height="50"
+          width="50"
+          src={transparentGif}
+        />{' '}
+        <input name="first" type="text" placeholder="first name" size="13" />
+        <input name="last" type="text" placeholder="last name" size="13" />
+        <input name="avatar" type="text" placeholder="avatar url" size="20" />
         <button type="submit">Create</button>
       </form>
     )

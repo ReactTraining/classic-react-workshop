@@ -23,14 +23,12 @@ class Modal extends React.Component {
     // This is only necessary to sync the state back up to
     // the parent when the user clicks on the overlay.
     $(this.node).on('hidden.bs.modal', () => {
-      if (this.props.onClose)
-        this.props.onClose()
+      if (this.props.onClose) this.props.onClose()
     })
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isOpen !== this.props.isOpen)
-      this.doImperativeWork()
+    if (prevProps.isOpen !== this.props.isOpen) this.doImperativeWork()
   }
 
   doImperativeWork() {
@@ -51,7 +49,7 @@ class Modal extends React.Component {
 
   render() {
     return (
-      <div className="modal fade" ref={node => this.node = node}>
+      <div className="modal fade" ref={node => (this.node = node)}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -85,10 +83,9 @@ class App extends React.Component {
       <div className="container">
         <h1>Let’s make bootstrap modal declarative</h1>
 
-        <button
-          className="btn btn-primary"
-          onClick={this.openModal}
-        >open modal</button>
+        <button className="btn btn-primary" onClick={this.openModal}>
+          open modal
+        </button>
 
         <Modal
           title="Declarative is better"
@@ -97,12 +94,17 @@ class App extends React.Component {
         >
           <p>Calling methods on instances is a FLOW not a STOCK!</p>
           <p>It’s the dynamic process, not the static program in text space.</p>
-          <p>You have to experience it over time, rather than in snapshots of state.</p>
+          <p>
+            You have to experience it over time, rather than in snapshots of
+            state.
+          </p>
           <button
             onClick={this.closeModal}
             type="button"
             className="btn btn-default"
-          >Close</button>
+          >
+            Close
+          </button>
         </Modal>
 
       </div>
@@ -110,4 +112,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

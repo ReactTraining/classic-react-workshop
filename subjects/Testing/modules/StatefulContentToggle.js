@@ -6,7 +6,7 @@ class StatefulContentToggle extends React.Component {
     isOpen: false
   }
 
-  render () {
+  render() {
     return (
       <ContentToggle
         {...this.props}
