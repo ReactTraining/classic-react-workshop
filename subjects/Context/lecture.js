@@ -30,9 +30,11 @@ class Tab extends React.Component {
     return (
       <div
         onClick={this.props.isDisabled ? null : this.props.onClick}
-        style={this.props.isDisabled ? styles.disabledTab : (
-          this.props.isActive ? styles.activeTab : styles.tab
-        )}
+        style={
+          this.props.isDisabled
+            ? styles.disabledTab
+            : this.props.isActive ? styles.activeTab : styles.tab
+        }
       >
         {this.props.children}
       </div>
@@ -70,7 +72,7 @@ class Tabs extends React.Component {
       } else if (child.type === TabList) {
         return React.cloneElement(child, {
           activeIndex: this.state.activeIndex,
-          onActivate: (activeIndex) => this.setState({ activeIndex })
+          onActivate: activeIndex => this.setState({ activeIndex })
         })
       } else {
         return child
@@ -82,7 +84,7 @@ class Tabs extends React.Component {
 }
 
 class App extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <Tabs>
@@ -93,7 +95,9 @@ class App extends React.Component {
           </TabList>
           <TabPanels>
             <TabPanel><p>Tacos are delicious</p></TabPanel>
-            <TabPanel><p>Sometimes a burrito is what you really need</p></TabPanel>
+            <TabPanel>
+              <p>Sometimes a burrito is what you really need</p>
+            </TabPanel>
             <TabPanel><p>Might be your best option</p></TabPanel>
           </TabPanels>
         </Tabs>
@@ -102,7 +106,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Wrapping <TabPanels> in a div breaks everything! Instead of using

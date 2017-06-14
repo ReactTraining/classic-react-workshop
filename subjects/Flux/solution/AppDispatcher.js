@@ -2,7 +2,7 @@
 import { Dispatcher } from 'flux'
 import { PayloadSources } from './Constants'
 
-const AppDispatcher = new Dispatcher
+const AppDispatcher = new Dispatcher()
 
 export function dispatchViewAction(action) {
   console.log('dispatching view action', action)

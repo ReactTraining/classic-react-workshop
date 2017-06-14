@@ -8,7 +8,7 @@
 import React, { PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
-const withMousePosition = (Component) => {
+const withMousePosition = Component => {
   return Component
 }
 
@@ -25,11 +25,9 @@ class App extends React.Component {
 
     return (
       <div style={{ height: '100%' }}>
-        {mouse ? (
-          <h1>The mouse position is ({mouse.x}, {mouse.y})</h1>
-        ) : (
-          <h1>We don't know the mouse position yet :(</h1>
-        )}
+        {mouse
+          ? <h1>The mouse position is ({mouse.x}, {mouse.y})</h1>
+          : <h1>We don't know the mouse position yet :(</h1>}
       </div>
     )
   }
@@ -37,4 +35,4 @@ class App extends React.Component {
 
 const AppWithMouse = withMousePosition(App)
 
-ReactDOM.render(<AppWithMouse/>, document.getElementById('app'))
+ReactDOM.render(<AppWithMouse />, document.getElementById('app'))

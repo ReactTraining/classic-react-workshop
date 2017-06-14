@@ -41,8 +41,7 @@ class Modal extends React.Component {
   }
 
   render() {
-    if (this.state.isOpen === false)
-      return null
+    if (this.state.isOpen === false) return null
 
     return (
       <div style={this.containerStyle}>
@@ -67,9 +66,10 @@ class App extends React.Component {
     return (
       <div>
         <h1>Unbreakable</h1>
-        <button onClick={this.openModal}>remove from favorites</button><br/><br/>
+        <button onClick={this.openModal}>remove from favorites</button><br />
+        <br />
 
-        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg"/>
+        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg" />
         <p>
           Your bones don’t break, mine do. That’s clear. Your cells react to
           bacteria and viruses differently than mine. You don’t get sick, I do.
@@ -88,4 +88,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

@@ -34,7 +34,4 @@ import App from './solution/App'
 
 const contacts = window.__DATA__.contacts
 
-ReactDOM.render(
-  <App contacts={contacts}/>,
-  document.getElementById('app')
-)
+ReactDOM.render(<App contacts={contacts} />, document.getElementById('app'))

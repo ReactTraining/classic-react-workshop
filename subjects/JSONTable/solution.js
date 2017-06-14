@@ -11,11 +11,11 @@ import { render } from 'react-dom'
 import getJSON from './lib/getJSON'
 
 function isURL(content) {
-  return (/^https?:\/\//).test(content)
+  return /^https?:\/\//.test(content)
 }
 
 function isImageURL(content) {
-  return isURL(content) && (/\.(jpe?g|gif|png)$/).test(content)
+  return isURL(content) && /\.(jpe?g|gif|png)$/.test(content)
 }
 
 const JSONTable = React.createClass({
@@ -27,7 +27,7 @@ const JSONTable = React.createClass({
 
   getDefaultProps() {
     return {
-      getKey: (item) => item.id
+      getKey: item => item.id
     }
   },
 
@@ -46,11 +46,10 @@ const JSONTable = React.createClass({
   },
 
   formatContent(content) {
-    if (Array.isArray(content))
-      return content.map(this.formatContent)
+    if (Array.isArray(content)) return content.map(this.formatContent)
 
     if (isImageURL(content))
-      return <p><img key={content} height="64" src={content}/></p>
+      return <p><img key={content} height="64" src={content} /></p>
 
     if (isURL(content))
       return <p><a key={content} href={content}>{content}</a></p>
@@ -61,8 +60,7 @@ const JSONTable = React.createClass({
   render() {
     const { data } = this.state
 
-    if (data == null || data.length === 0)
-      return null
+    if (data == null || data.length === 0) return null
 
     const fields = Object.keys(data[0])
 
@@ -70,17 +68,17 @@ const JSONTable = React.createClass({
       <table className="pure-table pure-table-striped">
         <thead>
           <tr>
-          {fields.map(field => <th key={field}>{field}</th>)}
+            {fields.map(field => <th key={field}>{field}</th>)}
           </tr>
         </thead>
         <tbody>
-        {data.map(item => (
-          <tr key={this.props.getKey(item)}>
-          {fields.map(field => (
-            <td key={field}>{this.formatContent(item[field])}</td>
-          ))}
-          </tr>
-        ))}
+          {data.map(item =>
+            <tr key={this.props.getKey(item)}>
+              {fields.map(field =>
+                <td key={field}>{this.formatContent(item[field])}</td>
+              )}
+            </tr>
+          )}
         </tbody>
       </table>
     )
@@ -108,4 +106,4 @@ const App = React.createClass({
   }
 })
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById('app'))

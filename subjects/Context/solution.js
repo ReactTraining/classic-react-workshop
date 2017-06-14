@@ -55,9 +55,8 @@ class TextInput extends React.Component {
     onFormSubmit: React.PropTypes.func
   }
 
-  handleKeyDown = (event) => {
-    if (event.key === 'Enter')
-      this.context.onFormSubmit()
+  handleKeyDown = event => {
+    if (event.key === 'Enter') this.context.onFormSubmit()
   }
 
   render() {
@@ -84,8 +83,8 @@ class App extends React.Component {
 
         <Form onSubmit={this.handleSubmit}>
           <p>
-            <TextInput name="firstName" placeholder="First Name"/> {' '}
-            <TextInput name="lastName" placeholder="Last Name"/>
+            <TextInput name="firstName" placeholder="First Name" /> {' '}
+            <TextInput name="lastName" placeholder="Last Name" />
           </p>
           <p>
             <SubmitButton>Submit</SubmitButton>
@@ -96,4 +95,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

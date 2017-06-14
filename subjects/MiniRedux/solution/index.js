@@ -32,8 +32,9 @@ const store = createStore((state = 0, action) => {
   }
 })
 
-ReactDOM.render((
+ReactDOM.render(
   <Provider store={store}>
-    <App/>
-  </Provider>
-), document.getElementById('app'))
+    <App />
+  </Provider>,
+  document.getElementById('app')
+)

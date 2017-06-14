@@ -19,16 +19,13 @@ class ToggleSwitch extends React.Component {
 
     return (
       <div className="toggle-switch switch1" onClick={this.toggle}>
-        <div className="toggle-switch-knob" style={{ left: x }}/>
+        <div className="toggle-switch-knob" style={{ left: x }} />
       </div>
     )
   }
 }
 
-ReactDOM.render(
-  <ToggleSwitch/>,
-  document.getElementById('app')
-)
+ReactDOM.render(<ToggleSwitch />, document.getElementById('app'))
 
 ///////////////////////////////////////////////////////////////////////////////
 // We can integrate with other DOM animation libraries by doing imperative work

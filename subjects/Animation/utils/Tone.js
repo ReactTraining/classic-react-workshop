@@ -33,7 +33,6 @@ const Tone = React.createClass({
   render() {
     return null
   }
-
 })
 
 export default Tone

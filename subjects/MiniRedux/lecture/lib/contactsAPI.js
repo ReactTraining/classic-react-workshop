@@ -11,4 +11,3 @@ export function fetchContacts(cb) {
 export function deleteContactById(contactId, cb) {
   deleteJSON(`${API}/contacts/${contactId}`, cb)
 }
-

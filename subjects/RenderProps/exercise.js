@@ -33,7 +33,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.geoId = navigator.geolocation.watchPosition(
-      (position) => {
+      position => {
         this.setState({
           coords: {
             latitude: position.coords.latitude,
@@ -41,7 +41,7 @@ class App extends React.Component {
           }
         })
       },
-      (error) => {
+      error => {
         this.setState({ error })
       }
     )
@@ -55,19 +55,17 @@ class App extends React.Component {
     return (
       <div>
         <h1>Geolocation</h1>
-        {this.state.error ? (
-          <div>Error: {this.state.error.message}</div>
-        ) : (
-          <dl>
-            <dt>Latitude</dt>
-            <dd>{this.state.coords.latitude || <LoadingDots/>}</dd>
-            <dt>Longitude</dt>
-            <dd>{this.state.coords.longitude || <LoadingDots/>}</dd>
-          </dl>
-        )}
+        {this.state.error
+          ? <div>Error: {this.state.error.message}</div>
+          : <dl>
+              <dt>Latitude</dt>
+              <dd>{this.state.coords.latitude || <LoadingDots />}</dd>
+              <dt>Longitude</dt>
+              <dd>{this.state.coords.longitude || <LoadingDots />}</dd>
+            </dl>}
       </div>
     )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

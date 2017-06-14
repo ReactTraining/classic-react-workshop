@@ -7,15 +7,17 @@ export function search(term, cb) {
     if (err) {
       cb(err)
     } else {
-      const [ searchTerm, titles, descriptions, urls ] = data
-      cb(null, titles.sort().map((title, index) => {
-        return {
-          title,
-          description: descriptions[index],
-          url: urls[index]
-        }
-      }))
+      const [searchTerm, titles, descriptions, urls] = data
+      cb(
+        null,
+        titles.sort().map((title, index) => {
+          return {
+            title,
+            description: descriptions[index],
+            url: urls[index]
+          }
+        })
+      )
     }
   })
 }
-

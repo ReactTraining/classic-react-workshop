@@ -6,8 +6,7 @@ function getHeight(node) {
 }
 
 const HeightFader = React.createClass({
-
-  mixins: [ TweenStateMixin ],
+  mixins: [TweenStateMixin],
 
   getDefaultProps() {
     return {
@@ -57,7 +56,6 @@ const HeightFader = React.createClass({
       }
     })
   }
-
 })
 
 export default HeightFader

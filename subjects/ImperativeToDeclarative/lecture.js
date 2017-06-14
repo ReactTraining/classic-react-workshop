@@ -27,7 +27,7 @@ class App extends React.Component {
     this.oscillator.stop()
   }
 
-  changeTone = (event) => {
+  changeTone = event => {
     const { clientX, clientY } = event
     const { top, right, bottom, left } = event.target.getBoundingClientRect()
     const pitch = (clientX - left) / (right - left)
@@ -52,7 +52,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Can't predict what the sound is going to be by looking at state or the render

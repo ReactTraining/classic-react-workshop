@@ -4,7 +4,6 @@ import './styles.css'
 
 const { func, any } = PropTypes
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Requirements
 //
@@ -29,12 +28,9 @@ class Select extends React.Component {
   }
 }
 
-
 class Option extends React.Component {
   render() {
-    return (
-      <div className="option">{this.props.children}</div>
-    )
+    return <div className="option">{this.props.children}</div>
   }
 }
 
@@ -44,7 +40,7 @@ class App extends React.Component {
   }
 
   setToMintChutney = () => {
-   this.setState({selectValue: 'mint-chutney'})
+    this.setState({ selectValue: 'mint-chutney' })
   }
 
   render() {
@@ -60,7 +56,7 @@ class App extends React.Component {
 
         <Select
           value={this.state.selectValue}
-          onChange={(selectValue) => this.setState({ selectValue })}
+          onChange={selectValue => this.setState({ selectValue })}
         >
           <Option value="tikka-masala">Tikka Masala</Option>
           <Option value="tandoori-chicken">Tandoori Chicken</Option>
@@ -80,4 +76,4 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById('app'))

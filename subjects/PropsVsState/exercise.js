@@ -35,15 +35,18 @@ class Tabs extends React.Component {
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
-      const style = this.state.activeTabIndex === index ?
-        styles.activeTab : styles.tab
+      const style = this.state.activeTabIndex === index
+        ? styles.activeTab
+        : styles.tab
       return (
         <div
           className="Tab"
           key={tab.name}
           style={style}
           onClick={() => this.handleTabClick(index)}
-        >{tab.name}</div>
+        >
+          {tab.name}
+        </div>
       )
     })
   }
@@ -76,12 +79,16 @@ class App extends React.Component {
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs ref="tabs" data={this.props.tabs}/>
+        <Tabs ref="tabs" data={this.props.tabs} />
       </div>
     )
   }
 }
 
-ReactDOM.render(<App tabs={data}/>, document.getElementById('app'), function () {
-  require('./tests').run(this)
-})
+ReactDOM.render(
+  <App tabs={data} />,
+  document.getElementById('app'),
+  function() {
+    require('./tests').run(this)
+  }
+)

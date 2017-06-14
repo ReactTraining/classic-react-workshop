@@ -50,7 +50,7 @@ class RadioOption extends React.Component {
   render() {
     return (
       <div>
-        <RadioIcon isSelected={false}/> {this.props.children}
+        <RadioIcon isSelected={false} /> {this.props.children}
       </div>
     )
   }
@@ -96,4 +96,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

@@ -43,7 +43,7 @@ class Calculator extends React.Component {
 
 ReactDOM.render(
   <div id="wrapper">
-    <Calculator/>
+    <Calculator />
   </div>,
   document.getElementById('app')
 )

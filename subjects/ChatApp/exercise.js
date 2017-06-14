@@ -54,7 +54,7 @@ class Chat extends React.Component {
           <ol className="message-groups">
             <li className="message-group">
               <div className="message-group-avatar">
-                <img src="https://avatars1.githubusercontent.com/u/92839"/>
+                <img src="https://avatars1.githubusercontent.com/u/92839" />
               </div>
               <ol className="messages">
                 <li className="message">So, check it out:</li>
@@ -69,16 +69,18 @@ class Chat extends React.Component {
             </li>
             <li className="message-group">
               <div className="message-group-avatar">
-                <img src="https://avatars2.githubusercontent.com/u/100200"/>
+                <img src="https://avatars2.githubusercontent.com/u/100200" />
               </div>
               <ol className="messages">
                 <li className="message">Haha</li>
-                <li className="message">Stop stealing other people's jokes :P</li>
+                <li className="message">
+                  Stop stealing other people's jokes :P
+                </li>
               </ol>
             </li>
             <li className="message-group">
               <div className="message-group-avatar">
-                <img src="https://avatars1.githubusercontent.com/u/92839"/>
+                <img src="https://avatars1.githubusercontent.com/u/92839" />
               </div>
               <ol className="messages">
                 <li className="message">:'(</li>
@@ -88,7 +90,7 @@ class Chat extends React.Component {
         </div>
         <form className="new-message-form">
           <div className="new-message">
-            <input ref="message" type="text" placeholder="say something..."/>
+            <input ref="message" type="text" placeholder="say something..." />
           </div>
         </form>
       </div>
@@ -96,4 +98,4 @@ class Chat extends React.Component {
   }
 }
 
-render(<Chat/>, document.getElementById('app'))
+render(<Chat />, document.getElementById('app'))

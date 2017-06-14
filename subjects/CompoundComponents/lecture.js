@@ -19,16 +19,16 @@ class Tabs extends React.Component {
           key={tab.label}
           style={isActive ? styles.activeTab : styles.tab}
           onClick={() => this.selectTabIndex(index)}
-        >{tab.label}</div>
+        >
+          {tab.label}
+        </div>
       )
     })
   }
 
   renderPanel() {
     const tab = this.props.data[this.state.activeIndex]
-    return (
-      <div>{tab.description}</div>
-    )
+    return <div>{tab.description}</div>
   }
 
   render() {
@@ -48,26 +48,29 @@ class Tabs extends React.Component {
 class App extends React.Component {
   render() {
     const tabData = [
-      { label: 'Tacos',
+      {
+        label: 'Tacos',
         description: <p>Tacos are delicious</p>
       },
-      { label: 'Burritos',
+      {
+        label: 'Burritos',
         description: <p>Sometimes a burrito is what you really need</p>
       },
-      { label: 'Coconut Korma',
+      {
+        label: 'Coconut Korma',
         description: <p>Might be your best option</p>
       }
     ]
 
     return (
       <div>
-        <Tabs data={tabData}/>
+        <Tabs data={tabData} />
       </div>
     )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // What if I wanted tabs on the bottom?

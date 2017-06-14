@@ -49,8 +49,7 @@ class SmartScroller extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.autoScroll)
-      this.scrollToBottom()
+    if (this.autoScroll) this.scrollToBottom()
   }
 
   scrollToBottom() {
@@ -67,7 +66,7 @@ class SmartScroller extends React.Component {
     return (
       <div
         {...this.props}
-        ref={node => this.node = node}
+        ref={node => (this.node = node)}
         onScroll={this.handleScroll}
       />
     )
@@ -90,18 +89,18 @@ class Chat extends React.Component {
     })
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault()
 
     const { auth } = this.state
     const messageText = this.messageInput.value
 
-    if ((/\S/).test(messageText)) {
+    if (/\S/.test(messageText)) {
       sendMessage(
-        auth.uid,                       // the auth.uid string
-        auth.github.username,           // the username
-        auth.github.profileImageURL,    // the user's profile image
-        messageText                     // the text of the message
+        auth.uid, // the auth.uid string
+        auth.github.username, // the username
+        auth.github.profileImageURL, // the user's profile image
+        messageText // the text of the message
       )
 
       // Clear the form.
@@ -112,8 +111,7 @@ class Chat extends React.Component {
   render() {
     const { auth, messages } = this.state
 
-    if (auth == null)
-      return <p>Loading...</p>
+    if (auth == null) return <p>Loading...</p>
 
     // Array of arrays of messages grouped by user.
     const messageGroups = messages.reduce((groups, message) => {
@@ -122,7 +120,7 @@ class Chat extends React.Component {
       if (prevGroup && prevGroup[0].uid === message.uid) {
         prevGroup.push(message)
       } else {
-        groups.push([ message ])
+        groups.push([message])
       }
 
       return groups
@@ -136,23 +134,29 @@ class Chat extends React.Component {
         </header>
         <SmartScroller className="messages">
           <ol className="message-groups">
-          {messageGroups.map(messages => (
-            <li className="message-group">
-              <div className="message-group-avatar">
-                <img src={messages[0].avatarURL}/>
-              </div>
-              <ol className="messages">
-              {messages.map(message => (
-                <li key={message._key} className="message">{message.text}</li>
-              ))}
-              </ol>
-            </li>
-          ))}
+            {messageGroups.map(messages =>
+              <li className="message-group">
+                <div className="message-group-avatar">
+                  <img src={messages[0].avatarURL} />
+                </div>
+                <ol className="messages">
+                  {messages.map(message =>
+                    <li key={message._key} className="message">
+                      {message.text}
+                    </li>
+                  )}
+                </ol>
+              </li>
+            )}
           </ol>
         </SmartScroller>
         <form className="new-message-form" onSubmit={this.handleSubmit}>
           <div className="new-message">
-            <input ref={node => this.messageInput = node} type="text" placeholder="say something..."/>
+            <input
+              ref={node => (this.messageInput = node)}
+              type="text"
+              placeholder="say something..."
+            />
           </div>
         </form>
       </div>
@@ -160,4 +164,4 @@ class Chat extends React.Component {
   }
 }
 
-render(<Chat/>, document.getElementById('app'))
+render(<Chat />, document.getElementById('app'))

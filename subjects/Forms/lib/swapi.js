@@ -10,7 +10,7 @@ export function getPeople(filmURL, cb) {
   getJSON(filmURL, (err, film) => {
     const characters = film.characters.slice(0, 5)
     let data = []
-    characters.forEach((url) => {
+    characters.forEach(url => {
       getJSON(url, (err, person) => {
         data.push(person)
         if (data.length === characters.length) {
@@ -28,7 +28,7 @@ export function getVehicles(personURL, cb) {
     if (person.vehicles.length === 0) {
       cb(null, data)
     } else {
-      vehicles.forEach((url) => {
+      vehicles.forEach(url => {
         getJSON(url, (err, vehicle) => {
           data.push(vehicle)
           if (data.length === vehicles.length) {
@@ -39,5 +39,3 @@ export function getVehicles(personURL, cb) {
     }
   })
 }
-
-

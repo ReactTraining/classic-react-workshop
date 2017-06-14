@@ -23,31 +23,21 @@ class Router extends React.Component {
   }
 }
 
-
-
 class Route extends React.Component {
   render() {
-    const { path, render, component:Component } = this.props
+    const { path, render, component: Component } = this.props
     return null
   }
 }
 
-
-
-
 class Link extends React.Component {
-
-  handleClick = (e) => {
+  handleClick = e => {
     e.preventDefault()
-
   }
 
   render() {
     return (
-      <a
-        href={`#${this.props.to}`}
-        onClick={this.handleClick}
-      >
+      <a href={`#${this.props.to}`} onClick={this.handleClick}>
         {this.props.children}
       </a>
     )

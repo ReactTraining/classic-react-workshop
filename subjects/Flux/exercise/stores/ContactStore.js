@@ -4,7 +4,7 @@ import AppDispatcher from '../AppDispatcher'
 import { ActionTypes } from '../Constants'
 
 const CHANGE_EVENT = 'CHANGE'
-const events = new EventEmitter
+const events = new EventEmitter()
 
 const state = {
   contacts: [],
@@ -29,7 +29,7 @@ export function getState() {
   return state
 }
 
-AppDispatcher.register(function (payload) {
+AppDispatcher.register(function(payload) {
   const { action } = payload
 
   if (action.type === ActionTypes.CONTACTS_WERE_LOADED) {

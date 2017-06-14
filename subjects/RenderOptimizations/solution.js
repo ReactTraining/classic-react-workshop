@@ -34,7 +34,7 @@ class RainbowList extends React.Component {
     })
   }
 
-  handleScroll = (event) => {
+  handleScroll = event => {
     this.setState({
       scrollTop: event.target.scrollTop
     })
@@ -62,9 +62,15 @@ class RainbowList extends React.Component {
       <div
         style={{ height: '100%', overflowY: 'scroll' }}
         onScroll={this.handleScroll}
-        ref={node => this.node = node}
+        ref={node => (this.node = node)}
       >
-        <ol style={{ paddingTop: (startIndex * rowHeight), pointerEvents: 'none', height: totalHeight }}>
+        <ol
+          style={{
+            paddingTop: startIndex * rowHeight,
+            pointerEvents: 'none',
+            height: totalHeight
+          }}
+        >
           {items}
         </ol>
       </div>

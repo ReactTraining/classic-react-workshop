@@ -21,15 +21,13 @@ class App extends React.Component {
     return (
       <div>
         <h1>¡Universal App!</h1>
-        {contacts ? (
-          <ul>
-            {contacts.map(contact => (
-              <li key={contact.id}>{contact.first} {contact.last}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>Loading...</p>
-        )}
+        {contacts
+          ? <ul>
+              {contacts.map(contact =>
+                <li key={contact.id}>{contact.first} {contact.last}</li>
+              )}
+            </ul>
+          : <p>Loading...</p>}
       </div>
     )
   }
