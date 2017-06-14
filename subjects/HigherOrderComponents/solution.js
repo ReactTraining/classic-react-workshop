@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom'
 
 const withMousePosition = (Component) => {
   return class extends React.Component {
+    displayName = 'ComponentWithMousePosition'
     state = { x: 0, y: 0 }
 
     handleMouseMove = (event) => {
