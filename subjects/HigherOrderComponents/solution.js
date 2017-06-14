@@ -9,8 +9,7 @@ import React, { PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
 const withMousePosition = (Component) => {
-  return class extends React.Component {
-    displayName = 'ComponentWithMousePosition'
+  return class ComponentWithMousePosition extends React.Component {
     state = { x: 0, y: 0 }
 
     handleMouseMove = (event) => {
