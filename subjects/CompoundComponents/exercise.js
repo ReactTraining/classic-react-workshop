@@ -66,7 +66,7 @@ class RadioIcon extends React.Component {
       <div
         style={{
           borderColor: '#ccc',
-          borderSize: '3px',
+          borderWidth: 3,
           borderStyle: this.props.isSelected ? 'inset' : 'outset',
           height: 16,
           width: 16,
