@@ -1,77 +1,116 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Perf from 'react-addons-perf'
 
-let guid = 0
-
-const ITEMS = []
-for (let i = 0; i < 200; i++)
-  ITEMS.push({ id: ++guid, body: `item ${guid}` })
-
-class TodoItem extends React.Component {
-  render() {
-    return (
-      <li>
-        <span><input type="checkbox"/> </span>
-        <span>
-          <span><b>item:</b> </span>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-          <span className="stuff"/>
-        </span>
-        <span tabIndex="-1">
-          <span className="thing">
-            <span style={{ color: 'blue' }}>{this.props.body}</span>
-          </span>
-        </span>
-      </li>
-    )
+class Lines extends React.Component {
+  static defaultProps = {
+    maxLength: 5
   }
-}
 
-class TodoList extends React.Component {
   state = {
-    items: ITEMS
+    lines: []
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault()
+  addLine = () => {
+    this.setState(state => {
+      const lines = state.lines.concat([ 'The date is ' + (new Date).toLocaleString() ])
 
-    const item = {
-      id: ++guid,
-      body: event.target.elements[0].value
-    }
-
-    event.target.reset()
-
-    this.setState({
-      items: [ item ].concat(this.state.items)
+      return {
+        lines: lines.length > this.props.maxLength ? lines.slice(1) : lines
+      }
     })
   }
 
+  componentDidMount() {
+    setInterval(this.addLine, 1000)
+  }
+
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input ref="input"/>
-        </form>
-        <ul>
-          {this.state.items.map(item => (
-            <TodoItem key={item.id} body={item.body}/>
-          ))}
-        </ul>
-      </div>
+      <ul>
+        {this.state.lines.map((line, index) => (
+          <li key={index}>{line}</li>
+        ))}
+      </ul>
     )
   }
 }
 
-ReactDOM.render(<TodoList/>, document.getElementById('app'))
+ReactDOM.render(<Lines/>, document.getElementById('app'))
+
+// import React from 'react'
+// import ReactDOM from 'react-dom'
+// import Perf from 'react-addons-perf'
+//
+// let guid = 0
+//
+// const ITEMS = []
+// for (let i = 0; i < 200; i++)
+//   ITEMS.push({ id: ++guid, body: `item ${guid}` })
+//
+// class TodoItem extends React.Component {
+//   render() {
+//     return (
+//       <li>
+//         <span><input type="checkbox"/> </span>
+//         <span>
+//           <span><b>item:</b> </span>
+//           <span className="stuff"/>
+//           <span className="stuff"/>
+//           <span className="stuff"/>
+//           <span className="stuff"/>
+//           <span className="stuff"/>
+//           <span className="stuff"/>
+//           <span className="stuff"/>
+//           <span className="stuff"/>
+//           <span className="stuff"/>
+//         </span>
+//         <span tabIndex="-1">
+//           <span className="thing">
+//             <span style={{ color: 'blue' }}>{this.props.body}</span>
+//           </span>
+//         </span>
+//       </li>
+//     )
+//   }
+// }
+//
+// class TodoList extends React.Component {
+//   state = {
+//     items: ITEMS
+//   }
+//
+//   handleSubmit = (event) => {
+//     event.preventDefault()
+//
+//     const item = {
+//       id: ++guid,
+//       body: event.target.elements[0].value
+//     }
+//
+//     event.target.reset()
+//
+//     this.setState({
+//       items: [ item ].concat(this.state.items)
+//     })
+//   }
+//
+//   render() {
+//     return (
+//       <div>
+//         <form onSubmit={this.handleSubmit}>
+//           <input ref="input"/>
+//         </form>
+//         <ul>
+//           {this.state.items.map(item => (
+//             <TodoItem key={item.id} body={item.body}/>
+//           ))}
+//         </ul>
+//       </div>
+//     )
+//   }
+// }
+//
+// ReactDOM.render(<TodoList/>, document.getElementById('app'))
 
 //import React, { PropTypes } from 'react'
 //import ReactDOM from 'react-dom'
