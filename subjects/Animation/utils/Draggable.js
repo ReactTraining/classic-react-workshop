@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Draggable = React.createClass({
-  propTypes: {
+class Draggable extends React.Component {
+  static propTypes = {
     component: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.func
@@ -10,26 +10,24 @@ const Draggable = React.createClass({
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
     onDrop: PropTypes.func
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      component: 'div'
-    }
-  },
+  static defaultProps = {
+    component: 'div'
+  }
 
   componentDidMount() {
     this.isDragging = false
     document.addEventListener('mouseup', this.handleMouseUp)
     document.addEventListener('mousemove', this.handleMouseMove)
-  },
+  }
 
   componentWillUnmount() {
     document.removeEventListener('mousemove', this.handleMouseMove)
     document.removeEventListener('mouseup', this.handleMouseUp)
-  },
+  }
 
-  handleMouseDown(event) {
+  handleMouseDown = (event) => {
     if (!this.isDragging) {
       this.isDragging = true
 
@@ -39,21 +37,21 @@ const Draggable = React.createClass({
       if (this.props.onDragStart)
         this.props.onDragStart(event)
     }
-  },
+  }
 
-  handleMouseMove(event) {
+  handleMouseMove = (event) => {
     if (this.isDragging && this.props.onDrag)
       this.props.onDrag(event)
-  },
+  }
 
-  handleMouseUp(event) {
+  handleMouseUp = (event) => {
     if (this.isDragging) {
       this.isDragging = false
 
       if (this.props.onDrop)
         this.props.onDrop(event)
     }
-  },
+  }
 
   render() {
     const { component, ...otherProps } = this.props
@@ -63,6 +61,6 @@ const Draggable = React.createClass({
       onMouseDown: this.handleMouseDown
     })
   }
-})
+}
 
 export default Draggable

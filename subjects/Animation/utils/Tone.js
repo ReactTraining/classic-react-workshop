@@ -3,20 +3,20 @@ import PropTypes from 'prop-types'
 import createOscillator from './createOscillator'
 
 const Tone = React.createClass({
-  propTypes: {
+  static propTypes = {
     isPlaying: PropTypes.bool.isRequired,
     pitch: PropTypes.number.isRequired,
     volume: PropTypes.number.isRequired
-  },
+  }
 
   componentDidMount() {
     this.oscillator = createOscillator()
     this.doImperativeWork()
-  },
+  }
 
   componentDidUpdate() {
     this.doImperativeWork()
-  },
+  }
 
   doImperativeWork() {
     if (this.props.isPlaying) {
@@ -27,12 +27,11 @@ const Tone = React.createClass({
 
     this.oscillator.setPitchBend(this.props.pitch)
     this.oscillator.setVolume(this.props.volume)
-  },
+  }
 
   render() {
     return null
   }
-
-})
+}
 
 export default Tone

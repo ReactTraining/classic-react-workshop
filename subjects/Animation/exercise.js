@@ -18,16 +18,14 @@ import { Motion, spring } from 'react-motion'
 import Draggable from './utils/Draggable'
 import './styles'
 
-const DropGrid = React.createClass({
-  getInitialState() {
-    return {
-      isDraggingMarker: false,
-      startX: 0,
-      startY: 0,
-      mouseX: 0,
-      mouseY: 0
-    }
-  },
+class DropGrid extends React.Component {
+  state = {
+    isDraggingMarker: false,
+    startX: 0,
+    startY: 0,
+    mouseX: 0,
+    mouseY: 0
+  }
 
   getRelativeXY({ clientX, clientY }) {
     const { offsetLeft, offsetTop } = this.node
@@ -36,9 +34,9 @@ const DropGrid = React.createClass({
       x: clientX - offsetLeft,
       y: clientY - offsetTop
     }
-  },
+  }
 
-  handleDragStart(event) {
+  handleDragStart = (event) => {
     const { x, y } = this.getRelativeXY(event)
     const { offsetLeft, offsetTop } = event.target
 
@@ -52,20 +50,20 @@ const DropGrid = React.createClass({
       mouseX: x,
       mouseY: y
     })
-  },
+  }
 
-  handleDrag(event) {
+  handleDrag = (event) => {
     const { x, y } = this.getRelativeXY(event)
 
     this.setState({
       mouseX: x,
       mouseY: y
     })
-  },
+  }
 
-  handleDrop() {
+  handleDrop = () => {
     this.setState({ isDraggingMarker: false })
-  },
+  }
 
   render() {
     const { isDraggingMarker, startX, startY, mouseX, mouseY } = this.state
@@ -105,6 +103,6 @@ const DropGrid = React.createClass({
       </div>
     )
   }
-})
+}
 
 ReactDOM.render(<DropGrid/>, document.getElementById('app'))
