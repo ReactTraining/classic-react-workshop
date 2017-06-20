@@ -5,8 +5,9 @@
 // - Experiment with different types of easing (hint: use easingTypes at
 //   https://github.com/chenglou/tween-functions/blob/master/index.js)
 ////////////////////////////////////////////////////////////////////////////////
-import React, { PropTypes } from 'react'
-import { render } from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import { easingTypes, Mixin as TweenStateMixin } from 'react-tween-state'
 
 require('./styles')
@@ -52,4 +53,4 @@ const ToggleSwitch = React.createClass({
   }
 })
 
-render(<ToggleSwitch/>, document.getElementById('app'))
+ReactDOM.render(<ToggleSwitch/>, document.getElementById('app'))

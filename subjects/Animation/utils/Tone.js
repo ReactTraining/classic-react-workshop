@@ -1,7 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import createOscillator from './createOscillator'
-
-const { PropTypes } = React
 
 const Tone = React.createClass({
   propTypes: {

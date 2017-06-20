@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 
 document.body.style.background = `
   linear-gradient(135deg,

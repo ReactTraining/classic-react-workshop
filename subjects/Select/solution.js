@@ -1,6 +1,7 @@
 /*eslint-disable no-console */
-import React, { PropTypes } from 'react'
-import { render } from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import './styles.css'
 
 class Select extends React.Component {
@@ -139,4 +140,4 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))

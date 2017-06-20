@@ -11,8 +11,9 @@
 // - Add a "drop hint" element that indicates which element will receive
 //   the marker when it is dropped to improve usability
 ////////////////////////////////////////////////////////////////////////////////
-import React, { PropTypes } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import { Motion, spring } from 'react-motion'
 import Draggable from './utils/Draggable'
 import './styles'

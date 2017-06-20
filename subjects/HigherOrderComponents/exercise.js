@@ -5,8 +5,9 @@
 // position to the component as props.
 //
 // Hint: use `event.clientX` and `event.clientY`
-import React, { PropTypes } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 
 const withMousePosition = (Component) => {
   return Component

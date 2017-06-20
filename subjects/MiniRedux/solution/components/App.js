@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import connect from '../mini-redux/connect'
 
 class App extends React.Component {

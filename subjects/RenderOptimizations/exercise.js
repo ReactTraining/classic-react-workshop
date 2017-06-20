@@ -11,8 +11,9 @@
 //   prevent tearing when scrolling quickly
 // - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
-import React, { PropTypes } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import * as RainbowListDelegate from './RainbowListDelegate'
 import './styles'
 

@@ -112,13 +112,14 @@ ReactDOM.render(<Lines/>, document.getElementById('app'))
 //
 // ReactDOM.render(<TodoList/>, document.getElementById('app'))
 
-//import React, { PropTypes } from 'react'
-//import ReactDOM from 'react-dom'
-//import Perf from 'react-addons-perf'
-//import { convertNumberToEnglish } from './NumberUtils'
-//import { createRange } from './RangeUtils'
+// import React from 'react'
+// import ReactDOM from 'react-dom'
+// import PropTypes from 'prop-types'
+// import Perf from 'react-addons-perf'
+// import { convertNumberToEnglish } from './NumberUtils'
+// import { createRange } from './RangeUtils'
 //
-//const TodoItem = React.createClass({
+// const TodoItem = React.createClass({
 //  propTypes: {
 //    text: PropTypes.string,
 //    isDone: PropTypes.bool.isRequired,
@@ -146,9 +147,9 @@ ReactDOM.render(<Lines/>, document.getElementById('app'))
 //      </li>
 //    )
 //  }
-//})
+// })
 //
-//const TodoList = React.createClass({
+// const TodoList = React.createClass({
 //  getInitialState() {
 //    this.guid = 0
 //
@@ -217,9 +218,9 @@ ReactDOM.render(<Lines/>, document.getElementById('app'))
 //      </div>
 //    )
 //  }
-//})
+// })
 //
-//ReactDOM.render(<TodoList/>, document.getElementById('app'))
+// ReactDOM.render(<TodoList/>, document.getElementById('app'))
 
 ///////////////////////////////////////////////////////////////////////////////
 // Rendering large lists can be super slow. This is an old UI problem.

@@ -9,8 +9,9 @@
 //
 // - Use a <Spring> to animate the transition
 ////////////////////////////////////////////////////////////////////////////////
-import React, { PropTypes } from 'react'
-import { render } from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import { Mixin as TweenStateMixin } from 'react-tween-state'
 import { Motion, spring } from 'react-motion'
 
@@ -109,4 +110,4 @@ const App = React.createClass({
   }
 })
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))

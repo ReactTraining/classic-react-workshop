@@ -29,8 +29,9 @@
 // - Arrow right, arrow down should select the next option
 // - Arrow left, arrow up should select the previous option
 ////////////////////////////////////////////////////////////////////////////////
-import React, { PropTypes } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 
 class RadioGroup extends React.Component {
   static propTypes = {

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const Draggable = React.createClass({
   propTypes: {
@@ -48,7 +49,7 @@ const Draggable = React.createClass({
   handleMouseUp(event) {
     if (this.isDragging) {
       this.isDragging = false
-      
+
       if (this.props.onDrop)
         this.props.onDrop(event)
     }
