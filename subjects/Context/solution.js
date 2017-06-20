@@ -5,14 +5,14 @@
 // Using context, implement the <Form>, <SubmitButton>, and <TextInput>
 // components such that:
 //
-// - Clicking the <SubmitButton> "submits" the form
+// - Clicking the <SubmitButton> calls <Form onSubmit>
 // - Hitting "Enter" while in a <TextInput> submits the form
 // - Don't use a <form> element, we're intentionally recreating the
 //   browser's built-in behavior
 //
 // Got extra time?
 //
-// - Send the values of all the <TextInput>s to the <Form onChange> handler
+// - Send the values of all the <TextInput>s to the <Form onSubmit> handler
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
 //

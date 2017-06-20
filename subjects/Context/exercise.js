@@ -5,7 +5,7 @@
 // Using context, implement the <Form>, <SubmitButton>, and <TextInput>
 // components such that:
 //
-// - Clicking the <SubmitButton> "submits" the form (calls Forms' onSubmit)
+// - Clicking the <SubmitButton> calls <Form onSubmit>
 // - Hitting "Enter" while in a <TextInput> submits the form
 // - Don't use a <form> element, we're intentionally recreating the
 //   browser's built-in behavior
