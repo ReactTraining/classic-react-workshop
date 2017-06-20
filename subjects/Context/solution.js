@@ -23,12 +23,17 @@ import PropTypes from 'prop-types'
 
 class Form extends React.Component {
   static childContextTypes = {
-    onFormSubmit: PropTypes.func
+    form: PropTypes.shape({
+      submit: PropTypes.func.isRequired
+    }).isRequired
   }
 
   getChildContext() {
     return {
-      onFormSubmit: this.props.onSubmit
+      submit: () => {
+        if (this.props.onSubmit)
+          this.props.onSubmit()
+      }
     }
   }
 
@@ -39,26 +44,26 @@ class Form extends React.Component {
 
 class SubmitButton extends React.Component {
   static contextTypes = {
-    onFormSubmit: React.PropTypes.func
-  }
-
-  handleClick = () => {
-    this.context.onFormSubmit()
+    form: PropTypes.shape({
+      submit: PropTypes.func.isRequired
+    }).isRequired
   }
 
   render() {
-    return <button onClick={this.handleClick}>{this.props.children}</button>
+    return <button onClick={this.context.form.submit}>{this.props.children}</button>
   }
 }
 
 class TextInput extends React.Component {
   static contextTypes = {
-    onFormSubmit: React.PropTypes.func
+    form: PropTypes.shape({
+      submit: PropTypes.func.isRequired
+    }).isRequired
   }
 
   handleKeyDown = (event) => {
     if (event.key === 'Enter')
-      this.context.onFormSubmit()
+      this.context.form.submit()
   }
 
   render() {
