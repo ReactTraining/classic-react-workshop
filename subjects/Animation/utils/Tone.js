@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import createOscillator from './createOscillator'
 
-const Tone = React.createClass({
+class Tone extends React.Component {
   static propTypes = {
     isPlaying: PropTypes.bool.isRequired,
     pitch: PropTypes.number.isRequired,
