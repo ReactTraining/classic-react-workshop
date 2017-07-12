@@ -166,6 +166,21 @@ Prerequisites:
 - [Render Props](#render-props)
 
 
+## Implementing React Router
+
+Use the advanced component patterns to implement React Router yourself.
+
+Objectives:
+- Use context to create compount components
+- Wrap the imperative `history` API
+- Use render props
+
+Prerequisites:
+- [Render Props](#render-props)
+- [Compound Components](#compound-components)
+- [Routing](#routing)
+
+
 ## Server Rendering
 
 React lets you render your components server-side for improved SEO and performance. In this section we'll discuss the techniques and trade-offs of rendering your React components on the server. We'll also transition a fully client-side app to server-side rendering, and discuss the use cases we solve each step of the way.
