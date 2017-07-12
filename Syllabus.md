@@ -49,6 +49,15 @@ Objectives:
 - Compose generic components into specialized components
 
 
+## Forms
+
+Solidify your [declarative](#imperative-to-declarative) understanding by working with forms in React. We'll discuss the various use-cases for forms and how to handle them in React.
+
+Objectives:
+- Understand [controlled vs. uncontrolled](https://facebook.github.io/react/docs/forms.html) components
+- Work with forms
+
+
 ## Imperative to Declarative
 
 React is "declarative". What does that mean? What is imperative code? We'll answer these questions, and show the power that comes from shifting your imperative code into declarative components using more of the React component lifecycle.
@@ -59,15 +68,6 @@ Objectives:
 - Learn to use existing JS libraries declaratively
 - Use more of the React component lifecycle
 - Understand how and when to use `ref`s
-
-
-## Forms
-
-Solidify your [declarative](#imperative-to-declarative) understanding by working with forms in React. We'll discuss the various use-cases for forms and how to handle them in React.
-
-Objectives:
-- Understand [controlled vs. uncontrolled](https://facebook.github.io/react/docs/forms.html) components
-- Work with forms
 
 
 ## Testing
