@@ -1,6 +1,9 @@
 {
-  "description": "Course material for http://reacttraining.com",
-  "repository": "ReactTraining/react-subjects",
+  "private": true,
+  "name": "react-workshop",
+  "description": "Lectures and exercises for React Training workshops",
+  "repository": "ReactTraining/react-workshop",
+  "homepage": "https://reacttraining.com",
   "license": "GPL-3.0",
   "authors": [
     "Ryan Florence",
