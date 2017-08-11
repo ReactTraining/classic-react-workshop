@@ -57,6 +57,7 @@
     "mkdirp": "^0.5.0",
     "mocha": "3.0.2",
     "mustache": "^2.2.1",
+    "prop-types": "^15.5.10",
     "purecss": "0.6.0",
     "react": "^15.1.0",
     "react-addons-css-transition-group": "^15.1.0",
