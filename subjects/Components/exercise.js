@@ -69,6 +69,4 @@ const DATA = [
   { id: 3, name: 'Russia', description: 'World Cup 2018!' }
 ]
 
-ReactDOM.render(<App countries={DATA}/>, document.getElementById('app'), function () {
-  require('./tests').run(this)
-})
+ReactDOM.render(<App countries={DATA}/>, document.getElementById('app'))
