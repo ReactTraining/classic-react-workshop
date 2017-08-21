@@ -44,7 +44,7 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //const mediaComponent = (Component, mediaQueries) => {
 //  const media = createMediaListener(mediaQueries)
 //
-//  return class extends React.Component {
+//  return class Media extends React.Component {
 //    state = {
 //      media: media.getState()
 //    }
