@@ -30,6 +30,7 @@
     "bootstrap": "^3.3.4",
     "bootstrap-webpack": "0.0.5",
     "css-loader": "^0.23.1",
+    "debounce-promise": "^3.0.1",
     "events": "^1.0.2",
     "expect": "^1.13.4",
     "exports-loader": "^0.6.3",
