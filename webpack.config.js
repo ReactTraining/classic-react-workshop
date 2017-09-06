@@ -33,7 +33,7 @@ module.exports = {
     path: '__build__',
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',
-    publicPath: '__build__'
+    publicPath: '/__build__/'
   },
 
   resolve: {
@@ -44,10 +44,8 @@ module.exports = {
     loaders: [
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.js$/, exclude: /node_modules|mocha-browser\.js/, loader: 'babel' },
-      { test: /\.woff(2)?$/,   loader: 'url?limit=10000&mimetype=application/font-woff' },
-      { test: /\.ttf$/, loader: 'file' },
-      { test: /\.eot$/, loader: 'file' },
-      { test: /\.svg$/, loader: 'file' },
+      { test: /\.woff(2)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+      { test: /\.(ttf|eot|svg|png|jpg)$/, loader: 'file' },
       { test: require.resolve('jquery'), loader: 'expose?jQuery' }
     ]
   },

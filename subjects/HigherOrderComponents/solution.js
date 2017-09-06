@@ -1,16 +1,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Make `withMousePosition` a "higher-order component" that sends the mouse
-// position to the component as props.
+// Make `withMouse` a "higher-order component" that sends the mouse position
+// to the component as props.
 //
 // Hint: use `event.clientX` and `event.clientY`
+////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import * as styles from './styles'
 
-const withMousePosition = (Component) => {
-  return class ComponentWithMousePosition extends React.Component {
+const withMouse = (Component) => {
+  return class ComponentWithMouse extends React.Component {
     state = { x: 0, y: 0 }
 
     handleMouseMove = (event) => {
@@ -42,7 +44,7 @@ class App extends React.Component {
     const { mouse } = this.props
 
     return (
-      <div style={{ height: '100%' }}>
+      <div style={styles.container}>
         {mouse ? (
           <h1>The mouse position is ({mouse.x}, {mouse.y})</h1>
         ) : (
@@ -53,6 +55,6 @@ class App extends React.Component {
   }
 }
 
-const AppWithMouse = withMousePosition(App)
+const AppWithMouse = withMouse(App)
 
 ReactDOM.render(<AppWithMouse/>, document.getElementById('app'))
