@@ -5,6 +5,10 @@
 // to the component as props.
 //
 // Hint: use `event.clientX` and `event.clientY`
+//
+// Got extra time?
+//
+// Make a `withCat` HOC that shows a cat chasing the mouse around the screen!
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
