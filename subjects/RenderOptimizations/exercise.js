@@ -14,7 +14,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import * as RainbowListDelegate from './RainbowListDelegate'
+import * as RainbowListDelegate from './utils/RainbowListDelegate'
 import './styles'
 
 class RainbowList extends React.Component {

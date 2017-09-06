@@ -15,7 +15,6 @@
 // - Send the values of all the <TextInput>s to the <Form onSubmit> handler
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
-//
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'

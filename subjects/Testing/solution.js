@@ -4,12 +4,14 @@
 //
 // - Fill in the test stubs to make the tests pass
 ////////////////////////////////////////////////////////////////////////////////
-import './modules/mocha-setup'
+import './mocha-setup'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Simulate } from 'react-addons-test-utils'
 import expect from 'expect'
-import Tabs from './modules/Tabs'
+
+import Tabs from './components/Tabs'
 
 describe('when <Tabs> is rendered', () => {
   let node, tabs, panel, borderFixture

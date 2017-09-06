@@ -1,5 +1,5 @@
 import React from 'react'
-import { convertNumberToEnglish } from './NumberUtils'
+import convertNumberToEnglish from './convertNumberToEnglish'
 
 const computeHSLRainbowColor = (n, period) =>
   `hsl(${Math.round((n / period) * 360)},100%,50%)`

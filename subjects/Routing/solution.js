@@ -20,7 +20,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Gravatar from './components/Gravatar'
 import {
   HashRouter as Router,
   Switch,
@@ -28,6 +27,7 @@ import {
   Link,
   Redirect
 } from 'react-router-dom'
+import Gravatar from './utils/Gravatar'
 
 const USERS = [
   { id: 1, name: 'Ryan Florence', email: 'rpflorence@gmail.com' },

@@ -33,5 +33,7 @@ const convertMillions = (n) => {
   return convertThousands(n)
 }
 
-export const convertNumberToEnglish = (n) =>
+const convertNumberToEnglish = (n) =>
   (n === 0 ? 'zero' : convertMillions(n))
+
+export default convertNumberToEnglish

@@ -1,5 +1,5 @@
 //import $ from 'jquery'
-//import { search } from './lib/searchWikipedia'
+//import { search } from './utils/searchWikipedia'
 
 //const html = `
   //<div>
@@ -90,7 +90,7 @@
 //import Backbone from 'backbone'
 //import $ from 'jquery'
 //import _ from 'underscore'
-//import { search } from './lib/searchWikipedia'
+//import { search } from './utils/searchWikipedia'
 
 //const appTemplate = _.template(`
   //<div>
@@ -252,7 +252,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //import angular from 'angular'
-//import { search } from './lib/searchWikipedia'
+//import { search } from './utils/searchWikipedia'
 
 //document.documentElement.setAttribute('ng-app', 'wikipedia')
 

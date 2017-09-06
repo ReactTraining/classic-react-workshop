@@ -15,7 +15,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { Motion, spring } from 'react-motion'
-import Draggable from './utils/Draggable'
+import Draggable from './components/Draggable'
 import './styles'
 
 class DropGrid extends React.Component {

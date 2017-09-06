@@ -7,8 +7,8 @@
 // - render each result as a row in <tbody>
 import 'purecss/build/pure.css'
 import React from 'react'
-import { render } from 'react-dom'
-import getJSON from './lib/getJSON'
+import ReactDOM from 'react-dom'
+import getJSON from './utils/getJSON'
 
 function isURL(content) {
   return (/^https?:\/\//).test(content)
@@ -108,4 +108,4 @@ const App = React.createClass({
   }
 })
 
-render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))

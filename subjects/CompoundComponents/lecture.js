@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import * as styles from './lib/styles'
+import * as styles from './styles'
 
 class Tabs extends React.Component {
   state = {

@@ -17,8 +17,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
-import * as styles from './lib/styles'
-import data from './lib/data'
+import * as styles from './styles'
+import data from './data'
 
 class Tabs extends React.Component {
   static propTypes = {
