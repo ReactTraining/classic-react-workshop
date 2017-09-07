@@ -5,8 +5,8 @@ This repo contains the course material for [React Training](https://reacttrainin
 First, install [git](http://git-scm.com/downloads) and the latest stable version of [node](https://nodejs.org/). Then:
 
 ```sh
-$ git clone https://github.com/ReactTraining/react-subjects.git
-$ cd react-subjects
+$ git clone https://github.com/ReactTraining/react-workshop.git
+$ cd react-workshop
 $ npm install
 $ npm start
 ```
