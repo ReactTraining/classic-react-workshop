@@ -1,21 +1,19 @@
+/*eslint-disable no-console */
+////////////////////////////////////////////////////////////////////////////////
+// Exercise:
+//
+// Make this work like a normal <select> box!
+////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import './styles.css'
 
-const { func, any } = PropTypes
-
-
-////////////////////////////////////////////////////////////////////////////////
-// Requirements
-//
-// Make this work like a normal <select><option/></select>
-
 class Select extends React.Component {
   static propTypes = {
-    onChange: func,
-    value: any,
-    defaultValue: any
+    onChange: PropTypes.func,
+    value: PropTypes.any,
+    defaultValue: PropTypes.any
   }
 
   render() {
@@ -29,7 +27,6 @@ class Select extends React.Component {
     )
   }
 }
-
 
 class Option extends React.Component {
   render() {
