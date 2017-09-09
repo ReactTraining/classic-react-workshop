@@ -3,16 +3,18 @@ const path = require('path')
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 
+const e = React.createElement
+
 function createMarkup(mainBundle) {
   return ReactDOMServer.renderToStaticMarkup(
-    React.DOM.html({},
-      React.DOM.head({},
-        React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
+    e('html', null,
+      e('head', null,
+        e('link', { rel: 'stylesheet', href: '/shared.css' })
       ),
-      React.DOM.body({},
-        React.DOM.div({ id: 'app' }),
-        React.DOM.script({ src: '/__build__/shared.js' }),
-        React.DOM.script({ src: '/__build__/' + mainBundle + '.js' })
+      e('body', null,
+        e('div', { id: 'app' }),
+        e('script', { src: '/__build__/shared.js' }),
+        e('script', { src: '/__build__/' + mainBundle + '.js' })
       )
     )
   )
@@ -53,23 +55,23 @@ const Subjects = {
 const SubjectDirNames = Object.keys(Subjects)
 
 const markup = ReactDOMServer.renderToStaticMarkup(
-  React.DOM.html({},
-    React.DOM.head({},
-      React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
+  e('html', null,
+    e('head', null,
+      e('link', { rel: 'stylesheet', href: '/shared.css' })
     ),
-    React.DOM.body({ id: 'index' },
-      React.DOM.table({ cellSpacing: 0, cellPadding: 0 },
-        React.DOM.tbody({},
+    e('body', { id: 'index' },
+      e('table', { cellSpacing: 0, cellPadding: 0 },
+        e('tbody', null,
           SubjectDirNames.map(function (dir, index) {
-            return React.DOM.tr({ key: dir, className: (index % 2) ? 'odd' : 'even' },
-              React.DOM.td({ className: 'lecture-link' },
-                React.DOM.a({ href: '/' + dir + '/lecture.html' }, Subjects[dir])
+            return e('tr', { key: dir, className: (index % 2) ? 'odd' : 'even' },
+              e('td', { className: 'lecture-link' },
+                e('a', { href: '/' + dir + '/lecture.html' }, Subjects[dir])
               ),
-              React.DOM.td({ className: 'exercise-link' },
-                React.DOM.a({ href: '/' + dir + '/exercise.html' }, 'exercise')
+              e('td', { className: 'exercise-link' },
+                e('a', { href: '/' + dir + '/exercise.html' }, 'exercise')
               ),
-              React.DOM.td({ className: 'solution-link' },
-                React.DOM.a({ href: '/' + dir + '/solution.html' }, 'solution')
+              e('td', { className: 'solution-link' },
+                e('a', { href: '/' + dir + '/solution.html' }, 'solution')
               )
             )
           })
