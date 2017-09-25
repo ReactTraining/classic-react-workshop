@@ -1,3 +1,21 @@
+## From Nick Gatti for webpack dev server on C9.io =>
+
+When making the workspace clone the workspace when making it IE:
+
+* Name your workspace
+* Set the description
+* Add a clone url link in the Clone workspace text area (not the tab)
+* Make a HTML5 Template
+
+```
+sudo chmod u+x ./update.sh
+sudo ./update.sh
+nvm install 8
+nvm use 8
+npm install
+npm start
+```
+
 ## Welcome to React Training!
 
 This repo contains the course material for [React Training](https://reacttraining.com/). Before attending the training, please make sure you can run this repository.
