@@ -10,7 +10,8 @@
     "Michael Jackson"
   ],
   "scripts": {
-    "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects --port $PORT --host $IP --public $C9_HOSTNAME",
+    "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects",
+    "start-c9": "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects --port $PORT --host $IP --public $C9_HOSTNAME",
     "server-exercise": "supervisor -- -r babel-register subjects/ServerRendering/exercise/server.js",
     "server-solution": "supervisor -- -r babel-register subjects/ServerRendering/solution/server.js",
     "start-api": "node api.js",
