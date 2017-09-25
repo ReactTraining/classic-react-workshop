@@ -13,5 +13,6 @@ export const cat = {
   backgroundRepeat: 'no-repeat',
   backgroundPosition: '50% 0',
   width: 100,
-  height: 100
+  height: 100,
+  cursor: `url(${mouseFile}), auto`
 }
