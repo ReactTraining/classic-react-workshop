@@ -55,6 +55,7 @@ module.exports = {
   ],
 
   devServer: {
+    compress: true, //May not need this at all
     quiet: false,
     noInfo: false,
     historyApiFallback: {
