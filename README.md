@@ -65,8 +65,11 @@ sudo ./scripts/update.sh
 nvm install 8
 nvm use 8
 npm install
-npm start-c9
+npm run start-c9
 ```
+
+* Click Share in the upper right hand corner of the window where the Gear icon is
+* Click the application link and open
 
 ### License
 
