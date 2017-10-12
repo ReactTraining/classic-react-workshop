@@ -60,10 +60,6 @@ When making the workspace clone the workspace when making it IE:
 * Make a HTML5 Template
 
 ```
-sudo chmod u+x ./scripts/update.sh
-sudo ./scripts/update.sh
-nvm install 8
-nvm use 8
 npm install
 npm run start-c9
 ```
