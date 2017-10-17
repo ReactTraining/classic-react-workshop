@@ -36,7 +36,7 @@ require.relative = function (parent) {
         , segs = p.split('/')
       path.pop()
 
-      for (var i = 0 i < segs.length i++) {
+      for (var i = 0; i < segs.length; i++) {
         var seg = segs[i]
         if ('..' == seg) path.pop()
         else if ('.' != seg) path.push(seg)
@@ -79,7 +79,7 @@ var JsDiff = (function() {
   }
   function removeEmpty(array) {
     var ret = []
-    for (var i = 0 i < array.length i++) {
+    for (var i = 0; i < array.length; i++) {
       if (array[i]) {
         ret.push(array[i])
       }
@@ -125,8 +125,8 @@ var JsDiff = (function() {
           return bestPath[0].components
         }
 
-        for (var editLength = 1 editLength <= maxEditLength editLength++) {
-          for (var diagonalPath = -1*editLength diagonalPath <= editLength diagonalPath+=2) {
+        for (var editLength = 1; editLength <= maxEditLength; editLength++) {
+          for (var diagonalPath = -1*editLength; diagonalPath <= editLength; diagonalPath+=2) {
             var basePath
             var addPath = bestPath[diagonalPath-1],
                 removePath = bestPath[diagonalPath+1]
@@ -281,7 +281,7 @@ var JsDiff = (function() {
 
       var oldRangeStart = 0, newRangeStart = 0, curRange = [],
           oldLine = 1, newLine = 1
-      for (var i = 0 i < diff.length i++) {
+      for (var i = 0; i < diff.length; i++) {
         var current = diff[i],
             lines = current.lines || current.value.replace(/\n$/, '').split('\n')
         current.lines = lines
@@ -342,7 +342,7 @@ var JsDiff = (function() {
       var remEOFNL = false,
           addEOFNL = false
 
-      for (var i = (diffstr[0][0]==='I'?4:0) i < diffstr.length i++) {
+      for (var i = (diffstr[0][0]==='I'?4:0); i < diffstr.length; i++) {
         if(diffstr[i][0] === '@') {
           var meh = diffstr[i].split(/@@ -(\d+),(\d+) \+(\d+),(\d+) @@/)
           diff.unshift({
@@ -369,9 +369,9 @@ var JsDiff = (function() {
       }
 
       var str = oldStr.split('\n')
-      for (var i = diff.length - 1 i >= 0 i--) {
+      for (var i = diff.length - 1; i >= 0; i--) {
         var d = diff[i]
-        for (var j = 0 j < d.oldlength j++) {
+        for (var j = 0; j < d.oldlength; j++) {
           if(str[d.start-1+j] !== d.oldlines[j]) {
             return false
           }
@@ -391,7 +391,7 @@ var JsDiff = (function() {
 
     convertChangesToXML: function(changes){
       var ret = []
-      for ( var i = 0 i < changes.length i++) {
+      for ( var i = 0; i < changes.length; i++) {
         var change = changes[i]
         if (change.added) {
           ret.push('<ins>')
@@ -413,7 +413,7 @@ var JsDiff = (function() {
     // See: http://code.google.com/p/google-diff-match-patch/wiki/API
     convertChangesToDMP: function(changes){
       var ret = [], change
-      for ( var i = 0 i < changes.length i++) {
+      for ( var i = 0; i < changes.length; i++) {
         change = changes[i]
         ret.push([(change.added ? 1 : change.removed ? -1 : 0), change.value])
       }
@@ -523,7 +523,7 @@ EventEmitter.prototype.removeListener = function (name, fn) {
     if (isArray(list)) {
       var pos = -1
 
-      for (var i = 0, l = list.length i < l i++) {
+      for (var i = 0, l = list.length; i < l; i++) {
         if (list[i] === fn || (list[i].listener && list[i].listener === fn)) {
           pos = i
           break
@@ -612,7 +612,7 @@ EventEmitter.prototype.emit = function (name) {
   } else if (isArray(handler)) {
     var listeners = handler.slice()
 
-    for (var i = 0, l = listeners.length i < l i++) {
+    for (var i = 0, l = listeners.length; i < l; i++) {
       listeners[i].apply(this, args)
     }
   } else {
@@ -2892,7 +2892,7 @@ function fragment(html) {
 
 function hideSuitesWithout(classname) {
   var suites = document.getElementsByClassName('suite')
-  for (var i = 0 i < suites.length i++) {
+  for (var i = 0; i < suites.length; i++) {
     var els = suites[i].getElementsByClassName(classname)
     if (0 == els.length) suites[i].className += ' hidden'
   }
@@ -2904,7 +2904,7 @@ function hideSuitesWithout(classname) {
 
 function unhide() {
   var els = document.getElementsByClassName('suite hidden')
-  for (var i = 0 i < els.length ++i) {
+  for (var i = 0; i < els.length; ++i) {
     els[i].className = els[i].className.replace('suite hidden', 'suite')
   }
 }
@@ -3652,7 +3652,7 @@ function NyanCat(runner) {
 
   runner.on('end', function(){
     Base.cursor.show()
-    for (var i = 0 i < self.numberOfLines i++) write('\n')
+    for (var i = 0; i < self.numberOfLines; i++) write('\n')
     self.epilogue()
   })
 }
@@ -3705,7 +3705,7 @@ NyanCat.prototype.appendRainbow = function(){
   var segment = this.tick ? '_' : '-'
   var rainbowified = this.rainbowify(segment)
 
-  for (var index = 0 index < this.numberOfLines index++) {
+  for (var index = 0; index < this.numberOfLines; index++) {
     var trajectory = this.trajectories[index]
     if (trajectory.length >= this.trajectoryWidthMax) trajectory.shift()
     trajectory.push(rainbowified)
@@ -3818,7 +3818,7 @@ NyanCat.prototype.cursorDown = function(n) {
 NyanCat.prototype.generateColors = function(){
   var colors = []
 
-  for (var i = 0 i < (6 * 7) i++) {
+  for (var i = 0; i < (6 * 7); i++) {
     var pi3 = Math.floor(Math.PI / 3)
     var n = (i * (1.0 / 6))
     var r = Math.floor(3 * Math.sin(n) + 3)
@@ -5748,7 +5748,7 @@ exports.escape = function(html){
  */
 
 exports.forEach = function(arr, fn, scope){
-  for (var i = 0, l = arr.length i < l i++)
+  for (var i = 0, l = arr.length; i < l; i++)
     fn.call(scope, arr[i], i)
 }
 
@@ -5763,7 +5763,7 @@ exports.forEach = function(arr, fn, scope){
 
 exports.map = function(arr, fn, scope){
   var result = []
-  for (var i = 0, l = arr.length i < l i++)
+  for (var i = 0, l = arr.length; i < l; i++)
     result.push(fn.call(scope, arr[i], i, arr))
   return result
 }
@@ -5778,7 +5778,7 @@ exports.map = function(arr, fn, scope){
  */
 
 exports.indexOf = function(arr, obj, start){
-  for (var i = start || 0, l = arr.length i < l i++) {
+  for (var i = start || 0, l = arr.length; i < l; i++) {
     if (arr[i] === obj)
       return i
   }
@@ -5797,7 +5797,7 @@ exports.indexOf = function(arr, obj, start){
 exports.reduce = function(arr, fn, val){
   var rval = val
 
-  for (var i = 0, l = arr.length i < l i++) {
+  for (var i = 0, l = arr.length; i < l; i++) {
     rval = fn(rval, arr[i], i, arr)
   }
 
@@ -5815,7 +5815,7 @@ exports.reduce = function(arr, fn, val){
 exports.filter = function(arr, fn){
   var ret = []
 
-  for (var i = 0, l = arr.length i < l i++) {
+  for (var i = 0, l = arr.length; i < l; i++) {
     var val = arr[i]
     if (fn(val, i, arr)) ret.push(val)
   }
@@ -6015,7 +6015,7 @@ function highlight(js) {
 
 exports.highlightTags = function(name) {
   var code = document.getElementById('mocha').getElementsByTagName(name)
-  for (var i = 0, len = code.length i < len ++i) {
+  for (var i = 0, len = code.length; i < len; ++i) {
     code[i].innerHTML = highlight(code[i].innerHTML)
   }
 }
