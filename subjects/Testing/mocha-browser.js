@@ -38,7 +38,7 @@ require.relative = function (parent) {
 
       for (var i = 0; i < segs.length; i++) {
         var seg = segs[i]
-        if ('..' == seg) path.pop()
+        if ('..' === seg) path.pop()
         else if ('.' !== seg) path.push(seg)
       }
 
@@ -231,7 +231,7 @@ var JsDiff = (function() {
           lastLine = lines[i - 1]
 
       // Merge lines that may contain windows new lines
-      if (line == '\n' && lastLine && lastLine[lastLine.length - 1] === '\r') {
+      if (line === '\n' && lastLine && lastLine[lastLine.length - 1] === '\r') {
         retLines[retLines.length - 1] += '\n'
       } else if (line) {
         retLines.push(line)
@@ -455,7 +455,7 @@ exports.EventEmitter = EventEmitter
  */
 
 function isArray(obj) {
-  return '[object Array]' == {}.toString.call(obj)
+  return '[object Array]' === {}.toString.call(obj)
 }
 
 /**
@@ -607,7 +607,7 @@ EventEmitter.prototype.emit = function (name) {
 
   var args = [].slice.call(arguments, 1)
 
-  if ('function' == typeof handler) {
+  if ('function' === typeof handler) {
     handler.apply(this, args)
   } else if (isArray(handler)) {
     var listeners = handler.slice()
@@ -807,7 +807,7 @@ function Context() {}
  */
 
 Context.prototype.runnable = function(runnable) {
-  if (0 == arguments.length) return this._runnable
+  if (0 === arguments.length) return this._runnable
   this.test = this._runnable = runnable
   return this
 }
@@ -874,8 +874,8 @@ Context.prototype.skip = function() {
 
 Context.prototype.inspect = function() {
   return JSON.stringify(this, function(key, val) {
-    if ('_runnable' == key) return
-    if ('test' == key) return
+    if ('_runnable' === key) return
+    if ('test' === key) return
     return val
   }, 2)
 }
@@ -927,7 +927,7 @@ Hook.prototype.constructor = Hook
  */
 
 Hook.prototype.error = function(err) {
-  if (0 == arguments.length) {
+  if (0 === arguments.length) {
     var err = this._error
     this._error = null
     return err
@@ -1152,7 +1152,7 @@ module.exports = function(suite) {
   function visit(obj, file) {
     var suite
     for (var key in obj) {
-      if ('function' == typeof obj[key]) {
+      if ('function' === typeof obj[key]) {
         var fn = obj[key]
         switch (key) {
           case 'before':
@@ -1519,7 +1519,7 @@ function Mocha(options) {
  */
 
 Mocha.prototype.bail = function(bail) {
-  if (0 == arguments.length) bail = true
+  if (0 === arguments.length) bail = true
   this.suite.bail(bail)
   return this
 }
@@ -1544,7 +1544,7 @@ Mocha.prototype.addFile = function(file) {
  * @api public
  */
 Mocha.prototype.reporter = function(reporter, reporterOptions) {
-  if ('function' == typeof reporter) {
+  if ('function' === typeof reporter) {
     this._reporter = reporter
   } else {
     reporter = reporter || 'spec'
@@ -1634,7 +1634,7 @@ Mocha.prototype._growl = function(runner, reporter) {
  */
 
 Mocha.prototype.grep = function(re) {
-  this.options.grep = 'string' == typeof re
+  this.options.grep = 'string' === typeof re
     ? new RegExp(escapeRe(re))
     : re
   return this
@@ -1879,7 +1879,7 @@ var y = d * 365.25
 
 module.exports = function(val, options) {
   options = options || {}
-  if ('string' == typeof val) return parse(val)
+  if ('string' === typeof val) return parse(val)
   return options['long'] ? longFormat(val) : shortFormat(val)
 }
 
@@ -2070,7 +2070,7 @@ exports.symbols = {
 }
 
 // With node.js on Windows: use symbols available in terminal default fonts
-if ('win32' == process.platform) {
+if ('win32' === process.platform) {
   exports.symbols.ok = '\u221A'
   exports.symbols.err = '\u00D7'
   exports.symbols.dot = '.'
@@ -2451,7 +2451,7 @@ function colorLines(name, str) {
 function sameType(a, b) {
   a = Object.prototype.toString.call(a)
   b = Object.prototype.toString.call(b)
-  return a == b
+  return a === b
 }
 
 }) // module: reporters/base.js
@@ -2556,13 +2556,13 @@ function Dot(runner) {
   })
 
   runner.on('pending', function(test) {
-    if (++n % width == 0) process.stdout.write('\n  ')
+    if (++n % width === 0) process.stdout.write('\n  ')
     process.stdout.write(color('pending', Base.symbols.dot))
   })
 
   runner.on('pass', function(test) {
-    if (++n % width == 0) process.stdout.write('\n  ')
-    if ('slow' == test.speed) {
+    if (++n % width === 0) process.stdout.write('\n  ')
+    if ('slow' === test.speed) {
       process.stdout.write(color('bright yellow', Base.symbols.dot))
     } else {
       process.stdout.write(color(test.speed, Base.symbols.dot))
@@ -2570,7 +2570,7 @@ function Dot(runner) {
   })
 
   runner.on('fail', function(test, err) {
-    if (++n % width == 0) process.stdout.write('\n  ')
+    if (++n % width === 0) process.stdout.write('\n  ')
     process.stdout.write(color('fail', Base.symbols.dot))
   })
 
@@ -2763,7 +2763,7 @@ function HTML(runner) {
   })
 
   runner.on('fail', function(test, err) {
-    if ('hook' == test.type) runner.emit('test end', test)
+    if ('hook' === test.type) runner.emit('test end', test)
   })
 
   runner.on('test end', function(test) {
@@ -2778,7 +2778,7 @@ function HTML(runner) {
     text(duration, (ms / 1000).toFixed(2))
 
     // test
-    if ('passed' == test.state) {
+    if ('passed' === test.state) {
       var url = self.testURL(test)
       var el = fragment('<li class="test pass %e"><h2>%e<span class="duration">%ems</span> <a href="%s" class="replay">‣</a></h2></li>', test.speed, test.title, test.duration, url)
     } else if (test.pending) {
@@ -2794,7 +2794,7 @@ function HTML(runner) {
 
       // <=IE7 stringifies to [Object Error]. Since it can be overloaded, we
       // check for the result of the stringifying.
-      if ('[object Error]' == str) str = test.err.message
+      if ('[object Error]' === str) str = test.err.message
 
       // Safari doesn't give you a stack. Let's at least provide a source line.
       if (!test.err.stack && test.err.sourceURL && test.err.line !== undefined) {
@@ -2810,7 +2810,7 @@ function HTML(runner) {
       var h2 = el.getElementsByTagName('h2')[0]
 
       on(h2, 'click', function() {
-        pre.style.display = 'none' == pre.style.display
+        pre.style.display = 'none' === pre.style.display
           ? 'block'
           : 'none'
       })
@@ -2896,7 +2896,7 @@ function hideSuitesWithout(classname) {
   var suites = document.getElementsByClassName('suite')
   for (var i = 0; i < suites.length; i++) {
     var els = suites[i].getElementsByClassName(classname)
-    if (0 == els.length) suites[i].className += ' hidden'
+    if (0 === els.length) suites[i].className += ' hidden'
   }
 }
 
@@ -2981,7 +2981,7 @@ exports = module.exports = JSONCov
 
 function JSONCov(runner, output) {
   var self = this
-    , output = 1 == arguments.length ? true : output
+    , output = 1 === arguments.length ? true : output
 
   Base.call(this, runner)
 
@@ -3340,12 +3340,12 @@ function Landing(runner) {
 
   runner.on('test end', function(test) {
     // check if the plane crashed
-    var col = -1 == crashed
+    var col = -1 === crashed
       ? width * ++n / total | 0
       : crashed
 
     // show the crash
-    if ('failed' == test.state) {
+    if ('failed' === test.state) {
       plane = color('plane crash', '✈')
       crashed = col
     }
@@ -3509,7 +3509,7 @@ function Markdown(runner) {
     var buf = ''
     var link
     for (var key in obj) {
-      if ('suite' == key) continue
+      if ('suite' === key) continue
       if (key !== SUITE_PREFIX) {
         link = ' - [' + key.substring(1) + ']'
         link += '(#' + utils.slug(obj[key].suite.fullTitle()) + ')\n'
@@ -4013,7 +4013,7 @@ function Spec(runner) {
 
   runner.on('suite end', function(suite) {
     --indents
-    if (1 == indents) console.log()
+    if (1 === indents) console.log()
   })
 
   runner.on('pending', function(test) {
@@ -4022,7 +4022,7 @@ function Spec(runner) {
   })
 
   runner.on('pass', function(test) {
-    if ('fast' == test.speed) {
+    if ('fast' === test.speed) {
       var fmt = indent()
         + color('checkmark', '  ' + Base.symbols.ok)
         + color('pass', ' %s')
@@ -4253,7 +4253,7 @@ XUnit.prototype.test = function(test, ostream) {
     , time: (test.duration / 1000) || 0
   }
 
-  if ('failed' == test.state) {
+  if ('failed' === test.state) {
     var err = test.err
     this.write(tag('testcase', attrs, false, tag('failure', {}, false, cdata(escape(err.message) + "\n" + err.stack))))
   } else if (test.pending) {
@@ -4363,9 +4363,9 @@ Runnable.prototype.constructor = Runnable
  */
 
 Runnable.prototype.timeout = function(ms) {
-  if (0 == arguments.length) return this._timeout
+  if (0 === arguments.length) return this._timeout
   if (ms === 0) this._enableTimeouts = false
-  if ('string' == typeof ms) ms = milliseconds(ms)
+  if ('string' === typeof ms) ms = milliseconds(ms)
   debug('timeout %d', ms)
   this._timeout = ms
   if (this.timer) this.resetTimeout()
@@ -4382,7 +4382,7 @@ Runnable.prototype.timeout = function(ms) {
 
 Runnable.prototype.slow = function(ms) {
   if (0 === arguments.length) return this._slow
-  if ('string' == typeof ms) ms = milliseconds(ms)
+  if ('string' === typeof ms) ms = milliseconds(ms)
   debug('timeout %d', ms)
   this._slow = ms
   return this
@@ -4444,9 +4444,9 @@ Runnable.prototype.clearTimeout = function() {
 
 Runnable.prototype.inspect = function() {
   return JSON.stringify(this, function(key, val) {
-    if ('_' == key[0]) return
-    if ('parent' == key) return '#<Suite>'
-    if ('ctx' == key) return '#<Context>'
+    if ('_' === key[0]) return
+    if ('parent' === key) return '#<Suite>'
+    if ('ctx' === key) return '#<Context>'
     return val
   }, 2)
 }
@@ -4740,7 +4740,7 @@ Runner.prototype.globalProps = function() {
  */
 
 Runner.prototype.globals = function(arr) {
-  if (0 == arguments.length) return this._globals
+  if (0 === arguments.length) return this._globals
   debug('globals %j', arr)
   this._globals = this._globals.concat(arr)
   return this
@@ -4763,7 +4763,7 @@ Runner.prototype.checkGlobals = function(test) {
     ok = ok.concat(test._allowedGlobals || [])
   }
 
-  if(this.prevGlobalsLength == globals.length) return
+  if(this.prevGlobalsLength === globals.length) return
   this.prevGlobalsLength = globals.length
 
   leaks = filterLeaks(ok, globals)
@@ -5109,7 +5109,7 @@ Runner.prototype.runSuite = function(suite, fn) {
   function next(errSuite) {
     if (errSuite) {
       // current suite failed on a hook from errSuite
-      if (errSuite == suite) {
+      if (errSuite === suite) {
         // if errSuite is current suite
         // continue to the next sibling suite
         return done()
@@ -5169,7 +5169,7 @@ Runner.prototype.uncaught = function(err) {
   this.fail(runnable, err)
 
   // recover from test
-  if ('test' == runnable.type) {
+  if ('test' === runnable.type) {
     this.emit('test end', runnable)
     this.hookUp('afterEach', this.next)
     return
@@ -5269,10 +5269,10 @@ function filterLeaks(ok, globals) {
     if (/^mocha-/.test(key)) return false
 
     var matched = filter(ok, function(ok) {
-      if (~ok.indexOf('*')) return 0 == key.indexOf(ok.split('*')[0])
-      return key == ok
+      if (~ok.indexOf('*')) return 0 === key.indexOf(ok.split('*')[0])
+      return key === ok
     })
-    return matched.length == 0 && (!global.navigator || 'onerror' !== key)
+    return matched.length === 0 && (!global.navigator || 'onerror' !== key)
   })
 }
 
@@ -5408,9 +5408,9 @@ Suite.prototype.clone = function() {
  */
 
 Suite.prototype.timeout = function(ms) {
-  if (0 == arguments.length) return this._timeout
+  if (0 === arguments.length) return this._timeout
   if (ms.toString() === '0') this._enableTimeouts = false
-  if ('string' == typeof ms) ms = milliseconds(ms)
+  if ('string' === typeof ms) ms = milliseconds(ms)
   debug('timeout %d', ms)
   this._timeout = parseInt(ms, 10)
   return this
@@ -5441,7 +5441,7 @@ Suite.prototype.enableTimeouts = function(enabled) {
 
 Suite.prototype.slow = function(ms) {
   if (0 === arguments.length) return this._slow
-  if ('string' == typeof ms) ms = milliseconds(ms)
+  if ('string' === typeof ms) ms = milliseconds(ms)
   debug('slow %d', ms)
   this._slow = ms
   return this
@@ -5456,7 +5456,7 @@ Suite.prototype.slow = function(ms) {
  */
 
 Suite.prototype.bail = function(bail) {
-  if (0 == arguments.length) return this._bail
+  if (0 === arguments.length) return this._bail
   debug('bail %s', bail)
   this._bail = bail
   return this
@@ -5873,7 +5873,7 @@ exports.watch = function(files, fn) {
  * @api private
  */
 var isArray = Array.isArray || function (obj) {
-  return '[object Array]' == {}.toString.call(obj)
+  return '[object Array]' === {}.toString.call(obj)
 }
 
 /**
@@ -6125,7 +6125,7 @@ exports.stringify = function(value) {
  * @private
  */
 function jsonStringify(object, spaces, depth) {
-  if(typeof spaces == 'undefined') return _stringify(object)  // primitive types
+  if(typeof spaces === 'undefined') return _stringify(object)  // primitive types
 
   depth = depth || 1
   var space = spaces * depth
@@ -6161,7 +6161,7 @@ function jsonStringify(object, spaces, depth) {
         val = '[Buffer: ' + jsonStringify(json, 2, depth + 1) + ']'
         break
       default:
-        val = (val == '[Function]' || val == '[Circular]')
+        val = (val === '[Function]' || val === '[Circular]')
           ? val
           : '"' + val + '"' //string
     }
@@ -6439,7 +6439,7 @@ var originalOnerrorHandler = global.onerror
  */
 
 process.removeListener = function(e, fn) {
-  if ('uncaughtException' == e) {
+  if ('uncaughtException' === e) {
     if (originalOnerrorHandler) {
       global.onerror = originalOnerrorHandler
     } else {
@@ -6455,7 +6455,7 @@ process.removeListener = function(e, fn) {
  */
 
 process.on = function(e, fn) {
-  if ('uncaughtException' == e) {
+  if ('uncaughtException' === e) {
     global.onerror = function(err, url, line) {
       fn(new Error(err + ' (' + url + ':' + line + ')'))
       return true
@@ -6530,7 +6530,7 @@ mocha.ui = function(ui) {
  */
 
 mocha.setup = function(opts) {
-  if ('string' == typeof opts) opts = { ui: opts }
+  if ('string' === typeof opts) opts = { ui: opts }
   for (var opt in opts) this[opt](opts[opt])
   return this
 }
