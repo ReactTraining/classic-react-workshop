@@ -30,7 +30,7 @@ require.register = function (path, fn) {
 
 require.relative = function (parent) {
     return function(p) {
-      if ('.' != p.charAt(0)) return require(p)
+      if ('.' !== p.charAt(0)) return require(p)
 
       var path = parent.split('/')
         , segs = p.split('/')
@@ -39,7 +39,7 @@ require.relative = function (parent) {
       for (var i = 0; i < segs.length; i++) {
         var seg = segs[i]
         if ('..' == seg) path.pop()
-        else if ('.' != seg) path.push(seg)
+        else if ('.' !== seg) path.push(seg)
       }
 
       return require(path.join('/'))
@@ -103,13 +103,13 @@ var JsDiff = (function() {
       diff: function(oldString, newString) {
         // Handle the identity case (this is due to unrolling editLength == 0
         if (newString === oldString) {
-          return [{ value: newString }]
+          return [ { value: newString } ]
         }
         if (!newString) {
-          return [{ value: oldString, removed: true }]
+          return [ { value: oldString, removed: true } ]
         }
         if (!oldString) {
-          return [{ value: newString, added: true }]
+          return [ { value: newString, added: true } ]
         }
 
         newString = this.tokenize(newString)
@@ -117,7 +117,7 @@ var JsDiff = (function() {
 
         var newLen = newString.length, oldLen = oldString.length
         var maxEditLength = newLen + oldLen
-        var bestPath = [{ newPos: -1, components: [] }]
+        var bestPath = [ { newPos: -1, components: [] } ]
 
         // Seed editLength = 0
         var oldPos = this.extractCommon(bestPath[0], newString, oldString, 0)
@@ -155,7 +155,7 @@ var JsDiff = (function() {
               this.pushComponent(basePath.components, newString[basePath.newPos], true, undefined)
             }
 
-            var oldPos = this.extractCommon(basePath, newString, oldString, diagonalPath)
+            oldPos = this.extractCommon(basePath, newString, oldString, diagonalPath)
 
             if (basePath.newPos+1 >= newLen && oldPos+1 >= oldLen) {
               return basePath.components
@@ -172,9 +172,9 @@ var JsDiff = (function() {
           // We need to clone here as the component clone operation is just
           // as shallow array clone
           components[components.length-1] =
-            {value: this.join(last.value, value), added: added, removed: removed }
+            { value: this.join(last.value, value), added: added, removed: removed }
         } else {
-          components.push({value: value, added: added, removed: removed })
+          components.push({ value: value, added: added, removed: removed })
         }
       },
       extractCommon: function(basePath, newString, oldString, diagonalPath) {
@@ -263,7 +263,7 @@ var JsDiff = (function() {
       if (!diff[diff.length-1].value) {
         diff.pop()   // Remove trailing newline add
       }
-      diff.push({value: '', lines: []})   // Append an empty value to make cleanup easier
+      diff.push({ value: '', lines: [] })   // Append an empty value to make cleanup easier
 
       function contextLines(lines) {
         return lines.map(function(entry) { return ' ' + entry })
@@ -325,7 +325,7 @@ var JsDiff = (function() {
                 eofNL(ret, i, current)
               }
 
-              oldRangeStart = 0,  newRangeStart = 0, curRange = [];
+              oldRangeStart = 0,  newRangeStart = 0, curRange = []
             }
           }
           oldLine += lines.length
@@ -369,8 +369,8 @@ var JsDiff = (function() {
       }
 
       var str = oldStr.split('\n')
-      for (var i = diff.length - 1; i >= 0; i--) {
-        var d = diff[i]
+      for (var ii = diff.length - 1; ii >= 0; ii--) {
+        var d = diff[ii]
         for (var j = 0; j < d.oldlength; j++) {
           if(str[d.start-1+j] !== d.oldlines[j]) {
             return false
@@ -759,7 +759,9 @@ Progress.prototype.draw = function(ctx) {
         text
       , x - w / 2 + 1
       , y + fontSize / 2 - 1)
-  } catch (ex) {} //don't fail if we can't render progress
+  } catch (ex) {
+    //don't fail if we can't render progress
+  }
   return this
 }
 
@@ -1487,9 +1489,9 @@ function Mocha(options) {
   this.ui(options.ui)
   this.bail(options.bail)
   this.reporter(options.reporter, options.reporterOptions)
-  if (null != options.timeout) this.timeout(options.timeout)
+  if (null !== options.timeout) this.timeout(options.timeout)
   this.useColors(options.useColors)
-  if (options.enableTimeouts !== null) this.enableTimeouts(options.enableTimeouts)
+  if (options.enableTimeouts !=== null) this.enableTimeouts(options.enableTimeouts)
   if (options.slow) this.slow(options.slow)
 
   this.suite.on('pre-require', function (context) {
@@ -1736,7 +1738,7 @@ Mocha.prototype.useColors = function(colors) {
  */
 
 Mocha.prototype.useInlineDiffs = function(inlineDiffs) {
-  this.options.useInlineDiffs = arguments.length && inlineDiffs != undefined
+  this.options.useInlineDiffs = arguments.length && inlineDiffs !== undefined
   ? inlineDiffs
   : false
   return this
@@ -2380,7 +2382,7 @@ function unifiedDiff(err, escape) {
     else return indent + line
   }
   function notBlank(line) {
-    return line != null
+    return line !== null
   }
   var msg = diff.createPatch('string', err.actual, err.expected)
   var lines = msg.split('\n').splice(4)
@@ -4528,7 +4530,7 @@ Runnable.prototype.run = function(fn) {
     try {
       this.fn.call(ctx, function(err) {
         if (err instanceof Error || toString.call(err) === "[object Error]") return done(err)
-        if (null != err) {
+        if (null !== err) {
           if (Object.prototype.toString.call(err) === '[object Object]') {
             return done(new Error('done() invoked with non-Error: ' + JSON.stringify(err)))
           } else {
@@ -6095,7 +6097,7 @@ exports.stringify = function(value) {
   var type = exports.type(value)
 
   if (!~exports.indexOf(['object', 'array', 'function'], type)) {
-    if(type != 'buffer') {
+    if(type !== 'buffer') {
       return jsonStringify(value)
     }
     var json = value.toJSON()
@@ -6175,7 +6177,7 @@ function jsonStringify(object, spaces, depth) {
       + (length ? ',' : '')                     // comma
   }
 
-  return str + (str.length != 1                    // [], {}
+  return str + (str.length !== 1                    // [], {}
     ? '\n' + repeat(' ', --space) + end
     : end)
 }
@@ -6444,7 +6446,7 @@ process.removeListener = function(e, fn) {
       global.onerror = function() {}
     }
     var i = Mocha.utils.indexOf(uncaughtExceptionHandlers, fn)
-    if (i != -1) { uncaughtExceptionHandlers.splice(i, 1) }
+    if (i !== -1) { uncaughtExceptionHandlers.splice(i, 1) }
   }
 }
 
