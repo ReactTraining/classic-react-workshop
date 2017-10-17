@@ -1491,7 +1491,7 @@ function Mocha(options) {
   this.reporter(options.reporter, options.reporterOptions)
   if (null !== options.timeout) this.timeout(options.timeout)
   this.useColors(options.useColors)
-  if (options.enableTimeouts !=== null) this.enableTimeouts(options.enableTimeouts)
+  if (options.enableTimeouts !== null) this.enableTimeouts(options.enableTimeouts)
   if (options.slow) this.slow(options.slow)
 
   this.suite.on('pre-require', function (context) {
