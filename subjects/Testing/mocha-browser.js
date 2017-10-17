@@ -325,7 +325,7 @@ var JsDiff = (function() {
                 eofNL(ret, i, current)
               }
 
-              oldRangeStart = 0  newRangeStart = 0 curRange = [];
+              oldRangeStart = 0,  newRangeStart = 0, curRange = [];
             }
           }
           oldLine += lines.length
