@@ -2159,12 +2159,13 @@ exports.list = function(failures) {
 
     // msg
     var err = test.err
-      , msg = err.message || ''
+      , message = err.message || ''
       , stack = err.stack || message
       , index = stack.indexOf(message)
       , actual = err.actual
       , expected = err.expected
       , escape = true
+      , msg = null
     if (index === -1) {
       msg = message
     } else {
