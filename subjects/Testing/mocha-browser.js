@@ -226,7 +226,7 @@ var JsDiff = (function() {
     var retLines = [],
         lines = value.split(/^/m)
 
-    for(var i = 0 i < lines.length i++) {
+    for (var i = 0; i < lines.length; i++) {
       var line = lines[i],
           lastLine = lines[i - 1]
 
@@ -6166,7 +6166,7 @@ function jsonStringify(object, spaces, depth) {
     return val
   }
 
-  for(var i in object) {
+  for (var i in object) {
     if(!object.hasOwnProperty(i)) continue        // not my business
     --length
     str += '\n ' + repeat(' ', space)
