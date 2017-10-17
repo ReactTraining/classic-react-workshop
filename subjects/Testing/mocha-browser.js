@@ -928,7 +928,7 @@ Hook.prototype.constructor = Hook
 
 Hook.prototype.error = function(err) {
   if (0 === arguments.length) {
-    var err = this._error
+    err = this._error
     this._error = null
     return err
   }
@@ -1549,7 +1549,9 @@ Mocha.prototype.reporter = function(reporter, reporterOptions) {
   } else {
     reporter = reporter || 'spec'
     var _reporter
-    try { _reporter = require('./reporters/' + reporter) } catch (err) {}
+    try { _reporter = require('./reporters/' + reporter) } catch (err) {
+      // No empty blocks
+    }
     if (!_reporter) try { _reporter = require(reporter) } catch (err) {
       err.message.indexOf('Cannot find module') !== -1
         ? console.warn('"' + reporter + '" reporter not found')
@@ -1576,7 +1578,9 @@ Mocha.prototype.reporter = function(reporter, reporterOptions) {
 Mocha.prototype.ui = function(name) {
   name = name || 'bdd'
   this._ui = exports.interfaces[name]
-  if (!this._ui) try { this._ui = require(name) } catch (err) {}
+  if (!this._ui) try { this._ui = require(name) } catch (err) {
+    // No empty blocks
+  }
   if (!this._ui) throw new Error('invalid interface "' + name + '"')
   this._ui = this._ui(this.suite)
   return this
@@ -2155,7 +2159,7 @@ exports.list = function(failures) {
 
     // msg
     var err = test.err
-      , message = err.message || ''
+      , msg = err.message || ''
       , stack = err.stack || message
       , index = stack.indexOf(message)
       , actual = err.actual
@@ -2778,13 +2782,14 @@ function HTML(runner) {
     text(duration, (ms / 1000).toFixed(2))
 
     // test
+    var el = null
     if ('passed' === test.state) {
       var url = self.testURL(test)
-      var el = fragment('<li class="test pass %e"><h2>%e<span class="duration">%ems</span> <a href="%s" class="replay">‣</a></h2></li>', test.speed, test.title, test.duration, url)
+      el = fragment('<li class="test pass %e"><h2>%e<span class="duration">%ems</span> <a href="%s" class="replay">‣</a></h2></li>', test.speed, test.title, test.duration, url)
     } else if (test.pending) {
-      var el = fragment('<li class="test pass pending"><h2>%e</h2></li>', test.title)
+      el = fragment('<li class="test pass pending"><h2>%e</h2></li>', test.title)
     } else {
-      var el = fragment('<li class="test fail"><h2>%e <a href="%e" class="replay">‣</a></h2></li>', test.title, self.testURL(test))
+      el = fragment('<li class="test fail"><h2>%e <a href="%e" class="replay">‣</a></h2></li>', test.title, self.testURL(test))
       var str = test.err.stack || test.err.toString()
 
       // FF / Opera do not add the message
@@ -2981,7 +2986,7 @@ exports = module.exports = JSONCov
 
 function JSONCov(runner, output) {
   var self = this
-    , output = 1 === arguments.length ? true : output
+  output = 1 === arguments.length ? true : output
 
   Base.call(this, runner)
 
@@ -3901,13 +3906,13 @@ function Progress(runner, options) {
   Base.call(this, runner)
 
   var self = this
-    , options = options || {}
     , stats = this.stats
     , width = Base.window.width * .50 | 0
     , total = runner.total
     , complete = 0
     , max = Math.max
     , lastN = -1
+    options = options || {}
 
   // default chars
   options.open = options.open || '['
@@ -4022,14 +4027,15 @@ function Spec(runner) {
   })
 
   runner.on('pass', function(test) {
+    var fmt = null
     if ('fast' === test.speed) {
-      var fmt = indent()
+      fmt = indent()
         + color('checkmark', '  ' + Base.symbols.ok)
         + color('pass', ' %s')
       cursor.CR()
       console.log(fmt, test.title)
     } else {
-      var fmt = indent()
+      fmt = indent()
         + color('checkmark', '  ' + Base.symbols.ok)
         + color('pass', ' %s')
         + color(test.speed, ' (%dms)')
@@ -4952,7 +4958,7 @@ Runner.prototype.hookDown = function(name, fn) {
 Runner.prototype.parents = function() {
   var suite = this.suite
     , suites = []
-  while (suite = suite.parent) suites.push(suite)
+  while (suite === suite.parent) suites.push(suite)
   return suites
 }
 
