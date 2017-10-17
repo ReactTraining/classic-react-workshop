@@ -4721,7 +4721,7 @@ Runner.prototype.globalProps = function() {
   var props = utils.keys(global)
 
   // non-enumerables
-  for (var i = 0 i < globals.length ++i) {
+  for (var i = 0; i < globals.length; ++i) {
     if (~utils.indexOf(props, globals[i])) continue
     props.push(globals[i])
   }
