@@ -71,7 +71,6 @@ class App extends React.Component {
             className="btn btn-default"
           >Close</button>
         </Modal>
-
       </div>
     )
   }

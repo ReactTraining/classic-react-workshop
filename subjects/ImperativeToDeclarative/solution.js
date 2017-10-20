@@ -14,19 +14,11 @@ class Modal extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node,
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func
+    isOpen: PropTypes.bool.isRequired
   }
 
   componentDidMount() {
     this.doImperativeWork()
-
-    // This is only necessary to sync the state back up to
-    // the parent when the user clicks on the overlay.
-    $(this.node).on('hidden.bs.modal', () => {
-      if (this.props.onClose)
-        this.props.onClose()
-    })
   }
 
   componentDidUpdate(prevProps) {
@@ -35,19 +27,7 @@ class Modal extends React.Component {
   }
 
   doImperativeWork() {
-    if (this.props.isOpen) {
-      this.open()
-    } else {
-      this.close()
-    }
-  }
-
-  open() {
-    $(this.node).modal('show')
-  }
-
-  close() {
-    $(this.node).modal('hide')
+    $(this.node).modal(this.props.isOpen ? 'show' : 'hide')
   }
 
   render() {
@@ -105,7 +85,6 @@ class App extends React.Component {
             className="btn btn-default"
           >Close</button>
         </Modal>
-
       </div>
     )
   }
