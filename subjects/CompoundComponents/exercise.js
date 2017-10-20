@@ -15,19 +15,13 @@
 //
 // Got extra time?
 //
-// Implement a `value` prop and allow this to work like a "controlled input"
-// (https://facebook.github.io/react/docs/forms.html#controlled-components)
-//
-// - Add a button to <App> that sets `this.state.radioValue` to a pre-determined
-//   value, like "tape"
-// - Make the <RadioGroup> update accordingly
-//
-// Implement keyboard controls on the <RadioGroup> (you'll need tabIndex="0" on
-// the <RadioOption>s so the keyboard will work)
-//
-// - Enter and space bar should select the option
-// - Arrow right, arrow down should select the next option
-// - Arrow left, arrow up should select the previous option
+// - Implement an `onChange` prop that communicates the <RadioGroup>'s state
+//   back to the parent so it can use it to render.
+// - Implement keyboard controls on the <RadioGroup> (you'll need tabIndex="0" on
+//   the <RadioOption>s so the keyboard will work)
+//   - Enter and space bar should select the option
+//   - Arrow right, arrow down should select the next option
+//   - Arrow left, arrow up should select the previous option
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
