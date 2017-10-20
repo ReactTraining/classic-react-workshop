@@ -125,7 +125,7 @@ class App extends React.Component {
 
         <Select
           value={this.state.selectValue}
-          onChange={(selectValue) => this.setState({ selectValue })}
+          onChange={value => this.setState({ selectValue: value })}
         >
           <Option value="tikka-masala">Tikka Masala</Option>
           <Option value="tandoori-chicken">Tandoori Chicken</Option>
