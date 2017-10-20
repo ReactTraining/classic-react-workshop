@@ -10,37 +10,40 @@
 // but they can go back if they'd like. If the tabs keep their own state you
 // can't control them with your application logic.
 //
-// Already done?
+// Got extra time?
 //
 // Make a <StatefulTabs> component that manages some state that is passed as
 // props down to <Tabs> (since it should now be stateless).
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import * as styles from './styles'
 import data from './data'
 
 class Tabs extends React.Component {
   static propTypes = {
-    activeTabIndex: React.PropTypes.number.isRequired,
-    onActivate: React.PropTypes.func.isRequired,
-    data: React.PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    activeTabIndex: PropTypes.number.isRequired,
+    onActivate: PropTypes.func.isRequired
   }
 
-  handleTabClick(activeTabIndex) {
-    this.props.onActivate(activeTabIndex)
+  selectTab(index) {
+    this.props.onActivate(index)
   }
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
-      const style = this.props.activeTabIndex === index ?
-        styles.activeTab : styles.tab
+      const style = this.props.activeTabIndex === index
+        ? styles.activeTab
+        : styles.tab
+
       return (
         <div
           className="Tab"
           key={tab.name}
           style={style}
-          onClick={() => this.handleTabClick(index)}
+          onClick={() => this.selectTab(index)}
         >{tab.name}</div>
       )
     })
@@ -48,6 +51,7 @@ class Tabs extends React.Component {
 
   renderPanel() {
     const tab = this.props.data[this.props.activeTabIndex]
+
     return (
       <div>
         <p>{tab.description}</p>
@@ -80,9 +84,9 @@ class App extends React.Component {
         <h1>Props v. State</h1>
         <Tabs
           ref="tabs"
-          activeTabIndex={this.state.activeTabIndex}
-          onActivate={activeTabIndex => this.setState({ activeTabIndex })}
           data={this.props.tabs}
+          activeTabIndex={this.state.activeTabIndex}
+          onActivate={index => this.setState({ activeTabIndex: index })}
         />
       </div>
     )
