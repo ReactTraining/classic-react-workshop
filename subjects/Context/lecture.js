@@ -30,8 +30,8 @@ class Tab extends React.Component {
   render() {
     return (
       <div
-        onClick={this.props.isDisabled ? null : this.props.onClick}
-        style={this.props.isDisabled ? styles.disabledTab : (
+        onClick={this.props.disabled ? null : this.props.onClick}
+        style={this.props.disabled ? styles.disabledTab : (
           this.props.isActive ? styles.activeTab : styles.tab
         )}
       >
@@ -71,7 +71,7 @@ class Tabs extends React.Component {
       } else if (child.type === TabList) {
         return React.cloneElement(child, {
           activeIndex: this.state.activeIndex,
-          onActivate: (activeIndex) => this.setState({ activeIndex })
+          onActivate: index => this.setState({ activeIndex: index })
         })
       } else {
         return child
@@ -89,7 +89,7 @@ class App extends React.Component {
         <Tabs>
           <TabList>
             <Tab>Tacos</Tab>
-            <Tab isDisabled>Burritos</Tab>
+            <Tab disabled>Burritos</Tab>
             <Tab>Coconut Korma</Tab>
           </TabList>
           <TabPanels>
@@ -125,8 +125,8 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //   render() {
 //     return (
 //       <div
-//         onClick={this.props.isDisabled ? null : this.props.onClick}
-//         style={this.props.isDisabled ? styles.disabledTab : (
+//         onClick={this.props.disabled ? null : this.props.onClick}
+//         style={this.props.disabled ? styles.disabledTab : (
 //           this.props.isActive ? styles.activeTab : styles.tab
 //         )}
 //       >
@@ -176,7 +176,7 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //       if (child.type === TabList) {
 //         return React.cloneElement(child, {
 //           activeIndex: this.state.activeIndex,
-//           onActivate: (activeIndex) => this.setState({ activeIndex })
+//           onActivate: index => this.setState({ activeIndex: index })
 //         })
 //       } else {
 //         return child
@@ -194,7 +194,7 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //         <Tabs>
 //           <TabList>
 //             <Tab>Tacos</Tab>
-//             <Tab isDisabled>Burritos</Tab>
+//             <Tab disabled>Burritos</Tab>
 //             <Tab>Coconut Korma</Tab>
 //           </TabList>
 //           <div>
@@ -238,8 +238,8 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //   render() {
 //     return (
 //       <div
-//         onClick={this.props.isDisabled ? null : this.props.onClick}
-//         style={this.props.isDisabled ? styles.disabledTab : (
+//         onClick={this.props.disabled ? null : this.props.onClick}
+//         style={this.props.disabled ? styles.disabledTab : (
 //           this.props.isActive ? styles.activeTab : styles.tab
 //         )}
 //       >
@@ -263,6 +263,12 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //   }
 // }
 //
+// class TabPanel extends React.Component {
+//   render() {
+//     return <div>{this.props.children}</div>
+//   }
+// }
+//
 // class Tabs extends React.Component {
 //   static childContextTypes = {
 //     activeIndex: PropTypes.number,
@@ -272,9 +278,7 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //   getChildContext() {
 //     return {
 //       activeIndex: this.state.activeIndex,
-//       onActivate: (activeIndex) => {
-//         this.setState({ activeIndex })
-//       }
+//       onActivate: index => this.setState({ activeIndex: index })
 //     }
 //   }
 //
@@ -295,7 +299,7 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 //           <div>
 //             <TabList>
 //               <Tab>Tacos</Tab>
-//               <Tab isDisabled>Burritos</Tab>
+//               <Tab disabled>Burritos</Tab>
 //               <Tab>Coconut Korma</Tab>
 //             </TabList>
 //           </div>
@@ -313,3 +317,8 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 // }
 //
 // ReactDOM.render(<App/>, document.getElementById('app'))
+
+////////////////////////////////////////////////////////////////////////////////
+// It's generally good practice to use a namespace on context to avoid conflicts
+// with other libraries that are also using context. For example, react-router
+// uses context.router. Here, we could use context.tabs.
