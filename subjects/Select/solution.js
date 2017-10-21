@@ -11,75 +11,67 @@ import './styles.css'
 
 class Select extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func,
     value: PropTypes.any,
-    defaultValue: PropTypes.any
+    defaultValue: PropTypes.any,
+    onChange: PropTypes.func
   }
 
   state = {
-    value: this.props.defaultValue || null,
-    showChildren: false
+    value: this.props.value || this.props.defaultValue,
+    showOptions: false
+  }
+
+  toggleOptions = () => {
+    this.setState(state => ({
+      showOptions: !state.showOptions
+    }))
+  }
+
+  isControlled() {
+    return this.props.value != null
   }
 
   componentWillMount() {
-    if (!this.isUncontrolled() && !this.props.onChange)
-      console.warn('This thing is gonna be read-only, etc. etc.')
+    if (this.isControlled() && !this.props.onChange) {
+      console.warn('You must provide an onChange to a controlled <Select>, or it is going to be read-only')
+    }
   }
 
   getLabel() {
-    let label = null
+    const value = this.isControlled() ? this.props.value : this.state.value
 
-    React.Children.forEach(this.props.children, (child) => {
-      const childValue = child.props.value
-
-      if (
-        (this.isUncontrolled() && childValue === this.state.value) ||
-        (child.props.value === this.props.value)
-      ) {
+    let label
+    React.Children.forEach(this.props.children, child => {
+      if (child.props.value === value)
         label = child.props.children
-      }
     })
 
     return label
   }
 
-  toggle() {
-    this.setState({
-      showChildren: !this.state.showChildren
-    })
-  }
-
-  isUncontrolled() {
-    return this.props.value == null
-  }
-
   handleSelect(value) {
-    const nextState = { showChildren: false }
-
-    if (this.isUncontrolled())
-      nextState.value = value
-
-    this.setState(nextState, () => {
+    if (this.isControlled()) {
       if (this.props.onChange)
         this.props.onChange(value)
-    })
-  }
-
-  renderChildren() {
-    return React.Children.map(this.props.children, (child) => (
-      React.cloneElement(child, {
-        onSelect: (value) => this.handleSelect(value)
+    } else {
+      this.setState({ value }, () => {
+        if (this.props.onChange)
+          this.props.onChange(this.state.value)
       })
-    ))
+    }
   }
 
   render() {
     return (
-      <div className="select" onClick={() => this.toggle()}>
+      <div className="select" onClick={this.toggleOptions}>
         <div className="label">{this.getLabel()} <span className="arrow">▾</span></div>
-        {this.state.showChildren && (
+        {this.state.showOptions && (
           <div className="options">
-            {this.renderChildren()}
+            {React.Children.map(this.props.children, child => {
+              return React.cloneElement(child, {
+                onSelect: () => this.handleSelect(child.props.value)
+              })
+            })}
           </div>
         )}
       </div>
@@ -88,15 +80,11 @@ class Select extends React.Component {
 }
 
 class Option extends React.Component {
-  handleClick() {
-    this.props.onSelect(this.props.value)
-  }
-
   render() {
     return (
       <div
         className="option"
-        onClick={() => this.handleClick()}
+        onClick={this.props.onSelect}
       >{this.props.children}</div>
     )
   }
