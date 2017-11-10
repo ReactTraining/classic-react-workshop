@@ -57,7 +57,7 @@ class SmartScroller extends React.Component {
     this.node.scrollTop = this.node.scrollHeight
   }
 
-  handleScroll() {
+  handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = this.node
     const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
     this.autoScroll = distanceToBottom < 10
