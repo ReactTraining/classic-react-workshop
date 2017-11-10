@@ -136,14 +136,14 @@ class Chat extends React.Component {
         </header>
         <SmartScroller className="messages">
           <ol className="message-groups">
-          {messageGroups.map(messages => (
-            <li className="message-group">
+          {messageGroups.map((messages, index) => (
+            <li key={index} className="message-group">
               <div className="message-group-avatar">
                 <img src={messages[0].avatarURL}/>
               </div>
               <ol className="messages">
-              {messages.map(message => (
-                <li key={message._key} className="message">{message.text}</li>
+              {messages.map((message, index) => (
+                <li key={index} className="message">{message.text}</li>
               ))}
               </ol>
             </li>
