@@ -50,6 +50,23 @@ $ sudo rm -rf /usr/local/lib/node_modules
 $ npm install
 ```
 
+## For webpack dev server on C9.io
+
+When making the workspace clone the workspace when making it IE:
+
+* Name your workspace
+* Set the description
+* Add a clone url link in the Clone workspace text area (not the tab)
+* Make a HTML5 Template
+
+```
+npm install
+npm run start-c9
+```
+
+* Click Share in the upper right hand corner of the window where the Gear icon is
+* Click the application link and open
+
 ### License
 
 This material is available for private, non-commercial use under the [GPL version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html). If you would like to use this material to conduct your own workshop, please contact us at hello@reacttraining.com
