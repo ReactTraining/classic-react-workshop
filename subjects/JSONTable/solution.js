@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Requirements
 //
-// - fetch the src with getJSON((error, payload) => {})
+// - fetch the src with getJSON(url, (error, payload) => {})
 // - render the content of the th's from the field names (hint: use
 //   the field names from the first record)
 // - render each result as a row in <tbody>
