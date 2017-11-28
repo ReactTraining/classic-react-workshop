@@ -1,23 +1,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Write a <ListView> that only shows the elements in the view.
+// Modify <ListView> so that it only renders the list items that are visible!
 //
 // Got extra time?
 //
 // - Render fewer rows as the size of the window changes (Hint: Listen
 //   for the window's "resize" event)
-// - Try rendering a few rows above and beneath the visible area to
-//   prevent tearing when scrolling quickly
 // - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
-import * as RainbowListDelegate from "./utils/RainbowListDelegate"
+import * as RainbowListDelegate from "./RainbowListDelegate"
 import "./styles"
 
-class RainbowList extends React.Component {
+class ListView extends React.Component {
   static propTypes = {
     numRows: PropTypes.number.isRequired,
     rowHeight: PropTypes.number.isRequired,
@@ -45,7 +43,7 @@ class RainbowList extends React.Component {
 }
 
 ReactDOM.render(
-  <RainbowList
+  <ListView
     numRows={500}
     rowHeight={RainbowListDelegate.rowHeight}
     renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}

@@ -37,7 +37,7 @@ const Subjects = {
   Context: "Context",
   HigherOrderComponents: "Higher Order Components",
   RenderProps: "Render Props",
-  RenderOptimizations: "Performance and Render Optimizations",
+  RenderOptimizations: "Render Optimizations",
   TweenState: "TweenState",
   Animation: "Animation",
   Routing: "Routing",
