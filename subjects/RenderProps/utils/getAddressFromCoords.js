@@ -1,6 +1,6 @@
-import debounce from 'debounce-promise'
+import debounce from "debounce-promise"
 
-const GoogleMapsAPI = 'https://maps.googleapis.com/maps/api'
+const GoogleMapsAPI = "https://maps.googleapis.com/maps/api"
 
 const unthrottledGetAddressFromCoords = (latitude, longitude) => {
   const url = `${GoogleMapsAPI}/geocode/json?latlng=${latitude},${longitude}`
@@ -8,9 +8,6 @@ const unthrottledGetAddressFromCoords = (latitude, longitude) => {
   return fetch(url)
     .then(res => res.json())
     .then(json => json.results[0].formatted_address)
-    .catch(error => {
-      throw error
-    })
 }
 
 // Throttle requests to once per second
