@@ -1,4 +1,3 @@
-/*eslint-disable no-console */
 import { findDOMNode } from "react-dom"
 import { Simulate } from "react-addons-test-utils"
 import assert from "../assert"

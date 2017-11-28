@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react"
+import PropTypes from "prop-types"
 
-const connect = (mapStateToProps) => {
-  return (Component) => {
+const connect = mapStateToProps => {
+  return Component => {
     return class extends React.Component {
       static contextTypes = {
         store: PropTypes.object
@@ -21,13 +21,7 @@ const connect = (mapStateToProps) => {
       render() {
         const props = mapStateToProps(this.context.store.getState())
 
-        return (
-          <Component
-            {...this.props}
-            {...props}
-            dispatch={this.context.store.dispatch}
-          />
-        )
+        return <Component {...this.props} {...props} dispatch={this.context.store.dispatch} />
       }
     }
   }

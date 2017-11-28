@@ -1,7 +1,7 @@
-import React from 'react'
-import CreateContactForm from './CreateContactForm'
-import { addContact, loadContacts } from '../actions'
-import store from '../store'
+import React from "react"
+import CreateContactForm from "./CreateContactForm"
+import { addContact, loadContacts } from "../actions"
+import store from "../store"
 
 class App extends React.Component {
   state = {
@@ -22,13 +22,15 @@ class App extends React.Component {
     return (
       <div>
         <h1>Contacts!</h1>
-        <ul style={{ listStyleType: 'none', padding: 0 }}>
+        <ul style={{ listStyleType: "none", padding: 0 }}>
           {contacts.map(contact => (
             <li key={contact.id}>
-              <img src={contact.avatar} height="50"/> {contact.first} {contact.last}
+              <img src={contact.avatar} height="50" /> {contact.first} {contact.last}
             </li>
           ))}
-          <li><CreateContactForm onCreate={contact => this.createContact(contact)}/></li>
+          <li>
+            <CreateContactForm onCreate={contact => this.createContact(contact)} />
+          </li>
         </ul>
       </div>
     )

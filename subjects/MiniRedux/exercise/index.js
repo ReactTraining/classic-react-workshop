@@ -16,24 +16,25 @@
 // 3. Remove the "visibility: hidden" from the contact list in App
 // 4. Migrate the contacts from component state into the store
 // 5. Handle creating contacts with `dispatch`
-import React from 'react'
-import ReactDOM from 'react-dom'
-import createStore from './mini-redux/createStore'
-import Provider from './mini-redux/Provider'
-import App from './components/App'
+import React from "react"
+import ReactDOM from "react-dom"
+import createStore from "./mini-redux/createStore"
+import Provider from "./mini-redux/Provider"
+import App from "./components/App"
 
 const store = createStore((state = 0, action) => {
-  if (action.type === 'INCREMENT') {
+  if (action.type === "INCREMENT") {
     return state + 1
-  } else if (action.type === 'DECREMENT') {
+  } else if (action.type === "DECREMENT") {
     return state - 1
   } else {
     return state
   }
 })
 
-ReactDOM.render((
+ReactDOM.render(
   <Provider store={store}>
-    <App/>
-  </Provider>
-), document.getElementById('app'))
+    <App />
+  </Provider>,
+  document.getElementById("app")
+)

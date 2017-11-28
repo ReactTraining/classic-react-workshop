@@ -1,5 +1,5 @@
-import { ActionTypes } from '../Constants'
-import { dispatchServerAction } from '../AppDispatcher'
+import { ActionTypes } from "../Constants"
+import { dispatchServerAction } from "../AppDispatcher"
 
 export function contactsWereLoaded(contacts) {
   dispatchServerAction({

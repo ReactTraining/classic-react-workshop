@@ -1,8 +1,8 @@
-import React from 'react'
-import { Motion, spring } from 'react-motion'
-import * as styles from '../styles'
+import React from "react"
+import { Motion, spring } from "react-motion"
+import * as styles from "../styles"
 
-const withCat = (Component) => {
+const withCat = Component => {
   return class ComponentWithCat extends React.Component {
     state = { width: 0, height: 0, x: 0, y: 0 }
 
@@ -16,8 +16,7 @@ const withCat = (Component) => {
     componentDidUpdate(prevProps) {
       const { mouse } = this.props
 
-      if (mouse.x !== prevProps.mouse.x || mouse.y !== prevProps.mouse.y)
-        this.setState(mouse)
+      if (mouse.x !== prevProps.mouse.x || mouse.y !== prevProps.mouse.y) this.setState(mouse)
     }
 
     render() {
@@ -27,13 +26,11 @@ const withCat = (Component) => {
       }
 
       return (
-        <div style={{ height: '100%' }}>
+        <div style={{ height: "100%" }}>
           <Motion style={catStyle}>
-            {style => (
-              <div style={{ ...styles.cat, ...style }} ref={node => this.cat = node}/>
-            )}
+            {style => <div style={{ ...styles.cat, ...style }} ref={node => (this.cat = node)} />}
           </Motion>
-          <Component {...this.props}/>
+          <Component {...this.props} />
         </div>
       )
     }

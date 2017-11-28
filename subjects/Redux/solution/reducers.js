@@ -4,17 +4,14 @@ import {
   DELETE_CONTACT,
   CONTACT_WAS_DELETED,
   ERROR_DELETING_CONTACT
-} from './actions'
+} from "./actions"
 
 export const contacts = (state = [], action) => {
-  if (action.type === ADD_CONTACT)
-    return state.concat([ action.contact ])
-  else if (action.type === CONTACTS_WERE_LOADED)
-    return action.contacts
+  if (action.type === ADD_CONTACT) return state.concat([action.contact])
+  else if (action.type === CONTACTS_WERE_LOADED) return action.contacts
   else if (action.type === CONTACT_WAS_DELETED)
     return state.filter(contact => contact.id !== action.contactId)
-  else
-    return state
+  else return state
 }
 
 export const contactsBeingDeleted = (state = {}, action) => {
@@ -26,8 +23,7 @@ export const contactsBeingDeleted = (state = {}, action) => {
   else if (action.type === ERROR_DELETING_CONTACT) {
     delete state[action.contactId]
     return { ...state }
-  } else
-    return state
+  } else return state
 }
 
 export const contactsWithErrors = (state = {}, action) => {
@@ -36,6 +32,5 @@ export const contactsWithErrors = (state = {}, action) => {
       ...state,
       [action.contactId]: action.message
     }
-  else
-    return state
+  else return state
 }

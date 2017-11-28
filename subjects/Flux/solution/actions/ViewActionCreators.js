@@ -1,6 +1,6 @@
-import { ActionTypes } from '../Constants'
-import { dispatchViewAction } from '../AppDispatcher'
-import * as APIUtils from '../utils/APIUtils'
+import { ActionTypes } from "../Constants"
+import { dispatchViewAction } from "../AppDispatcher"
+import * as APIUtils from "../utils/APIUtils"
 
 function loadContacts() {
   dispatchViewAction({

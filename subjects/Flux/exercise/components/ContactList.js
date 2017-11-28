@@ -1,6 +1,6 @@
-import React from 'react'
-import { getState, addChangeListener } from '../stores/ContactStore'
-import { loadContacts } from '../actions/ViewActionCreators'
+import React from "react"
+import { getState, addChangeListener } from "../stores/ContactStore"
+import { loadContacts } from "../actions/ViewActionCreators"
 
 const ContactList = React.createClass({
   getInitialState() {
@@ -14,13 +14,12 @@ const ContactList = React.createClass({
   render() {
     const { contacts, loaded } = this.state
 
-    if (!loaded)
-      return <div>Loading...</div>
+    if (!loaded) return <div>Loading...</div>
 
     const items = contacts.map(contact => {
       return (
         <li key={contact.id}>
-          <img src={contact.avatar} width="40"/> {contact.first} {contact.last}
+          <img src={contact.avatar} width="40" /> {contact.first} {contact.last}
         </li>
       )
     })

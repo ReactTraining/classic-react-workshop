@@ -1,17 +1,16 @@
-import React from 'react'
-import { Mixin as TweenStateMixin } from 'react-tween-state'
+import React from "react"
+import { Mixin as TweenStateMixin } from "react-tween-state"
 
 function getHeight(node) {
   return node.scrollHeight
 }
 
 const HeightFader = React.createClass({
-
-  mixins: [ TweenStateMixin ],
+  mixins: [TweenStateMixin],
 
   getDefaultProps() {
     return {
-      component: 'li'
+      component: "li"
     }
   },
 
@@ -23,12 +22,12 @@ const HeightFader = React.createClass({
   },
 
   componentWillEnter(cb) {
-    this.tweenState('opacity', {
+    this.tweenState("opacity", {
       duration: 250,
       endValue: 1
     })
 
-    this.tweenState('height', {
+    this.tweenState("height", {
       duration: 250,
       endValue: getHeight(React.findDOMNode(this)),
       onEnd: cb
@@ -36,12 +35,12 @@ const HeightFader = React.createClass({
   },
 
   componentWillLeave(cb) {
-    this.tweenState('opacity', {
+    this.tweenState("opacity", {
       duration: 250,
       endValue: 0
     })
 
-    this.tweenState('height', {
+    this.tweenState("height", {
       duration: 250,
       endValue: 0,
       onEnd: cb
@@ -52,12 +51,11 @@ const HeightFader = React.createClass({
     return React.createElement(this.props.component, {
       ...this.props,
       style: {
-        opacity: this.getTweeningValue('opacity'),
-        height: this.getTweeningValue('height')
+        opacity: this.getTweeningValue("opacity"),
+        height: this.getTweeningValue("height")
       }
     })
   }
-
 })
 
 export default HeightFader

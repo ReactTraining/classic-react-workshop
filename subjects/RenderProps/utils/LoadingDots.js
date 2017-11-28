@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react"
 
 class LoadingDots extends React.Component {
-
   static propTypes: {
     interval: React.PropTypes.number,
     dots: React.PropTypes.number
@@ -28,14 +27,13 @@ class LoadingDots extends React.Component {
 
   render() {
     let dots = this.state.frame % (this.props.dots + 1)
-    let text = ''
+    let text = ""
     while (dots > 0) {
-      text += '.'
+      text += "."
       dots--
     }
     return <span>{text}&nbsp;</span>
   }
-
 }
 
 export default LoadingDots

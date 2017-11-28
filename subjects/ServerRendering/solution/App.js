@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 class App extends React.Component {
   static propTypes = {
@@ -14,7 +14,9 @@ class App extends React.Component {
         {contacts ? (
           <ul>
             {contacts.map(contact => (
-              <li key={contact.id}>{contact.first} {contact.last}</li>
+              <li key={contact.id}>
+                {contact.first} {contact.last}
+              </li>
             ))}
           </ul>
         ) : (

@@ -1,5 +1,5 @@
-import React from 'react'
-import fetchContacts from './fetchContacts'
+import React from "react"
+import fetchContacts from "./fetchContacts"
 
 class App extends React.Component {
   // TODO: Move this state to a prop. That will make it
@@ -24,7 +24,9 @@ class App extends React.Component {
         {contacts ? (
           <ul>
             {contacts.map(contact => (
-              <li key={contact.id}>{contact.first} {contact.last}</li>
+              <li key={contact.id}>
+                {contact.first} {contact.last}
+              </li>
             ))}
           </ul>
         ) : (

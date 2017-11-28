@@ -1,12 +1,12 @@
-import React from 'react'
-import ContentToggle from './ContentToggle'
+import React from "react"
+import ContentToggle from "./ContentToggle"
 
 class StatefulContentToggle extends React.Component {
   state = {
     isOpen: false
   }
 
-  render () {
+  render() {
     return (
       <ContentToggle
         {...this.props}

@@ -1,5 +1,4 @@
-/*eslint-disable no-console */
-import { findDOMNode } from "react-dom"
+import ReactDOM from "react-dom"
 import { Simulate } from "react-addons-test-utils"
 import assert from "../assert"
 
@@ -10,7 +9,7 @@ function toArray(nodeList) {
 export function run(component) {
   window.location.hash = ""
 
-  const node = findDOMNode(component)
+  const node = ReactDOM.findDOMNode(component)
   const peopleList = node.querySelector(".people-list")
   const profileLinks = toArray(node.querySelectorAll(".people-list a"))
   const profileHrefFormat = /\/profile\/\d+$/

@@ -1,9 +1,8 @@
-import React from 'react'
-import ContactStore from '../stores/ContactStore'
-import ViewActions from '../actions/ViewActionCreators'
+import React from "react"
+import ContactStore from "../stores/ContactStore"
+import ViewActions from "../actions/ViewActionCreators"
 
 const ContactList = React.createClass({
-
   getDefaultProps() {
     return {
       ContactStore,
@@ -35,21 +34,22 @@ const ContactList = React.createClass({
   render() {
     const { contacts, deletingContacts, errors, loaded } = this.state
 
-    if (!loaded)
-      return <div>Loading...</div>
+    if (!loaded) return <div>Loading...</div>
 
     const items = contacts.map(contact => {
       const error = errors[contact.id]
       const isDeleting = deletingContacts.indexOf(contact) !== -1
 
       return (
-        <li key={contact.id} style={{ backgroundColor: error ? 'red' : 'transparent' }}>
-          <img src={contact.avatar} width="40"/>
-          {' '}{contact.first} {contact.last}{' '}
-          {error
-          ? <p>{error.message}</p>
-          : <button disabled={isDeleting} onClick={() => this.deleteContact(contact)}>delete</button>
-          }
+        <li key={contact.id} style={{ backgroundColor: error ? "red" : "transparent" }}>
+          <img src={contact.avatar} width="40" /> {contact.first} {contact.last}{" "}
+          {error ? (
+            <p>{error.message}</p>
+          ) : (
+            <button disabled={isDeleting} onClick={() => this.deleteContact(contact)}>
+              delete
+            </button>
+          )}
         </li>
       )
     })

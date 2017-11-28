@@ -1,55 +1,49 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react"
+import PropTypes from "prop-types"
 
 class Draggable extends React.Component {
   static propTypes = {
-    component: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func
-    ]).isRequired,
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
     onDrop: PropTypes.func
   }
 
   static defaultProps = {
-    component: 'div'
+    component: "div"
   }
 
   componentDidMount() {
     this.isDragging = false
-    document.addEventListener('mouseup', this.handleMouseUp)
-    document.addEventListener('mousemove', this.handleMouseMove)
+    document.addEventListener("mouseup", this.handleMouseUp)
+    document.addEventListener("mousemove", this.handleMouseMove)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousemove', this.handleMouseMove)
-    document.removeEventListener('mouseup', this.handleMouseUp)
+    document.removeEventListener("mousemove", this.handleMouseMove)
+    document.removeEventListener("mouseup", this.handleMouseUp)
   }
 
-  handleMouseDown = (event) => {
+  handleMouseDown = event => {
     if (!this.isDragging) {
       this.isDragging = true
 
       // Prevent Chrome from displaying a text cursor
       event.preventDefault()
 
-      if (this.props.onDragStart)
-        this.props.onDragStart(event)
+      if (this.props.onDragStart) this.props.onDragStart(event)
     }
   }
 
-  handleMouseMove = (event) => {
-    if (this.isDragging && this.props.onDrag)
-      this.props.onDrag(event)
+  handleMouseMove = event => {
+    if (this.isDragging && this.props.onDrag) this.props.onDrag(event)
   }
 
-  handleMouseUp = (event) => {
+  handleMouseUp = event => {
     if (this.isDragging) {
       this.isDragging = false
 
-      if (this.props.onDrop)
-        this.props.onDrop(event)
+      if (this.props.onDrop) this.props.onDrop(event)
     }
   }
 

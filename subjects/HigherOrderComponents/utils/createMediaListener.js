@@ -9,7 +9,7 @@ listener.getState()
 listenter.dispose()
 */
 
-export default (media) => {
+export default media => {
   let transientListener = null
 
   const mediaKeys = Object.keys(media)
@@ -30,27 +30,26 @@ export default (media) => {
   }
 
   const notify = () => {
-    if (transientListener != null)
-      transientListener(mediaState)
+    if (transientListener != null) transientListener(mediaState)
   }
 
   const listeners = mediaKeys.reduce((listeners, key) => {
-    listeners[key] = (event) => {
+    listeners[key] = event => {
       mutateMediaState(key, event.matches)
     }
     return listeners
   }, {})
 
-  const listen = (listener) => {
+  const listen = listener => {
     transientListener = listener
-    mediaKeys.forEach((key) => {
+    mediaKeys.forEach(key => {
       queryLists[key].addListener(listeners[key])
     })
   }
 
   const dispose = () => {
     transientListener = null
-    mediaKeys.forEach((key) => {
+    mediaKeys.forEach(key => {
       queryLists[key].removeListener(listeners[key])
     })
   }

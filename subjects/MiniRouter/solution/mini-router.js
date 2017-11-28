@@ -1,9 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import { createHashHistory } from 'history'
+import React from "react"
+import { createHashHistory } from "history"
 
 class Router extends React.Component {
-
   static childContextTypes = {
     location: React.PropTypes.object,
     history: React.PropTypes.object
@@ -42,14 +41,14 @@ class Route extends React.Component {
 
   render() {
     const { location } = this.context
-    const { path, render, component:Component } = this.props
+    const { path, render, component: Component } = this.props
     const isMatch = location.pathname.startsWith(path)
 
     if (isMatch) {
       if (render) {
         return render()
       } else if (Component) {
-        return <Component/>
+        return <Component />
       } else {
         return null
       }
@@ -64,17 +63,14 @@ class Link extends React.Component {
     history: React.PropTypes.object
   }
 
-  handleClick = (e) => {
+  handleClick = e => {
     e.preventDefault()
     this.context.history.push(this.props.to)
   }
 
   render() {
     return (
-      <a
-        href={`#${this.props.to}`}
-        onClick={this.handleClick}
-      >
+      <a href={`#${this.props.to}`} onClick={this.handleClick}>
         {this.props.children}
       </a>
     )

@@ -1,11 +1,11 @@
-/* eslint-disable no-console */
-import http from 'http'
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import fetchContacts from './fetchContacts'
-import App from './App'
+import http from "http"
+import React from "react"
+import ReactDOMServer from "react-dom/server"
 
-const webpackServer = 'http://localhost:8080'
+import fetchContacts from "./fetchContacts"
+import App from "./App"
+
+const webpackServer = "http://localhost:8080"
 const port = 8090
 
 const createPage = () => `
@@ -32,13 +32,13 @@ const app = http.createServer((req, res) => {
   const html = createPage()
 
   res.writeHead(200, {
-    'Content-Type': 'text/html',
-    'Content-Length': html.length
+    "Content-Type": "text/html",
+    "Content-Length": html.length
   })
 
   res.end(html)
 })
 
 app.listen(port, () => {
-  console.log('\nOpen http://localhost:%s', port)
+  console.log("\nOpen http://localhost:%s", port)
 })

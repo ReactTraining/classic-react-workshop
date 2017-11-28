@@ -1,9 +1,9 @@
-import { EventEmitter } from 'events'
-import AppDispatcher from '../AppDispatcher'
-import { ActionTypes } from '../Constants'
+import { EventEmitter } from "events"
+import AppDispatcher from "../AppDispatcher"
+import { ActionTypes } from "../Constants"
 
-const CHANGE_EVENT = 'CHANGE'
-const events = new EventEmitter
+const CHANGE_EVENT = "CHANGE"
+const events = new EventEmitter()
 
 const state = {
   contacts: [],
@@ -15,7 +15,7 @@ const state = {
 function setState(newState) {
   Object.assign(state, newState)
   events.emit(CHANGE_EVENT)
-  console.log('ContactStore state changed', state)
+  console.log("ContactStore state changed", state)
 }
 
 function addChangeListener(fn) {
@@ -30,7 +30,7 @@ function getState() {
   return state
 }
 
-AppDispatcher.register(function (payload) {
+AppDispatcher.register(function(payload) {
   const { action } = payload
 
   if (action.type === ActionTypes.CONTACTS_WERE_LOADED) {
@@ -42,7 +42,7 @@ AppDispatcher.register(function (payload) {
 
   if (action.type === ActionTypes.DELETE_CONTACT) {
     setState({
-      deletingContacts: state.deletingContacts.concat([ action.contact ])
+      deletingContacts: state.deletingContacts.concat([action.contact])
     })
   }
 
@@ -65,4 +65,3 @@ AppDispatcher.register(function (payload) {
 })
 
 export default { getState, removeChangeListener, addChangeListener }
-
