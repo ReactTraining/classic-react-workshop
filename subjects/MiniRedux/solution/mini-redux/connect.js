@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const connect = (mapStateToProps) => {
   return (Component) => {
-    return class extends React.Component {
+    return class Connect extends React.Component {
       static contextTypes = {
         store: PropTypes.object
       }
