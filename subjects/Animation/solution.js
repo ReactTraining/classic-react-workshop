@@ -11,12 +11,12 @@
 // - Add a "drop hint" element that indicates which element will receive
 //   the marker when it is dropped to improve usability
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import { Motion, spring } from 'react-motion'
-import Draggable from './components/Draggable'
-import './styles'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import { Motion, spring } from "react-motion"
+import Draggable from "./components/Draggable"
+import "./styles"
 
 class DropGrid extends React.Component {
   state = {
@@ -36,7 +36,7 @@ class DropGrid extends React.Component {
     }
   }
 
-  handleDragStart = (event) => {
+  handleDragStart = event => {
     const { x, y } = this.getRelativeXY(event)
     const { offsetLeft, offsetTop } = event.target
 
@@ -52,7 +52,7 @@ class DropGrid extends React.Component {
     })
   }
 
-  handleDrag = (event) => {
+  handleDrag = event => {
     const { x, y } = this.getRelativeXY(event)
 
     this.setState({
@@ -77,8 +77,7 @@ class DropGrid extends React.Component {
       markerTop = Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
     }
 
-    const bouncySpring = (style) =>
-      spring(style, { stiffness: 170, damping: 8 })
+    const bouncySpring = style => spring(style, { stiffness: 170, damping: 8 })
 
     const markerStyle = {
       left: isDraggingMarker ? markerLeft : bouncySpring(markerLeft),
@@ -86,7 +85,7 @@ class DropGrid extends React.Component {
     }
 
     return (
-      <div className="grid" ref={node => this.node = node}>
+      <div className="grid" ref={node => (this.node = node)}>
         <Motion style={markerStyle}>
           {style => (
             <Draggable
@@ -112,4 +111,4 @@ class DropGrid extends React.Component {
   }
 }
 
-ReactDOM.render(<DropGrid/>, document.getElementById('app'))
+ReactDOM.render(<DropGrid />, document.getElementById("app"))

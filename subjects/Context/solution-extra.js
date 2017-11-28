@@ -16,9 +16,9 @@
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
 
 class Form extends React.Component {
   static childContextTypes = {
@@ -57,8 +57,7 @@ class Form extends React.Component {
           }))
         },
         submit: () => {
-          if (this.props.onSubmit)
-            this.props.onSubmit(this.getValues())
+          if (this.props.onSubmit) this.props.onSubmit(this.getValues())
         },
         reset: () => {
           this.setState({ values: {} })
@@ -98,7 +97,7 @@ class ResetButton extends React.Component {
 
 class TextInput extends React.Component {
   static defaultProps = {
-    defaultValue: ''
+    defaultValue: ""
   }
 
   static contextTypes = {
@@ -114,13 +113,12 @@ class TextInput extends React.Component {
     this.context.form.addField(this.props.name, this.props.defaultValue)
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.context.form.change(this.props.name, event.target.value)
   }
 
-  handleKeyDown = (event) => {
-    if (event.key === 'Enter')
-      this.context.form.submit()
+  handleKeyDown = event => {
+    if (event.key === "Enter") this.context.form.submit()
   }
 
   render() {
@@ -142,19 +140,21 @@ class TextInput extends React.Component {
 }
 
 class App extends React.Component {
-  handleSubmit = (values) => {
+  handleSubmit = values => {
     console.log(values)
   }
 
   render() {
     return (
       <div>
-        <h1>This isn't even my final <code>&lt;Form/&gt;</code>!</h1>
+        <h1>
+          This isn't even my final <code>&lt;Form/&gt;</code>!
+        </h1>
 
         <Form onSubmit={this.handleSubmit}>
           <p>
-            <TextInput name="firstName" placeholder="First Name" defaultValue="Michael"/> {' '}
-            <TextInput name="lastName" placeholder="Last Name" defaultValue="Jackson"/>
+            <TextInput name="firstName" placeholder="First Name" defaultValue="Michael" />{" "}
+            <TextInput name="lastName" placeholder="Last Name" defaultValue="Jackson" />
           </p>
           <p>
             <SubmitButton>Submit</SubmitButton>
@@ -166,4 +166,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

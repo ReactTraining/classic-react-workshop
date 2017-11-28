@@ -1,7 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import ReactPoint from 'react-point'
-import './styles.css'
+import React from "react"
+import ReactDOM from "react-dom"
+import ReactPoint from "react-point"
+import "./styles.css"
 
 class AutoScalingText extends React.Component {
   state = {
@@ -18,8 +18,7 @@ class AutoScalingText extends React.Component {
     const actualWidth = node.offsetWidth
     const actualScale = availableWidth / actualWidth
 
-    if (scale === actualScale)
-      return
+    if (scale === actualScale) return
 
     if (actualScale < 1) {
       this.setState({ scale: actualScale })
@@ -35,8 +34,10 @@ class AutoScalingText extends React.Component {
       <div
         className="auto-scaling-text"
         style={{ transform: `scale(${scale},${scale})` }}
-        ref={node => this.node = node}
-      >{this.props.children}</div>
+        ref={node => (this.node = node)}
+      >
+        {this.props.children}
+      </div>
     )
   }
 }
@@ -45,7 +46,7 @@ class CalculatorDisplay extends React.Component {
   render() {
     const { value, ...props } = this.props
 
-    const language = navigator.language || 'en-US'
+    const language = navigator.language || "en-US"
     let formattedValue = parseFloat(value).toLocaleString(language, {
       useGrouping: true,
       maximumFractionDigits: 6
@@ -54,8 +55,7 @@ class CalculatorDisplay extends React.Component {
     // Add back missing .0 in e.g. 12.0
     const match = value.match(/\.\d*?(0*)$/)
 
-    if (match)
-      formattedValue += (/[1-9]/).test(match[0]) ? match[1] : match[0]
+    if (match) formattedValue += /[1-9]/.test(match[0]) ? match[1] : match[0]
 
     return (
       <div {...props} className="calculator-display">
@@ -71,24 +71,24 @@ class CalculatorKey extends React.Component {
 
     return (
       <ReactPoint onPoint={onPress}>
-        <button className={`calculator-key ${className}`} {...props}/>
+        <button className={`calculator-key ${className}`} {...props} />
       </ReactPoint>
     )
   }
 }
 
 const CalculatorOperations = {
-  '/': (prevValue, nextValue) => prevValue / nextValue,
-  '*': (prevValue, nextValue) => prevValue * nextValue,
-  '+': (prevValue, nextValue) => prevValue + nextValue,
-  '-': (prevValue, nextValue) => prevValue - nextValue,
-  '=': (prevValue, nextValue) => nextValue
+  "/": (prevValue, nextValue) => prevValue / nextValue,
+  "*": (prevValue, nextValue) => prevValue * nextValue,
+  "+": (prevValue, nextValue) => prevValue + nextValue,
+  "-": (prevValue, nextValue) => prevValue - nextValue,
+  "=": (prevValue, nextValue) => nextValue
 }
 
 class Calculator extends React.Component {
   state = {
     value: null,
-    displayValue: '0',
+    displayValue: "0",
     operator: null,
     waitingForOperand: false
   }
@@ -96,7 +96,7 @@ class Calculator extends React.Component {
   clearAll() {
     this.setState({
       value: null,
-      displayValue: '0',
+      displayValue: "0",
       operator: null,
       waitingForOperand: false
     })
@@ -104,7 +104,7 @@ class Calculator extends React.Component {
 
   clearDisplay() {
     this.setState({
-      displayValue: '0'
+      displayValue: "0"
     })
   }
 
@@ -112,7 +112,7 @@ class Calculator extends React.Component {
     const { displayValue } = this.state
 
     this.setState({
-      displayValue: displayValue.substring(0, displayValue.length - 1) || '0'
+      displayValue: displayValue.substring(0, displayValue.length - 1) || "0"
     })
   }
 
@@ -120,7 +120,7 @@ class Calculator extends React.Component {
     const { displayValue } = this.state
 
     this.setState({
-      displayValue: displayValue.charAt(0) === '-' ? displayValue.substr(1) : '-' + displayValue
+      displayValue: displayValue.charAt(0) === "-" ? displayValue.substr(1) : "-" + displayValue
     })
   }
 
@@ -128,8 +128,7 @@ class Calculator extends React.Component {
     const { displayValue } = this.state
     const value = parseFloat(displayValue)
 
-    if (value === 0)
-      return
+    if (value === 0) return
 
     this.setState({
       displayValue: String(value / 100)
@@ -139,9 +138,9 @@ class Calculator extends React.Component {
   inputDot() {
     const { displayValue } = this.state
 
-    if (!(/\./).test(displayValue)) {
+    if (!/\./.test(displayValue)) {
       this.setState({
-        displayValue: displayValue + '.',
+        displayValue: displayValue + ".",
         waitingForOperand: false
       })
     }
@@ -157,7 +156,7 @@ class Calculator extends React.Component {
       })
     } else {
       this.setState({
-        displayValue: displayValue === '0' ? String(digit) : displayValue + digit
+        displayValue: displayValue === "0" ? String(digit) : displayValue + digit
       })
     }
   }
@@ -186,30 +185,28 @@ class Calculator extends React.Component {
     })
   }
 
-  handleKeyDown = (event) => {
+  handleKeyDown = event => {
     let { key } = event
 
-    if (event.ctrlKey || event.metaKey)
-      return
+    if (event.ctrlKey || event.metaKey) return
 
-    if (key === 'Enter')
-      key = '='
+    if (key === "Enter") key = "="
 
-    if ((/\d/).test(key)) {
+    if (/\d/.test(key)) {
       this.inputDigit(parseInt(key, 10))
     } else if (key in CalculatorOperations) {
       this.performOperation(key)
-    } else if (key === '.') {
+    } else if (key === ".") {
       this.inputDot()
-    } else if (key === '%') {
+    } else if (key === "%") {
       this.inputPercent()
-    } else if (key === 'Backspace') {
+    } else if (key === "Backspace") {
       event.preventDefault()
       this.clearLastChar()
-    } else if (key === 'Clear') {
+    } else if (key === "Clear") {
       event.preventDefault()
 
-      if (this.state.displayValue !== '0') {
+      if (this.state.displayValue !== "0") {
         this.clearDisplay()
       } else {
         this.clearAll()
@@ -218,49 +215,90 @@ class Calculator extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDown)
+    document.addEventListener("keydown", this.handleKeyDown)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown)
+    document.removeEventListener("keydown", this.handleKeyDown)
   }
 
   render() {
     const { displayValue } = this.state
 
-    const clearDisplay = displayValue !== '0'
-    const clearText = clearDisplay ? 'C' : 'AC'
+    const clearDisplay = displayValue !== "0"
+    const clearText = clearDisplay ? "C" : "AC"
 
     return (
       <div className="calculator">
-        <CalculatorDisplay value={displayValue}/>
+        <CalculatorDisplay value={displayValue} />
         <div className="calculator-keypad">
           <div className="input-keys">
             <div className="function-keys">
-              <CalculatorKey className="key-clear" onPress={() => clearDisplay ? this.clearDisplay() : this.clearAll()}>{clearText}</CalculatorKey>
-              <CalculatorKey className="key-sign" onPress={() => this.toggleSign()}>±</CalculatorKey>
-              <CalculatorKey className="key-percent" onPress={() => this.inputPercent()}>%</CalculatorKey>
+              <CalculatorKey
+                className="key-clear"
+                onPress={() => (clearDisplay ? this.clearDisplay() : this.clearAll())}
+              >
+                {clearText}
+              </CalculatorKey>
+              <CalculatorKey className="key-sign" onPress={() => this.toggleSign()}>
+                ±
+              </CalculatorKey>
+              <CalculatorKey className="key-percent" onPress={() => this.inputPercent()}>
+                %
+              </CalculatorKey>
             </div>
             <div className="digit-keys">
-              <CalculatorKey className="key-0" onPress={() => this.inputDigit(0)}>0</CalculatorKey>
-              <CalculatorKey className="key-dot" onPress={() => this.inputDot()}>●</CalculatorKey>
-              <CalculatorKey className="key-1" onPress={() => this.inputDigit(1)}>1</CalculatorKey>
-              <CalculatorKey className="key-2" onPress={() => this.inputDigit(2)}>2</CalculatorKey>
-              <CalculatorKey className="key-3" onPress={() => this.inputDigit(3)}>3</CalculatorKey>
-              <CalculatorKey className="key-4" onPress={() => this.inputDigit(4)}>4</CalculatorKey>
-              <CalculatorKey className="key-5" onPress={() => this.inputDigit(5)}>5</CalculatorKey>
-              <CalculatorKey className="key-6" onPress={() => this.inputDigit(6)}>6</CalculatorKey>
-              <CalculatorKey className="key-7" onPress={() => this.inputDigit(7)}>7</CalculatorKey>
-              <CalculatorKey className="key-8" onPress={() => this.inputDigit(8)}>8</CalculatorKey>
-              <CalculatorKey className="key-9" onPress={() => this.inputDigit(9)}>9</CalculatorKey>
+              <CalculatorKey className="key-0" onPress={() => this.inputDigit(0)}>
+                0
+              </CalculatorKey>
+              <CalculatorKey className="key-dot" onPress={() => this.inputDot()}>
+                ●
+              </CalculatorKey>
+              <CalculatorKey className="key-1" onPress={() => this.inputDigit(1)}>
+                1
+              </CalculatorKey>
+              <CalculatorKey className="key-2" onPress={() => this.inputDigit(2)}>
+                2
+              </CalculatorKey>
+              <CalculatorKey className="key-3" onPress={() => this.inputDigit(3)}>
+                3
+              </CalculatorKey>
+              <CalculatorKey className="key-4" onPress={() => this.inputDigit(4)}>
+                4
+              </CalculatorKey>
+              <CalculatorKey className="key-5" onPress={() => this.inputDigit(5)}>
+                5
+              </CalculatorKey>
+              <CalculatorKey className="key-6" onPress={() => this.inputDigit(6)}>
+                6
+              </CalculatorKey>
+              <CalculatorKey className="key-7" onPress={() => this.inputDigit(7)}>
+                7
+              </CalculatorKey>
+              <CalculatorKey className="key-8" onPress={() => this.inputDigit(8)}>
+                8
+              </CalculatorKey>
+              <CalculatorKey className="key-9" onPress={() => this.inputDigit(9)}>
+                9
+              </CalculatorKey>
             </div>
           </div>
           <div className="operator-keys">
-            <CalculatorKey className="key-divide" onPress={() => this.performOperation('/')}>÷</CalculatorKey>
-            <CalculatorKey className="key-multiply" onPress={() => this.performOperation('*')}>×</CalculatorKey>
-            <CalculatorKey className="key-subtract" onPress={() => this.performOperation('-')}>−</CalculatorKey>
-            <CalculatorKey className="key-add" onPress={() => this.performOperation('+')}>+</CalculatorKey>
-            <CalculatorKey className="key-equals" onPress={() => this.performOperation('=')}>=</CalculatorKey>
+            <CalculatorKey className="key-divide" onPress={() => this.performOperation("/")}>
+              ÷
+            </CalculatorKey>
+            <CalculatorKey className="key-multiply" onPress={() => this.performOperation("*")}>
+              ×
+            </CalculatorKey>
+            <CalculatorKey className="key-subtract" onPress={() => this.performOperation("-")}>
+              −
+            </CalculatorKey>
+            <CalculatorKey className="key-add" onPress={() => this.performOperation("+")}>
+              +
+            </CalculatorKey>
+            <CalculatorKey className="key-equals" onPress={() => this.performOperation("=")}>
+              =
+            </CalculatorKey>
           </div>
         </div>
       </div>
@@ -270,7 +308,7 @@ class Calculator extends React.Component {
 
 ReactDOM.render(
   <div id="wrapper">
-    <Calculator/>
+    <Calculator />
   </div>,
-  document.getElementById('app')
+  document.getElementById("app")
 )

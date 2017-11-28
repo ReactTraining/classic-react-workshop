@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react"
+import ReactDOM from "react-dom"
 
 class ContentToggle extends React.Component {
   state = {
@@ -8,25 +8,21 @@ class ContentToggle extends React.Component {
 
   handleClick() {
     this.setState({ isOpen: !this.state.isOpen }, () => {
-      if (this.props.onToggle)
-        this.props.onToggle(this.state.isOpen)
+      if (this.props.onToggle) this.props.onToggle(this.state.isOpen)
     })
   }
 
   render() {
-    let summaryClassName = 'ContentToggle__Summary'
+    let summaryClassName = "ContentToggle__Summary"
 
-    if (this.state.isOpen)
-      summaryClassName += ' ContentToggle__Summary--is-open'
+    if (this.state.isOpen) summaryClassName += " ContentToggle__Summary--is-open"
 
     return (
       <div {...this.props} className="ContentToggle">
         <button onClick={() => this.handleClick()} className={summaryClassName}>
           {this.props.summary}
         </button>
-        <div className="ContentToggle__Details">
-          {this.state.isOpen && this.props.children}
-        </div>
+        <div className="ContentToggle__Details">{this.state.isOpen && this.props.children}</div>
       </div>
     )
   }
@@ -35,9 +31,9 @@ class ContentToggle extends React.Component {
 class App extends React.Component {
   state = {
     tacos: [
-      { id: 0, name: 'Carnitas', src: 'tacos/carnitas.png' },
-      { id: 1, name: 'Pollo', src: 'tacos/pollo.png' },
-      { id: 2, name: 'Asada', src: 'tacos/asada.png' }
+      { id: 0, name: "Carnitas", src: "tacos/carnitas.png" },
+      { id: 1, name: "Pollo", src: "tacos/pollo.png" },
+      { id: 2, name: "Asada", src: "tacos/asada.png" }
     ]
   }
 
@@ -45,17 +41,13 @@ class App extends React.Component {
     return (
       <div>
         <div>
-          {this.state.tacos.map((taco) => (
-            <ContentToggle
-              key={taco.name}
-              style={{ width: 300 }}
-              summary={taco.name}
-            >
+          {this.state.tacos.map(taco => (
+            <ContentToggle key={taco.name} style={{ width: 300 }} summary={taco.name}>
               <div
                 style={{
                   height: 200,
                   background: `url(${taco.src})`,
-                  backgroundSize: 'cover'
+                  backgroundSize: "cover"
                 }}
               />
             </ContentToggle>
@@ -66,7 +58,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))
 
 ////////////////////////////////////////////////////////////////////////////
 // But what about when we add this feature?

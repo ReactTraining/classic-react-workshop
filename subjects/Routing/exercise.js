@@ -18,35 +18,25 @@
 // - Add a <Redirect> from "/users/:userID" to "/profile/:userID", then type in
 //   the url "users/1" into the url and hit enter
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect
-} from 'react-router-dom'
-import Gravatar from './utils/Gravatar'
+import React from "react"
+import ReactDOM from "react-dom"
+import { HashRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
+import Gravatar from "./utils/Gravatar"
 
 const USERS = [
-  { id: 1, name: 'Ryan Florence', email: 'rpflorence@gmail.com' },
-  { id: 2, name: 'Michael Jackson', email: 'mjijackson@gmail.com' }
+  { id: 1, name: "Ryan Florence", email: "rpflorence@gmail.com" },
+  { id: 2, name: "Michael Jackson", email: "mjijackson@gmail.com" }
 ]
 
 function getUserByID(id) {
-  for (let i = 0; i < USERS.length; ++i)
-    if (USERS[i].id === parseInt(id, 10))
-      return USERS[i]
+  for (let i = 0; i < USERS.length; ++i) if (USERS[i].id === parseInt(id, 10)) return USERS[i]
 
   return null
 }
 
 class Home extends React.Component {
   render() {
-    const contactItems = USERS.map(user => (
-      <li key={user.email}>{user.name}</li>
-    ))
+    const contactItems = USERS.map(user => <li key={user.email}>{user.name}</li>)
 
     return (
       <div>
@@ -62,12 +52,11 @@ class Profile extends React.Component {
     const userId = 1 // TODO: Get this from the URL!
     const user = getUserByID(userId)
 
-    if (user == null)
-      return <p>Cannot find user with id {userId}</p>
+    if (user == null) return <p>Cannot find user with id {userId}</p>
 
     return (
       <div className="profile">
-        <Gravatar email={user.email}/> {user.name}
+        <Gravatar email={user.email} /> {user.name}
       </div>
     )
   }
@@ -78,7 +67,9 @@ class NoMatch extends React.Component {
     return (
       <div>
         <h1>No routes matched...</h1>
-        <p><Link to="/">Go home</Link></p>
+        <p>
+          <Link to="/">Go home</Link>
+        </p>
       </div>
     )
   }
@@ -89,10 +80,10 @@ class App extends React.Component {
     return (
       <div>
         <h1>People Viewer</h1>
-        <Home/>
+        <Home />
       </div>
     )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

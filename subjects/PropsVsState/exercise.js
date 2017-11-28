@@ -15,11 +15,11 @@
 // Make a <StatefulTabs> component that manages some state that is passed as
 // props down to <Tabs> (since it should now be stateless).
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import * as styles from './styles'
-import data from './data'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import * as styles from "./styles"
+import data from "./data"
 
 class Tabs extends React.Component {
   static propTypes = {
@@ -36,17 +36,12 @@ class Tabs extends React.Component {
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
-      const style = this.state.activeIndex === index
-        ? styles.activeTab
-        : styles.tab
+      const style = this.state.activeIndex === index ? styles.activeTab : styles.tab
 
       return (
-        <div
-          className="Tab"
-          key={tab.name}
-          style={style}
-          onClick={() => this.selectTab(index)}
-        >{tab.name}</div>
+        <div className="Tab" key={tab.name} style={style} onClick={() => this.selectTab(index)}>
+          {tab.name}
+        </div>
       )
     })
   }
@@ -64,12 +59,8 @@ class Tabs extends React.Component {
   render() {
     return (
       <div style={styles.app}>
-        <div style={styles.tabs}>
-          {this.renderTabs()}
-        </div>
-        <div style={styles.tabPanels}>
-          {this.renderPanel()}
-        </div>
+        <div style={styles.tabs}>{this.renderTabs()}</div>
+        <div style={styles.tabPanels}>{this.renderPanel()}</div>
       </div>
     )
   }
@@ -80,12 +71,12 @@ class App extends React.Component {
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs ref="tabs" data={this.props.tabs}/>
+        <Tabs ref="tabs" data={this.props.tabs} />
       </div>
     )
   }
 }
 
-ReactDOM.render(<App tabs={data}/>, document.getElementById('app'), function () {
-  require('./tests').run(this)
+ReactDOM.render(<App tabs={data} />, document.getElementById("app"), function() {
+  require("./tests").run(this)
 })

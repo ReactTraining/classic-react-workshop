@@ -16,9 +16,9 @@
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
 
 class Form extends React.Component {
   render() {
@@ -34,30 +34,26 @@ class SubmitButton extends React.Component {
 
 class TextInput extends React.Component {
   render() {
-    return (
-      <input
-        type="text"
-        name={this.props.name}
-        placeholder={this.props.placeholder}
-      />
-    )
+    return <input type="text" name={this.props.name} placeholder={this.props.placeholder} />
   }
 }
 
 class App extends React.Component {
   handleSubmit = () => {
-    alert('YOU WIN!')
+    alert("YOU WIN!")
   }
 
   render() {
     return (
       <div>
-        <h1>This isn't even my final <code>&lt;Form/&gt;</code>!</h1>
+        <h1>
+          This isn't even my final <code>&lt;Form/&gt;</code>!
+        </h1>
 
         <Form onSubmit={this.handleSubmit}>
           <p>
-            <TextInput name="firstName" placeholder="First Name"/> {' '}
-            <TextInput name="lastName" placeholder="Last Name"/>
+            <TextInput name="firstName" placeholder="First Name" />{" "}
+            <TextInput name="lastName" placeholder="Last Name" />
           </p>
           <p>
             <SubmitButton>Submit</SubmitButton>
@@ -68,4 +64,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

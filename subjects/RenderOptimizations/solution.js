@@ -11,11 +11,11 @@
 //   prevent tearing when scrolling quickly
 // - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import * as RainbowListDelegate from './utils/RainbowListDelegate'
-import './styles'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import * as RainbowListDelegate from "./utils/RainbowListDelegate"
+import "./styles"
 
 class RainbowList extends React.Component {
   static propTypes = {
@@ -35,7 +35,7 @@ class RainbowList extends React.Component {
     })
   }
 
-  handleScroll = (event) => {
+  handleScroll = event => {
     this.setState({
       scrollTop: event.target.scrollTop
     })
@@ -61,11 +61,17 @@ class RainbowList extends React.Component {
 
     return (
       <div
-        style={{ height: '100%', overflowY: 'scroll' }}
+        style={{ height: "100%", overflowY: "scroll" }}
         onScroll={this.handleScroll}
-        ref={node => this.node = node}
+        ref={node => (this.node = node)}
       >
-        <ol style={{ paddingTop: (startIndex * rowHeight), pointerEvents: 'none', height: totalHeight }}>
+        <ol
+          style={{
+            paddingTop: startIndex * rowHeight,
+            pointerEvents: "none",
+            height: totalHeight
+          }}
+        >
           {items}
         </ol>
       </div>
@@ -79,5 +85,5 @@ ReactDOM.render(
     rowHeight={RainbowListDelegate.rowHeight}
     renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
   />,
-  document.getElementById('app')
+  document.getElementById("app")
 )

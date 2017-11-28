@@ -13,9 +13,7 @@
     "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects",
     "server-exercise": "supervisor -- -r babel-register subjects/ServerRendering/exercise/server.js",
     "server-solution": "supervisor -- -r babel-register subjects/ServerRendering/solution/server.js",
-    "start-api": "node api.js",
-    "lint": "eslint subjects/**/*.js",
-    "test": "npm run lint"
+    "start-api": "node api.js"
   },
   "dependencies": {
     "angular": "1.5.8",
@@ -81,11 +79,8 @@
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.8.0"
   },
-  "devDependencies": {
-    "babel-eslint": "^6.1.2",
-    "eslint": "^3.2.2",
-    "eslint-import-resolver-webpack": "^0.5.1",
-    "eslint-plugin-import": "^1.13.0",
-    "eslint-plugin-react": "^6.0.0"
+  "prettier": {
+    "printWidth": 100,
+    "semi": false
   }
 }

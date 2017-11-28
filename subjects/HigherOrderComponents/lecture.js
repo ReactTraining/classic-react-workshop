@@ -1,11 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import createMediaListener from './utils/createMediaListener'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import createMediaListener from "./utils/createMediaListener"
 
 const media = createMediaListener({
-  big: '(min-width : 1000px)',
-  tiny: '(max-width: 400px)'
+  big: "(min-width : 1000px)",
+  tiny: "(max-width: 400px)"
 })
 
 class App extends React.Component {
@@ -34,7 +34,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))
 
 ////////////////////////////////////////////////////////////////////////////////
 // We can move all of that code into a higher-order component. A higher-order

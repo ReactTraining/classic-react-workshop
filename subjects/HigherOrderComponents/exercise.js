@@ -10,12 +10,12 @@
 //
 // Make a `withCat` HOC that shows a cat chasing the mouse around the screen!
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import * as styles from './styles'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import * as styles from "./styles"
 
-const withMouse = (Component) => {
+const withMouse = Component => {
   return Component
 }
 
@@ -33,7 +33,9 @@ class App extends React.Component {
     return (
       <div style={styles.container}>
         {mouse ? (
-          <h1>The mouse position is ({mouse.x}, {mouse.y})</h1>
+          <h1>
+            The mouse position is ({mouse.x}, {mouse.y})
+          </h1>
         ) : (
           <h1>We don't know the mouse position yet :(</h1>
         )}
@@ -44,4 +46,4 @@ class App extends React.Component {
 
 const AppWithMouse = withMouse(App)
 
-ReactDOM.render(<AppWithMouse/>, document.getElementById('app'))
+ReactDOM.render(<AppWithMouse />, document.getElementById("app"))

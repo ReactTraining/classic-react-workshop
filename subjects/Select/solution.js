@@ -4,10 +4,10 @@
 //
 // Make this work like a normal <select> box!
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import './styles.css'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import "./styles.css"
 
 class Select extends React.Component {
   static propTypes = {
@@ -33,7 +33,9 @@ class Select extends React.Component {
 
   componentWillMount() {
     if (this.isControlled() && !this.props.onChange) {
-      console.warn('You must provide an onChange to a controlled <Select>, or it is going to be read-only')
+      console.warn(
+        "You must provide an onChange to a controlled <Select>, or it is going to be read-only"
+      )
     }
   }
 
@@ -42,8 +44,7 @@ class Select extends React.Component {
 
     let label
     React.Children.forEach(this.props.children, child => {
-      if (child.props.value === value)
-        label = child.props.children
+      if (child.props.value === value) label = child.props.children
     })
 
     return label
@@ -51,12 +52,10 @@ class Select extends React.Component {
 
   handleSelect(value) {
     if (this.isControlled()) {
-      if (this.props.onChange)
-        this.props.onChange(value)
+      if (this.props.onChange) this.props.onChange(value)
     } else {
       this.setState({ value }, () => {
-        if (this.props.onChange)
-          this.props.onChange(this.state.value)
+        if (this.props.onChange) this.props.onChange(this.state.value)
       })
     }
   }
@@ -64,7 +63,9 @@ class Select extends React.Component {
   render() {
     return (
       <div className="select" onClick={this.toggleOptions}>
-        <div className="label">{this.getLabel()} <span className="arrow">▾</span></div>
+        <div className="label">
+          {this.getLabel()} <span className="arrow">▾</span>
+        </div>
         {this.state.showOptions && (
           <div className="options">
             {React.Children.map(this.props.children, child => {
@@ -82,21 +83,20 @@ class Select extends React.Component {
 class Option extends React.Component {
   render() {
     return (
-      <div
-        className="option"
-        onClick={this.props.onSelect}
-      >{this.props.children}</div>
+      <div className="option" onClick={this.props.onSelect}>
+        {this.props.children}
+      </div>
     )
   }
 }
 
 class App extends React.Component {
   state = {
-    selectValue: 'dosa'
+    selectValue: "dosa"
   }
 
   setToMintChutney = () => {
-    this.setState({ selectValue: 'mint-chutney' })
+    this.setState({ selectValue: "mint-chutney" })
   }
 
   render() {
@@ -133,4 +133,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

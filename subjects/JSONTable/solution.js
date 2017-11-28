@@ -5,17 +5,17 @@
 // - render the content of the th's from the field names (hint: use
 //   the field names from the first record)
 // - render each result as a row in <tbody>
-import 'purecss/build/pure.css'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import getJSON from './utils/getJSON'
+import "purecss/build/pure.css"
+import React from "react"
+import ReactDOM from "react-dom"
+import getJSON from "./utils/getJSON"
 
 function isURL(content) {
-  return (/^https?:\/\//).test(content)
+  return /^https?:\/\//.test(content)
 }
 
 function isImageURL(content) {
-  return isURL(content) && (/\.(jpe?g|gif|png)$/).test(content)
+  return isURL(content) && /\.(jpe?g|gif|png)$/.test(content)
 }
 
 const JSONTable = React.createClass({
@@ -27,7 +27,7 @@ const JSONTable = React.createClass({
 
   getDefaultProps() {
     return {
-      getKey: (item) => item.id
+      getKey: item => item.id
     }
   },
 
@@ -46,14 +46,23 @@ const JSONTable = React.createClass({
   },
 
   formatContent(content) {
-    if (Array.isArray(content))
-      return content.map(this.formatContent)
+    if (Array.isArray(content)) return content.map(this.formatContent)
 
     if (isImageURL(content))
-      return <p><img key={content} height="64" src={content}/></p>
+      return (
+        <p>
+          <img key={content} height="64" src={content} />
+        </p>
+      )
 
     if (isURL(content))
-      return <p><a key={content} href={content}>{content}</a></p>
+      return (
+        <p>
+          <a key={content} href={content}>
+            {content}
+          </a>
+        </p>
+      )
 
     return content
   },
@@ -61,26 +70,21 @@ const JSONTable = React.createClass({
   render() {
     const { data } = this.state
 
-    if (data == null || data.length === 0)
-      return null
+    if (data == null || data.length === 0) return null
 
     const fields = Object.keys(data[0])
 
     return (
       <table className="pure-table pure-table-striped">
         <thead>
-          <tr>
-          {fields.map(field => <th key={field}>{field}</th>)}
-          </tr>
+          <tr>{fields.map(field => <th key={field}>{field}</th>)}</tr>
         </thead>
         <tbody>
-        {data.map(item => (
-          <tr key={this.props.getKey(item)}>
-          {fields.map(field => (
-            <td key={field}>{this.formatContent(item[field])}</td>
+          {data.map(item => (
+            <tr key={this.props.getKey(item)}>
+              {fields.map(field => <td key={field}>{this.formatContent(item[field])}</td>)}
+            </tr>
           ))}
-          </tr>
-        ))}
         </tbody>
       </table>
     )
@@ -108,4 +112,4 @@ const App = React.createClass({
   }
 })
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

@@ -4,10 +4,10 @@
 //
 // Make this work like a normal <select> box!
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import './styles.css'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import "./styles.css"
 
 class Select extends React.Component {
   static propTypes = {
@@ -19,10 +19,10 @@ class Select extends React.Component {
   render() {
     return (
       <div className="select">
-        <div className="label">label <span className="arrow">▾</span></div>
-        <div className="options">
-          {this.props.children}
+        <div className="label">
+          label <span className="arrow">▾</span>
         </div>
+        <div className="options">{this.props.children}</div>
       </div>
     )
   }
@@ -30,19 +30,17 @@ class Select extends React.Component {
 
 class Option extends React.Component {
   render() {
-    return (
-      <div className="option">{this.props.children}</div>
-    )
+    return <div className="option">{this.props.children}</div>
   }
 }
 
 class App extends React.Component {
   state = {
-    selectValue: 'dosa'
+    selectValue: "dosa"
   }
 
   setToMintChutney = () => {
-   this.setState({ selectValue: 'mint-chutney' })
+    this.setState({ selectValue: "mint-chutney" })
   }
 
   render() {
@@ -78,4 +76,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

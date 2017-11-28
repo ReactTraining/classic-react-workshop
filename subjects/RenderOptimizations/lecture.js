@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react"
+import ReactDOM from "react-dom"
 
 class Lines extends React.Component {
   static defaultProps = {
@@ -12,7 +12,7 @@ class Lines extends React.Component {
 
   addLine = () => {
     this.setState(state => {
-      const lines = state.lines.concat([ 'The date is ' + (new Date).toLocaleString() ])
+      const lines = state.lines.concat(["The date is " + new Date().toLocaleString()])
 
       return {
         lines: lines.length > this.props.maxLength ? lines.slice(1) : lines
@@ -25,17 +25,11 @@ class Lines extends React.Component {
   }
 
   render() {
-    return (
-      <ul>
-        {this.state.lines.map((line, index) => (
-          <li key={index}>{line}</li>
-        ))}
-      </ul>
-    )
+    return <ul>{this.state.lines.map((line, index) => <li key={index}>{line}</li>)}</ul>
   }
 }
 
-ReactDOM.render(<Lines/>, document.getElementById('app'))
+ReactDOM.render(<Lines />, document.getElementById("app"))
 
 // import React from 'react'
 // import ReactDOM from 'react-dom'

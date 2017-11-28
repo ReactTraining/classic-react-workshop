@@ -15,20 +15,20 @@
 // - If the user types something into shipping, then checks the checkbox, then
 //   unchecks the checkbox, ensure the field has the information from
 //   before clicking the checkbox the first time
-import React from 'react'
-import ReactDOM from 'react-dom'
-import serializeForm from 'form-serialize'
+import React from "react"
+import ReactDOM from "react-dom"
+import serializeForm from "form-serialize"
 
 class CheckoutForm extends React.Component {
   state = {
-    billingName: 'Michael Jackson',
-    billingState: 'CA',
-    shippingName: '',
-    shippingState: '',
+    billingName: "Michael Jackson",
+    billingState: "CA",
+    shippingName: "",
+    shippingState: "",
     shippingSameAsBilling: false
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault()
 
     const values = serializeForm(event.target, { hash: true })
@@ -52,52 +52,65 @@ class CheckoutForm extends React.Component {
           <fieldset>
             <legend>Billing Address</legend>
             <p>
-              <label>Billing Name: <input
-                type="text"
-                name="billingName"
-                defaultValue={billingName}
-                onChange={event => this.setState({ billingName: event.target.value })}
-              /></label>
+              <label>
+                Billing Name:{" "}
+                <input
+                  type="text"
+                  name="billingName"
+                  defaultValue={billingName}
+                  onChange={event => this.setState({ billingName: event.target.value })}
+                />
+              </label>
             </p>
             <p>
-              <label>Billing State: <input
-                type="text"
-                size="3"
-                name="billingState"
-                defaultValue={billingState}
-                onChange={event => this.setState({ billingState: event.target.value })}
-              /></label>
+              <label>
+                Billing State:{" "}
+                <input
+                  type="text"
+                  size="3"
+                  name="billingState"
+                  defaultValue={billingState}
+                  onChange={event => this.setState({ billingState: event.target.value })}
+                />
+              </label>
             </p>
           </fieldset>
 
-          <br/>
+          <br />
 
           <fieldset>
             <label>
               <input
                 type="checkbox"
                 onChange={event => this.setState({ shippingSameAsBilling: event.target.checked })}
-              /> Same as billing
+              />{" "}
+              Same as billing
             </label>
             <legend>Shipping Address</legend>
             <p>
-              <label>Shipping Name: <input
-                type="text"
-                name="shippingName"
-                value={shippingSameAsBilling ? billingName : shippingName}
-                readOnly={shippingSameAsBilling}
-                onChange={event => this.setState({ shippingName: event.target.value })}
-              /></label>
+              <label>
+                Shipping Name:{" "}
+                <input
+                  type="text"
+                  name="shippingName"
+                  value={shippingSameAsBilling ? billingName : shippingName}
+                  readOnly={shippingSameAsBilling}
+                  onChange={event => this.setState({ shippingName: event.target.value })}
+                />
+              </label>
             </p>
             <p>
-              <label>Shipping State: <input
-                type="text"
-                size="2"
-                name="shippingState"
-                value={shippingSameAsBilling ? billingState : shippingState}
-                readOnly={shippingSameAsBilling}
-                onChange={event => this.setState({ shippingState: event.target.value })}
-              /></label>
+              <label>
+                Shipping State:{" "}
+                <input
+                  type="text"
+                  size="2"
+                  name="shippingState"
+                  value={shippingSameAsBilling ? billingState : shippingState}
+                  readOnly={shippingSameAsBilling}
+                  onChange={event => this.setState({ shippingState: event.target.value })}
+                />
+              </label>
             </p>
           </fieldset>
 
@@ -110,4 +123,4 @@ class CheckoutForm extends React.Component {
   }
 }
 
-ReactDOM.render(<CheckoutForm/>, document.getElementById('app'))
+ReactDOM.render(<CheckoutForm />, document.getElementById("app"))

@@ -1,7 +1,7 @@
-import React from 'react'
-import { render } from 'react-dom'
-import TransitionGroup from 'react-addons-transition-group'
-import HeightFader from './components/HeightFader'
+import React from "react"
+import { render } from "react-dom"
+import TransitionGroup from "react-addons-transition-group"
+import HeightFader from "./components/HeightFader"
 
 const List = React.createClass({
   getInitialState() {
@@ -11,9 +11,8 @@ const List = React.createClass({
   },
 
   addItem(e) {
-    if (e.key === 'Enter') {
-      if (this.guid == null)
-        this.guid = 1
+    if (e.key === "Enter") {
+      if (this.guid == null) this.guid = 1
 
       const newItem = {
         id: this.guid++,
@@ -21,10 +20,10 @@ const List = React.createClass({
       }
 
       this.setState({
-        items: [ newItem ].concat(this.state.items)
+        items: [newItem].concat(this.state.items)
       })
 
-      e.target.value = ''
+      e.target.value = ""
     }
   },
 
@@ -38,7 +37,7 @@ const List = React.createClass({
     return (
       <div>
         <h1>{this.props.name}</h1>
-        <input onKeyPress={this.addItem}/>
+        <input onKeyPress={this.addItem} />
         <ul>
           {this.state.items.map(item => (
             <li key={item.id}>
@@ -55,10 +54,10 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <List name="Transition Group"/>
+        <List name="Transition Group" />
       </div>
     )
   }
 })
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById("app"))

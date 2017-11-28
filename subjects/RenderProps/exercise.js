@@ -18,11 +18,11 @@
 //   needed to render it
 // - Make sure <GeoAddress> supports the user moving positions
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import LoadingDots from './utils/LoadingDots'
-import getAddressFromCoords from './utils/getAddressFromCoords'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import LoadingDots from "./utils/LoadingDots"
+import getAddressFromCoords from "./utils/getAddressFromCoords"
 
 class App extends React.Component {
   state = {
@@ -35,7 +35,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.geoId = navigator.geolocation.watchPosition(
-      (position) => {
+      position => {
         this.setState({
           coords: {
             latitude: position.coords.latitude,
@@ -43,7 +43,7 @@ class App extends React.Component {
           }
         })
       },
-      (error) => {
+      error => {
         this.setState({ error })
       }
     )
@@ -62,9 +62,9 @@ class App extends React.Component {
         ) : (
           <dl>
             <dt>Latitude</dt>
-            <dd>{this.state.coords.latitude || <LoadingDots/>}</dd>
+            <dd>{this.state.coords.latitude || <LoadingDots />}</dd>
             <dt>Longitude</dt>
-            <dd>{this.state.coords.longitude || <LoadingDots/>}</dd>
+            <dd>{this.state.coords.longitude || <LoadingDots />}</dd>
           </dl>
         )}
       </div>
@@ -72,4 +72,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

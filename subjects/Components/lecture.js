@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react"
+import ReactDOM from "react-dom"
 
 let isOpen = false
 
@@ -9,10 +9,9 @@ function handleClick() {
 }
 
 function ContentToggle() {
-  let summaryClassName = 'ContentToggle__Summary'
+  let summaryClassName = "ContentToggle__Summary"
 
-  if (isOpen)
-    summaryClassName += ' ContentToggle__Summary--is-open'
+  if (isOpen) summaryClassName += " ContentToggle__Summary--is-open"
 
   return (
     <div className="ContentToggle">
@@ -21,7 +20,10 @@ function ContentToggle() {
       </button>
       {isOpen && (
         <div className="ContentToggle__Details">
-          <p>A taco is a traditional Mexican dish composed of a corn or wheat tortilla folded or rolled around a filling.</p>
+          <p>
+            A taco is a traditional Mexican dish composed of a corn or wheat tortilla folded or
+            rolled around a filling.
+          </p>
         </div>
       )}
     </div>
@@ -29,7 +31,7 @@ function ContentToggle() {
 }
 
 function updateThePage() {
-  ReactDOM.render(<ContentToggle/>, document.getElementById('app'))
+  ReactDOM.render(<ContentToggle />, document.getElementById("app"))
 }
 
 updateThePage()

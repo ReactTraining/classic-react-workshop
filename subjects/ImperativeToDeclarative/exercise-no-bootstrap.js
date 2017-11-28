@@ -5,31 +5,31 @@
 // - even though this Modal is a React component, the author created an
 //   imperative API D: Make it declarative!
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react"
+import ReactDOM from "react-dom"
 
 class Modal extends React.Component {
   state = { isOpen: false }
 
   containerStyle = {
-    position: 'fixed',
+    position: "fixed",
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    background: 'rgba(255, 255, 255, 0.75)'
+    background: "rgba(255, 255, 255, 0.75)"
   }
 
   contentStyle = {
-    position: 'fixed',
+    position: "fixed",
     padding: 10,
     left: 50,
     right: 50,
     top: 50,
     bottom: 50,
-    background: '#fff',
-    border: '1px solid',
-    textAlign: 'center'
+    background: "#fff",
+    border: "1px solid",
+    textAlign: "center"
   }
 
   open() {
@@ -41,14 +41,11 @@ class Modal extends React.Component {
   }
 
   render() {
-    if (this.state.isOpen === false)
-      return null
+    if (this.state.isOpen === false) return null
 
     return (
       <div style={this.containerStyle}>
-        <div style={this.contentStyle}>
-          {this.props.children}
-        </div>
+        <div style={this.contentStyle}>{this.props.children}</div>
       </div>
     )
   }
@@ -67,16 +64,17 @@ class App extends React.Component {
     return (
       <div>
         <h1>Unbreakable</h1>
-        <button onClick={this.openModal}>remove from favorites</button><br/><br/>
+        <button onClick={this.openModal}>remove from favorites</button>
+        <br />
+        <br />
 
-        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg"/>
+        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg" />
         <p>
-          Your bones don’t break, mine do. That’s clear. Your cells react to
-          bacteria and viruses differently than mine. You don’t get sick, I do.
-          That’s also clear. But for some reason, you and I react the exact
-          same way to water. We swallow it too fast, we choke. We get some in
-          our lungs, we drown. However unreal it may seem, we are connected,
-          you and I. We’re on the same curve, just on opposite ends.
+          Your bones don’t break, mine do. That’s clear. Your cells react to bacteria and viruses
+          differently than mine. You don’t get sick, I do. That’s also clear. But for some reason,
+          you and I react the exact same way to water. We swallow it too fast, we choke. We get some
+          in our lungs, we drown. However unreal it may seem, we are connected, you and I. We’re on
+          the same curve, just on opposite ends.
         </p>
 
         <Modal ref="modal">
@@ -88,4 +86,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

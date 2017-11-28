@@ -23,9 +23,9 @@
 //   - Arrow right, arrow down should select the next option
 //   - Arrow left, arrow up should select the previous option
 ////////////////////////////////////////////////////////////////////////////////
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
 
 class RadioGroup extends React.Component {
   static propTypes = {
@@ -45,7 +45,7 @@ class RadioOption extends React.Component {
   render() {
     return (
       <div>
-        <RadioIcon isSelected={false}/> {this.props.children}
+        <RadioIcon isSelected={false} /> {this.props.children}
       </div>
     )
   }
@@ -60,14 +60,14 @@ class RadioIcon extends React.Component {
     return (
       <div
         style={{
-          borderColor: '#ccc',
+          borderColor: "#ccc",
           borderWidth: 3,
-          borderStyle: this.props.isSelected ? 'inset' : 'outset',
+          borderStyle: this.props.isSelected ? "inset" : "outset",
           height: 16,
           width: 16,
-          display: 'inline-block',
-          cursor: 'pointer',
-          background: this.props.isSelected ? 'rgba(0, 0, 0, 0.05)' : ''
+          display: "inline-block",
+          cursor: "pointer",
+          background: this.props.isSelected ? "rgba(0, 0, 0, 0.05)" : ""
         }}
       />
     )
@@ -91,4 +91,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

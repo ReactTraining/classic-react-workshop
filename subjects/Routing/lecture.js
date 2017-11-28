@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react"
+import ReactDOM from "react-dom"
 
 const About = () => {
   return <h2>About</h2>
@@ -23,7 +23,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Setup a hashchange listener so we know when the URL changes. When it does,

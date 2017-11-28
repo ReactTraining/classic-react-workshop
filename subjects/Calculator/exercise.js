@@ -1,6 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './styles.css'
+import React from "react"
+import ReactDOM from "react-dom"
+import "./styles.css"
 
 class Calculator extends React.Component {
   render() {
@@ -43,7 +43,7 @@ class Calculator extends React.Component {
 
 ReactDOM.render(
   <div id="wrapper">
-    <Calculator/>
+    <Calculator />
   </div>,
-  document.getElementById('app')
+  document.getElementById("app")
 )

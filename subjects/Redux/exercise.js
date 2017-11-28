@@ -24,8 +24,8 @@ Got extra time?
     connection. How does the UI respond to your actions? What can you do to improve
     the UX?
 */
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './exercise/components/App'
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./exercise/components/App"
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"))

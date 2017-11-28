@@ -28,4 +28,4 @@ If you run into problems, check the logger's output:
 - Is the next state what you'd expect? Check the reducer.
 
 */
-import './exercise/index'
+import "./exercise/index"

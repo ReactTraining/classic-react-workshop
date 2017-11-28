@@ -15,9 +15,9 @@
 // - If the user types something into shipping, then checks the checkbox, then
 //   unchecks the checkbox, ensure the field has the information from
 //   before clicking the checkbox the first time
-import React from 'react'
-import ReactDOM from 'react-dom'
-import serializeForm from 'form-serialize'
+import React from "react"
+import ReactDOM from "react-dom"
+import serializeForm from "form-serialize"
 
 class CheckoutForm extends React.Component {
   render() {
@@ -28,23 +28,33 @@ class CheckoutForm extends React.Component {
           <fieldset>
             <legend>Billing Address</legend>
             <p>
-              <label>Billing Name: <input type="text"/></label>
+              <label>
+                Billing Name: <input type="text" />
+              </label>
             </p>
             <p>
-              <label>Billing State: <input type="text" size="2"/></label>
+              <label>
+                Billing State: <input type="text" size="2" />
+              </label>
             </p>
           </fieldset>
 
-          <br/>
+          <br />
 
           <fieldset>
-            <label><input type="checkbox"/> Same as billing</label>
+            <label>
+              <input type="checkbox" /> Same as billing
+            </label>
             <legend>Shipping Address</legend>
             <p>
-              <label>Shipping Name: <input type="text"/></label>
+              <label>
+                Shipping Name: <input type="text" />
+              </label>
             </p>
             <p>
-              <label>Shipping State: <input type="text" size="2"/></label>
+              <label>
+                Shipping State: <input type="text" size="2" />
+              </label>
             </p>
           </fieldset>
 
@@ -57,4 +67,4 @@ class CheckoutForm extends React.Component {
   }
 }
 
-ReactDOM.render(<CheckoutForm/>, document.getElementById('app'))
+ReactDOM.render(<CheckoutForm />, document.getElementById("app"))
