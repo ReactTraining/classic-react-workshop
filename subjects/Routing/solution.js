@@ -20,7 +20,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react"
 import ReactDOM from "react-dom"
-import { HashRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom"
 import Gravatar from "./utils/Gravatar"
 
 const USERS = [
@@ -29,7 +35,8 @@ const USERS = [
 ]
 
 function getUserByID(id) {
-  for (let i = 0; i < USERS.length; ++i) if (USERS[i].id === parseInt(id, 10)) return USERS[i]
+  for (let i = 0; i < USERS.length; ++i)
+    if (USERS[i].id === parseInt(id, 10)) return USERS[i]
 
   return null
 }
@@ -92,7 +99,9 @@ class App extends React.Component {
             <Route path="/profile/:userId" component={Profile} />
             <Route
               path="/users/:userId"
-              render={({ match }) => <Redirect to={`/profile/${match.params.userId}`} />}
+              render={({ match }) => (
+                <Redirect to={`/profile/${match.params.userId}`} />
+              )}
             />
             <Route component={NoMatch} />
           </Switch>

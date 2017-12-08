@@ -39,7 +39,9 @@ class Select extends React.Component {
   }
 
   getLabel() {
-    const value = this.isControlled() ? this.props.value : this.state.value
+    const value = this.isControlled()
+      ? this.props.value
+      : this.state.value
 
     let label
     React.Children.forEach(this.props.children, child => {
@@ -107,7 +109,9 @@ class App extends React.Component {
 
         <h2>Controlled</h2>
         <p>
-          <button onClick={this.setToMintChutney}>Set to Mint Chutney</button>
+          <button onClick={this.setToMintChutney}>
+            Set to Mint Chutney
+          </button>
         </p>
 
         <Select

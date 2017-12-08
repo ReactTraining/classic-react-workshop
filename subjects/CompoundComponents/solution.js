@@ -85,7 +85,8 @@ class RadioOption extends React.Component {
   render() {
     return (
       <div onClick={this.props.onClick}>
-        <RadioIcon isSelected={this.props.isSelected} /> {this.props.children}
+        <RadioIcon isSelected={this.props.isSelected} />{" "}
+        {this.props.children}
       </div>
     )
   }

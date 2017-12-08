@@ -16,7 +16,10 @@ describe("when <Tabs> is rendered", () => {
   let node, tabs, panel, borderFixture
 
   const FixtureData = [
-    { label: "USA", content: "Land of the Free, Home of the brave" },
+    {
+      label: "USA",
+      content: "Land of the Free, Home of the brave"
+    },
     { label: "Brazil", content: "Sunshine, beaches, and Carnival" },
     { label: "Russia", content: "World Cup 2018!" }
   ]
@@ -42,15 +45,24 @@ describe("when <Tabs> is rendered", () => {
   })
 
   it("renders the USA tab", () => {
-    expect(tabs[0].innerText).toEqual(FixtureData[0].label, "USA tab was not rendered")
+    expect(tabs[0].innerText).toEqual(
+      FixtureData[0].label,
+      "USA tab was not rendered"
+    )
   })
 
   it("renders the Brazil tab", () => {
-    expect(tabs[1].innerText).toEqual(FixtureData[1].label, "Brazil tab was not rendered")
+    expect(tabs[1].innerText).toEqual(
+      FixtureData[1].label,
+      "Brazil tab was not rendered"
+    )
   })
 
   it("renders the Russia tab", () => {
-    expect(tabs[2].innerText).toEqual(FixtureData[2].label, "Russia tab was not rendered")
+    expect(tabs[2].innerText).toEqual(
+      FixtureData[2].label,
+      "Russia tab was not rendered"
+    )
   })
 
   it("activates the first tab", () => {
@@ -87,7 +99,10 @@ describe("when <Tabs> is rendered", () => {
     })
 
     it("puts the correct content in the panel", () => {
-      expect(panel.innerText).toEqual(FixtureData[1].content, "Correct content is not in the panel")
+      expect(panel.innerText).toEqual(
+        FixtureData[1].content,
+        "Correct content is not in the panel"
+      )
     })
   })
 })

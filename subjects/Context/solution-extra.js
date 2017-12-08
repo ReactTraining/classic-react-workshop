@@ -78,7 +78,11 @@ class SubmitButton extends React.Component {
   }
 
   render() {
-    return <button onClick={this.context.form.submit}>{this.props.children}</button>
+    return (
+      <button onClick={this.context.form.submit}>
+        {this.props.children}
+      </button>
+    )
   }
 }
 
@@ -90,7 +94,11 @@ class ResetButton extends React.Component {
   }
 
   render() {
-    return <button onClick={this.context.form.reset}>{this.props.children}</button>
+    return (
+      <button onClick={this.context.form.reset}>
+        {this.props.children}
+      </button>
+    )
   }
 }
 
@@ -121,7 +129,9 @@ class TextInput extends React.Component {
   }
 
   render() {
-    const value = this.context.form.values.hasOwnProperty(this.props.name)
+    const value = this.context.form.values.hasOwnProperty(
+      this.props.name
+    )
       ? this.context.form.values[this.props.name]
       : this.props.defaultValue
 
@@ -152,8 +162,16 @@ class App extends React.Component {
 
         <Form onSubmit={this.handleSubmit}>
           <p>
-            <TextInput name="firstName" placeholder="First Name" defaultValue="Michael" />{" "}
-            <TextInput name="lastName" placeholder="Last Name" defaultValue="Jackson" />
+            <TextInput
+              name="firstName"
+              placeholder="First Name"
+              defaultValue="Michael"
+            />{" "}
+            <TextInput
+              name="lastName"
+              placeholder="Last Name"
+              defaultValue="Jackson"
+            />
           </p>
           <p>
             <SubmitButton>Submit</SubmitButton>

@@ -1,7 +1,8 @@
 import React from "react"
 import convertNumberToEnglish from "./utils/convertNumberToEnglish"
 
-const computeHSLRainbowColor = (n, period) => `hsl(${Math.round(n / period * 360)},100%,50%)`
+const computeHSLRainbowColor = (n, period) =>
+  `hsl(${Math.round(n / period * 360)},100%,50%)`
 
 export const rowHeight = 30
 

@@ -76,7 +76,10 @@ class GeoAddress extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.longitude !== this.props.longitude || prevProps.latitude !== this.props.latitude)
+    if (
+      prevProps.longitude !== this.props.longitude ||
+      prevProps.latitude !== this.props.latitude
+    )
       this.fetch()
   }
 
@@ -118,7 +121,10 @@ class App extends React.Component {
         <h2>GeoAddress Composition</h2>
         <GeoPosition>
           {({ coords }) => (
-            <GeoAddress latitude={coords.latitude} longitude={coords.longitude}>
+            <GeoAddress
+              latitude={coords.latitude}
+              longitude={coords.longitude}
+            >
               {({ address }) => <p>{address || <LoadingDots />}</p>}
             </GeoAddress>
           )}

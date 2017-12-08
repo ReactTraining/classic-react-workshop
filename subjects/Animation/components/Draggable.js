@@ -3,7 +3,8 @@ import PropTypes from "prop-types"
 
 class Draggable extends React.Component {
   static propTypes = {
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+      .isRequired,
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
     onDrop: PropTypes.func

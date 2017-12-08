@@ -41,7 +41,10 @@ const List = React.createClass({
         <ul>
           {this.state.items.map(item => (
             <li key={item.id}>
-              {item.label} <button onClick={() => this.removeItem(item)}>remove</button>
+              {item.label}{" "}
+              <button onClick={() => this.removeItem(item)}>
+                remove
+              </button>
             </li>
           ))}
         </ul>

@@ -21,7 +21,9 @@ const createPage = () => `
     <div id="app"></div>
 
     <script src="${webpackServer}/__build__/shared.js"></script>
-    <script src="${webpackServer}/__build__/ServerRendering-exercise.js"></script>
+    <script src="${
+      webpackServer
+    }/__build__/ServerRendering-exercise.js"></script>
   </body>
 </html>
 `

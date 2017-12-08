@@ -70,7 +70,11 @@ const SpringToggleSwitch = React.createClass({
     return (
       <Motion defaultStyle={{ x }} style={{ x: spring(x) }}>
         {s => (
-          <div id="switch1" className="toggle-switch" onClick={this.handleClick}>
+          <div
+            id="switch1"
+            className="toggle-switch"
+            onClick={this.handleClick}
+          >
             <div
               className="toggle-switch-knob"
               style={{

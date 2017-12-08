@@ -21,8 +21,8 @@ function ContentToggle() {
       {isOpen && (
         <div className="ContentToggle__Details">
           <p>
-            A taco is a traditional Mexican dish composed of a corn or wheat tortilla folded or
-            rolled around a filling.
+            A taco is a traditional Mexican dish composed of a corn or
+            wheat tortilla folded or rolled around a filling.
           </p>
         </div>
       )}

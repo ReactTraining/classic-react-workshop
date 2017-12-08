@@ -58,7 +58,11 @@ class CheckoutForm extends React.Component {
                   type="text"
                   name="billingName"
                   defaultValue={billingName}
-                  onChange={event => this.setState({ billingName: event.target.value })}
+                  onChange={event =>
+                    this.setState({
+                      billingName: event.target.value
+                    })
+                  }
                 />
               </label>
             </p>
@@ -70,7 +74,11 @@ class CheckoutForm extends React.Component {
                   size="3"
                   name="billingState"
                   defaultValue={billingState}
-                  onChange={event => this.setState({ billingState: event.target.value })}
+                  onChange={event =>
+                    this.setState({
+                      billingState: event.target.value
+                    })
+                  }
                 />
               </label>
             </p>
@@ -82,7 +90,11 @@ class CheckoutForm extends React.Component {
             <label>
               <input
                 type="checkbox"
-                onChange={event => this.setState({ shippingSameAsBilling: event.target.checked })}
+                onChange={event =>
+                  this.setState({
+                    shippingSameAsBilling: event.target.checked
+                  })
+                }
               />{" "}
               Same as billing
             </label>
@@ -93,9 +105,15 @@ class CheckoutForm extends React.Component {
                 <input
                   type="text"
                   name="shippingName"
-                  value={shippingSameAsBilling ? billingName : shippingName}
+                  value={
+                    shippingSameAsBilling ? billingName : shippingName
+                  }
                   readOnly={shippingSameAsBilling}
-                  onChange={event => this.setState({ shippingName: event.target.value })}
+                  onChange={event =>
+                    this.setState({
+                      shippingName: event.target.value
+                    })
+                  }
                 />
               </label>
             </p>
@@ -106,9 +124,15 @@ class CheckoutForm extends React.Component {
                   type="text"
                   size="2"
                   name="shippingState"
-                  value={shippingSameAsBilling ? billingState : shippingState}
+                  value={
+                    shippingSameAsBilling ? billingState : shippingState
+                  }
                   readOnly={shippingSameAsBilling}
-                  onChange={event => this.setState({ shippingState: event.target.value })}
+                  onChange={event =>
+                    this.setState({
+                      shippingState: event.target.value
+                    })
+                  }
                 />
               </label>
             </p>

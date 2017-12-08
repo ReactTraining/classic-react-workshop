@@ -20,7 +20,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react"
 import ReactDOM from "react-dom"
-import { HashRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom"
 import Gravatar from "./utils/Gravatar"
 
 const USERS = [
@@ -29,14 +35,17 @@ const USERS = [
 ]
 
 function getUserByID(id) {
-  for (let i = 0; i < USERS.length; ++i) if (USERS[i].id === parseInt(id, 10)) return USERS[i]
+  for (let i = 0; i < USERS.length; ++i)
+    if (USERS[i].id === parseInt(id, 10)) return USERS[i]
 
   return null
 }
 
 class Home extends React.Component {
   render() {
-    const contactItems = USERS.map(user => <li key={user.email}>{user.name}</li>)
+    const contactItems = USERS.map(user => (
+      <li key={user.email}>{user.name}</li>
+    ))
 
     return (
       <div>

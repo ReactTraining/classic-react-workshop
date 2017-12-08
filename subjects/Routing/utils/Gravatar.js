@@ -15,7 +15,17 @@ class Gravatar extends React.Component {
   }
 
   render() {
-    return <img src={GravatarURL + "/" + md5(this.props.email) + "?s=" + this.props.size} />
+    return (
+      <img
+        src={
+          GravatarURL +
+          "/" +
+          md5(this.props.email) +
+          "?s=" +
+          this.props.size
+        }
+      />
+    )
   }
 }
 

@@ -77,7 +77,9 @@ class App extends React.Component {
         >
           <SliderControls>
             <SliderPrevious>Previous</SliderPrevious>
-            <SliderPlayPause>{this.state.isPlaying ? "Pause" : "Play"}</SliderPlayPause>
+            <SliderPlayPause>
+              {this.state.isPlaying ? "Pause" : "Play"}
+            </SliderPlayPause>
             <SliderNext>Next</SliderNext>
           </SliderControls>
 

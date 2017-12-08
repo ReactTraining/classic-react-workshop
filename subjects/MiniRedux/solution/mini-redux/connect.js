@@ -21,7 +21,13 @@ const connect = mapStateToProps => {
       render() {
         const props = mapStateToProps(this.context.store.getState())
 
-        return <Component {...this.props} {...props} dispatch={this.context.store.dispatch} />
+        return (
+          <Component
+            {...this.props}
+            {...props}
+            dispatch={this.context.store.dispatch}
+          />
+        )
       }
     }
   }

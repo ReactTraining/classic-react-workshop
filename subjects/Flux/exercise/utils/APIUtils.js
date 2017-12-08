@@ -1,5 +1,8 @@
 import { getJSON, deleteJSON } from "../lib/xhr"
-import { contactsWereLoaded, contactWasDeleted } from "../actions/ServerActionCreators"
+import {
+  contactsWereLoaded,
+  contactWasDeleted
+} from "../actions/ServerActionCreators"
 
 const API = "http://addressbook-api.herokuapp.com"
 

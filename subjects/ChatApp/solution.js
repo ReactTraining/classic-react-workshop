@@ -15,7 +15,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react"
 import { render } from "react-dom"
-import { login, sendMessage, subscribeToMessages } from "./utils/ChatUtils"
+import {
+  login,
+  sendMessage,
+  subscribeToMessages
+} from "./utils/ChatUtils"
 import "./styles"
 
 /*
@@ -63,7 +67,13 @@ class SmartScroller extends React.Component {
   }
 
   render() {
-    return <div {...this.props} ref={node => (this.node = node)} onScroll={this.handleScroll} />
+    return (
+      <div
+        {...this.props}
+        ref={node => (this.node = node)}
+        onScroll={this.handleScroll}
+      />
+    )
   }
 }
 
@@ -124,7 +134,9 @@ class Chat extends React.Component {
       <div className="chat">
         <header className="chat-header">
           <h1 className="chat-title">HipReact</h1>
-          <p className="chat-message-count"># messages: {messages.length}</p>
+          <p className="chat-message-count">
+            # messages: {messages.length}
+          </p>
         </header>
         <SmartScroller className="messages">
           <ol className="message-groups">

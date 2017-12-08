@@ -50,7 +50,9 @@ class App extends React.Component {
 
         <h2>Controlled</h2>
         <p>
-          <button onClick={this.setToMintChutney}>Set to Mint Chutney</button>
+          <button onClick={this.setToMintChutney}>
+            Set to Mint Chutney
+          </button>
         </p>
 
         <Select

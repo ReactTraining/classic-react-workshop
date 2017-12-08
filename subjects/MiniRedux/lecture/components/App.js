@@ -9,7 +9,8 @@ class App extends React.Component {
         id: "ryan",
         first: "Ryan",
         last: "Florence",
-        avatar: "http://ryanflorence.com/jsconf-avatars/avatars/ryan.jpg"
+        avatar:
+          "http://ryanflorence.com/jsconf-avatars/avatars/ryan.jpg"
       },
       {
         id: "mj",
@@ -34,7 +35,8 @@ class App extends React.Component {
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {this.state.contacts.map(contact => (
             <li key={contact.id}>
-              <img src={contact.avatar} height="50" /> {contact.first} {contact.last}
+              <img src={contact.avatar} height="50" /> {contact.first}{" "}
+              {contact.last}
             </li>
           ))}
           <li>

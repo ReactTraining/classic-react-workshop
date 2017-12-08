@@ -25,11 +25,14 @@ class App extends React.Component {
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {contacts.map(contact => (
             <li key={contact.id}>
-              <img src={contact.avatar} height="50" /> {contact.first} {contact.last}
+              <img src={contact.avatar} height="50" /> {contact.first}{" "}
+              {contact.last}
             </li>
           ))}
           <li>
-            <CreateContactForm onCreate={contact => this.createContact(contact)} />
+            <CreateContactForm
+              onCreate={contact => this.createContact(contact)}
+            />
           </li>
         </ul>
       </div>

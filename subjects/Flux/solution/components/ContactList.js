@@ -41,12 +41,19 @@ const ContactList = React.createClass({
       const isDeleting = deletingContacts.indexOf(contact) !== -1
 
       return (
-        <li key={contact.id} style={{ backgroundColor: error ? "red" : "transparent" }}>
-          <img src={contact.avatar} width="40" /> {contact.first} {contact.last}{" "}
+        <li
+          key={contact.id}
+          style={{ backgroundColor: error ? "red" : "transparent" }}
+        >
+          <img src={contact.avatar} width="40" /> {contact.first}{" "}
+          {contact.last}{" "}
           {error ? (
             <p>{error.message}</p>
           ) : (
-            <button disabled={isDeleting} onClick={() => this.deleteContact(contact)}>
+            <button
+              disabled={isDeleting}
+              onClick={() => this.deleteContact(contact)}
+            >
               delete
             </button>
           )}

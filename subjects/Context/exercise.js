@@ -33,7 +33,13 @@ class SubmitButton extends React.Component {
 
 class TextInput extends React.Component {
   render() {
-    return <input type="text" name={this.props.name} placeholder={this.props.placeholder} />
+    return (
+      <input
+        type="text"
+        name={this.props.name}
+        placeholder={this.props.placeholder}
+      />
+    )
   }
 }
 

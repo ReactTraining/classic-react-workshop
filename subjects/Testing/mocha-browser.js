@@ -18,7 +18,11 @@
     var orig = path,
       reg = path + ".js",
       index = path + "/index.js"
-    return (require.modules[reg] && reg) || (require.modules[index] && index) || orig
+    return (
+      (require.modules[reg] && reg) ||
+      (require.modules[index] && index) ||
+      orig
+    )
   }
 
   require.register = function(path, fn) {
@@ -43,13 +47,21 @@
     }
   }
 
-  require.register("browser/debug.js", function(module, exports, require) {
+  require.register("browser/debug.js", function(
+    module,
+    exports,
+    require
+  ) {
     module.exports = function(type) {
       return function() {}
     }
   }) // module: browser/debug.js
 
-  require.register("browser/diff.js", function(module, exports, require) {
+  require.register("browser/diff.js", function(
+    module,
+    exports,
+    require
+  ) {
     /* See LICENSE file for terms of use */
 
     /*
@@ -69,7 +81,10 @@
     var JsDiff = (function() {
       /*jshint maxparams: 5*/
       function clonePath(path) {
-        return { newPos: path.newPos, components: path.components.slice(0) }
+        return {
+          newPos: path.newPos,
+          components: path.components.slice(0)
+        }
       }
       function removeEmpty(array) {
         var ret = []
@@ -115,12 +130,24 @@
           var bestPath = [{ newPos: -1, components: [] }]
 
           // Seed editLength = 0
-          var oldPos = this.extractCommon(bestPath[0], newString, oldString, 0)
-          if (bestPath[0].newPos + 1 >= newLen && oldPos + 1 >= oldLen) {
+          var oldPos = this.extractCommon(
+            bestPath[0],
+            newString,
+            oldString,
+            0
+          )
+          if (
+            bestPath[0].newPos + 1 >= newLen &&
+            oldPos + 1 >= oldLen
+          ) {
             return bestPath[0].components
           }
 
-          for (var editLength = 1; editLength <= maxEditLength; editLength++) {
+          for (
+            var editLength = 1;
+            editLength <= maxEditLength;
+            editLength++
+          ) {
             for (
               var diagonalPath = -1 * editLength;
               diagonalPath <= editLength;
@@ -129,14 +156,16 @@
               var basePath
               var addPath = bestPath[diagonalPath - 1],
                 removePath = bestPath[diagonalPath + 1]
-              oldPos = (removePath ? removePath.newPos : 0) - diagonalPath
+              oldPos =
+                (removePath ? removePath.newPos : 0) - diagonalPath
               if (addPath) {
                 // No one else is going to attempt to use this value, clear it
                 bestPath[diagonalPath - 1] = undefined
               }
 
               var canAdd = addPath && addPath.newPos + 1 < newLen
-              var canRemove = removePath && 0 <= oldPos && oldPos < oldLen
+              var canRemove =
+                removePath && 0 <= oldPos && oldPos < oldLen
               if (!canAdd && !canRemove) {
                 bestPath[diagonalPath] = undefined
                 continue
@@ -145,18 +174,39 @@
               // Select the diagonal that we want to branch from. We select the prior
               // path whose position in the new string is the farthest from the origin
               // and does not pass the bounds of the diff graph
-              if (!canAdd || (canRemove && addPath.newPos < removePath.newPos)) {
+              if (
+                !canAdd ||
+                (canRemove && addPath.newPos < removePath.newPos)
+              ) {
                 basePath = clonePath(removePath)
-                this.pushComponent(basePath.components, oldString[oldPos], undefined, true)
+                this.pushComponent(
+                  basePath.components,
+                  oldString[oldPos],
+                  undefined,
+                  true
+                )
               } else {
                 basePath = clonePath(addPath)
                 basePath.newPos++
-                this.pushComponent(basePath.components, newString[basePath.newPos], true, undefined)
+                this.pushComponent(
+                  basePath.components,
+                  newString[basePath.newPos],
+                  true,
+                  undefined
+                )
               }
 
-              var oldPos = this.extractCommon(basePath, newString, oldString, diagonalPath)
+              var oldPos = this.extractCommon(
+                basePath,
+                newString,
+                oldString,
+                diagonalPath
+              )
 
-              if (basePath.newPos + 1 >= newLen && oldPos + 1 >= oldLen) {
+              if (
+                basePath.newPos + 1 >= newLen &&
+                oldPos + 1 >= oldLen
+              ) {
                 return basePath.components
               } else {
                 bestPath[diagonalPath] = basePath
@@ -167,7 +217,11 @@
 
         pushComponent: function(components, value, added, removed) {
           var last = components[components.length - 1]
-          if (last && last.added === added && last.removed === removed) {
+          if (
+            last &&
+            last.added === added &&
+            last.removed === removed
+          ) {
             // We need to clone here as the component clone operation is just
             // as shallow array clone
             components[components.length - 1] = {
@@ -176,10 +230,19 @@
               removed: removed
             }
           } else {
-            components.push({ value: value, added: added, removed: removed })
+            components.push({
+              value: value,
+              added: added,
+              removed: removed
+            })
           }
         },
-        extractCommon: function(basePath, newString, oldString, diagonalPath) {
+        extractCommon: function(
+          basePath,
+          newString,
+          oldString,
+          diagonalPath
+        ) {
           var newLen = newString.length,
             oldLen = oldString.length,
             newPos = basePath.newPos,
@@ -192,7 +255,12 @@
             newPos++
             oldPos++
 
-            this.pushComponent(basePath.components, newString[newPos], undefined, undefined)
+            this.pushComponent(
+              basePath.components,
+              newString[newPos],
+              undefined,
+              undefined
+            )
           }
           basePath.newPos = newPos
           return oldPos
@@ -200,7 +268,11 @@
 
         equals: function(left, right) {
           var reWhitespace = /\S/
-          if (this.ignoreWhitespace && !reWhitespace.test(left) && !reWhitespace.test(right)) {
+          if (
+            this.ignoreWhitespace &&
+            !reWhitespace.test(left) &&
+            !reWhitespace.test(right)
+          ) {
             return true
           } else {
             return left === right
@@ -237,7 +309,11 @@
             lastLine = lines[i - 1]
 
           // Merge lines that may contain windows new lines
-          if (line == "\n" && lastLine && lastLine[lastLine.length - 1] === "\r") {
+          if (
+            line == "\n" &&
+            lastLine &&
+            lastLine[lastLine.length - 1] === "\r"
+          ) {
             retLines[retLines.length - 1] += "\n"
           } else if (line) {
             retLines.push(line)
@@ -267,13 +343,29 @@
           return CssDiff.diff(oldStr, newStr)
         },
 
-        createPatch: function(fileName, oldStr, newStr, oldHeader, newHeader) {
+        createPatch: function(
+          fileName,
+          oldStr,
+          newStr,
+          oldHeader,
+          newHeader
+        ) {
           var ret = []
 
           ret.push("Index: " + fileName)
-          ret.push("===================================================================")
-          ret.push("--- " + fileName + (typeof oldHeader === "undefined" ? "" : "\t" + oldHeader))
-          ret.push("+++ " + fileName + (typeof newHeader === "undefined" ? "" : "\t" + newHeader))
+          ret.push(
+            "==================================================================="
+          )
+          ret.push(
+            "--- " +
+              fileName +
+              (typeof oldHeader === "undefined" ? "" : "\t" + oldHeader)
+          )
+          ret.push(
+            "+++ " +
+              fileName +
+              (typeof newHeader === "undefined" ? "" : "\t" + newHeader)
+          )
 
           var diff = LineDiff.diff(oldStr, newStr)
           if (!diff[diff.length - 1].value) {
@@ -291,10 +383,14 @@
               isLast = i === diff.length - 2,
               isLastOfType =
                 i === diff.length - 3 &&
-                (current.added !== last.added || current.removed !== last.removed)
+                (current.added !== last.added ||
+                  current.removed !== last.removed)
 
             // Figure out if this is the last line for the given file and missing NL
-            if (!/\n$/.test(current.value) && (isLast || isLastOfType)) {
+            if (
+              !/\n$/.test(current.value) &&
+              (isLast || isLastOfType)
+            ) {
               curRange.push("\\ No newline at end of file")
             }
           }
@@ -306,7 +402,9 @@
             newLine = 1
           for (var i = 0; i < diff.length; i++) {
             var current = diff[i],
-              lines = current.lines || current.value.replace(/\n$/, "").split("\n")
+              lines =
+                current.lines ||
+                current.value.replace(/\n$/, "").split("\n")
             current.lines = lines
 
             if (current.added || current.removed) {
@@ -355,7 +453,10 @@
                       " @@"
                   )
                   ret.push.apply(ret, curRange)
-                  ret.push.apply(ret, contextLines(lines.slice(0, contextSize)))
+                  ret.push.apply(
+                    ret,
+                    contextLines(lines.slice(0, contextSize))
+                  )
                   if (lines.length <= 4) {
                     eofNL(ret, i, current)
                   }
@@ -379,9 +480,15 @@
           var remEOFNL = false,
             addEOFNL = false
 
-          for (var i = diffstr[0][0] === "I" ? 4 : 0; i < diffstr.length; i++) {
+          for (
+            var i = diffstr[0][0] === "I" ? 4 : 0;
+            i < diffstr.length;
+            i++
+          ) {
             if (diffstr[i][0] === "@") {
-              var meh = diffstr[i].split(/@@ -(\d+),(\d+) \+(\d+),(\d+) @@/)
+              var meh = diffstr[i].split(
+                /@@ -(\d+),(\d+) \+(\d+),(\d+) @@/
+              )
               diff.unshift({
                 start: meh[3],
                 oldlength: meh[2],
@@ -413,7 +520,10 @@
                 return false
               }
             }
-            Array.prototype.splice.apply(str, [d.start - 1, +d.oldlength].concat(d.newlines))
+            Array.prototype.splice.apply(
+              str,
+              [d.start - 1, +d.oldlength].concat(d.newlines)
+            )
           }
 
           if (remEOFNL) {
@@ -453,7 +563,10 @@
             change
           for (var i = 0; i < changes.length; i++) {
             change = changes[i]
-            ret.push([change.added ? 1 : change.removed ? -1 : 0, change.value])
+            ret.push([
+              change.added ? 1 : change.removed ? -1 : 0,
+              change.value
+            ])
           }
           return ret
         }
@@ -465,7 +578,11 @@
     }
   }) // module: browser/diff.js
 
-  require.register("browser/escape-string-regexp.js", function(module, exports, require) {
+  require.register("browser/escape-string-regexp.js", function(
+    module,
+    exports,
+    require
+  ) {
     "use strict"
 
     var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g
@@ -479,7 +596,11 @@
     }
   }) // module: browser/escape-string-regexp.js
 
-  require.register("browser/events.js", function(module, exports, require) {
+  require.register("browser/events.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module exports.
      */
@@ -560,7 +681,10 @@
           var pos = -1
 
           for (var i = 0, l = list.length; i < l; i++) {
-            if (list[i] === fn || (list[i].listener && list[i].listener === fn)) {
+            if (
+              list[i] === fn ||
+              (list[i].listener && list[i].listener === fn)
+            ) {
               pos = i
               break
             }
@@ -575,7 +699,10 @@
           if (!list.length) {
             delete this.$events[name]
           }
-        } else if (list === fn || (list.listener && list.listener === fn)) {
+        } else if (
+          list === fn ||
+          (list.listener && list.listener === fn)
+        ) {
           delete this.$events[name]
         }
       }
@@ -659,13 +786,29 @@
     }
   }) // module: browser/events.js
 
-  require.register("browser/fs.js", function(module, exports, require) {}) // module: browser/fs.js
+  require.register("browser/fs.js", function(
+    module,
+    exports,
+    require
+  ) {}) // module: browser/fs.js
 
-  require.register("browser/glob.js", function(module, exports, require) {}) // module: browser/glob.js
+  require.register("browser/glob.js", function(
+    module,
+    exports,
+    require
+  ) {}) // module: browser/glob.js
 
-  require.register("browser/path.js", function(module, exports, require) {}) // module: browser/path.js
+  require.register("browser/path.js", function(
+    module,
+    exports,
+    require
+  ) {}) // module: browser/path.js
 
-  require.register("browser/progress.js", function(module, exports, require) {
+  require.register("browser/progress.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Expose `Progress`.
      */
@@ -790,7 +933,11 @@
     }
   }) // module: browser/progress.js
 
-  require.register("browser/tty.js", function(module, exports, require) {
+  require.register("browser/tty.js", function(
+    module,
+    exports,
+    require
+  ) {
     exports.isatty = function() {
       return true
     }
@@ -960,7 +1107,11 @@
     }
   }) // module: hook.js
 
-  require.register("interfaces/bdd.js", function(module, exports, require) {
+  require.register("interfaces/bdd.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -1017,7 +1168,10 @@
          * Pending describe.
          */
 
-        context.xdescribe = context.xcontext = context.describe.skip = function(title, fn) {
+        context.xdescribe = context.xcontext = context.describe.skip = function(
+          title,
+          fn
+        ) {
           var suite = Suite.create(suites[0], title)
           suite.pending = true
           suites.unshift(suite)
@@ -1065,14 +1219,20 @@
          * Pending test case.
          */
 
-        context.xit = context.xspecify = context.it.skip = function(title) {
+        context.xit = context.xspecify = context.it.skip = function(
+          title
+        ) {
           context.it(title)
         }
       })
     }
   }) // module: interfaces/bdd.js
 
-  require.register("interfaces/common.js", function(module, exports, require) {
+  require.register("interfaces/common.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Functions common to more than one interface
      * @module lib/interfaces/common
@@ -1132,7 +1292,11 @@
     }
   }) // module: interfaces/common.js
 
-  require.register("interfaces/exports.js", function(module, exports, require) {
+  require.register("interfaces/exports.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -1196,14 +1360,22 @@
     }
   }) // module: interfaces/exports.js
 
-  require.register("interfaces/index.js", function(module, exports, require) {
+  require.register("interfaces/index.js", function(
+    module,
+    exports,
+    require
+  ) {
     exports.bdd = require("./bdd")
     exports.tdd = require("./tdd")
     exports.qunit = require("./qunit")
     exports.exports = require("./exports")
   }) // module: interfaces/index.js
 
-  require.register("interfaces/qunit.js", function(module, exports, require) {
+  require.register("interfaces/qunit.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -1298,7 +1470,11 @@
     }
   }) // module: interfaces/qunit.js
 
-  require.register("interfaces/tdd.js", function(module, exports, require) {
+  require.register("interfaces/tdd.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -1434,7 +1610,10 @@
      * To require local UIs and reporters when running in node.
      */
 
-    if (typeof process !== "undefined" && typeof process.cwd === "function") {
+    if (
+      typeof process !== "undefined" &&
+      typeof process.cwd === "function"
+    ) {
       var join = path.join,
         cwd = process.cwd()
       module.paths.push(cwd, join(cwd, "node_modules"))
@@ -1497,7 +1676,8 @@
       this.reporter(options.reporter, options.reporterOptions)
       if (null != options.timeout) this.timeout(options.timeout)
       this.useColors(options.useColors)
-      if (options.enableTimeouts !== null) this.enableTimeouts(options.enableTimeouts)
+      if (options.enableTimeouts !== null)
+        this.enableTimeouts(options.enableTimeouts)
       if (options.slow) this.slow(options.slow)
 
       this.suite.on("pre-require", function(context) {
@@ -1564,7 +1744,12 @@
           } catch (err) {
             err.message.indexOf("Cannot find module") !== -1
               ? console.warn('"' + reporter + '" reporter not found')
-              : console.warn('"' + reporter + '" reporter blew up with error:\n' + err.stack)
+              : console.warn(
+                  '"' +
+                    reporter +
+                    '" reporter blew up with error:\n' +
+                    err.stack
+                )
           }
         if (!_reporter && reporter === "teamcity")
           console.warn(
@@ -1572,7 +1757,8 @@
               "mocha-teamcity-reporter " +
               "(https://npmjs.org/package/mocha-teamcity-reporter)."
           )
-        if (!_reporter) throw new Error('invalid reporter "' + reporter + '"')
+        if (!_reporter)
+          throw new Error('invalid reporter "' + reporter + '"')
         this._reporter = _reporter
       }
       this.options.reporterOptions = reporterOptions
@@ -1629,14 +1815,22 @@
       runner.on("end", function() {
         var stats = reporter.stats
         if (stats.failures) {
-          var msg = stats.failures + " of " + runner.total + " tests failed"
-          notify(msg, { name: "mocha", title: "Failed", image: image("error") })
-        } else {
-          notify(stats.passes + " tests passed in " + stats.duration + "ms", {
+          var msg =
+            stats.failures + " of " + runner.total + " tests failed"
+          notify(msg, {
             name: "mocha",
-            title: "Passed",
-            image: image("ok")
+            title: "Failed",
+            image: image("error")
           })
+        } else {
+          notify(
+            stats.passes + " tests passed in " + stats.duration + "ms",
+            {
+              name: "mocha",
+              title: "Passed",
+              image: image("ok")
+            }
+          )
         }
       })
     }
@@ -1650,7 +1844,8 @@
      */
 
     Mocha.prototype.grep = function(re) {
-      this.options.grep = "string" == typeof re ? new RegExp(escapeRe(re)) : re
+      this.options.grep =
+        "string" == typeof re ? new RegExp(escapeRe(re)) : re
       return this
     }
 
@@ -1724,7 +1919,9 @@
      */
 
     Mocha.prototype.globals = function(globals) {
-      this.options.globals = (this.options.globals || []).concat(globals)
+      this.options.globals = (this.options.globals || []).concat(
+        globals
+      )
       return this
     }
 
@@ -1753,7 +1950,9 @@
 
     Mocha.prototype.useInlineDiffs = function(inlineDiffs) {
       this.options.useInlineDiffs =
-        arguments.length && inlineDiffs != undefined ? inlineDiffs : false
+        arguments.length && inlineDiffs != undefined
+          ? inlineDiffs
+          : false
       return this
     }
 
@@ -1792,7 +1991,9 @@
      */
 
     Mocha.prototype.enableTimeouts = function(enabled) {
-      this.suite.enableTimeouts(arguments.length && enabled !== undefined ? enabled : true)
+      this.suite.enableTimeouts(
+        arguments.length && enabled !== undefined ? enabled : true
+      )
       return this
     }
 
@@ -1997,7 +2198,11 @@
     }
   }) // module: pending.js
 
-  require.register("reporters/base.js", function(module, exports, require) {
+  require.register("reporters/base.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -2111,7 +2316,9 @@
 
     exports.window = {
       width: isatty
-        ? process.stdout.getWindowSize ? process.stdout.getWindowSize(1)[0] : tty.getWindowSize()[1]
+        ? process.stdout.getWindowSize
+          ? process.stdout.getWindowSize(1)[0]
+          : tty.getWindowSize()[1]
         : 75
     }
 
@@ -2185,16 +2392,23 @@
           msg = "Uncaught " + msg
         }
         // explicitly show diff
-        if (err.showDiff !== false && sameType(actual, expected) && expected !== undefined) {
+        if (
+          err.showDiff !== false &&
+          sameType(actual, expected) &&
+          expected !== undefined
+        ) {
           if ("string" !== typeof actual) {
             escape = false
             err.actual = actual = utils.stringify(actual)
             err.expected = expected = utils.stringify(expected)
           }
 
-          fmt = color("error title", "  %s) %s:\n%s") + color("error stack", "\n%s\n")
+          fmt =
+            color("error title", "  %s) %s:\n%s") +
+            color("error stack", "\n%s\n")
           var match = message.match(/^([^:]+): expected/)
-          msg = "\n      " + color("error message", match ? match[1] : msg)
+          msg =
+            "\n      " + color("error message", match ? match[1] : msg)
 
           if (exports.inlineDiffs) {
             msg += inlineDiff(err, escape)
@@ -2257,7 +2471,9 @@
 
         var medium = test.slow() / 2
         test.speed =
-          test.duration > test.slow() ? "slow" : test.duration > medium ? "medium" : "fast"
+          test.duration > test.slow()
+            ? "slow"
+            : test.duration > medium ? "medium" : "fast"
 
         stats.passes++
       })
@@ -2294,7 +2510,10 @@
       console.log()
 
       // passes
-      fmt = color("bright pass", " ") + color("green", " %d passing") + color("light", " (%s)")
+      fmt =
+        color("bright pass", " ") +
+        color("green", " %d passing") +
+        color("light", " (%s)")
 
       console.log(fmt, stats.passes || 0, ms(stats.duration))
 
@@ -2383,8 +2602,10 @@
         if (escape) {
           line = escapeInvisibles(line)
         }
-        if (line[0] === "+") return indent + colorLines("diff added", line)
-        if (line[0] === "-") return indent + colorLines("diff removed", line)
+        if (line[0] === "+")
+          return indent + colorLines("diff added", line)
+        if (line[0] === "-")
+          return indent + colorLines("diff removed", line)
         if (line.match(/\@\@/)) return null
         if (line.match(/\\ No newline/)) return null
         else return indent + line
@@ -2417,7 +2638,9 @@
 
     function errorDiff(err, type, escape) {
       var actual = escape ? escapeInvisibles(err.actual) : err.actual
-      var expected = escape ? escapeInvisibles(err.expected) : err.expected
+      var expected = escape
+        ? escapeInvisibles(err.expected)
+        : err.expected
       return diff["diff" + type](actual, expected)
         .map(function(str) {
           if (str.added) return colorLines("diff added", str.value)
@@ -2475,7 +2698,11 @@
     }
   }) // module: reporters/base.js
 
-  require.register("reporters/doc.js", function(module, exports, require) {
+  require.register("reporters/doc.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -2513,7 +2740,11 @@
         ++indents
         console.log('%s<section class="suite">', indent())
         ++indents
-        console.log("%s<h1>%s</h1>", indent(), utils.escape(suite.title))
+        console.log(
+          "%s<h1>%s</h1>",
+          indent(),
+          utils.escape(suite.title)
+        )
         console.log("%s<dl>", indent())
       })
 
@@ -2526,21 +2757,45 @@
       })
 
       runner.on("pass", function(test) {
-        console.log("%s  <dt>%s</dt>", indent(), utils.escape(test.title))
+        console.log(
+          "%s  <dt>%s</dt>",
+          indent(),
+          utils.escape(test.title)
+        )
         var code = utils.escape(utils.clean(test.fn.toString()))
-        console.log("%s  <dd><pre><code>%s</code></pre></dd>", indent(), code)
+        console.log(
+          "%s  <dd><pre><code>%s</code></pre></dd>",
+          indent(),
+          code
+        )
       })
 
       runner.on("fail", function(test, err) {
-        console.log('%s  <dt class="error">%s</dt>', indent(), utils.escape(test.title))
+        console.log(
+          '%s  <dt class="error">%s</dt>',
+          indent(),
+          utils.escape(test.title)
+        )
         var code = utils.escape(utils.clean(test.fn.toString()))
-        console.log('%s  <dd class="error"><pre><code>%s</code></pre></dd>', indent(), code)
-        console.log('%s  <dd class="error">%s</dd>', indent(), utils.escape(err))
+        console.log(
+          '%s  <dd class="error"><pre><code>%s</code></pre></dd>',
+          indent(),
+          code
+        )
+        console.log(
+          '%s  <dd class="error">%s</dd>',
+          indent(),
+          utils.escape(err)
+        )
       })
     }
   }) // module: reporters/doc.js
 
-  require.register("reporters/dot.js", function(module, exports, require) {
+  require.register("reporters/dot.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -2608,7 +2863,11 @@
     Dot.prototype.constructor = Dot
   }) // module: reporters/dot.js
 
-  require.register("reporters/html-cov.js", function(module, exports, require) {
+  require.register("reporters/html-cov.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -2663,7 +2922,11 @@
     }
   }) // module: reporters/html-cov.js
 
-  require.register("reporters/html.js", function(module, exports, require) {
+  require.register("reporters/html.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -2739,13 +3002,15 @@
         progress = new Progress()
       }
 
-      if (!root) return error("#mocha div missing, add it to your document")
+      if (!root)
+        return error("#mocha div missing, add it to your document")
 
       // pass toggle
       on(passesLink, "click", function() {
         unhide()
         var name = /pass/.test(report.className) ? "" : " pass"
-        report.className = report.className.replace(/fail|pass/g, "") + name
+        report.className =
+          report.className.replace(/fail|pass/g, "") + name
         if (report.className.trim()) hideSuitesWithout("test pass")
       })
 
@@ -2753,7 +3018,8 @@
       on(failuresLink, "click", function() {
         unhide()
         var name = /fail/.test(report.className) ? "" : " fail"
-        report.className = report.className.replace(/fail|pass/g, "") + name
+        report.className =
+          report.className.replace(/fail|pass/g, "") + name
         if (report.className.trim()) hideSuitesWithout("test fail")
       })
 
@@ -2810,7 +3076,10 @@
             url
           )
         } else if (test.pending) {
-          var el = fragment('<li class="test pass pending"><h2>%e</h2></li>', test.title)
+          var el = fragment(
+            '<li class="test pass pending"><h2>%e</h2></li>',
+            test.title
+          )
         } else {
           var el = fragment(
             '<li class="test fail"><h2>%e <a href="%e" class="replay">‣</a></h2></li>',
@@ -2829,8 +3098,13 @@
           if ("[object Error]" == str) str = test.err.message
 
           // Safari doesn't give you a stack. Let's at least provide a source line.
-          if (!test.err.stack && test.err.sourceURL && test.err.line !== undefined) {
-            str += "\n(" + test.err.sourceURL + ":" + test.err.line + ")"
+          if (
+            !test.err.stack &&
+            test.err.sourceURL &&
+            test.err.line !== undefined
+          ) {
+            str +=
+              "\n(" + test.err.sourceURL + ":" + test.err.line + ")"
           }
 
           el.appendChild(fragment('<pre class="error">%e</pre>', str))
@@ -2842,10 +3116,14 @@
           var h2 = el.getElementsByTagName("h2")[0]
 
           on(h2, "click", function() {
-            pre.style.display = "none" == pre.style.display ? "block" : "none"
+            pre.style.display =
+              "none" == pre.style.display ? "block" : "none"
           })
 
-          var pre = fragment("<pre><code>%e</code></pre>", utils.clean(test.fn.toString()))
+          var pre = fragment(
+            "<pre><code>%e</code></pre>",
+            utils.clean(test.fn.toString())
+          )
           el.appendChild(pre)
           pre.style.display = "none"
         }
@@ -2865,11 +3143,16 @@
 
       // Remove previous grep query parameter if present
       if (search) {
-        search = search.replace(/[?&]grep=[^&\s]*/g, "").replace(/^&/, "?")
+        search = search
+          .replace(/[?&]grep=[^&\s]*/g, "")
+          .replace(/^&/, "?")
       }
 
       return (
-        window.location.pathname + (search ? search + "&" : "?") + "grep=" + encodeURIComponent(s)
+        window.location.pathname +
+        (search ? search + "&" : "?") +
+        "grep=" +
+        encodeURIComponent(s)
       )
     }
 
@@ -2897,7 +3180,9 @@
      */
 
     function error(msg) {
-      document.body.appendChild(fragment('<div id="mocha-error">%s</div>', msg))
+      document.body.appendChild(
+        fragment('<div id="mocha-error">%s</div>', msg)
+      )
     }
 
     /**
@@ -2941,7 +3226,10 @@
     function unhide() {
       var els = document.getElementsByClassName("suite hidden")
       for (var i = 0; i < els.length; ++i) {
-        els[i].className = els[i].className.replace("suite hidden", "suite")
+        els[i].className = els[i].className.replace(
+          "suite hidden",
+          "suite"
+        )
       }
     }
 
@@ -2970,7 +3258,11 @@
     }
   }) // module: reporters/html.js
 
-  require.register("reporters/index.js", function(module, exports, require) {
+  require.register("reporters/index.js", function(
+    module,
+    exports,
+    require
+  ) {
     exports.Base = require("./base")
     exports.Dot = require("./dot")
     exports.Doc = require("./doc")
@@ -2990,7 +3282,11 @@
     exports.JSONStream = require("./json-stream")
   }) // module: reporters/index.js
 
-  require.register("reporters/json-cov.js", function(module, exports, require) {
+  require.register("reporters/json-cov.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3143,7 +3439,11 @@
     }
   }) // module: reporters/json-cov.js
 
-  require.register("reporters/json-stream.js", function(module, exports, require) {
+  require.register("reporters/json-stream.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3208,7 +3508,11 @@
     }
   }) // module: reporters/json-stream.js
 
-  require.register("reporters/json.js", function(module, exports, require) {
+  require.register("reporters/json.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3303,7 +3607,11 @@
     }
   }) // module: reporters/json.js
 
-  require.register("reporters/landing.js", function(module, exports, require) {
+  require.register("reporters/landing.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3381,7 +3689,9 @@
         stream.write("\n  ")
         stream.write(color("runway", Array(col).join("⋅")))
         stream.write(plane)
-        stream.write(color("runway", Array(width - col).join("⋅") + "\n"))
+        stream.write(
+          color("runway", Array(width - col).join("⋅") + "\n")
+        )
         stream.write(runway())
         stream.write("\u001b[0m")
       })
@@ -3403,7 +3713,11 @@
     Landing.prototype.constructor = Landing
   }) // module: reporters/landing.js
 
-  require.register("reporters/list.js", function(module, exports, require) {
+  require.register("reporters/list.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3437,7 +3751,9 @@
       })
 
       runner.on("test", function(test) {
-        process.stdout.write(color("pass", "    " + test.fullTitle() + ": "))
+        process.stdout.write(
+          color("pass", "    " + test.fullTitle() + ": ")
+        )
       })
 
       runner.on("pending", function(test) {
@@ -3472,7 +3788,11 @@
     List.prototype.constructor = List
   }) // module: reporters/list.js
 
-  require.register("reporters/markdown.js", function(module, exports, require) {
+  require.register("reporters/markdown.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3533,7 +3853,8 @@
           if ("suite" == key) continue
           if (key !== SUITE_PREFIX) {
             link = " - [" + key.substring(1) + "]"
-            link += "(#" + utils.slug(obj[key].suite.fullTitle()) + ")\n"
+            link +=
+              "(#" + utils.slug(obj[key].suite.fullTitle()) + ")\n"
             buf += Array(level).join("  ") + link
           }
           buf += stringifyTOC(obj[key], level)
@@ -3575,7 +3896,11 @@
     }
   }) // module: reporters/markdown.js
 
-  require.register("reporters/min.js", function(module, exports, require) {
+  require.register("reporters/min.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3618,7 +3943,11 @@
     Min.prototype.constructor = Min
   }) // module: reporters/min.js
 
-  require.register("reporters/nyan.js", function(module, exports, require) {
+  require.register("reporters/nyan.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3648,7 +3977,8 @@
         numerOfLines = (this.numberOfLines = 4),
         trajectories = (this.trajectories = [[], [], [], []]),
         nyanCatWidth = (this.nyanCatWidth = 11),
-        trajectoryWidthMax = (this.trajectoryWidthMax = width - nyanCatWidth),
+        trajectoryWidthMax = (this.trajectoryWidthMax =
+          width - nyanCatWidth),
         scoreboardWidth = (this.scoreboardWidth = 5),
         tick = (this.tick = 0),
         n = 0
@@ -3727,7 +4057,8 @@
 
       for (var index = 0; index < this.numberOfLines; index++) {
         var trajectory = this.trajectories[index]
-        if (trajectory.length >= this.trajectoryWidthMax) trajectory.shift()
+        if (trajectory.length >= this.trajectoryWidthMax)
+          trajectory.shift()
         trajectory.push(rainbowified)
       }
     }
@@ -3758,7 +4089,8 @@
 
     NyanCat.prototype.drawNyanCat = function() {
       var self = this
-      var startWidth = this.scoreboardWidth + this.trajectories[0].length
+      var startWidth =
+        this.scoreboardWidth + this.trajectories[0].length
       var dist = "\u001b[" + startWidth + "C"
       var padding = ""
 
@@ -3860,7 +4192,9 @@
 
     NyanCat.prototype.rainbowify = function(str) {
       if (!Base.useColors) return str
-      var color = this.rainbowColors[this.colorIndex % this.rainbowColors.length]
+      var color = this.rainbowColors[
+        this.colorIndex % this.rainbowColors.length
+      ]
       this.colorIndex += 1
       return "\u001b[38;5;" + color + "m" + str + "\u001b[0m"
     }
@@ -3883,7 +4217,11 @@
     NyanCat.prototype.constructor = NyanCat
   }) // module: reporters/nyan.js
 
-  require.register("reporters/progress.js", function(module, exports, require) {
+  require.register("reporters/progress.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -3958,7 +4296,9 @@
         process.stdout.write(Array(i).join(options.incomplete))
         process.stdout.write(color("progress", options.close))
         if (options.verbose) {
-          process.stdout.write(color("progress", " " + complete + " of " + total))
+          process.stdout.write(
+            color("progress", " " + complete + " of " + total)
+          )
         }
       })
 
@@ -3981,7 +4321,11 @@
     Progress.prototype.constructor = Progress
   }) // module: reporters/progress.js
 
-  require.register("reporters/spec.js", function(module, exports, require) {
+  require.register("reporters/spec.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -4036,7 +4380,10 @@
 
       runner.on("pass", function(test) {
         if ("fast" == test.speed) {
-          var fmt = indent() + color("checkmark", "  " + Base.symbols.ok) + color("pass", " %s")
+          var fmt =
+            indent() +
+            color("checkmark", "  " + Base.symbols.ok) +
+            color("pass", " %s")
           cursor.CR()
           console.log(fmt, test.title)
         } else {
@@ -4052,7 +4399,11 @@
 
       runner.on("fail", function(test, err) {
         cursor.CR()
-        console.log(indent() + color("fail", "  %d) %s"), ++n, test.title)
+        console.log(
+          indent() + color("fail", "  %d) %s"),
+          ++n,
+          test.title
+        )
       })
 
       runner.on("end", self.epilogue.bind(self))
@@ -4068,7 +4419,11 @@
     Spec.prototype.constructor = Spec
   }) // module: reporters/spec.js
 
-  require.register("reporters/tap.js", function(module, exports, require) {
+  require.register("reporters/tap.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -4143,7 +4498,11 @@
     }
   }) // module: reporters/tap.js
 
-  require.register("reporters/xunit.js", function(module, exports, require) {
+  require.register("reporters/xunit.js", function(
+    module,
+    exports,
+    require
+  ) {
     /**
      * Module dependencies.
      */
@@ -4186,7 +4545,9 @@
         if (!fs.createWriteStream) {
           throw new Error("file output not supported in browser")
         }
-        self.fileStream = fs.createWriteStream(options.reporterOptions.output)
+        self.fileStream = fs.createWriteStream(
+          options.reporterOptions.output
+        )
       }
 
       runner.on("pending", function(test) {
@@ -4276,11 +4637,18 @@
             "testcase",
             attrs,
             false,
-            tag("failure", {}, false, cdata(escape(err.message) + "\n" + err.stack))
+            tag(
+              "failure",
+              {},
+              false,
+              cdata(escape(err.message) + "\n" + err.stack)
+            )
           )
         )
       } else if (test.pending) {
-        this.write(tag("testcase", attrs, false, tag("skipped", {}, true)))
+        this.write(
+          tag("testcase", attrs, false, tag("skipped", {}, true))
+        )
       } else {
         this.write(tag("testcase", attrs, true))
       }
@@ -4299,7 +4667,8 @@
         pairs.push(key + '="' + escape(attrs[key]) + '"')
       }
 
-      tag = "<" + name + (pairs.length ? " " + pairs.join(" ") : "") + end
+      tag =
+        "<" + name + (pairs.length ? " " + pairs.join(" ") : "") + end
       if (content) tag += content + "</" + name + end
       return tag
     }
@@ -4534,7 +4903,10 @@
         emitted = true
         self.emit(
           "error",
-          err || new Error("done() called multiple times; stacktrace may be inaccurate")
+          err ||
+            new Error(
+              "done() called multiple times; stacktrace may be inaccurate"
+            )
         )
       }
 
@@ -4568,12 +4940,26 @@
 
         try {
           this.fn.call(ctx, function(err) {
-            if (err instanceof Error || toString.call(err) === "[object Error]") return done(err)
+            if (
+              err instanceof Error ||
+              toString.call(err) === "[object Error]"
+            )
+              return done(err)
             if (null != err) {
-              if (Object.prototype.toString.call(err) === "[object Object]") {
-                return done(new Error("done() invoked with non-Error: " + JSON.stringify(err)))
+              if (
+                Object.prototype.toString.call(err) ===
+                "[object Object]"
+              ) {
+                return done(
+                  new Error(
+                    "done() invoked with non-Error: " +
+                      JSON.stringify(err)
+                  )
+                )
               } else {
-                return done(new Error("done() invoked with non-Error: " + err))
+                return done(
+                  new Error("done() invoked with non-Error: " + err)
+                )
               }
             }
             done()
@@ -4585,7 +4971,11 @@
       }
 
       if (this.asyncOnly) {
-        return done(new Error("--async-only option in use without declaring `done()`"))
+        return done(
+          new Error(
+            "--async-only option in use without declaring `done()`"
+          )
+        )
       }
 
       // sync or promise-returning
@@ -4608,7 +4998,10 @@
               done()
             },
             function(reason) {
-              done(reason || new Error("Promise rejected with no or falsy reason"))
+              done(
+                reason ||
+                  new Error("Promise rejected with no or falsy reason")
+              )
             }
           )
         } else {
@@ -4812,7 +5205,10 @@
       this._globals = this._globals.concat(leaks)
 
       if (leaks.length > 1) {
-        this.fail(test, new Error("global leaks detected: " + leaks.join(", ") + ""))
+        this.fail(
+          test,
+          new Error("global leaks detected: " + leaks.join(", ") + "")
+        )
       } else if (leaks.length) {
         this.fail(test, new Error("global leak detected: " + leaks[0]))
       }
@@ -4832,11 +5228,18 @@
 
       if (!(err instanceof Error)) {
         err = new Error(
-          "the " + type(err) + " " + stringify(err) + " was thrown, throw an Error :)"
+          "the " +
+            type(err) +
+            " " +
+            stringify(err) +
+            " was thrown, throw an Error :)"
         )
       }
 
-      err.stack = this.fullStackTrace || !err.stack ? err.stack : stackFilter(err.stack)
+      err.stack =
+        this.fullStackTrace || !err.stack
+          ? err.stack
+          : stackFilter(err.stack)
 
       this.emit("fail", test, err)
     }
@@ -5314,10 +5717,14 @@
         if (/^mocha-/.test(key)) return false
 
         var matched = filter(ok, function(ok) {
-          if (~ok.indexOf("*")) return 0 == key.indexOf(ok.split("*")[0])
+          if (~ok.indexOf("*"))
+            return 0 == key.indexOf(ok.split("*")[0])
           return key == ok
         })
-        return matched.length == 0 && (!global.navigator || "onerror" !== key)
+        return (
+          matched.length == 0 &&
+          (!global.navigator || "onerror" !== key)
+        )
       })
     }
 
@@ -5329,10 +5736,15 @@
      */
 
     function extraGlobals() {
-      if (typeof process === "object" && typeof process.version === "string") {
-        var nodeVersion = process.version.split(".").reduce(function(a, v) {
-          return (a << 8) | v
-        })
+      if (
+        typeof process === "object" &&
+        typeof process.version === "string"
+      ) {
+        var nodeVersion = process.version
+          .split(".")
+          .reduce(function(a, v) {
+            return (a << 8) | v
+          })
 
         // 'errno' was renamed to process._errno in v0.9.11.
 
@@ -5794,7 +6206,8 @@
      */
 
     exports.forEach = function(arr, fn, scope) {
-      for (var i = 0, l = arr.length; i < l; i++) fn.call(scope, arr[i], i)
+      for (var i = 0, l = arr.length; i < l; i++)
+        fn.call(scope, arr[i], i)
     }
 
     /**
@@ -5808,7 +6221,8 @@
 
     exports.map = function(arr, fn, scope) {
       var result = []
-      for (var i = 0, l = arr.length; i < l; i++) result.push(fn.call(scope, arr[i], i, arr))
+      for (var i = 0, l = arr.length; i < l; i++)
+        result.push(fn.call(scope, arr[i], i, arr))
       return result
     }
 
@@ -5999,7 +6413,14 @@
 
       var spaces = str.match(/^\n?( *)/)[1].length,
         tabs = str.match(/^\n?(\t*)/)[1].length,
-        re = new RegExp("^\n?" + (tabs ? "\t" : " ") + "{" + (tabs ? tabs : spaces) + "}", "gm")
+        re = new RegExp(
+          "^\n?" +
+            (tabs ? "\t" : " ") +
+            "{" +
+            (tabs ? tabs : spaces) +
+            "}",
+          "gm"
+        )
 
       str = str.replace(re, "")
 
@@ -6061,7 +6482,10 @@
           /\bnew[ \t]+(\w+)/gm,
           '<span class="keyword">new</span> <span class="init">$1</span>'
         )
-        .replace(/\b(function|new|throw|return|var|if|else)\b/gm, '<span class="keyword">$1</span>')
+        .replace(
+          /\b(function|new|throw|return|var|if|else)\b/gm,
+          '<span class="keyword">$1</span>'
+        )
     }
 
     /**
@@ -6072,7 +6496,9 @@
      */
 
     exports.highlightTags = function(name) {
-      var code = document.getElementById("mocha").getElementsByTagName(name)
+      var code = document
+        .getElementById("mocha")
+        .getElementsByTagName(name)
       for (var i = 0, len = code.length; i < len; ++i) {
         code[i].innerHTML = highlight(code[i].innerHTML)
       }
@@ -6091,7 +6517,10 @@
      * @param {string} [type] The type of the value, if known.
      * @returns {string}
      */
-    var emptyRepresentation = function emptyRepresentation(value, type) {
+    var emptyRepresentation = function emptyRepresentation(
+      value,
+      type
+    ) {
       type = type || exports.type(value)
 
       switch (type) {
@@ -6159,12 +6588,18 @@
         }
         var json = value.toJSON()
         // Based on the toJSON result
-        return jsonStringify(json.data && json.type ? json.data : json, 2).replace(/,(\n|$)/g, "$1")
+        return jsonStringify(
+          json.data && json.type ? json.data : json,
+          2
+        ).replace(/,(\n|$)/g, "$1")
       }
 
       for (var prop in value) {
         if (Object.prototype.hasOwnProperty.call(value, prop)) {
-          return jsonStringify(exports.canonicalize(value), 2).replace(/,(\n|$)/g, "$1")
+          return jsonStringify(exports.canonicalize(value), 2).replace(
+            /,(\n|$)/g,
+            "$1"
+          )
         }
       }
 
@@ -6220,7 +6655,10 @@
             val = "[Buffer: " + jsonStringify(json, 2, depth + 1) + "]"
             break
           default:
-            val = val == "[Function]" || val == "[Circular]" ? val : '"' + val + '"' //string
+            val =
+              val == "[Function]" || val == "[Circular]"
+                ? val
+                : '"' + val + '"' //string
         }
         return val
       }
@@ -6315,7 +6753,10 @@
           canonicalizedObj = canonicalizedObj || {}
           withStack(value, function() {
             exports.forEach(exports.keys(value).sort(), function(key) {
-              canonicalizedObj[key] = exports.canonicalize(value[key], stack)
+              canonicalizedObj[key] = exports.canonicalize(
+                value[key],
+                stack
+              )
             })
           })
           break
@@ -6335,7 +6776,11 @@
     /**
      * Lookup file names at the given `path`.
      */
-    exports.lookupFiles = function lookupFiles(path, extensions, recursive) {
+    exports.lookupFiles = function lookupFiles(
+      path,
+      extensions,
+      recursive
+    ) {
       var files = []
       var re = new RegExp("\\.(" + extensions.join("|") + ")$")
 
@@ -6344,7 +6789,10 @@
           path += ".js"
         } else {
           files = glob.sync(path)
-          if (!files.length) throw new Error("cannot resolve path (or pattern) '" + path + "'")
+          if (!files.length)
+            throw new Error(
+              "cannot resolve path (or pattern) '" + path + "'"
+            )
           return files
         }
       }
@@ -6362,14 +6810,21 @@
           var stat = fs.statSync(file)
           if (stat.isDirectory()) {
             if (recursive) {
-              files = files.concat(lookupFiles(file, extensions, recursive))
+              files = files.concat(
+                lookupFiles(file, extensions, recursive)
+              )
             }
             return
           }
         } catch (ignored) {
           return
         }
-        if (!stat.isFile() || !re.test(file) || basename(file)[0] === ".") return
+        if (
+          !stat.isFile() ||
+          !re.test(file) ||
+          basename(file)[0] === "."
+        )
+          return
         files.push(file)
       })
 
@@ -6383,7 +6838,9 @@
      */
 
     exports.undefinedError = function() {
-      return new Error("Caught undefined error, did you throw without specifying what?")
+      return new Error(
+        "Caught undefined error, did you throw without specifying what?"
+      )
     }
 
     /**
@@ -6409,8 +6866,13 @@
 
     exports.stackTraceFilter = function() {
       var slash = "/",
-        is = typeof document === "undefined" ? { node: true } : { browser: true },
-        cwd = is.node ? process.cwd() + slash : location.href.replace(/\/[^\/]*$/, "/")
+        is =
+          typeof document === "undefined"
+            ? { node: true }
+            : { browser: true },
+        cwd = is.node
+          ? process.cwd() + slash
+          : location.href.replace(/\/[^\/]*$/, "/")
 
       function isNodeModule(line) {
         return ~line.indexOf("node_modules")
@@ -6426,7 +6888,9 @@
 
       // node_modules, bower, componentJS
       function isBrowserModule(line) {
-        return ~line.indexOf("node_modules") || ~line.indexOf("components")
+        return (
+          ~line.indexOf("node_modules") || ~line.indexOf("components")
+        )
       }
 
       function isNodeInternal(line) {
@@ -6446,7 +6910,12 @@
         stack = exports.reduce(
           stack,
           function(list, line) {
-            if (is.node && (isNodeModule(line) || isMochaInternal(line) || isNodeInternal(line)))
+            if (
+              is.node &&
+              (isNodeModule(line) ||
+                isMochaInternal(line) ||
+                isNodeInternal(line))
+            )
               return list
 
             if (is.browser && isBrowserModule(line)) return list
@@ -6544,7 +7013,10 @@
 
   function timeslice() {
     var immediateStart = new Date().getTime()
-    while (immediateQueue.length && new Date().getTime() - immediateStart < 100) {
+    while (
+      immediateQueue.length &&
+      new Date().getTime() - immediateStart < 100
+    ) {
       immediateQueue.shift()()
     }
     if (immediateQueue.length) {
@@ -6614,7 +7086,11 @@
     return Mocha.prototype.run.call(mocha, function(err) {
       // The DOM Document is not available in Web Workers.
       var document = global.document
-      if (document && document.getElementById("mocha") && options.noHighlighting !== true) {
+      if (
+        document &&
+        document.getElementById("mocha") &&
+        options.noHighlighting !== true
+      ) {
         Mocha.utils.highlightTags("code")
       }
       if (fn) fn(err)

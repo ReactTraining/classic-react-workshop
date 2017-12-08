@@ -79,7 +79,10 @@ class Droppable extends React.Component {
               <p>
                 <b>{file.name}</b>
               </p>
-              <img src={file.data} style={{ maxHeight: "100px", maxWidth: "100px" }} />
+              <img
+                src={file.data}
+                style={{ maxHeight: "100px", maxWidth: "100px" }}
+              />
             </div>
           ))}
       </div>

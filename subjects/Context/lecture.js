@@ -15,12 +15,15 @@ import * as styles from "./styles"
 
 class TabList extends React.Component {
   render() {
-    const children = React.Children.map(this.props.children, (child, index) => {
-      return React.cloneElement(child, {
-        isActive: index === this.props.activeIndex,
-        onClick: () => this.props.onActivate(index)
-      })
-    })
+    const children = React.Children.map(
+      this.props.children,
+      (child, index) => {
+        return React.cloneElement(child, {
+          isActive: index === this.props.activeIndex,
+          onClick: () => this.props.onActivate(index)
+        })
+      }
+    )
 
     return <div style={styles.tabs}>{children}</div>
   }
@@ -45,7 +48,11 @@ class Tab extends React.Component {
 
 class TabPanels extends React.Component {
   render() {
-    return <div style={styles.tabPanels}>{this.props.children[this.props.activeIndex]}</div>
+    return (
+      <div style={styles.tabPanels}>
+        {this.props.children[this.props.activeIndex]}
+      </div>
+    )
   }
 }
 
@@ -61,20 +68,23 @@ class Tabs extends React.Component {
   }
 
   render() {
-    const children = React.Children.map(this.props.children, (child, index) => {
-      if (child.type === TabPanels) {
-        return React.cloneElement(child, {
-          activeIndex: this.state.activeIndex
-        })
-      } else if (child.type === TabList) {
-        return React.cloneElement(child, {
-          activeIndex: this.state.activeIndex,
-          onActivate: index => this.setState({ activeIndex: index })
-        })
-      } else {
-        return child
+    const children = React.Children.map(
+      this.props.children,
+      (child, index) => {
+        if (child.type === TabPanels) {
+          return React.cloneElement(child, {
+            activeIndex: this.state.activeIndex
+          })
+        } else if (child.type === TabList) {
+          return React.cloneElement(child, {
+            activeIndex: this.state.activeIndex,
+            onActivate: index => this.setState({ activeIndex: index })
+          })
+        } else {
+          return child
+        }
       }
-    })
+    )
 
     return <div>{children}</div>
   }

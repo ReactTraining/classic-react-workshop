@@ -15,7 +15,8 @@ class App extends React.Component {
     return (
       <div>
         <h1>Mini Redux!</h1>
-        <button onClick={this.increment}>Increment</button> {this.props.counter}{" "}
+        <button onClick={this.increment}>Increment</button>{" "}
+        {this.props.counter}{" "}
         <button onClick={this.decrement}>Decrement</button>
       </div>
     )

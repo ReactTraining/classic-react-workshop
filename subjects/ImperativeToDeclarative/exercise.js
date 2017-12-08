@@ -58,11 +58,24 @@ class App extends React.Component {
           open modal
         </button>
 
-        <Modal title="Declarative is better" ref={modal => (this.modal = modal)}>
+        <Modal
+          title="Declarative is better"
+          ref={modal => (this.modal = modal)}
+        >
           <p>Calling methods on instances is a FLOW not a STOCK!</p>
-          <p>It’s the dynamic process, not the static program in text space.</p>
-          <p>You have to experience it over time, rather than in snapshots of state.</p>
-          <button onClick={this.closeModal} type="button" className="btn btn-default">
+          <p>
+            It’s the dynamic process, not the static program in text
+            space.
+          </p>
+          <p>
+            You have to experience it over time, rather than in
+            snapshots of state.
+          </p>
+          <button
+            onClick={this.closeModal}
+            type="button"
+            className="btn btn-default"
+          >
             Close
           </button>
         </Modal>

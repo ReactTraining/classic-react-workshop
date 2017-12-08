@@ -34,10 +34,18 @@ class Tabs extends React.Component {
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
-      const style = this.props.activeTabIndex === index ? styles.activeTab : styles.tab
+      const style =
+        this.props.activeTabIndex === index
+          ? styles.activeTab
+          : styles.tab
 
       return (
-        <div className="Tab" key={tab.name} style={style} onClick={() => this.selectTab(index)}>
+        <div
+          className="Tab"
+          key={tab.name}
+          style={style}
+          onClick={() => this.selectTab(index)}
+        >
           {tab.name}
         </div>
       )
@@ -84,6 +92,10 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App tabs={data} />, document.getElementById("app"), function() {
-  require("./tests").run(this)
-})
+ReactDOM.render(
+  <App tabs={data} />,
+  document.getElementById("app"),
+  function() {
+    require("./tests").run(this)
+  }
+)

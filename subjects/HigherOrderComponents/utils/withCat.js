@@ -16,7 +16,11 @@ const withCat = Component => {
     componentDidUpdate(prevProps) {
       const { mouse } = this.props
 
-      if (mouse.x !== prevProps.mouse.x || mouse.y !== prevProps.mouse.y) this.setState(mouse)
+      if (
+        mouse.x !== prevProps.mouse.x ||
+        mouse.y !== prevProps.mouse.y
+      )
+        this.setState(mouse)
     }
 
     render() {
@@ -28,7 +32,12 @@ const withCat = Component => {
       return (
         <div style={{ height: "100%" }}>
           <Motion style={catStyle}>
-            {style => <div style={{ ...styles.cat, ...style }} ref={node => (this.cat = node)} />}
+            {style => (
+              <div
+                style={{ ...styles.cat, ...style }}
+                ref={node => (this.cat = node)}
+              />
+            )}
           </Motion>
           <Component {...this.props} />
         </div>

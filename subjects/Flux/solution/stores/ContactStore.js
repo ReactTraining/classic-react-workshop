@@ -51,7 +51,9 @@ AppDispatcher.register(function(payload) {
     errors[action.contact.id] = action.error
 
     setState({
-      deletingContacts: state.deletingContacts.filter(c => c.id !== action.contact.id),
+      deletingContacts: state.deletingContacts.filter(
+        c => c.id !== action.contact.id
+      ),
       errors
     })
   }
@@ -59,7 +61,9 @@ AppDispatcher.register(function(payload) {
   if (action.type === ActionTypes.CONTACT_WAS_DELETED) {
     setState({
       contacts: state.contacts.filter(c => c.id !== action.contact.id),
-      deletingContacts: state.deletingContacts.filter(c => c.id !== action.contact.id)
+      deletingContacts: state.deletingContacts.filter(
+        c => c.id !== action.contact.id
+      )
     })
   }
 })

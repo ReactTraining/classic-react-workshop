@@ -8,7 +8,10 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
-import { easingTypes, Mixin as TweenStateMixin } from "react-tween-state"
+import {
+  easingTypes,
+  Mixin as TweenStateMixin
+} from "react-tween-state"
 
 require("./styles")
 

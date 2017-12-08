@@ -17,13 +17,25 @@ module.exports = {
   entry: SubjectDirs.reduce(
     function(entries, dir) {
       if (fs.existsSync(path.join(SubjectsDir, dir, "exercise.js")))
-        entries[dir + "-exercise"] = path.join(SubjectsDir, dir, "exercise.js")
+        entries[dir + "-exercise"] = path.join(
+          SubjectsDir,
+          dir,
+          "exercise.js"
+        )
 
       if (fs.existsSync(path.join(SubjectsDir, dir, "solution.js")))
-        entries[dir + "-solution"] = path.join(SubjectsDir, dir, "solution.js")
+        entries[dir + "-solution"] = path.join(
+          SubjectsDir,
+          dir,
+          "solution.js"
+        )
 
       if (fs.existsSync(path.join(SubjectsDir, dir, "lecture.js")))
-        entries[dir + "-lecture"] = path.join(SubjectsDir, dir, "lecture.js")
+        entries[dir + "-lecture"] = path.join(
+          SubjectsDir,
+          dir,
+          "lecture.js"
+        )
 
       return entries
     },
@@ -60,7 +72,9 @@ module.exports = {
     ]
   },
 
-  plugins: [new webpack.optimize.CommonsChunkPlugin({ name: "shared" })],
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({ name: "shared" })
+  ],
 
   devServer: {
     quiet: false,

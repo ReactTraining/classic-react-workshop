@@ -1,5 +1,27 @@
-const ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
+const ones = [
+  "",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine"
+]
+const tens = [
+  "",
+  "",
+  "twenty",
+  "thirty",
+  "forty",
+  "fifty",
+  "sixty",
+  "seventy",
+  "eighty",
+  "ninety"
+]
 const teens = [
   "ten",
   "eleven",
@@ -22,25 +44,37 @@ const convertTens = n => {
 }
 
 const convertHundreds = n => {
-  if (n > 99) return ones[Math.floor(n / 100)] + " hundred " + convertTens(n % 100)
+  if (n > 99)
+    return (
+      ones[Math.floor(n / 100)] + " hundred " + convertTens(n % 100)
+    )
 
   return convertTens(n)
 }
 
 const convertThousands = n => {
   if (n >= 1000)
-    return convertHundreds(Math.floor(n / 1000)) + " thousand " + convertHundreds(n % 1000)
+    return (
+      convertHundreds(Math.floor(n / 1000)) +
+      " thousand " +
+      convertHundreds(n % 1000)
+    )
 
   return convertHundreds(n)
 }
 
 const convertMillions = n => {
   if (n >= 1000000)
-    return convertMillions(Math.floor(n / 1000000)) + " million " + convertThousands(n % 1000000)
+    return (
+      convertMillions(Math.floor(n / 1000000)) +
+      " million " +
+      convertThousands(n % 1000000)
+    )
 
   return convertThousands(n)
 }
 
-const convertNumberToEnglish = n => (n === 0 ? "zero" : convertMillions(n))
+const convertNumberToEnglish = n =>
+  n === 0 ? "zero" : convertMillions(n)
 
 export default convertNumberToEnglish

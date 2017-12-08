@@ -66,18 +66,27 @@ class DropGrid extends React.Component {
   }
 
   render() {
-    const { isDraggingMarker, startX, startY, mouseX, mouseY } = this.state
+    const {
+      isDraggingMarker,
+      startX,
+      startY,
+      mouseX,
+      mouseY
+    } = this.state
 
     let markerLeft, markerTop
     if (isDraggingMarker) {
       markerLeft = mouseX - startX
       markerTop = mouseY - startY
     } else {
-      markerLeft = Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150
-      markerTop = Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
+      markerLeft =
+        Math.floor(Math.max(0, Math.min(449, mouseX)) / 150) * 150
+      markerTop =
+        Math.floor(Math.max(0, Math.min(449, mouseY)) / 150) * 150
     }
 
-    const bouncySpring = style => spring(style, { stiffness: 170, damping: 8 })
+    const bouncySpring = style =>
+      spring(style, { stiffness: 170, damping: 8 })
 
     const markerStyle = {
       left: isDraggingMarker ? markerLeft : bouncySpring(markerLeft),

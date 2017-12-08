@@ -82,7 +82,9 @@ const JSONTable = React.createClass({
         <tbody>
           {data.map(item => (
             <tr key={this.props.getKey(item)}>
-              {fields.map(field => <td key={field}>{this.formatContent(item[field])}</td>)}
+              {fields.map(field => (
+                <td key={field}>{this.formatContent(item[field])}</td>
+              ))}
             </tr>
           ))}
         </tbody>

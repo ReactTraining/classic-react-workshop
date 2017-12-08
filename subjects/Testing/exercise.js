@@ -16,7 +16,10 @@ describe("when <Tabs> is rendered", () => {
   let node, tabs, panel, borderFixture
 
   const FixtureData = [
-    { label: "USA", content: "Land of the Free, Home of the brave" },
+    {
+      label: "USA",
+      content: "Land of the Free, Home of the brave"
+    },
     { label: "Brazil", content: "Sunshine, beaches, and Carnival" },
     { label: "Russia", content: "World Cup 2018!" }
   ]
@@ -42,7 +45,10 @@ describe("when <Tabs> is rendered", () => {
   })
 
   it("renders the USA tab", () => {
-    expect(tabs[0].innerText).toEqual(FixtureData[0].label, "USA tab was not rendered")
+    expect(tabs[0].innerText).toEqual(
+      FixtureData[0].label,
+      "USA tab was not rendered"
+    )
   })
 
   it("renders the Brazil tab")

@@ -22,7 +22,10 @@ const getHeaderStyle = y => {
     position: "fixed",
     top: pin ? "0px" : `${top + 50}px`,
     textShadow: pin
-      ? `0px ${(y - 100) / 5}px ${Math.min((y - 100) / 10, 20)}px rgba(0, 0, 0, 0.5)`
+      ? `0px ${(y - 100) / 5}px ${Math.min(
+          (y - 100) / 10,
+          20
+        )}px rgba(0, 0, 0, 0.5)`
       : "none"
   }
 }

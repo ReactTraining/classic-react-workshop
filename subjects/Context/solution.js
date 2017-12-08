@@ -49,7 +49,11 @@ class SubmitButton extends React.Component {
   }
 
   render() {
-    return <button onClick={this.context.form.submit}>{this.props.children}</button>
+    return (
+      <button onClick={this.context.form.submit}>
+        {this.props.children}
+      </button>
+    )
   }
 }
 

@@ -5,7 +5,10 @@ const ReservedRefNameChars = /[\.#\$\[\]]/g
 const escapeKey = name => name.replace(ReservedRefNameChars, "_")
 
 const escapeValue = rawValue => {
-  const value = rawValue && typeof rawValue.toJSON === "function" ? rawValue.toJSON() : rawValue
+  const value =
+    rawValue && typeof rawValue.toJSON === "function"
+      ? rawValue.toJSON()
+      : rawValue
 
   if (value == null) return null // Remove undefined values
 
@@ -29,7 +32,8 @@ BaseRef.child(".info/serverTimeOffset").on("value", function(snapshot) {
   serverTimeOffset = snapshot.val()
 })
 
-const saveAuth = auth => BaseRef.child("users/" + auth.uid).set(escapeValue(auth))
+const saveAuth = auth =>
+  BaseRef.child("users/" + auth.uid).set(escapeValue(auth))
 
 export const login = callback => {
   const auth = BaseRef.getAuth()

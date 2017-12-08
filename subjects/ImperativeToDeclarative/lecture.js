@@ -30,7 +30,12 @@ class App extends React.Component {
 
   changeTone = event => {
     const { clientX, clientY } = event
-    const { top, right, bottom, left } = event.target.getBoundingClientRect()
+    const {
+      top,
+      right,
+      bottom,
+      left
+    } = event.target.getBoundingClientRect()
     const pitch = (clientX - left) / (right - left)
     const volume = 1 - (clientY - top) / (bottom - top)
 

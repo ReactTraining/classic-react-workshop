@@ -15,7 +15,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react"
 import { render } from "react-dom"
-import { login, sendMessage, subscribeToMessages } from "./utils/ChatUtils"
+import {
+  login,
+  sendMessage,
+  subscribeToMessages
+} from "./utils/ChatUtils"
 import "./styles"
 
 /*
@@ -58,7 +62,9 @@ class Chat extends React.Component {
               </div>
               <ol className="messages">
                 <li className="message">So, check it out:</li>
-                <li className="message">QA Engineer walks into a bar.</li>
+                <li className="message">
+                  QA Engineer walks into a bar.
+                </li>
                 <li className="message">Orders a beer.</li>
                 <li className="message">Orders 0 beers.</li>
                 <li className="message">Orders 999999999 beers.</li>
@@ -73,7 +79,9 @@ class Chat extends React.Component {
               </div>
               <ol className="messages">
                 <li className="message">Haha</li>
-                <li className="message">Stop stealing other people's jokes :P</li>
+                <li className="message">
+                  Stop stealing other people's jokes :P
+                </li>
               </ol>
             </li>
             <li className="message-group">
@@ -88,7 +96,11 @@ class Chat extends React.Component {
         </div>
         <form className="new-message-form">
           <div className="new-message">
-            <input ref="message" type="text" placeholder="say something..." />
+            <input
+              ref="message"
+              type="text"
+              placeholder="say something..."
+            />
           </div>
         </form>
       </div>

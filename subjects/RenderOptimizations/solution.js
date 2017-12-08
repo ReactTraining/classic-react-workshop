@@ -46,8 +46,14 @@ class ListView extends React.Component {
     const { availableHeight, scrollTop } = this.state
     const scrollBottom = scrollTop + availableHeight
 
-    const startIndex = Math.max(0, Math.floor(scrollTop / rowHeight) - 20)
-    const endIndex = Math.min(numRows, Math.ceil(scrollBottom / rowHeight) + 20)
+    const startIndex = Math.max(
+      0,
+      Math.floor(scrollTop / rowHeight) - 20
+    )
+    const endIndex = Math.min(
+      numRows,
+      Math.ceil(scrollBottom / rowHeight) + 20
+    )
 
     const items = []
 

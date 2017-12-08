@@ -27,7 +27,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { contacts, contactsWithErrors, contactsBeingDeleted } = this.state
+    const {
+      contacts,
+      contactsWithErrors,
+      contactsBeingDeleted
+    } = this.state
 
     return (
       <div>
@@ -41,17 +45,24 @@ class App extends React.Component {
                 opacity: contactsBeingDeleted[contact.id] ? "0.25" : ""
               }}
             >
-              <img src={contact.avatar} height={contactsWithErrors[contact.id] ? "200" : "50"} />{" "}
+              <img
+                src={contact.avatar}
+                height={contactsWithErrors[contact.id] ? "200" : "50"}
+              />{" "}
               {contact.first} {contact.last}{" "}
               {contactsWithErrors[contact.id] ? (
                 <p>{contactsWithErrors[contact.id]}</p>
               ) : (
-                <button onClick={() => this.deleteContact(contact)}>Delete</button>
+                <button onClick={() => this.deleteContact(contact)}>
+                  Delete
+                </button>
               )}
             </li>
           ))}
           <li>
-            <CreateContactForm onCreate={contact => this.createContact(contact)} />
+            <CreateContactForm
+              onCreate={contact => this.createContact(contact)}
+            />
           </li>
         </ul>
       </div>

@@ -21,14 +21,18 @@ const createPage = (markup, data) => `
     <script>window.__DATA__ = ${JSON.stringify(data)}</script>
 
     <script src="${webpackServer}/__build__/shared.js"></script>
-    <script src="${webpackServer}/__build__/ServerRendering-solution.js"></script>
+    <script src="${
+      webpackServer
+    }/__build__/ServerRendering-solution.js"></script>
   </body>
 </html>
 `
 
 const app = http.createServer((req, res) => {
   fetchContacts((error, contacts) => {
-    const markup = ReactDOMServer.renderToString(<App contacts={contacts} />)
+    const markup = ReactDOMServer.renderToString(
+      <App contacts={contacts} />
+    )
     const html = createPage(markup, { contacts })
 
     res.writeHead(200, {

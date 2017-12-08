@@ -84,7 +84,13 @@ class Slider extends React.Component {
   }
 
   render() {
-    const { initialIndex, autoplay, onTogglePlay, duration, ...props } = this.props
+    const {
+      initialIndex,
+      autoplay,
+      onTogglePlay,
+      duration,
+      ...props
+    } = this.props
     return <div {...props} />
   }
 }
@@ -96,7 +102,9 @@ class SliderStage extends React.Component {
   }
 
   componentDidMount() {
-    this.context.registerCount(React.Children.count(this.props.children))
+    this.context.registerCount(
+      React.Children.count(this.props.children)
+    )
   }
 
   render() {
@@ -109,9 +117,12 @@ class SliderStage extends React.Component {
           transitionEnterTimeout={600}
           transitionLeaveTimeout={600}
         >
-          {React.cloneElement(this.props.children[this.context.currentIndex], {
-            key: this.context.currentIndex
-          })}
+          {React.cloneElement(
+            this.props.children[this.context.currentIndex],
+            {
+              key: this.context.currentIndex
+            }
+          )}
         </CSSTransitionGroup>
       </div>
     )
@@ -151,7 +162,9 @@ class SliderPlayPause extends React.Component {
   }
 
   render() {
-    return <button {...this.props} onClick={this.context.toggleAutoPlay} />
+    return (
+      <button {...this.props} onClick={this.context.toggleAutoPlay} />
+    )
   }
 }
 
@@ -183,7 +196,9 @@ class App extends React.Component {
         >
           <SliderControls>
             <SliderPrevious>Previous</SliderPrevious>
-            <SliderPlayPause>{this.state.isPlaying ? "Pause" : "Play"}</SliderPlayPause>
+            <SliderPlayPause>
+              {this.state.isPlaying ? "Pause" : "Play"}
+            </SliderPlayPause>
             <SliderNext>Next</SliderNext>
           </SliderControls>
 
