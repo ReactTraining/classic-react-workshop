@@ -46,9 +46,9 @@ class App extends React.Component {
     return (
       <div>
         <h1>Select/Option</h1>
-        <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
         <h2>Controlled</h2>
+        <pre>{JSON.stringify(this.state, null, 2)}</pre>
         <p>
           <button onClick={this.setToMintChutney}>
             Set to Mint Chutney
