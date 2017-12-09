@@ -1,7 +1,9 @@
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -15,4 +17,9 @@ ol {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+li {
+  white-space: nowrap;
+  overflow: hidden;
 }
