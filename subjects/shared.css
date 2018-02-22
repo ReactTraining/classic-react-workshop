@@ -25,8 +25,8 @@ a:link:hover {
 .index-lectureCell a:visited {
   color: black;
 }
-.index-subjectsTable tr.odd {
-  background: #e3e3e3;
+.index-subjectsTable tr:nth-child(even) {
+  background: #eef;
 }
 .index-subjectsTable td {
   padding: 10px;
