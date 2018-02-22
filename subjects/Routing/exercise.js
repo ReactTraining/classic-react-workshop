@@ -30,13 +30,18 @@ import {
 import Gravatar from "./utils/Gravatar";
 
 const USERS = [
-  { id: 1, name: "Ryan Florence", email: "rpflorence@gmail.com" },
-  { id: 2, name: "Michael Jackson", email: "mjijackson@gmail.com" }
+  {
+    id: 1,
+    name: "Michael Jackson",
+    email: "michael@reacttraining.com"
+  },
+  { id: 2, name: "Bruce Lee", email: "bruce@awesome.com" }
 ];
 
 function getUserByID(id) {
-  for (let i = 0; i < USERS.length; ++i)
+  for (let i = 0; i < USERS.length; ++i) {
     if (USERS[i].id === parseInt(id, 10)) return USERS[i];
+  }
 
   return null;
 }

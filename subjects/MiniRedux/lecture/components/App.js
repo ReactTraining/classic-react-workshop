@@ -6,17 +6,18 @@ class App extends React.Component {
   state = {
     contacts: [
       {
-        id: "ryan",
-        first: "Ryan",
-        last: "Florence",
-        avatar:
-          "http://ryanflorence.com/jsconf-avatars/avatars/ryan.jpg"
-      },
-      {
         id: "mj",
         first: "Michael",
         last: "Jackson",
-        avatar: "https://avatars1.githubusercontent.com/u/92839"
+        avatar:
+          "https://pbs.twimg.com/profile_images/902276500107362304/vju-WV1i_400x400.jpg"
+      },
+      {
+        id: "blee",
+        first: "Bruce",
+        last: "Lee",
+        avatar:
+          "https://pbs.twimg.com/profile_images/534863086276988928/bX3juDCC_400x400.jpeg"
       }
     ]
   };

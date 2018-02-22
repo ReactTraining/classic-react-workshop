@@ -4,8 +4,8 @@
   "description": "Lectures and exercises for React Training workshops",
   "repository": "ReactTraining/react-workshop",
   "homepage": "https://reacttraining.com",
+  "author": "React Training LLC",
   "license": "GPL-3.0",
-  "authors": ["Ryan Florence", "Michael Jackson"],
   "scripts": {
     "start":
       "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects",
