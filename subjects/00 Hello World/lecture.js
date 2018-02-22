@@ -88,8 +88,8 @@ $("#descending").on("click", event => {
 // ...it gets really hard to deal with. After you identify state,
 // and how to change it, you must write code to connect every state
 // to nearly every other state. Every feature requires changes to code
-// in multiple places. Also, it's just too hard to think about for must
-// of us leading to lot of bugs.
+// in multiple places. Also, it's just too hard to think about for most
+// of us, leading to lots of bugs.
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -233,7 +233,7 @@ $("#descending").on("click", event => {
 // - Moved state to models so we can identify what state changes
 //   the app.
 // - Moved creating UI into templates, one step closer to being
-//   declarative
+//   declarative.
 //
 // What's not so awesome
 //
