@@ -27,7 +27,7 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import Gravatar from "./utils/Gravatar";
+import Gravatar from "./components/Gravatar";
 
 const USERS = [
   {

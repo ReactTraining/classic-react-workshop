@@ -2,9 +2,9 @@
 // Exercise:
 //
 // - Render a tab for each country with its name in the tab
-// - Make it so that you can click on a tab and it will appear active
-//   while the others appear inactive
-// - Make it so the panel renders the correct content for the selected tab
+// - When you click on a tab, make it appear to be active while the others
+//   appear inactive
+// - Render the correct content for the selected tab in the panel
 //
 // Got extra time?
 //
