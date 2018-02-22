@@ -10,14 +10,12 @@
     "start":
       "node ./scripts/build.js && webpack-dev-server --inline --content-base subjects",
     "server-exercise":
-      "supervisor -- -r babel-register subjects/ServerRendering/exercise/server.js",
+      "supervisor -- -r babel-register 'subjects/15 Server Rendering/exercise/server.js'",
     "server-solution":
-      "supervisor -- -r babel-register subjects/ServerRendering/solution/server.js",
-    "start-api": "node api.js"
+      "supervisor -- -r babel-register 'subjects/15 Server Rendering/solution/server.js'"
   },
   "dependencies": {
     "angular": "1.5.8",
-    "assert": "1.4.1",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-object-assign": "^6.5.0",
@@ -38,7 +36,6 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "firebase": "^2.4.2",
-    "flux": "^2.0.1",
     "form-serialize": "0.7.1",
     "immstruct": "^2.0.0",
     "immutable": "^3.7.3",
@@ -47,10 +44,8 @@
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.0",
     "jsonp": "0.2.0",
-    "key-mirror": "^1.0.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "match-sorter": "^1.5.0",
     "md5": "2.1.0",
     "mkdirp": "^0.5.0",
     "mocha": "3.0.2",
@@ -64,7 +59,6 @@
     "react-addons-transition-group": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-motion": "^0.4.2",
-    "react-point": "^2.1.0",
     "react-redux": "^5.0.2",
     "react-router-dom": "^4.0.0",
     "react-tween-state": "0.1.5",

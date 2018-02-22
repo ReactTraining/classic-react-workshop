@@ -1,37 +1,45 @@
 body {
-  background: #eee;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 200;
-}
-button:focus {
-  outline: 2px solid hsl(200, 50%, 50%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background: white;
 }
 a:link,
 a:visited {
-  color: #00D;
+  color: #00d;
   text-decoration: none;
 }
 a:link:hover {
   text-decoration: underline;
 }
 
-#index .lecture-link {
-  font-size: 1.5em;
+.index-subjectsTable {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
-#index .lecture-link a:link,
-#index .lecture-link a:visited {
+.index-subjectsTable a:link,
+.index-subjectsTable a:visited {
+  color: blue;
+}
+.index-lectureCell a:link,
+.index-lectureCell a:visited {
   color: black;
 }
-#index table {
-  margin: 5em auto;
-}
-#index table tr.odd {
+.index-subjectsTable tr.odd {
   background: #e3e3e3;
 }
-#index table td {
+.index-subjectsTable td {
   padding: 10px;
+  text-align: left;
 }
-#index table td.exercise-link {
+.index-subjectNumber {
+  font-size: 1.5em;
+  color: #aaa;
+}
+.index-lectureCell {
+  font-size: 1.5em;
+}
+.index-exerciseCell {
   padding-left: 20px;
 }
 
@@ -56,10 +64,10 @@ a:link:hover {
 .ContentToggle__Summary:before {
   display: inline-block;
   width: 1em;
-  content: '▸';
+  content: "▸";
 }
 .ContentToggle__Summary--is-open:before {
-  content: '▾';
+  content: "▾";
 }
 .ContentToggle__Details {
   padding: 0 10px;
