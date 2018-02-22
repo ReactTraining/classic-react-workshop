@@ -1,8 +1,8 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import CSSTransitionGroup from "react-addons-css-transition-group"
-import "./styles.css"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import CSSTransitionGroup from "react-addons-css-transition-group";
+import "./styles.css";
 
 class Slider extends React.Component {
   static propTypes = {
@@ -10,59 +10,59 @@ class Slider extends React.Component {
     autoplay: PropTypes.bool,
     onTogglePlay: PropTypes.func,
     duration: PropTypes.number
-  }
+  };
 
   static defaultProps = {
     autoplay: false,
     duration: 5000,
     initialIndex: 0
-  }
+  };
 
   render() {
-    return <div {...this.props} />
+    return <div {...this.props} />;
   }
 }
 
 class SliderStage extends React.Component {
   render() {
-    return <div {...this.props} />
+    return <div {...this.props} />;
   }
 }
 
 class Slide extends React.Component {
   render() {
-    return <img {...this.props} />
+    return <img {...this.props} />;
   }
 }
 
 class SliderControls extends React.Component {
   render() {
-    return <div {...this.props} />
+    return <div {...this.props} />;
   }
 }
 
 class SliderPrevious extends React.Component {
   render() {
-    return <button {...this.props} />
+    return <button {...this.props} />;
   }
 }
 
 class SliderPlayPause extends React.Component {
   render() {
-    return <button {...this.props} />
+    return <button {...this.props} />;
   }
 }
 
 class SliderNext extends React.Component {
   render() {
-    return <button {...this.props} />
+    return <button {...this.props} />;
   }
 }
 
 class App extends React.Component {
   state = {
     isPlaying: true
-  }
+  };
 
   render() {
     return (
@@ -90,8 +90,8 @@ class App extends React.Component {
           </SliderStage>
         </Slider>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

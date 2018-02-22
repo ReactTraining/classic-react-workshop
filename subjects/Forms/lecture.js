@@ -1,6 +1,6 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import serializeForm from "form-serialize"
+import React from "react";
+import ReactDOM from "react-dom";
+import serializeForm from "form-serialize";
 
 ////////////////////////////////////////////////////////////////////////////////
 // Here's a simple <form>:
@@ -14,11 +14,11 @@ class Forms extends React.Component {
           <input type="text" />
         </form>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<Forms />, document.getElementById("app"))
+ReactDOM.render(<Forms />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Give the <input> a default value.

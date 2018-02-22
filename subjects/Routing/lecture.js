@@ -1,17 +1,17 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 const About = () => {
-  return <h2>About</h2>
-}
+  return <h2>About</h2>;
+};
 
 const Inbox = () => {
-  return <h2>Inbox</h2>
-}
+  return <h2>Inbox</h2>;
+};
 
 const Home = () => {
-  return <h2>Home</h2>
-}
+  return <h2>Home</h2>;
+};
 
 class App extends React.Component {
   render() {
@@ -19,11 +19,11 @@ class App extends React.Component {
       <div>
         <h1>Welcome to the app!</h1>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Setup a hashchange listener so we know when the URL changes. When it does,

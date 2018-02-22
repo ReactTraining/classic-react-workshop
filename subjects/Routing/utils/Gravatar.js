@@ -1,18 +1,18 @@
-import React from "react"
-import PropTypes from "prop-types"
-import md5 from "md5"
+import React from "react";
+import PropTypes from "prop-types";
+import md5 from "md5";
 
-const GravatarURL = "http://gravatar.com/avatar"
+const GravatarURL = "http://gravatar.com/avatar";
 
 class Gravatar extends React.Component {
   static propTypes = {
     email: PropTypes.string.isRequired,
     size: PropTypes.number.isRequired
-  }
+  };
 
   static defaultProps = {
     size: 80
-  }
+  };
 
   render() {
     return (
@@ -25,8 +25,8 @@ class Gravatar extends React.Component {
           this.props.size
         }
       />
-    )
+    );
   }
 }
 
-export default Gravatar
+export default Gravatar;

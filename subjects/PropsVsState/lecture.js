@@ -1,22 +1,22 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 class ContentToggle extends React.Component {
   state = {
     isOpen: false
-  }
+  };
 
   handleClick() {
     this.setState({ isOpen: !this.state.isOpen }, () => {
-      if (this.props.onToggle) this.props.onToggle(this.state.isOpen)
-    })
+      if (this.props.onToggle) this.props.onToggle(this.state.isOpen);
+    });
   }
 
   render() {
-    let summaryClassName = "ContentToggle__Summary"
+    let summaryClassName = "ContentToggle__Summary";
 
     if (this.state.isOpen)
-      summaryClassName += " ContentToggle__Summary--is-open"
+      summaryClassName += " ContentToggle__Summary--is-open";
 
     return (
       <div {...this.props} className="ContentToggle">
@@ -30,7 +30,7 @@ class ContentToggle extends React.Component {
           {this.state.isOpen && this.props.children}
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -41,7 +41,7 @@ class App extends React.Component {
       { id: 1, name: "Pollo", src: "tacos/pollo.png" },
       { id: 2, name: "Asada", src: "tacos/asada.png" }
     ]
-  }
+  };
 
   render() {
     return (
@@ -64,11 +64,11 @@ class App extends React.Component {
           ))}
         </div>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////
 // But what about when we add this feature?

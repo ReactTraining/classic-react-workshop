@@ -1,29 +1,29 @@
-import React from "react"
-import CreateContactForm from "./CreateContactForm"
-import { addContact, loadContacts, deleteContact } from "../actions"
-import store from "../store"
+import React from "react";
+import CreateContactForm from "./CreateContactForm";
+import { addContact, loadContacts, deleteContact } from "../actions";
+import store from "../store";
 
 class App extends React.Component {
   state = {
     contacts: [],
     contactsWithErrors: {},
     contactsBeingDeleted: {}
-  }
+  };
 
   componentDidMount() {
     store.subscribe(() => {
-      this.setState(store.getState())
-    })
+      this.setState(store.getState());
+    });
 
-    loadContacts(store.dispatch)
+    loadContacts(store.dispatch);
   }
 
   createContact(contact) {
-    store.dispatch(addContact(contact))
+    store.dispatch(addContact(contact));
   }
 
   deleteContact(contact) {
-    deleteContact(store.dispatch, contact.id)
+    deleteContact(store.dispatch, contact.id);
   }
 
   render() {
@@ -31,7 +31,7 @@ class App extends React.Component {
       contacts,
       contactsWithErrors,
       contactsBeingDeleted
-    } = this.state
+    } = this.state;
 
     return (
       <div>
@@ -66,8 +66,8 @@ class App extends React.Component {
           </li>
         </ul>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

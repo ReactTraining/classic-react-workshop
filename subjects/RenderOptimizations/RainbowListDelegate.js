@@ -1,10 +1,10 @@
-import React from "react"
-import convertNumberToEnglish from "./utils/convertNumberToEnglish"
+import React from "react";
+import convertNumberToEnglish from "./utils/convertNumberToEnglish";
 
 const computeHSLRainbowColor = (n, period) =>
-  `hsl(${Math.round(n / period * 360)},100%,50%)`
+  `hsl(${Math.round(n / period * 360)},100%,50%)`;
 
-export const rowHeight = 30
+export const rowHeight = 30;
 
 export const renderRowAtIndex = index => (
   <div
@@ -17,4 +17,4 @@ export const renderRowAtIndex = index => (
   >
     {convertNumberToEnglish(index + 1)}
   </div>
-)
+);

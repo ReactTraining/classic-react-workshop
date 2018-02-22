@@ -23,38 +23,38 @@
 //   - Arrow right, arrow down should select the next option
 //   - Arrow left, arrow up should select the previous option
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 class RadioGroup extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.string
-  }
+  };
 
   render() {
-    return <div>{this.props.children}</div>
+    return <div>{this.props.children}</div>;
   }
 }
 
 class RadioOption extends React.Component {
   static propTypes = {
     value: PropTypes.string
-  }
+  };
 
   render() {
     return (
       <div>
         <RadioIcon isSelected={false} /> {this.props.children}
       </div>
-    )
+    );
   }
 }
 
 class RadioIcon extends React.Component {
   static propTypes = {
     isSelected: PropTypes.bool.isRequired
-  }
+  };
 
   render() {
     return (
@@ -70,7 +70,7 @@ class RadioIcon extends React.Component {
           background: this.props.isSelected ? "rgba(0, 0, 0, 0.05)" : ""
         }}
       />
-    )
+    );
   }
 }
 
@@ -87,8 +87,8 @@ class App extends React.Component {
           <RadioOption value="aux">Aux</RadioOption>
         </RadioGroup>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

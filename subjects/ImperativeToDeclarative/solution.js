@@ -4,29 +4,29 @@
 // This Modal, even though its a React component, has an imperative API to
 // open and close it. Can you convert it to a declarative API?
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import $ from "jquery"
-import "bootstrap-webpack"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import $ from "jquery";
+import "bootstrap-webpack";
 
 class Modal extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node,
     isOpen: PropTypes.bool.isRequired
-  }
+  };
 
   componentDidMount() {
-    this.doImperativeWork()
+    this.doImperativeWork();
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isOpen !== this.props.isOpen) this.doImperativeWork()
+    if (prevProps.isOpen !== this.props.isOpen) this.doImperativeWork();
   }
 
   doImperativeWork() {
-    $(this.node).modal(this.props.isOpen ? "show" : "hide")
+    $(this.node).modal(this.props.isOpen ? "show" : "hide");
   }
 
   render() {
@@ -41,22 +41,22 @@ class Modal extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 class App extends React.Component {
   state = {
     isModalOpen: false
-  }
+  };
 
   openModal = () => {
-    this.setState({ isModalOpen: true })
-  }
+    this.setState({ isModalOpen: true });
+  };
 
   closeModal = () => {
-    this.setState({ isModalOpen: false })
-  }
+    this.setState({ isModalOpen: false });
+  };
 
   render() {
     return (
@@ -90,8 +90,8 @@ class App extends React.Component {
           </button>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

@@ -1,21 +1,21 @@
-import { createStore } from "redux"
+import { createStore } from "redux";
 
 const store = createStore((state = 0, action) => {
   if (action.type === "INCREMENT") {
-    return state + (action.by || 1)
+    return state + (action.by || 1);
   } else {
-    return state
+    return state;
   }
-})
+});
 
 store.subscribe(() => {
-  console.log(store.getState())
-})
+  console.log(store.getState());
+});
 
-store.dispatch({ type: "INCREMENT" })
-store.dispatch({ type: "INCREMENT", by: 5 })
-store.dispatch({ type: "INCREMENT" })
-store.dispatch({ type: "INCREMENT" })
+store.dispatch({ type: "INCREMENT" });
+store.dispatch({ type: "INCREMENT", by: 5 });
+store.dispatch({ type: "INCREMENT" });
+store.dispatch({ type: "INCREMENT" });
 
 /*
 - Flux is an architecture, not a framework

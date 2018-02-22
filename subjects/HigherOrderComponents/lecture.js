@@ -1,28 +1,28 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import createMediaListener from "./utils/createMediaListener"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import createMediaListener from "./utils/createMediaListener";
 
 const media = createMediaListener({
   big: "(min-width : 1000px)",
   tiny: "(max-width: 400px)"
-})
+});
 
 class App extends React.Component {
   state = {
     media: media.getState()
-  }
+  };
 
   componentDidMount() {
-    media.listen(media => this.setState({ media }))
+    media.listen(media => this.setState({ media }));
   }
 
   componentWillUnmount() {
-    media.dispose()
+    media.dispose();
   }
 
   render() {
-    const { media } = this.state
+    const { media } = this.state;
 
     return media.big ? (
       <h1>Hey, this is a big screen</h1>
@@ -30,11 +30,11 @@ class App extends React.Component {
       <h6>tiny tiny tiny</h6>
     ) : (
       <h3>Somewhere in between</h3>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // We can move all of that code into a higher-order component. A higher-order

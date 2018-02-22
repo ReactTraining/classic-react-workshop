@@ -11,10 +11,10 @@
 // - Make <Tabs> generic so that it doesn't know anything about
 //   country data (Hint: good propTypes help)
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
-const styles = {}
+const styles = {};
 
 styles.tab = {
   display: "inline-block",
@@ -23,33 +23,33 @@ styles.tab = {
   borderBottom: "4px solid",
   borderBottomColor: "#ccc",
   cursor: "pointer"
-}
+};
 
 styles.activeTab = {
   ...styles.tab,
   borderBottomColor: "#000"
-}
+};
 
 styles.panel = {
   padding: 10
-}
+};
 
 class Tabs extends React.Component {
   state = {
     activeTabIndex: 0
-  }
+  };
 
   selectTabIndex(activeTabIndex) {
-    this.setState({ activeTabIndex })
+    this.setState({ activeTabIndex });
   }
 
   render() {
-    const { data } = this.props
-    const { activeTabIndex } = this.state
+    const { data } = this.props;
+    const { activeTabIndex } = this.state;
 
     const tabs = data.map((country, index) => {
-      const isActive = index === activeTabIndex
-      const style = isActive ? styles.activeTab : styles.tab
+      const isActive = index === activeTabIndex;
+      const style = isActive ? styles.activeTab : styles.tab;
 
       return (
         <div
@@ -60,11 +60,11 @@ class Tabs extends React.Component {
         >
           {country.name}
         </div>
-      )
-    })
+      );
+    });
 
-    const activeCountry = data[activeTabIndex]
-    const content = activeCountry && activeCountry.description
+    const activeCountry = data[activeTabIndex];
+    const content = activeCountry && activeCountry.description;
 
     return (
       <div className="Tabs">
@@ -73,7 +73,7 @@ class Tabs extends React.Component {
           {content}
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -84,7 +84,7 @@ class App extends React.Component {
         <h1>Countries</h1>
         <Tabs data={this.props.countries} />
       </div>
-    )
+    );
   }
 }
 
@@ -100,12 +100,12 @@ const DATA = [
     description: "Sunshine, beaches, and Carnival"
   },
   { id: 3, name: "Russia", description: "World Cup 2018!" }
-]
+];
 
 ReactDOM.render(
   <App countries={DATA} />,
   document.getElementById("app"),
   function() {
-    require("./tests").run(this)
+    require("./tests").run(this);
   }
-)
+);

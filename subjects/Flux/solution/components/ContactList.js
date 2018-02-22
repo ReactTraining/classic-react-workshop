@@ -1,44 +1,44 @@
-import React from "react"
-import ContactStore from "../stores/ContactStore"
-import ViewActions from "../actions/ViewActionCreators"
+import React from "react";
+import ContactStore from "../stores/ContactStore";
+import ViewActions from "../actions/ViewActionCreators";
 
 const ContactList = React.createClass({
   getDefaultProps() {
     return {
       ContactStore,
       ViewActions
-    }
+    };
   },
 
   getInitialState() {
-    return this.props.ContactStore.getState()
+    return this.props.ContactStore.getState();
   },
 
   handleChange() {
-    this.setState(this.props.ContactStore.getState())
+    this.setState(this.props.ContactStore.getState());
   },
 
   componentDidMount() {
-    this.props.ContactStore.addChangeListener(this.handleChange)
-    this.props.ViewActions.loadContacts()
+    this.props.ContactStore.addChangeListener(this.handleChange);
+    this.props.ViewActions.loadContacts();
   },
 
   componentWillUnmount() {
-    this.props.ContactStore.removeChangeListener(this.handleChange)
+    this.props.ContactStore.removeChangeListener(this.handleChange);
   },
 
   deleteContact(contact) {
-    this.props.ViewActions.deleteContact(contact)
+    this.props.ViewActions.deleteContact(contact);
   },
 
   render() {
-    const { contacts, deletingContacts, errors, loaded } = this.state
+    const { contacts, deletingContacts, errors, loaded } = this.state;
 
-    if (!loaded) return <div>Loading...</div>
+    if (!loaded) return <div>Loading...</div>;
 
     const items = contacts.map(contact => {
-      const error = errors[contact.id]
-      const isDeleting = deletingContacts.indexOf(contact) !== -1
+      const error = errors[contact.id];
+      const isDeleting = deletingContacts.indexOf(contact) !== -1;
 
       return (
         <li
@@ -58,15 +58,15 @@ const ContactList = React.createClass({
             </button>
           )}
         </li>
-      )
-    })
+      );
+    });
 
     return (
       <div>
         <ul>{items}</ul>
       </div>
-    )
+    );
   }
-})
+});
 
-export default ContactList
+export default ContactList;

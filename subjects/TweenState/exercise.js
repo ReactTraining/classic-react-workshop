@@ -5,15 +5,15 @@
 // - Experiment with different types of easing (hint: use easingTypes at
 //   https://github.com/chenglou/tween-functions/blob/master/index.js)
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import {
   easingTypes,
   Mixin as TweenStateMixin
-} from "react-tween-state"
+} from "react-tween-state";
 
-require("./styles")
+require("./styles");
 
 const ToggleSwitch = React.createClass({
   propTypes: {
@@ -23,37 +23,37 @@ const ToggleSwitch = React.createClass({
   getDefaultProps() {
     return {
       animationDuration: 350
-    }
+    };
   },
 
   getInitialState() {
     return {
       knobLeft: 0
-    }
+    };
   },
 
   toggle() {
     this.setState({
       knobLeft: this.state.knobLeft === 0 ? 400 : 0
-    })
+    });
   },
 
   handleClick() {
-    this.toggle()
+    this.toggle();
   },
 
   render() {
     const knobStyle = {
       WebkitTransform: `translate3d(${this.state.knobLeft}px,0,0)`,
       transform: `translate3d(${this.state.knobLeft}px,0,0)`
-    }
+    };
 
     return (
       <div className="toggle-switch" onClick={this.handleClick}>
         <div className="toggle-switch-knob" style={knobStyle} />
       </div>
-    )
+    );
   }
-})
+});
 
-ReactDOM.render(<ToggleSwitch />, document.getElementById("app"))
+ReactDOM.render(<ToggleSwitch />, document.getElementById("app"));

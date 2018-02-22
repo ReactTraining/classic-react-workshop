@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 
 class App extends React.Component {
   static propTypes = {
     contacts: React.PropTypes.array
-  }
+  };
 
   render() {
-    const { contacts } = this.props
+    const { contacts } = this.props;
 
     return (
       <div>
@@ -23,8 +23,8 @@ class App extends React.Component {
           <p>Loading...</p>
         )}
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

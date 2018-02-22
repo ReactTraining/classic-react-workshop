@@ -1,15 +1,15 @@
-const fs = require("fs")
-const path = require("path")
-const webpack = require("webpack")
+const fs = require("fs");
+const path = require("path");
+const webpack = require("webpack");
 
 function isDirectory(dir) {
-  return fs.lstatSync(dir).isDirectory()
+  return fs.lstatSync(dir).isDirectory();
 }
 
-const SubjectsDir = path.join(__dirname, "subjects")
+const SubjectsDir = path.join(__dirname, "subjects");
 const SubjectDirs = fs.readdirSync(SubjectsDir).filter(function(dir) {
-  return isDirectory(path.join(SubjectsDir, dir))
-})
+  return isDirectory(path.join(SubjectsDir, dir));
+});
 
 module.exports = {
   devtool: "source-map",
@@ -21,23 +21,23 @@ module.exports = {
           SubjectsDir,
           dir,
           "exercise.js"
-        )
+        );
 
       if (fs.existsSync(path.join(SubjectsDir, dir, "solution.js")))
         entries[dir + "-solution"] = path.join(
           SubjectsDir,
           dir,
           "solution.js"
-        )
+        );
 
       if (fs.existsSync(path.join(SubjectsDir, dir, "lecture.js")))
         entries[dir + "-lecture"] = path.join(
           SubjectsDir,
           dir,
           "lecture.js"
-        )
+        );
 
-      return entries
+      return entries;
     },
     {
       shared: ["react", "react-dom"]
@@ -98,4 +98,4 @@ module.exports = {
       chunkModules: false
     }
   }
-}
+};

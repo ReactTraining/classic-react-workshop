@@ -12,9 +12,9 @@
 // - Hint: you'll need an `updateThePage` function that calls `render`,
 //   and then you'll need to call it in the event handlers of the form controls
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import sortBy from "sort-by"
+import React from "react";
+import ReactDOM from "react-dom";
+import sortBy from "sort-by";
 
 const DATA = {
   title: "Menu",
@@ -26,12 +26,12 @@ const DATA = {
     { id: 5, name: "fish and chips", type: "english" },
     { id: 6, name: "black pudding", type: "english" }
   ]
-}
+};
 
 function Menu() {
-  return <div>Open the console, you have failing tests.</div>
+  return <div>Open the console, you have failing tests.</div>;
 }
 
 ReactDOM.render(<Menu />, document.getElementById("app"), () => {
-  require("./tests").run()
-})
+  require("./tests").run();
+});

@@ -1,20 +1,20 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import * as styles from "./styles"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import * as styles from "./styles";
 
 class Tabs extends React.Component {
   state = {
     activeIndex: 0
-  }
+  };
 
   selectTabIndex(activeIndex) {
-    this.setState({ activeIndex })
+    this.setState({ activeIndex });
   }
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
-      const isActive = this.state.activeIndex === index
+      const isActive = this.state.activeIndex === index;
       return (
         <div
           key={tab.label}
@@ -23,13 +23,13 @@ class Tabs extends React.Component {
         >
           {tab.label}
         </div>
-      )
-    })
+      );
+    });
   }
 
   renderPanel() {
-    const tab = this.props.data[this.state.activeIndex]
-    return <div>{tab.description}</div>
+    const tab = this.props.data[this.state.activeIndex];
+    return <div>{tab.description}</div>;
   }
 
   render() {
@@ -38,7 +38,7 @@ class Tabs extends React.Component {
         <div style={styles.tabs}>{this.renderTabs()}</div>
         <div style={styles.tabPanels}>{this.renderPanel()}</div>
       </div>
-    )
+    );
   }
 }
 
@@ -57,17 +57,17 @@ class App extends React.Component {
         label: "Coconut Korma",
         description: <p>Might be your best option</p>
       }
-    ]
+    ];
 
     return (
       <div>
         <Tabs data={tabData} />
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // What if I wanted tabs on the bottom?

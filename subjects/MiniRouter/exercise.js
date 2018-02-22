@@ -22,4 +22,4 @@
 2. use `history.push(...)` with the `to` prop
 
 */
-import "./exercise/index"
+import "./exercise/index";

@@ -1,12 +1,12 @@
-import http from "http"
-import React from "react"
-import ReactDOMServer from "react-dom/server"
+import http from "http";
+import React from "react";
+import ReactDOMServer from "react-dom/server";
 
-import fetchContacts from "./fetchContacts"
-import App from "./App"
+import fetchContacts from "./fetchContacts";
+import App from "./App";
 
-const webpackServer = "http://localhost:8080"
-const port = 8090
+const webpackServer = "http://localhost:8080";
+const port = 8090;
 
 const createPage = (markup, data) => `
 <!doctype html>
@@ -21,29 +21,27 @@ const createPage = (markup, data) => `
     <script>window.__DATA__ = ${JSON.stringify(data)}</script>
 
     <script src="${webpackServer}/__build__/shared.js"></script>
-    <script src="${
-      webpackServer
-    }/__build__/ServerRendering-solution.js"></script>
+    <script src="${webpackServer}/__build__/ServerRendering-solution.js"></script>
   </body>
 </html>
-`
+`;
 
 const app = http.createServer((req, res) => {
   fetchContacts((error, contacts) => {
     const markup = ReactDOMServer.renderToString(
       <App contacts={contacts} />
-    )
-    const html = createPage(markup, { contacts })
+    );
+    const html = createPage(markup, { contacts });
 
     res.writeHead(200, {
       "Content-Type": "text/html",
       "Content-Length": html.length
-    })
+    });
 
-    res.end(html)
-  })
-})
+    res.end(html);
+  });
+});
 
 app.listen(port, () => {
-  console.log("\nOpen http://localhost:%s", port)
-})
+  console.log("\nOpen http://localhost:%s", port);
+});

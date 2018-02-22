@@ -4,24 +4,24 @@
 // This Modal, even though its a React component, has an imperative API to
 // open and close it. Can you convert it to a declarative API?
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import $ from "jquery"
-import "bootstrap-webpack"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import $ from "jquery";
+import "bootstrap-webpack";
 
 class Modal extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node
-  }
+  };
 
   open() {
-    $(this.node).modal("show")
+    $(this.node).modal("show");
   }
 
   close() {
-    $(this.node).modal("hide")
+    $(this.node).modal("hide");
   }
 
   render() {
@@ -36,18 +36,18 @@ class Modal extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 class App extends React.Component {
   openModal = () => {
-    this.modal.open()
-  }
+    this.modal.open();
+  };
 
   closeModal = () => {
-    this.modal.close()
-  }
+    this.modal.close();
+  };
 
   render() {
     return (
@@ -80,8 +80,8 @@ class App extends React.Component {
           </button>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

@@ -15,29 +15,31 @@
 // Make a <StatefulTabs> component that manages some state that is passed as
 // props down to <Tabs> (since it should now be stateless).
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import * as styles from "./styles"
-import data from "./data"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import * as styles from "./styles";
+import data from "./data";
 
 class Tabs extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired
-  }
+  };
 
   state = {
     activeIndex: 0
-  }
+  };
 
   selectTab(index) {
-    this.setState({ activeIndex: index })
+    this.setState({ activeIndex: index });
   }
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
       const style =
-        this.state.activeIndex === index ? styles.activeTab : styles.tab
+        this.state.activeIndex === index
+          ? styles.activeTab
+          : styles.tab;
 
       return (
         <div
@@ -48,18 +50,18 @@ class Tabs extends React.Component {
         >
           {tab.name}
         </div>
-      )
-    })
+      );
+    });
   }
 
   renderPanel() {
-    const tab = this.props.data[this.state.activeIndex]
+    const tab = this.props.data[this.state.activeIndex];
 
     return (
       <div>
         <p>{tab.description}</p>
       </div>
-    )
+    );
   }
 
   render() {
@@ -68,7 +70,7 @@ class Tabs extends React.Component {
         <div style={styles.tabs}>{this.renderTabs()}</div>
         <div style={styles.tabPanels}>{this.renderPanel()}</div>
       </div>
-    )
+    );
   }
 }
 
@@ -79,7 +81,7 @@ class App extends React.Component {
         <h1>Props v. State</h1>
         <Tabs ref="tabs" data={this.props.tabs} />
       </div>
-    )
+    );
   }
 }
 
@@ -87,6 +89,6 @@ ReactDOM.render(
   <App tabs={data} />,
   document.getElementById("app"),
   function() {
-    require("./tests").run(this)
+    require("./tests").run(this);
   }
-)
+);

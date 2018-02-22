@@ -18,11 +18,11 @@
 //   needed to render it
 // - Make sure <GeoAddress> supports the user moving positions
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import LoadingDots from "./utils/LoadingDots"
-import getAddressFromCoords from "./utils/getAddressFromCoords"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import LoadingDots from "./utils/LoadingDots";
+import getAddressFromCoords from "./utils/getAddressFromCoords";
 
 class App extends React.Component {
   state = {
@@ -31,7 +31,7 @@ class App extends React.Component {
       longitude: null
     },
     error: null
-  }
+  };
 
   componentDidMount() {
     this.geoId = navigator.geolocation.watchPosition(
@@ -41,16 +41,16 @@ class App extends React.Component {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
           }
-        })
+        });
       },
       error => {
-        this.setState({ error })
+        this.setState({ error });
       }
-    )
+    );
   }
 
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.geoId)
+    navigator.geolocation.clearWatch(this.geoId);
   }
 
   render() {
@@ -68,8 +68,8 @@ class App extends React.Component {
           </dl>
         )}
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

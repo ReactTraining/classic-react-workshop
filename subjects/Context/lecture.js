@@ -1,7 +1,7 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import * as styles from "./styles"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import * as styles from "./styles";
 
 ////////////////////////////////////////////////////////////////////////////////
 // Sometimes you don't want to specify how deep in the view tree the child
@@ -21,11 +21,11 @@ class TabList extends React.Component {
         return React.cloneElement(child, {
           isActive: index === this.props.activeIndex,
           onClick: () => this.props.onActivate(index)
-        })
+        });
       }
-    )
+    );
 
-    return <div style={styles.tabs}>{children}</div>
+    return <div style={styles.tabs}>{children}</div>;
   }
 }
 
@@ -42,7 +42,7 @@ class Tab extends React.Component {
       >
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 
@@ -52,20 +52,20 @@ class TabPanels extends React.Component {
       <div style={styles.tabPanels}>
         {this.props.children[this.props.activeIndex]}
       </div>
-    )
+    );
   }
 }
 
 class TabPanel extends React.Component {
   render() {
-    return <div>{this.props.children}</div>
+    return <div>{this.props.children}</div>;
   }
 }
 
 class Tabs extends React.Component {
   state = {
     activeIndex: 0
-  }
+  };
 
   render() {
     const children = React.Children.map(
@@ -74,19 +74,19 @@ class Tabs extends React.Component {
         if (child.type === TabPanels) {
           return React.cloneElement(child, {
             activeIndex: this.state.activeIndex
-          })
+          });
         } else if (child.type === TabList) {
           return React.cloneElement(child, {
             activeIndex: this.state.activeIndex,
             onActivate: index => this.setState({ activeIndex: index })
-          })
+          });
         } else {
-          return child
+          return child;
         }
       }
-    )
+    );
 
-    return <div>{children}</div>
+    return <div>{children}</div>;
   }
 }
 
@@ -113,11 +113,11 @@ class App extends React.Component {
           </TabPanels>
         </Tabs>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Wrapping <TabPanels> in a div breaks everything! Instead of using

@@ -1,22 +1,22 @@
-import React from "react"
-import fetchContacts from "./fetchContacts"
+import React from "react";
+import fetchContacts from "./fetchContacts";
 
 class App extends React.Component {
   // TODO: Move this state to a prop. That will make it
   // possible to render on the server.
   state = {
     contacts: []
-  }
+  };
 
   componentDidMount() {
     // TODO: Move this call into the request handler on the server.
     fetchContacts((error, contacts) => {
-      this.setState({ contacts })
-    })
+      this.setState({ contacts });
+    });
   }
 
   render() {
-    const { contacts } = this.state
+    const { contacts } = this.state;
 
     return (
       <div>
@@ -33,8 +33,8 @@ class App extends React.Component {
           <p>Loading...</p>
         )}
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

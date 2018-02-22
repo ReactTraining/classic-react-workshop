@@ -15,29 +15,29 @@
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 class Form extends React.Component {
   static childContextTypes = {
     form: PropTypes.shape({
       submit: PropTypes.func.isRequired
     }).isRequired
-  }
+  };
 
   getChildContext() {
     return {
       form: {
         submit: () => {
-          if (this.props.onSubmit) this.props.onSubmit()
+          if (this.props.onSubmit) this.props.onSubmit();
         }
       }
-    }
+    };
   }
 
   render() {
-    return <div>{this.props.children}</div>
+    return <div>{this.props.children}</div>;
   }
 }
 
@@ -46,14 +46,14 @@ class SubmitButton extends React.Component {
     form: PropTypes.shape({
       submit: PropTypes.func.isRequired
     }).isRequired
-  }
+  };
 
   render() {
     return (
       <button onClick={this.context.form.submit}>
         {this.props.children}
       </button>
-    )
+    );
   }
 }
 
@@ -62,11 +62,11 @@ class TextInput extends React.Component {
     form: PropTypes.shape({
       submit: PropTypes.func.isRequired
     }).isRequired
-  }
+  };
 
   handleKeyDown = event => {
-    if (event.key === "Enter") this.context.form.submit()
-  }
+    if (event.key === "Enter") this.context.form.submit();
+  };
 
   render() {
     return (
@@ -76,14 +76,14 @@ class TextInput extends React.Component {
         placeholder={this.props.placeholder}
         onKeyDown={this.handleKeyDown}
       />
-    )
+    );
   }
 }
 
 class App extends React.Component {
   handleSubmit = () => {
-    alert("YOU WIN!")
-  }
+    alert("YOU WIN!");
+  };
 
   render() {
     return (
@@ -102,8 +102,8 @@ class App extends React.Component {
           </p>
         </Form>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

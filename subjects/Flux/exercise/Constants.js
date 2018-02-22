@@ -1,4 +1,4 @@
-import keyMirror from "key-mirror"
+import keyMirror from "key-mirror";
 
 export default {
   ActionTypes: keyMirror({
@@ -10,4 +10,4 @@ export default {
     SERVER_ACTION: null,
     VIEW_ACTION: null
   })
-}
+};

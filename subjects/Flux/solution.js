@@ -1,6 +1,6 @@
-import React from "react"
-import { render } from "react-dom"
-import ContactList from "./solution/components/ContactList"
+import React from "react";
+import { render } from "react-dom";
+import ContactList from "./solution/components/ContactList";
 
 /*
 The goal of this exercise is to add a button beside each contact in the list
@@ -20,4 +20,4 @@ the following steps:
   the corresponding contact, and fires a change event
 */
 
-render(<ContactList />, document.getElementById("app"))
+render(<ContactList />, document.getElementById("app"));

@@ -1,6 +1,6 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { Router, Route, Link } from "./mini-router"
+import React from "react";
+import ReactDOM from "react-dom";
+import { Router, Route, Link } from "./mini-router";
 
 const App = () => (
   <div>
@@ -29,13 +29,13 @@ const App = () => (
     <Route path="/about" component={About} />
     <Route path="/topics" component={Topics} />
   </div>
-)
+);
 
 const About = () => (
   <div>
     <h2>About</h2>
   </div>
-)
+);
 
 const Topics = ({ match }) => (
   <div>
@@ -46,11 +46,11 @@ const Topics = ({ match }) => (
       <li>Props v. State</li>
     </ul>
   </div>
-)
+);
 
 ReactDOM.render(
   <Router>
     <App />
   </Router>,
   document.getElementById("app")
-)
+);

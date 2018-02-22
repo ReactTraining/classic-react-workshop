@@ -1,29 +1,29 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import immstruct from "immstruct"
-import Immutable from "immutable"
+import React from "react";
+import ReactDOM from "react-dom";
+import immstruct from "immstruct";
+import Immutable from "immutable";
 
 const structure = immstruct.withHistory("app", {
   points: [],
   name: "Drawing Pad"
-})
+});
 
 const DrawingPad = React.createClass({
   getInitialState() {
     return {
       drawing: false
-    }
+    };
   },
 
   maybeDraw(e) {
     if (this.state.drawing)
       this.props.cursor.update("points", points =>
         points.push([e.clientX, e.clientY])
-      )
+      );
   },
 
   render() {
-    const points = this.props.cursor.get("points")
+    const points = this.props.cursor.get("points");
     return (
       <div>
         <div
@@ -57,19 +57,19 @@ const DrawingPad = React.createClass({
           ))}
         </div>
       </div>
-    )
+    );
   }
-})
+});
 
 const App = React.createClass({
   handleSlider(e) {
-    setHistory(parseInt(e.target.value, 10))
+    setHistory(parseInt(e.target.value, 10));
   },
 
   render() {
-    const { struct } = this.props
-    const cursor = struct.cursor()
-    const historyCount = struct.history.count()
+    const { struct } = this.props;
+    const cursor = struct.cursor();
+    const historyCount = struct.history.count();
     return (
       <div>
         <h1>{cursor.get("name")}</h1>
@@ -88,34 +88,34 @@ const App = React.createClass({
         </div>
         <DrawingPad cursor={cursor} />
       </div>
-    )
+    );
   }
-})
+});
 
-structure.on("swap", render)
-render()
+structure.on("swap", render);
+render();
 
 function setHistory(frame) {
-  const count = structure.history.count()
-  const current = structure._currentRevision
+  const count = structure.history.count();
+  const current = structure._currentRevision;
 
-  if (frame > current) redo(frame - current)
-  else if (frame < current) undo(current - frame)
+  if (frame > current) redo(frame - current);
+  else if (frame < current) undo(current - frame);
 }
 
 function undo(amt) {
-  structure.undo(amt)
-  render()
+  structure.undo(amt);
+  render();
 }
 
 function redo(amt) {
-  structure.redo(amt)
-  render()
+  structure.redo(amt);
+  render();
 }
 
 function render() {
   ReactDOM.render(
     <App structure={structure} />,
     document.getElementById("app")
-  )
+  );
 }

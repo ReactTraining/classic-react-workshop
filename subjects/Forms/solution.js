@@ -15,9 +15,9 @@
 // - If the user types something into shipping, then checks the checkbox, then
 //   unchecks the checkbox, ensure the field has the information from
 //   before clicking the checkbox the first time
-import React from "react"
-import ReactDOM from "react-dom"
-import serializeForm from "form-serialize"
+import React from "react";
+import ReactDOM from "react-dom";
+import serializeForm from "form-serialize";
 
 class CheckoutForm extends React.Component {
   state = {
@@ -26,15 +26,15 @@ class CheckoutForm extends React.Component {
     shippingName: "",
     shippingState: "",
     shippingSameAsBilling: false
-  }
+  };
 
   handleSubmit = event => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const values = serializeForm(event.target, { hash: true })
+    const values = serializeForm(event.target, { hash: true });
 
-    console.log(values)
-  }
+    console.log(values);
+  };
 
   render() {
     const {
@@ -43,7 +43,7 @@ class CheckoutForm extends React.Component {
       shippingName,
       shippingState,
       shippingSameAsBilling
-    } = this.state
+    } = this.state;
 
     return (
       <div>
@@ -143,8 +143,8 @@ class CheckoutForm extends React.Component {
           </p>
         </form>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<CheckoutForm />, document.getElementById("app"))
+ReactDOM.render(<CheckoutForm />, document.getElementById("app"));

@@ -1,17 +1,17 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
-let isOpen = false
+let isOpen = false;
 
 function handleClick() {
-  isOpen = !isOpen
-  updateThePage()
+  isOpen = !isOpen;
+  updateThePage();
 }
 
 function ContentToggle() {
-  let summaryClassName = "ContentToggle__Summary"
+  let summaryClassName = "ContentToggle__Summary";
 
-  if (isOpen) summaryClassName += " ContentToggle__Summary--is-open"
+  if (isOpen) summaryClassName += " ContentToggle__Summary--is-open";
 
   return (
     <div className="ContentToggle">
@@ -27,14 +27,14 @@ function ContentToggle() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 function updateThePage() {
-  ReactDOM.render(<ContentToggle />, document.getElementById("app"))
+  ReactDOM.render(<ContentToggle />, document.getElementById("app"));
 }
 
-updateThePage()
+updateThePage();
 
 ////////////////////////////////////////////////////////////////////////////////
 // Let's encapsulate state in an object and call it what it really is. Then, add

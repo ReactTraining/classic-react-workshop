@@ -9,36 +9,36 @@
 //   for the window's "resize" event)
 // - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import * as RainbowListDelegate from "./RainbowListDelegate"
-import "./styles"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import * as RainbowListDelegate from "./RainbowListDelegate";
+import "./styles";
 
 class ListView extends React.Component {
   static propTypes = {
     numRows: PropTypes.number.isRequired,
     rowHeight: PropTypes.number.isRequired,
     renderRowAtIndex: PropTypes.func.isRequired
-  }
+  };
 
   render() {
-    const { numRows, rowHeight, renderRowAtIndex } = this.props
-    const totalHeight = numRows * rowHeight
+    const { numRows, rowHeight, renderRowAtIndex } = this.props;
+    const totalHeight = numRows * rowHeight;
 
-    const items = []
+    const items = [];
 
-    let index = 0
+    let index = 0;
     while (index < numRows) {
-      items.push(<li key={index}>{renderRowAtIndex(index)}</li>)
-      index++
+      items.push(<li key={index}>{renderRowAtIndex(index)}</li>);
+      index++;
     }
 
     return (
       <div style={{ height: "100%", overflowY: "scroll" }}>
         <ol style={{ height: totalHeight }}>{items}</ol>
       </div>
-    )
+    );
   }
 }
 
@@ -49,4 +49,4 @@ ReactDOM.render(
     renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
   />,
   document.getElementById("app")
-)
+);

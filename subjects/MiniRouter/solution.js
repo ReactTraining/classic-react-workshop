@@ -14,4 +14,4 @@
  * 6. exercise: edit contacts
  */
 
-import "./solution/index"
+import "./solution/index";

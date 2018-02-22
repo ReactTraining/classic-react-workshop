@@ -1,28 +1,28 @@
-import React from "react"
-import PropTypes from "prop-types"
-import serializeForm from "form-serialize"
+import React from "react";
+import PropTypes from "prop-types";
+import serializeForm from "form-serialize";
 
 const transparentGif =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 function generateId() {
   return Math.random()
     .toString(36)
-    .substring(7)
+    .substring(7);
 }
 
 class CreateContactForm extends React.Component {
   static propTypes = {
     onCreate: PropTypes.func.isRequired
-  }
+  };
 
   handleSubmit = event => {
-    event.preventDefault()
-    const contact = serializeForm(event.target, { hash: true })
-    contact.id = generateId()
-    this.props.onCreate(contact)
-    event.target.reset()
-  }
+    event.preventDefault();
+    const contact = serializeForm(event.target, { hash: true });
+    contact.id = generateId();
+    this.props.onCreate(contact);
+    event.target.reset();
+  };
 
   render() {
     return (
@@ -53,8 +53,8 @@ class CreateContactForm extends React.Component {
         />
         <button type="submit">Create</button>
       </form>
-    )
+    );
   }
 }
 
-export default CreateContactForm
+export default CreateContactForm;

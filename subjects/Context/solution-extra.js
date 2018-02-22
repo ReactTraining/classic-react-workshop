@@ -15,9 +15,9 @@
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 class Form extends React.Component {
   static childContextTypes = {
@@ -28,16 +28,16 @@ class Form extends React.Component {
       submit: PropTypes.func.isRequired,
       reset: PropTypes.func.isRequired
     })
-  }
+  };
 
-  defaultValues = {}
+  defaultValues = {};
 
   state = {
     values: {}
-  }
+  };
 
   getValues() {
-    return Object.assign({}, this.defaultValues, this.state.values)
+    return Object.assign({}, this.defaultValues, this.state.values);
   }
 
   getChildContext() {
@@ -45,7 +45,7 @@ class Form extends React.Component {
       form: {
         values: this.getValues(),
         addField: (name, defaultValue) => {
-          this.defaultValues[name] = defaultValue
+          this.defaultValues[name] = defaultValue;
         },
         change: (name, value) => {
           this.setState(state => ({
@@ -53,20 +53,21 @@ class Form extends React.Component {
               ...state.values,
               [name]: value
             }
-          }))
+          }));
         },
         submit: () => {
-          if (this.props.onSubmit) this.props.onSubmit(this.getValues())
+          if (this.props.onSubmit)
+            this.props.onSubmit(this.getValues());
         },
         reset: () => {
-          this.setState({ values: {} })
+          this.setState({ values: {} });
         }
       }
-    }
+    };
   }
 
   render() {
-    return <div>{this.props.children}</div>
+    return <div>{this.props.children}</div>;
   }
 }
 
@@ -75,14 +76,14 @@ class SubmitButton extends React.Component {
     form: PropTypes.shape({
       submit: PropTypes.func.isRequired
     })
-  }
+  };
 
   render() {
     return (
       <button onClick={this.context.form.submit}>
         {this.props.children}
       </button>
-    )
+    );
   }
 }
 
@@ -91,21 +92,21 @@ class ResetButton extends React.Component {
     form: PropTypes.shape({
       reset: PropTypes.func.isRequired
     })
-  }
+  };
 
   render() {
     return (
       <button onClick={this.context.form.reset}>
         {this.props.children}
       </button>
-    )
+    );
   }
 }
 
 class TextInput extends React.Component {
   static defaultProps = {
     defaultValue: ""
-  }
+  };
 
   static contextTypes = {
     form: PropTypes.shape({
@@ -114,26 +115,29 @@ class TextInput extends React.Component {
       change: PropTypes.func.isRequired,
       submit: PropTypes.func.isRequired
     })
-  }
+  };
 
   componentWillMount() {
-    this.context.form.addField(this.props.name, this.props.defaultValue)
+    this.context.form.addField(
+      this.props.name,
+      this.props.defaultValue
+    );
   }
 
   handleChange = event => {
-    this.context.form.change(this.props.name, event.target.value)
-  }
+    this.context.form.change(this.props.name, event.target.value);
+  };
 
   handleKeyDown = event => {
-    if (event.key === "Enter") this.context.form.submit()
-  }
+    if (event.key === "Enter") this.context.form.submit();
+  };
 
   render() {
     const value = this.context.form.values.hasOwnProperty(
       this.props.name
     )
       ? this.context.form.values[this.props.name]
-      : this.props.defaultValue
+      : this.props.defaultValue;
 
     return (
       <input
@@ -144,14 +148,14 @@ class TextInput extends React.Component {
         onChange={this.handleChange}
         value={value}
       />
-    )
+    );
   }
 }
 
 class App extends React.Component {
   handleSubmit = values => {
-    console.log(values)
-  }
+    console.log(values);
+  };
 
   render() {
     return (
@@ -179,8 +183,8 @@ class App extends React.Component {
           </p>
         </Form>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

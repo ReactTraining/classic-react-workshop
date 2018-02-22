@@ -15,19 +15,19 @@
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 class Form extends React.Component {
   render() {
-    return <div>{this.props.children}</div>
+    return <div>{this.props.children}</div>;
   }
 }
 
 class SubmitButton extends React.Component {
   render() {
-    return <button>{this.props.children}</button>
+    return <button>{this.props.children}</button>;
   }
 }
 
@@ -39,14 +39,14 @@ class TextInput extends React.Component {
         name={this.props.name}
         placeholder={this.props.placeholder}
       />
-    )
+    );
   }
 }
 
 class App extends React.Component {
   handleSubmit = () => {
-    alert("YOU WIN!")
-  }
+    alert("YOU WIN!");
+  };
 
   render() {
     return (
@@ -65,8 +65,8 @@ class App extends React.Component {
           </p>
         </Form>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

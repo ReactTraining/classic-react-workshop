@@ -23,14 +23,14 @@
 //   - Arrow right, arrow down should select the next option
 //   - Arrow left, arrow up should select the previous option
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 class RadioIcon extends React.Component {
   static propTypes = {
     isSelected: PropTypes.bool.isRequired
-  }
+  };
 
   render() {
     return (
@@ -46,23 +46,23 @@ class RadioIcon extends React.Component {
           background: this.props.isSelected ? "rgba(0, 0, 0, 0.05)" : ""
         }}
       />
-    )
+    );
   }
 }
 
 class RadioGroup extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.string
-  }
+  };
 
   state = {
     value: this.props.defaultValue
-  }
+  };
 
   select(value) {
     this.setState({ value }, () => {
-      this.props.onChange(this.state.value)
-    })
+      this.props.onChange(this.state.value);
+    });
   }
 
   render() {
@@ -71,16 +71,16 @@ class RadioGroup extends React.Component {
         isSelected: child.props.value === this.state.value,
         onClick: () => this.select(child.props.value)
       })
-    )
+    );
 
-    return <div>{children}</div>
+    return <div>{children}</div>;
   }
 }
 
 class RadioOption extends React.Component {
   static propTypes = {
     value: PropTypes.string
-  }
+  };
 
   render() {
     return (
@@ -88,14 +88,14 @@ class RadioOption extends React.Component {
         <RadioIcon isSelected={this.props.isSelected} />{" "}
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 
 class App extends React.Component {
   state = {
     radioValue: "fm"
-  }
+  };
 
   render() {
     return (
@@ -114,8 +114,8 @@ class App extends React.Component {
           <RadioOption value="aux">Aux</RadioOption>
         </RadioGroup>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

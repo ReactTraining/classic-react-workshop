@@ -9,58 +9,58 @@
 //   for the window's "resize" event)
 // - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import * as RainbowListDelegate from "./RainbowListDelegate"
-import "./styles"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import * as RainbowListDelegate from "./RainbowListDelegate";
+import "./styles";
 
 class ListView extends React.Component {
   static propTypes = {
     numRows: PropTypes.number.isRequired,
     rowHeight: PropTypes.number.isRequired,
     renderRowAtIndex: PropTypes.func.isRequired
-  }
+  };
 
   state = {
     availableHeight: 0,
     scrollTop: 0
-  }
+  };
 
   componentDidMount() {
     this.setState({
       availableHeight: this.node.clientHeight
-    })
+    });
   }
 
   handleScroll = event => {
     this.setState({
       scrollTop: event.target.scrollTop
-    })
-  }
+    });
+  };
 
   render() {
-    const { numRows, rowHeight, renderRowAtIndex } = this.props
-    const totalHeight = rowHeight * numRows
+    const { numRows, rowHeight, renderRowAtIndex } = this.props;
+    const totalHeight = rowHeight * numRows;
 
-    const { availableHeight, scrollTop } = this.state
-    const scrollBottom = scrollTop + availableHeight
+    const { availableHeight, scrollTop } = this.state;
+    const scrollBottom = scrollTop + availableHeight;
 
     const startIndex = Math.max(
       0,
       Math.floor(scrollTop / rowHeight) - 20
-    )
+    );
     const endIndex = Math.min(
       numRows,
       Math.ceil(scrollBottom / rowHeight) + 20
-    )
+    );
 
-    const items = []
+    const items = [];
 
-    let index = startIndex
+    let index = startIndex;
     while (index < endIndex) {
-      items.push(<li key={index}>{renderRowAtIndex(index)}</li>)
-      index++
+      items.push(<li key={index}>{renderRowAtIndex(index)}</li>);
+      index++;
     }
 
     return (
@@ -79,7 +79,7 @@ class ListView extends React.Component {
           {items}
         </ol>
       </div>
-    )
+    );
   }
 }
 
@@ -90,4 +90,4 @@ ReactDOM.render(
     renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
   />,
   document.getElementById("app")
-)
+);

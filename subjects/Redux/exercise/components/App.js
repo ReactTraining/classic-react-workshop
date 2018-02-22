@@ -1,23 +1,23 @@
-import React from "react"
-import CreateContactForm from "./CreateContactForm"
-import { addContact, loadContacts } from "../actions"
-import store from "../store"
+import React from "react";
+import CreateContactForm from "./CreateContactForm";
+import { addContact, loadContacts } from "../actions";
+import store from "../store";
 
 class App extends React.Component {
   state = {
     contacts: []
-  }
+  };
 
   componentDidMount() {
-    loadContacts(store.dispatch)
+    loadContacts(store.dispatch);
   }
 
   createContact(contact) {
-    store.dispatch(addContact(contact))
+    store.dispatch(addContact(contact));
   }
 
   render() {
-    const { contacts } = this.state
+    const { contacts } = this.state;
 
     return (
       <div>
@@ -36,8 +36,8 @@ class App extends React.Component {
           </li>
         </ul>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

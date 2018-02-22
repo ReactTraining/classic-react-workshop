@@ -1,5 +1,5 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 ////////////////////////////////////////////////////////////////////////////////
 // React components are really just functions that take attributes

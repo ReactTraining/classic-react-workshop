@@ -5,17 +5,17 @@
 // - render the content of the th's from the field names (hint: use
 //   the field names from the first record)
 // - render each result as a row in <tbody>
-import "purecss/build/pure.css"
-import React from "react"
-import ReactDOM from "react-dom"
-import getJSON from "./utils/getJSON"
+import "purecss/build/pure.css";
+import React from "react";
+import ReactDOM from "react-dom";
+import getJSON from "./utils/getJSON";
 
 function isURL(content) {
-  return /^https?:\/\//.test(content)
+  return /^https?:\/\//.test(content);
 }
 
 function isImageURL(content) {
-  return isURL(content) && /\.(jpe?g|gif|png)$/.test(content)
+  return isURL(content) && /\.(jpe?g|gif|png)$/.test(content);
 }
 
 const JSONTable = React.createClass({
@@ -28,32 +28,32 @@ const JSONTable = React.createClass({
   getDefaultProps() {
     return {
       getKey: item => item.id
-    }
+    };
   },
 
   getInitialState() {
     return {
       data: null
-    }
+    };
   },
 
   componentDidMount() {
     getJSON(this.props.src, (error, payload) => {
       this.setState({
         data: this.props.getData(payload)
-      })
-    })
+      });
+    });
   },
 
   formatContent(content) {
-    if (Array.isArray(content)) return content.map(this.formatContent)
+    if (Array.isArray(content)) return content.map(this.formatContent);
 
     if (isImageURL(content))
       return (
         <p>
           <img key={content} height="64" src={content} />
         </p>
-      )
+      );
 
     if (isURL(content))
       return (
@@ -62,17 +62,17 @@ const JSONTable = React.createClass({
             {content}
           </a>
         </p>
-      )
+      );
 
-    return content
+    return content;
   },
 
   render() {
-    const { data } = this.state
+    const { data } = this.state;
 
-    if (data == null || data.length === 0) return null
+    if (data == null || data.length === 0) return null;
 
-    const fields = Object.keys(data[0])
+    const fields = Object.keys(data[0]);
 
     return (
       <table className="pure-table pure-table-striped">
@@ -89,9 +89,9 @@ const JSONTable = React.createClass({
           ))}
         </tbody>
       </table>
-    )
+    );
   }
-})
+});
 
 const App = React.createClass({
   render() {
@@ -110,8 +110,8 @@ const App = React.createClass({
         />
         */}
       </div>
-    )
+    );
   }
-})
+});
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

@@ -14,4 +14,4 @@
  * 6. exercise: edit contacts
  */
 
-import "./lecture/index"
+import "./lecture/index";

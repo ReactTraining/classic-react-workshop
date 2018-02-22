@@ -1,61 +1,61 @@
-import { EventEmitter } from "events"
-import AppDispatcher from "../AppDispatcher"
-import { ActionTypes } from "../Constants"
+import { EventEmitter } from "events";
+import AppDispatcher from "../AppDispatcher";
+import { ActionTypes } from "../Constants";
 
-const CHANGE_EVENT = "CHANGE"
-const events = new EventEmitter()
+const CHANGE_EVENT = "CHANGE";
+const events = new EventEmitter();
 
 const state = {
   contacts: [],
   deletingContacts: [],
   errors: {},
   loaded: false
-}
+};
 
 function setState(newState) {
-  Object.assign(state, newState)
-  events.emit(CHANGE_EVENT)
-  console.log("ContactStore state changed", state)
+  Object.assign(state, newState);
+  events.emit(CHANGE_EVENT);
+  console.log("ContactStore state changed", state);
 }
 
 function addChangeListener(fn) {
-  events.addListener(CHANGE_EVENT, fn)
+  events.addListener(CHANGE_EVENT, fn);
 }
 
 function removeChangeListener(fn) {
-  events.removeListener(CHANGE_EVENT, fn)
+  events.removeListener(CHANGE_EVENT, fn);
 }
 
 function getState() {
-  return state
+  return state;
 }
 
 AppDispatcher.register(function(payload) {
-  const { action } = payload
+  const { action } = payload;
 
   if (action.type === ActionTypes.CONTACTS_WERE_LOADED) {
     setState({
       loaded: true,
       contacts: action.contacts
-    })
+    });
   }
 
   if (action.type === ActionTypes.DELETE_CONTACT) {
     setState({
       deletingContacts: state.deletingContacts.concat([action.contact])
-    })
+    });
   }
 
   if (action.type === ActionTypes.ERROR_DELETING_CONTACT) {
-    const { errors } = state
-    errors[action.contact.id] = action.error
+    const { errors } = state;
+    errors[action.contact.id] = action.error;
 
     setState({
       deletingContacts: state.deletingContacts.filter(
         c => c.id !== action.contact.id
       ),
       errors
-    })
+    });
   }
 
   if (action.type === ActionTypes.CONTACT_WAS_DELETED) {
@@ -64,8 +64,8 @@ AppDispatcher.register(function(payload) {
       deletingContacts: state.deletingContacts.filter(
         c => c.id !== action.contact.id
       )
-    })
+    });
   }
-})
+});
 
-export default { getState, removeChangeListener, addChangeListener }
+export default { getState, removeChangeListener, addChangeListener };

@@ -18,27 +18,27 @@
 // - Add a <Redirect> from "/users/:userID" to "/profile/:userID", then type in
 //   the url "users/1" into the url and hit enter
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 import {
   HashRouter as Router,
   Switch,
   Route,
   Link,
   Redirect
-} from "react-router-dom"
-import Gravatar from "./utils/Gravatar"
+} from "react-router-dom";
+import Gravatar from "./utils/Gravatar";
 
 const USERS = [
   { id: 1, name: "Ryan Florence", email: "rpflorence@gmail.com" },
   { id: 2, name: "Michael Jackson", email: "mjijackson@gmail.com" }
-]
+];
 
 function getUserByID(id) {
   for (let i = 0; i < USERS.length; ++i)
-    if (USERS[i].id === parseInt(id, 10)) return USERS[i]
+    if (USERS[i].id === parseInt(id, 10)) return USERS[i];
 
-  return null
+  return null;
 }
 
 class Home extends React.Component {
@@ -47,30 +47,30 @@ class Home extends React.Component {
       <li key={user.email}>
         <Link to={`/profile/${user.id}`}>{user.name}</Link>
       </li>
-    ))
+    ));
 
     return (
       <div>
         <h2>Home</h2>
         <ul className="people-list">{contactItems}</ul>
       </div>
-    )
+    );
   }
 }
 
 class Profile extends React.Component {
   render() {
-    const { match } = this.props
-    const { userId } = match.params
-    const user = getUserByID(userId)
+    const { match } = this.props;
+    const { userId } = match.params;
+    const user = getUserByID(userId);
 
-    if (user == null) return <p>Cannot find user with id {userId}</p>
+    if (user == null) return <p>Cannot find user with id {userId}</p>;
 
     return (
       <div className="profile">
         <Gravatar email={user.email} /> {user.name}
       </div>
-    )
+    );
   }
 }
 
@@ -83,7 +83,7 @@ class NoMatch extends React.Component {
           <Link to="/">Go home</Link>
         </p>
       </div>
-    )
+    );
   }
 }
 
@@ -107,8 +107,8 @@ class App extends React.Component {
           </Switch>
         </Router>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

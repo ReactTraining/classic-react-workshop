@@ -1,15 +1,15 @@
-import React from "react"
-import PropTypes from "prop-types"
-import connect from "../mini-redux/connect"
+import React from "react";
+import PropTypes from "prop-types";
+import connect from "../mini-redux/connect";
 
 class App extends React.Component {
   increment = () => {
-    this.props.dispatch({ type: "INCREMENT" })
-  }
+    this.props.dispatch({ type: "INCREMENT" });
+  };
 
   decrement = () => {
-    this.props.dispatch({ type: "DECREMENT" })
-  }
+    this.props.dispatch({ type: "DECREMENT" });
+  };
 
   render() {
     return (
@@ -19,12 +19,12 @@ class App extends React.Component {
         {this.props.counter}{" "}
         <button onClick={this.decrement}>Decrement</button>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => {
-  return { counter: state }
-}
+  return { counter: state };
+};
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(App);

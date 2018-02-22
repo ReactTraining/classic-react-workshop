@@ -1,4 +1,4 @@
-export const tabs = {}
+export const tabs = {};
 
 export const tab = {
   display: "inline-block",
@@ -7,19 +7,19 @@ export const tab = {
   borderBottom: "4px solid",
   borderBottomColor: "#ccc",
   cursor: "pointer"
-}
+};
 
 export const activeTab = {
   ...tab,
   borderBottomColor: "#000"
-}
+};
 
 export const disabledTab = {
   ...tab,
   opacity: 0.25,
   cursor: "default"
-}
+};
 
 export const tabPanels = {
   padding: 10
-}
+};

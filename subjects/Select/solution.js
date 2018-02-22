@@ -3,66 +3,66 @@
 //
 // Make this work like a normal <select> box!
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import "./styles.css"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import "./styles.css";
 
 class Select extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.any,
     defaultValue: PropTypes.any
-  }
+  };
 
   state = {
     showOptions: false,
     value: this.props.defaultValue
-  }
+  };
 
   toggleOptions = () => {
     this.setState(state => ({
       showOptions: !state.showOptions
-    }))
-  }
+    }));
+  };
 
   isControlled() {
-    return this.props.value != null
+    return this.props.value != null;
   }
 
   componentWillMount() {
     if (this.isControlled() && this.props.onChange == null) {
       console.warn(
         "You should provide an onChange to a controlled <Select> component!"
-      )
+      );
     }
   }
 
   render() {
-    const { value } = this.isControlled() ? this.props : this.state
+    const { value } = this.isControlled() ? this.props : this.state;
 
-    let label
+    let label;
     const children = React.Children.map(this.props.children, child => {
       if (child.props.value === value) {
-        label = child.props.children
+        label = child.props.children;
       }
 
       return React.cloneElement(child, {
         onSelect: () => {
           if (this.isControlled()) {
             if (this.props.onChange) {
-              this.props.onChange(child.props.value)
+              this.props.onChange(child.props.value);
             }
           } else {
             this.setState({ value: child.props.value }, () => {
               if (this.props.onChange) {
-                this.props.onChange(this.state.value)
+                this.props.onChange(this.state.value);
               }
-            })
+            });
           }
         }
-      })
-    })
+      });
+    });
 
     return (
       <div className="select" onClick={this.toggleOptions}>
@@ -73,7 +73,7 @@ class Select extends React.Component {
           <div className="options">{children}</div>
         )}
       </div>
-    )
+    );
   }
 }
 
@@ -83,18 +83,18 @@ class Option extends React.Component {
       <div className="option" onClick={this.props.onSelect}>
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 
 class App extends React.Component {
   state = {
     selectValue: "dosa"
-  }
+  };
 
   setToMintChutney = () => {
-    this.setState({ selectValue: "mint-chutney" })
-  }
+    this.setState({ selectValue: "mint-chutney" });
+  };
 
   render() {
     return (
@@ -127,8 +127,8 @@ class App extends React.Component {
           <Option value="mint-chutney">Mint Chutney</Option>
         </Select>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

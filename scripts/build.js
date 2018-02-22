@@ -1,9 +1,9 @@
-const fs = require("fs")
-const path = require("path")
-const React = require("react")
-const ReactDOMServer = require("react-dom/server")
+const fs = require("fs");
+const path = require("path");
+const React = require("react");
+const ReactDOMServer = require("react-dom/server");
 
-const e = React.createElement
+const e = React.createElement;
 
 function createMarkup(mainBundle) {
   return ReactDOMServer.renderToStaticMarkup(
@@ -23,11 +23,11 @@ function createMarkup(mainBundle) {
         e("script", { src: "/__build__/" + mainBundle + ".js" })
       )
     )
-  )
+  );
 }
 
-const RootDir = path.resolve(__dirname, "..")
-const SubjectsDir = path.join(RootDir, "subjects")
+const RootDir = path.resolve(__dirname, "..");
+const SubjectsDir = path.join(RootDir, "subjects");
 
 const Subjects = {
   HelloWorld: "Hello World",
@@ -55,9 +55,9 @@ const Subjects = {
   Redux: "Redux",
   MiniRedux: "Mini Redux",
   MiniRouter: "Mini Router"
-}
+};
 
-const SubjectDirNames = Object.keys(Subjects)
+const SubjectDirNames = Object.keys(Subjects);
 
 const markup = ReactDOMServer.renderToStaticMarkup(
   e(
@@ -108,27 +108,27 @@ const markup = ReactDOMServer.renderToStaticMarkup(
                   "solution"
                 )
               )
-            )
+            );
           })
         )
       )
     )
   )
-)
+);
 
-fs.writeFileSync(path.join(SubjectsDir, "index.html"), markup)
+fs.writeFileSync(path.join(SubjectsDir, "index.html"), markup);
 
 SubjectDirNames.forEach(function(dir) {
   fs.writeFileSync(
     path.join(SubjectsDir, dir, "lecture.html"),
     createMarkup(dir + "-lecture")
-  )
+  );
   fs.writeFileSync(
     path.join(SubjectsDir, dir, "exercise.html"),
     createMarkup(dir + "-exercise")
-  )
+  );
   fs.writeFileSync(
     path.join(SubjectsDir, dir, "solution.html"),
     createMarkup(dir + "-solution")
-  )
-})
+  );
+});

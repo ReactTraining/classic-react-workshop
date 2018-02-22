@@ -18,16 +18,16 @@
 //   needed to render it
 // - Make sure <GeoAddress> supports the user moving positions
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import LoadingDots from "./utils/LoadingDots"
-import getAddressFromCoords from "./utils/getAddressFromCoords"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import LoadingDots from "./utils/LoadingDots";
+import getAddressFromCoords from "./utils/getAddressFromCoords";
 
 class GeoPosition extends React.Component {
   static propTypes = {
     children: PropTypes.func.isRequired
-  }
+  };
 
   state = {
     coords: {
@@ -35,7 +35,7 @@ class GeoPosition extends React.Component {
       longitude: null
     },
     error: null
-  }
+  };
 
   componentDidMount() {
     this.geoId = navigator.geolocation.watchPosition(
@@ -45,20 +45,20 @@ class GeoPosition extends React.Component {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
           }
-        })
+        });
       },
       error => {
-        this.setState({ error })
+        this.setState({ error });
       }
-    )
+    );
   }
 
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.geoId)
+    navigator.geolocation.clearWatch(this.geoId);
   }
 
   render() {
-    return this.props.children(this.state)
+    return this.props.children(this.state);
   }
 }
 
@@ -67,12 +67,12 @@ class GeoAddress extends React.Component {
     latitude: PropTypes.number,
     longitude: PropTypes.number,
     children: PropTypes.func.isRequired
-  }
+  };
 
-  state = { address: null }
+  state = { address: null };
 
   componentDidMount() {
-    if (this.props.latitude && this.props.longitude) this.fetch()
+    if (this.props.latitude && this.props.longitude) this.fetch();
   }
 
   componentDidUpdate(prevProps) {
@@ -80,19 +80,19 @@ class GeoAddress extends React.Component {
       prevProps.longitude !== this.props.longitude ||
       prevProps.latitude !== this.props.latitude
     )
-      this.fetch()
+      this.fetch();
   }
 
   fetch() {
-    const { latitude, longitude } = this.props
+    const { latitude, longitude } = this.props;
 
     getAddressFromCoords(latitude, longitude).then(address => {
-      this.setState({ address })
-    })
+      this.setState({ address });
+    });
   }
 
   render() {
-    return this.props.children(this.state)
+    return this.props.children(this.state);
   }
 }
 
@@ -130,8 +130,8 @@ class App extends React.Component {
           )}
         </GeoPosition>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

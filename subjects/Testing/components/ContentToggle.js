@@ -1,15 +1,15 @@
-import React from "react"
+import React from "react";
 
 class ContentToggle extends React.Component {
   handleClick = () => {
-    if (this.props.onToggle) this.props.onToggle(!this.props.isOpen)
-  }
+    if (this.props.onToggle) this.props.onToggle(!this.props.isOpen);
+  };
 
   render() {
-    let summaryClassName = "ContentToggle__Summary"
+    let summaryClassName = "ContentToggle__Summary";
 
     if (this.props.isOpen)
-      summaryClassName += " ContentToggle__Summary--is-open"
+      summaryClassName += " ContentToggle__Summary--is-open";
 
     return (
       <div {...this.props} className="ContentToggle">
@@ -20,8 +20,8 @@ class ContentToggle extends React.Component {
           {this.props.isOpen && this.props.children}
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default ContentToggle
+export default ContentToggle;

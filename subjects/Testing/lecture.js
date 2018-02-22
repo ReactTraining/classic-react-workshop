@@ -1,16 +1,16 @@
-import "./mocha-setup"
+import "./mocha-setup";
 
-import React from "react"
-import ReactDOM from "react-dom"
-import ReactDOMServer from "react-dom/server"
-import { Simulate } from "react-addons-test-utils"
-import expect from "expect"
+import React from "react";
+import ReactDOM from "react-dom";
+import ReactDOMServer from "react-dom/server";
+import { Simulate } from "react-addons-test-utils";
+import expect from "expect";
 
-import ContentToggle from "./components/ContentToggle"
-import StatefulContentToggle from "./components/StatefulContentToggle"
-import Tabs from "./components/Tabs"
-import Droppable from "./components/Droppable"
-import ContactList from "../Flux/solution/components/ContactList"
+import ContentToggle from "./components/ContentToggle";
+import StatefulContentToggle from "./components/StatefulContentToggle";
+import Tabs from "./components/Tabs";
+import Droppable from "./components/Droppable";
+import ContactList from "../Flux/solution/components/ContactList";
 
 // describe('ContentToggle', () => {
 //   let div

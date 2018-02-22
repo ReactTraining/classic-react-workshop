@@ -1,8 +1,7 @@
 /*global Backbone */
-var app = app || {}
-
-;(function() {
-  "use strict"
+var app = app || {};
+(function() {
+  "use strict";
 
   // Todo Model
   // ----------
@@ -20,7 +19,7 @@ var app = app || {}
     toggle: function() {
       this.save({
         completed: !this.get("completed")
-      })
+      });
     }
-  })
-})()
+  });
+})();

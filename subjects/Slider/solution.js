@@ -1,8 +1,8 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import CSSTransitionGroup from "react-addons-css-transition-group"
-import "./styles.css"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import CSSTransitionGroup from "react-addons-css-transition-group";
+import "./styles.css";
 
 class Slider extends React.Component {
   static propTypes = {
@@ -10,13 +10,13 @@ class Slider extends React.Component {
     autoplay: PropTypes.bool,
     onTogglePlay: PropTypes.func,
     duration: PropTypes.number
-  }
+  };
 
   static defaultProps = {
     autoplay: false,
     duration: 5000,
     initialIndex: 0
-  }
+  };
 
   static childContextTypes = {
     currentIndex: PropTypes.number,
@@ -24,14 +24,14 @@ class Slider extends React.Component {
     prev: PropTypes.func,
     registerCount: PropTypes.func,
     toggleAutoPlay: PropTypes.func
-  }
+  };
 
   state = {
     currentIndex: this.props.initialIndex || 0
-  }
+  };
 
-  slideCount = null
-  interval = null
+  slideCount = null;
+  interval = null;
 
   getChildContext() {
     return {
@@ -40,48 +40,48 @@ class Slider extends React.Component {
       prev: this.prev,
       registerCount: count => (this.slideCount = count),
       toggleAutoPlay: () => this.toggleAutoPlay()
-    }
+    };
   }
 
   componentDidMount() {
-    if (this.props.autoPlay) this.startAutoPlay()
+    if (this.props.autoPlay) this.startAutoPlay();
   }
 
   toggleAutoPlay() {
-    if (this.interval) this.stopAutoPlay()
-    else this.startAutoPlay()
+    if (this.interval) this.stopAutoPlay();
+    else this.startAutoPlay();
 
-    this.props.onTogglePlay(!!this.interval)
+    this.props.onTogglePlay(!!this.interval);
   }
 
   startAutoPlay() {
-    this.interval = setInterval(this.next, this.props.duration)
+    this.interval = setInterval(this.next, this.props.duration);
   }
 
   stopAutoPlay() {
-    clearInterval(this.interval)
-    this.interval = null
+    clearInterval(this.interval);
+    this.interval = null;
   }
 
   prev = () => {
-    let { currentIndex } = this.state
+    let { currentIndex } = this.state;
 
-    currentIndex--
+    currentIndex--;
 
-    if (currentIndex < 0) currentIndex = this.slideCount - 1
+    if (currentIndex < 0) currentIndex = this.slideCount - 1;
 
-    this.setState({ currentIndex })
-  }
+    this.setState({ currentIndex });
+  };
 
   next = () => {
-    let { currentIndex } = this.state
+    let { currentIndex } = this.state;
 
-    currentIndex++
+    currentIndex++;
 
-    if (currentIndex === this.slideCount) currentIndex = 0
+    if (currentIndex === this.slideCount) currentIndex = 0;
 
-    this.setState({ currentIndex })
-  }
+    this.setState({ currentIndex });
+  };
 
   render() {
     const {
@@ -90,8 +90,8 @@ class Slider extends React.Component {
       onTogglePlay,
       duration,
       ...props
-    } = this.props
-    return <div {...props} />
+    } = this.props;
+    return <div {...props} />;
   }
 }
 
@@ -99,16 +99,16 @@ class SliderStage extends React.Component {
   static contextTypes = {
     currentIndex: PropTypes.number.isRequired,
     registerCount: PropTypes.func.isRequired
-  }
+  };
 
   componentDidMount() {
     this.context.registerCount(
       React.Children.count(this.props.children)
-    )
+    );
   }
 
   render() {
-    const style = { ...this.props.style, position: "relative" }
+    const style = { ...this.props.style, position: "relative" };
 
     return (
       <div {...this.props} style={style}>
@@ -125,63 +125,63 @@ class SliderStage extends React.Component {
           )}
         </CSSTransitionGroup>
       </div>
-    )
+    );
   }
 }
 
 class Slide extends React.Component {
   componentWillMount() {
     // preload 'em
-    new Image().src = this.props.src
+    new Image().src = this.props.src;
   }
 
   render() {
-    return <img {...this.props} style={{ position: "absolute" }} />
+    return <img {...this.props} style={{ position: "absolute" }} />;
   }
 }
 
 class SliderControls extends React.Component {
   render() {
-    return <div {...this.props} />
+    return <div {...this.props} />;
   }
 }
 
 class SliderPrevious extends React.Component {
   static contextTypes = {
     prev: PropTypes.func.isRequired
-  }
+  };
 
   render() {
-    return <button {...this.props} onClick={this.context.prev} />
+    return <button {...this.props} onClick={this.context.prev} />;
   }
 }
 
 class SliderPlayPause extends React.Component {
   static contextTypes = {
     toggleAutoPlay: PropTypes.func.isRequired
-  }
+  };
 
   render() {
     return (
       <button {...this.props} onClick={this.context.toggleAutoPlay} />
-    )
+    );
   }
 }
 
 class SliderNext extends React.Component {
   static contextTypes = {
     next: PropTypes.func.isRequired
-  }
+  };
 
   render() {
-    return <button {...this.props} onClick={this.context.next} />
+    return <button {...this.props} onClick={this.context.next} />;
   }
 }
 
 class App extends React.Component {
   state = {
     isPlaying: true
-  }
+  };
 
   render() {
     return (
@@ -209,8 +209,8 @@ class App extends React.Component {
           </SliderStage>
         </Slider>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

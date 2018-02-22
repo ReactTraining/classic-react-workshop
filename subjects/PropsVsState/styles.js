@@ -1,6 +1,6 @@
-export const app = {}
+export const app = {};
 
-export const tabs = {}
+export const tabs = {};
 
 export const tab = {
   display: "inline-block",
@@ -9,13 +9,13 @@ export const tab = {
   borderBottom: "4px solid",
   borderBottomColor: "#ccc",
   cursor: "pointer"
-}
+};
 
 export const activeTab = {
   ...tab,
   borderBottomColor: "#000"
-}
+};
 
 export const tabPanels = {
   padding: 10
-}
+};

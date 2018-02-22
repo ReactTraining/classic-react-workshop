@@ -3,17 +3,17 @@
 //
 // Make this work like a normal <select> box!
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import "./styles.css"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import "./styles.css";
 
 class Select extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.any,
     defaultValue: PropTypes.any
-  }
+  };
 
   render() {
     return (
@@ -23,24 +23,24 @@ class Select extends React.Component {
         </div>
         <div className="options">{this.props.children}</div>
       </div>
-    )
+    );
   }
 }
 
 class Option extends React.Component {
   render() {
-    return <div className="option">{this.props.children}</div>
+    return <div className="option">{this.props.children}</div>;
   }
 }
 
 class App extends React.Component {
   state = {
     selectValue: "dosa"
-  }
+  };
 
   setToMintChutney = () => {
-    this.setState({ selectValue: "mint-chutney" })
-  }
+    this.setState({ selectValue: "mint-chutney" });
+  };
 
   render() {
     return (
@@ -73,8 +73,8 @@ class App extends React.Component {
           <Option value="mint-chutney">Mint Chutney</Option>
         </Select>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

@@ -1,6 +1,6 @@
-import React from "react"
-import PropTypes from "prop-types"
-import CreateContactForm from "./CreateContactForm"
+import React from "react";
+import PropTypes from "prop-types";
+import CreateContactForm from "./CreateContactForm";
 
 class App extends React.Component {
   state = {
@@ -19,13 +19,13 @@ class App extends React.Component {
         avatar: "https://avatars1.githubusercontent.com/u/92839"
       }
     ]
-  }
+  };
 
   handleCreateContact = contact => {
     this.setState({
       contacts: this.state.contacts.concat([contact])
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -44,8 +44,8 @@ class App extends React.Component {
           </li>
         </ul>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

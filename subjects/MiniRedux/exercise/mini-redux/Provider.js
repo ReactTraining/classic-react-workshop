@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
 class Provider extends React.Component {
   render() {
-    return <div>{this.props.children}</div>
+    return <div>{this.props.children}</div>;
   }
 }
 
-export default Provider
+export default Provider;

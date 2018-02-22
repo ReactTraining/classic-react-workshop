@@ -5,11 +5,11 @@
 // - even though this Modal is a React component, the author created an
 //   imperative API D: Make it declarative!
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 class Modal extends React.Component {
-  state = { isOpen: false }
+  state = { isOpen: false };
 
   containerStyle = {
     position: "fixed",
@@ -18,7 +18,7 @@ class Modal extends React.Component {
     top: 0,
     bottom: 0,
     background: "rgba(255, 255, 255, 0.75)"
-  }
+  };
 
   contentStyle = {
     position: "fixed",
@@ -30,35 +30,35 @@ class Modal extends React.Component {
     background: "#fff",
     border: "1px solid",
     textAlign: "center"
-  }
+  };
 
   open() {
-    this.setState({ isOpen: true })
+    this.setState({ isOpen: true });
   }
 
   close() {
-    this.setState({ isOpen: false })
+    this.setState({ isOpen: false });
   }
 
   render() {
-    if (this.state.isOpen === false) return null
+    if (this.state.isOpen === false) return null;
 
     return (
       <div style={this.containerStyle}>
         <div style={this.contentStyle}>{this.props.children}</div>
       </div>
-    )
+    );
   }
 }
 
 class App extends React.Component {
   openModal = () => {
-    this.refs.modal.open()
-  }
+    this.refs.modal.open();
+  };
 
   closeModal = () => {
-    this.refs.modal.close()
-  }
+    this.refs.modal.close();
+  };
 
   render() {
     return (
@@ -84,8 +84,8 @@ class App extends React.Component {
           <p>Are you sure?</p>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));

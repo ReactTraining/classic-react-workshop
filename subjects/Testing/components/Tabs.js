@@ -1,12 +1,12 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from "react";
+import PropTypes from "prop-types";
 
 const tabType = PropTypes.shape({
   label: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired
-})
+});
 
-const styles = {}
+const styles = {};
 
 styles.tab = {
   display: "inline-block",
@@ -15,37 +15,37 @@ styles.tab = {
   borderBottom: "4px solid",
   borderBottomColor: "#ccc",
   cursor: "pointer"
-}
+};
 
 styles.activeTab = {
   ...styles.tab,
   borderBottomColor: "#000"
-}
+};
 
 styles.panel = {
   padding: 10
-}
+};
 
 class Tabs extends React.Component {
   static propTypes = {
     data: PropTypes.arrayOf(tabType)
-  }
+  };
 
   state = {
     activeTabIndex: 0
-  }
+  };
 
   selectTabIndex(activeTabIndex) {
-    this.setState({ activeTabIndex })
+    this.setState({ activeTabIndex });
   }
 
   render() {
-    const { data } = this.props
-    const { activeTabIndex } = this.state
+    const { data } = this.props;
+    const { activeTabIndex } = this.state;
 
     const tabs = data.map((tab, index) => {
-      const isActive = index === activeTabIndex
-      const style = isActive ? styles.activeTab : styles.tab
+      const isActive = index === activeTabIndex;
+      const style = isActive ? styles.activeTab : styles.tab;
 
       return (
         <div
@@ -56,11 +56,11 @@ class Tabs extends React.Component {
         >
           {tab.label}
         </div>
-      )
-    })
+      );
+    });
 
-    const activeTab = data[activeTabIndex]
-    const content = activeTab && activeTab.content
+    const activeTab = data[activeTabIndex];
+    const content = activeTab && activeTab.content;
 
     return (
       <div className="Tabs">
@@ -69,8 +69,8 @@ class Tabs extends React.Component {
           {content}
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Tabs
+export default Tabs;

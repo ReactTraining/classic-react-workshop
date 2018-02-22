@@ -13,14 +13,14 @@
 // - Create a filter that lets you filter messages in the chat by
 //   sender and/or content
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import { render } from "react-dom"
+import React from "react";
+import { render } from "react-dom";
 import {
   login,
   sendMessage,
   subscribeToMessages
-} from "./utils/ChatUtils"
-import "./styles"
+} from "./utils/ChatUtils";
+import "./styles";
 
 /*
 Here's how to use the ChatUtils:
@@ -104,8 +104,8 @@ class Chat extends React.Component {
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
 
-render(<Chat />, document.getElementById("app"))
+render(<Chat />, document.getElementById("app"));

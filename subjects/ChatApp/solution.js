@@ -13,14 +13,14 @@
 // - Create a filter that lets you filter messages in the chat by
 //   sender and/or content
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react"
-import { render } from "react-dom"
+import React from "react";
+import { render } from "react-dom";
 import {
   login,
   sendMessage,
   subscribeToMessages
-} from "./utils/ChatUtils"
-import "./styles"
+} from "./utils/ChatUtils";
+import "./styles";
 
 /*
 Here's how to use the ChatUtils:
@@ -48,23 +48,23 @@ The world is your oyster!
 
 class SmartScroller extends React.Component {
   componentDidMount() {
-    this.autoScroll = true
-    this.scrollToBottom()
+    this.autoScroll = true;
+    this.scrollToBottom();
   }
 
   componentDidUpdate() {
-    if (this.autoScroll) this.scrollToBottom()
+    if (this.autoScroll) this.scrollToBottom();
   }
 
   scrollToBottom() {
-    this.node.scrollTop = this.node.scrollHeight
+    this.node.scrollTop = this.node.scrollHeight;
   }
 
   handleScroll = () => {
-    const { scrollTop, scrollHeight, clientHeight } = this.node
-    const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
-    this.autoScroll = distanceToBottom < 10
-  }
+    const { scrollTop, scrollHeight, clientHeight } = this.node;
+    const distanceToBottom = scrollHeight - (scrollTop + clientHeight);
+    this.autoScroll = distanceToBottom < 10;
+  };
 
   render() {
     return (
@@ -73,7 +73,7 @@ class SmartScroller extends React.Component {
         ref={node => (this.node = node)}
         onScroll={this.handleScroll}
       />
-    )
+    );
   }
 }
 
@@ -81,23 +81,23 @@ class Chat extends React.Component {
   state = {
     auth: null,
     messages: []
-  }
+  };
 
   componentDidMount() {
     login((error, auth) => {
-      this.setState({ auth })
+      this.setState({ auth });
 
       subscribeToMessages(messages => {
-        this.setState({ messages })
-      })
-    })
+        this.setState({ messages });
+      });
+    });
   }
 
   handleSubmit = event => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const { auth } = this.state
-    const messageText = this.messageInput.value
+    const { auth } = this.state;
+    const messageText = this.messageInput.value;
 
     if (/\S/.test(messageText)) {
       sendMessage(
@@ -105,30 +105,30 @@ class Chat extends React.Component {
         auth.github.username, // the username
         auth.github.profileImageURL, // the user's profile image
         messageText // the text of the message
-      )
+      );
 
       // Clear the form.
-      event.target.reset()
+      event.target.reset();
     }
-  }
+  };
 
   render() {
-    const { auth, messages } = this.state
+    const { auth, messages } = this.state;
 
-    if (auth == null) return <p>Loading...</p>
+    if (auth == null) return <p>Loading...</p>;
 
     // Array of arrays of messages grouped by user.
     const messageGroups = messages.reduce((groups, message) => {
-      const prevGroup = groups.length && groups[groups.length - 1]
+      const prevGroup = groups.length && groups[groups.length - 1];
 
       if (prevGroup && prevGroup[0].uid === message.uid) {
-        prevGroup.push(message)
+        prevGroup.push(message);
       } else {
-        groups.push([message])
+        groups.push([message]);
       }
 
-      return groups
-    }, [])
+      return groups;
+    }, []);
 
     return (
       <div className="chat">
@@ -166,8 +166,8 @@ class Chat extends React.Component {
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
 
-render(<Chat />, document.getElementById("app"))
+render(<Chat />, document.getElementById("app"));

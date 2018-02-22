@@ -1,9 +1,9 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import createOscillator from "./utils/createOscillator"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import createOscillator from "./utils/createOscillator";
 
-const styles = {}
+const styles = {};
 
 styles.theremin = {
   height: 200,
@@ -13,35 +13,35 @@ styles.theremin = {
   cursor: "crosshair",
   margin: 10,
   display: "inline-block"
-}
+};
 
 class App extends React.Component {
   componentDidMount() {
-    this.oscillator = createOscillator()
+    this.oscillator = createOscillator();
   }
 
   play = () => {
-    this.oscillator.play()
-  }
+    this.oscillator.play();
+  };
 
   stop = () => {
-    this.oscillator.stop()
-  }
+    this.oscillator.stop();
+  };
 
   changeTone = event => {
-    const { clientX, clientY } = event
+    const { clientX, clientY } = event;
     const {
       top,
       right,
       bottom,
       left
-    } = event.target.getBoundingClientRect()
-    const pitch = (clientX - left) / (right - left)
-    const volume = 1 - (clientY - top) / (bottom - top)
+    } = event.target.getBoundingClientRect();
+    const pitch = (clientX - left) / (right - left);
+    const volume = 1 - (clientY - top) / (bottom - top);
 
-    this.oscillator.setPitchBend(pitch)
-    this.oscillator.setVolume(volume)
-  }
+    this.oscillator.setPitchBend(pitch);
+    this.oscillator.setVolume(volume);
+  };
 
   render() {
     return (
@@ -54,11 +54,11 @@ class App extends React.Component {
           onMouseMove={this.changeTone}
         />
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Can't predict what the sound is going to be by looking at state or the render
