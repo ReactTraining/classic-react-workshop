@@ -98,11 +98,11 @@ const subjects = [
   "Server Rendering",
   "Redux",
   "Immutability",
-  "Migrating to React"
+  "Migrating to React",
+  "Chat App"
 ];
 
 const exercises = [
-  "Chat App",
   "JSON Table",
   "Mini Redux",
   "Mini Router",
