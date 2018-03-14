@@ -6,36 +6,39 @@ function isDirectory(dir) {
   return fs.lstatSync(dir).isDirectory();
 }
 
-const SubjectsDir = path.join(__dirname, "subjects");
-const SubjectDirs = fs.readdirSync(SubjectsDir).filter(function(dir) {
-  return isDirectory(path.join(SubjectsDir, dir));
+const subjectsDir = path.join(__dirname, "subjects");
+const subjectDirs = fs.readdirSync(subjectsDir).filter(function(dir) {
+  return isDirectory(path.join(subjectsDir, dir));
 });
 
 module.exports = {
   devtool: "source-map",
 
-  entry: SubjectDirs.reduce(
+  entry: subjectDirs.reduce(
     function(entries, dir) {
-      if (fs.existsSync(path.join(SubjectsDir, dir, "exercise.js")))
+      if (fs.existsSync(path.join(subjectsDir, dir, "exercise.js"))) {
         entries[dir + "-exercise"] = path.join(
-          SubjectsDir,
+          subjectsDir,
           dir,
           "exercise.js"
         );
+      }
 
-      if (fs.existsSync(path.join(SubjectsDir, dir, "solution.js")))
+      if (fs.existsSync(path.join(subjectsDir, dir, "solution.js"))) {
         entries[dir + "-solution"] = path.join(
-          SubjectsDir,
+          subjectsDir,
           dir,
           "solution.js"
         );
+      }
 
-      if (fs.existsSync(path.join(SubjectsDir, dir, "lecture.js")))
+      if (fs.existsSync(path.join(subjectsDir, dir, "lecture.js"))) {
         entries[dir + "-lecture"] = path.join(
-          SubjectsDir,
+          subjectsDir,
           dir,
           "lecture.js"
         );
+      }
 
       return entries;
     },

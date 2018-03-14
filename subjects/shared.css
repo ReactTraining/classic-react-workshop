@@ -12,6 +12,23 @@ a:link:hover {
   text-decoration: underline;
 }
 
+.index-logo {
+  max-width: 800px;
+  margin: 30px auto 40px;
+  text-align: center;
+}
+.index-logo img {
+  width: 400px;
+}
+@media (max-width: 600px) {
+  .index-logo {
+    margin: 10px auto 20px;
+  }
+  .index-logo img {
+    width: 80%;
+  }
+}
+
 .index-subjectsTable {
   width: 100%;
   max-width: 800px;
