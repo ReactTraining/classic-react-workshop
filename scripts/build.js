@@ -74,105 +74,69 @@ function SubjectPage({ bundle }) {
   );
 }
 
-function fileExists(file) {
-  try {
-    const stats = fs.statSync(file);
-    return true;
-  } catch (error) {
-    return false;
-  }
+function renderPage(page, props) {
+  return (
+    "<!doctype html>" +
+    ReactDOMServer.renderToStaticMarkup(e(page, props))
+  );
 }
 
-function leftPad(s, length) {
-  s = "" + s;
-
-  while (s.length < length) {
-    s = `0${s}`;
-  }
-
-  return s;
-}
-
-const rootDir = path.resolve(__dirname, "..");
-const subjectsDir = path.join(rootDir, "subjects");
-
-const subjects = [
-  "Hello World",
-  "Rendering",
-  "Components",
-  "Props and State",
-  "Forms",
-  "Testing",
-  "Imperative to Declarative",
-  "Compound Components",
-  "Context",
-  "Higher-order Components",
-  "Render Props",
-  "Routing",
-  "Animation",
-  "Transitions",
-  "Render Optimizations",
-  "Server Rendering",
-  "Redux",
-  "Immutability",
-  "Migrating to React",
-  "Chat App",
-  "Select",
-  "Mini Router",
-  "Mini Redux",
-  "JSON Table",
-  "Slider"
-];
+const publicDir = path.resolve(__dirname, "../public");
+const subjectsDir = path.resolve(__dirname, "../subjects");
+const subjectDirs = fs
+  .readdirSync(subjectsDir)
+  .map(file => path.join(subjectsDir, file))
+  .filter(file => fs.lstatSync(file).isDirectory());
 
 const rows = [];
 
-subjects.forEach((subject, index) => {
-  const n = leftPad(index, 2);
-  const dir = `${n} ${subject}`;
+subjectDirs.forEach(dir => {
+  const split = path.basename(dir).split(/ (.+)/);
+  const n = split[0];
+  const subject = split[1];
 
   const row = [n];
 
-  if (fileExists(path.join(subjectsDir, dir, "lecture.js"))) {
-    console.log(`Building subjects/${dir}/lecture.html...`);
+  const base = path
+    .basename(dir)
+    .replace(/\s/g, "-")
+    .toLowerCase();
+
+  if (fs.existsSync(path.join(dir, "lecture.js"))) {
+    console.log(`Building ${base}-lecture.html...`);
 
     fs.writeFileSync(
-      path.join(subjectsDir, dir, "lecture.html"),
-      ReactDOMServer.renderToStaticMarkup(
-        e(SubjectPage, { bundle: `${dir}-lecture` })
-      )
+      path.join(publicDir, `${base}-lecture.html`),
+      renderPage(SubjectPage, { bundle: `${base}-lecture` })
     );
 
-    row.push(e("a", { href: `/${dir}/lecture.html` }, subject));
+    row.push(e("a", { href: `/${base}-lecture.html` }, subject));
   } else {
     row.push(subject);
   }
 
-  if (fileExists(path.join(subjectsDir, dir, "exercise.js"))) {
-    console.log(`Building subjects/${dir}/exercise.html...`);
+  if (fs.existsSync(path.join(dir, "exercise.js"))) {
+    console.log(`Building ${base}-exercise.html...`);
 
     fs.writeFileSync(
-      path.join(subjectsDir, dir, "exercise.html"),
-      ReactDOMServer.renderToStaticMarkup(
-        e(SubjectPage, { bundle: `${dir}-exercise` })
-      )
+      path.join(publicDir, `${base}-exercise.html`),
+      renderPage(SubjectPage, { bundle: `${base}-exercise` })
     );
 
-    row.push(e("a", { href: `/${dir}/exercise.html` }, "exercise"));
+    row.push(e("a", { href: `/${base}-exercise.html` }, "exercise"));
   } else {
     row.push(null);
   }
 
-  if (fileExists(path.join(subjectsDir, dir, "solution.js"))) {
-    console.log(`Building subjects/${dir}/solution.html...`);
+  if (fs.existsSync(path.join(dir, "solution.js"))) {
+    console.log(`Building ${base}-solution.html...`);
 
     fs.writeFileSync(
-      path.join(subjectsDir, dir, "solution.html"),
-      ReactDOMServer.renderToStaticMarkup(
-        e(SubjectPage, { bundle: `${dir}-solution` })
-      )
+      path.join(publicDir, `${base}-solution.html`),
+      renderPage(SubjectPage, { bundle: `${base}-solution` })
     );
 
-    row.push(e("a", { href: `/${dir}/solution.html` }, "solution"));
+    row.push(e("a", { href: `/${base}-solution.html` }, "solution"));
   } else {
     row.push(null);
   }
@@ -180,9 +144,9 @@ subjects.forEach((subject, index) => {
   rows.push(row);
 });
 
-console.log(`Building subjects/index.html...`);
+console.log(`Building index.html...`);
 
 fs.writeFileSync(
-  path.join(subjectsDir, "index.html"),
-  ReactDOMServer.renderToStaticMarkup(e(IndexPage, { data: rows }))
+  path.join(publicDir, "index.html"),
+  renderPage(IndexPage, { data: rows })
 );

@@ -1,6 +1,3 @@
-subjects/index.html
-subjects/**/lecture.html
-subjects/**/exercise.html
-subjects/**/solution.html
-!subjects/**/backbone-todomvc/index.html
 node_modules
+yarn-error.log
+public/*.html
