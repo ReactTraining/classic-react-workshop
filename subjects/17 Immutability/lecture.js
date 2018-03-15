@@ -3,27 +3,27 @@ import ReactDOM from "react-dom";
 import immstruct from "immstruct";
 import Immutable from "immutable";
 
-const structure = immstruct.withHistory("app", {
+const struct = immstruct.withHistory("app", {
   points: [],
   name: "Drawing Pad"
 });
 
-const DrawingPad = React.createClass({
-  getInitialState() {
-    return {
-      drawing: false
-    };
-  },
+class DrawingPad extends React.Component {
+  state = {
+    drawing: false
+  };
 
-  maybeDraw(e) {
-    if (this.state.drawing)
+  maybeDraw = e => {
+    if (this.state.drawing) {
       this.props.cursor.update("points", points =>
         points.push([e.clientX, e.clientY])
       );
-  },
+    }
+  };
 
   render() {
     const points = this.props.cursor.get("points");
+
     return (
       <div>
         <div
@@ -59,17 +59,18 @@ const DrawingPad = React.createClass({
       </div>
     );
   }
-});
+}
 
-const App = React.createClass({
-  handleSlider(e) {
+class App extends React.Component {
+  handleSlider = e => {
     setHistory(parseInt(e.target.value, 10));
-  },
+  };
 
   render() {
     const { struct } = this.props;
     const cursor = struct.cursor();
     const historyCount = struct.history.count();
+
     return (
       <div>
         <h1>{cursor.get("name")}</h1>
@@ -90,32 +91,32 @@ const App = React.createClass({
       </div>
     );
   }
-});
+}
 
-structure.on("swap", render);
+struct.on("swap", render);
 render();
 
 function setHistory(frame) {
-  const count = structure.history.count();
-  const current = structure._currentRevision;
+  const count = struct.history.count();
+  const current = struct._currentRevision;
 
   if (frame > current) redo(frame - current);
   else if (frame < current) undo(current - frame);
 }
 
 function undo(amt) {
-  structure.undo(amt);
+  struct.undo(amt);
   render();
 }
 
 function redo(amt) {
-  structure.redo(amt);
+  struct.redo(amt);
   render();
 }
 
 function render() {
   ReactDOM.render(
-    <App structure={structure} />,
+    <App struct={struct} />,
     document.getElementById("app")
   );
 }
