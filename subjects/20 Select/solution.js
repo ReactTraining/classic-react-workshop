@@ -99,7 +99,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Select/Option</h1>
+        <h1>Select + Option</h1>
 
         <h2>Controlled</h2>
         <pre>{JSON.stringify(this.state, null, 2)}</pre>
