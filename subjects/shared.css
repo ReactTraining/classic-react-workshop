@@ -18,14 +18,11 @@ a:link:hover {
   text-align: center;
 }
 .index-logo img {
-  width: 400px;
+  width: 300px;
 }
 @media (max-width: 600px) {
   .index-logo {
     margin: 10px auto 20px;
-  }
-  .index-logo img {
-    width: 80%;
   }
 }
 

@@ -23,7 +23,11 @@ function IndexPage({ data }) {
         e(
           "div",
           { className: "index-logo" },
-          e("img", { src: "/logo.png" })
+          e(
+            "a",
+            { href: "https://reacttraining.com" },
+            e("img", { src: "/logo.png" })
+          )
         ),
         e(
           "table",
