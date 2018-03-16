@@ -44,7 +44,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "md5": "2.1.0",
-    "mkdirp": "^0.5.0",
+    "mkdirp": "^0.5.1",
     "mocha": "3.0.2",
     "mustache": "^2.2.1",
     "open-browser-webpack-plugin": "^0.0.5",

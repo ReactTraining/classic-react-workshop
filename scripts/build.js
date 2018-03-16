@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const mkdirp = require("mkdirp");
 const React = require("react");
 const ReactDOMServer = require("react-dom/server");
 
@@ -81,6 +82,11 @@ function renderPage(page, props) {
   );
 }
 
+function writeFile(file, contents) {
+  mkdirp.sync(path.dirname(file));
+  fs.writeFileSync(file, contents);
+}
+
 const publicDir = path.resolve(__dirname, "../public");
 const subjectsDir = path.resolve(__dirname, "../subjects");
 const subjectDirs = fs
@@ -103,40 +109,40 @@ subjectDirs.forEach(dir => {
     .toLowerCase();
 
   if (fs.existsSync(path.join(dir, "lecture.js"))) {
-    console.log(`Building ${base}-lecture.html...`);
+    console.log(`Building ${base}/lecture.html...`);
 
-    fs.writeFileSync(
-      path.join(publicDir, `${base}-lecture.html`),
+    writeFile(
+      path.join(publicDir, base, "lecture.html"),
       renderPage(SubjectPage, { bundle: `${base}-lecture` })
     );
 
-    row.push(e("a", { href: `/${base}-lecture.html` }, subject));
+    row.push(e("a", { href: `/${base}/lecture.html` }, subject));
   } else {
     row.push(subject);
   }
 
   if (fs.existsSync(path.join(dir, "exercise.js"))) {
-    console.log(`Building ${base}-exercise.html...`);
+    console.log(`Building ${base}/exercise.html...`);
 
-    fs.writeFileSync(
-      path.join(publicDir, `${base}-exercise.html`),
+    writeFile(
+      path.join(publicDir, base, "exercise.html"),
       renderPage(SubjectPage, { bundle: `${base}-exercise` })
     );
 
-    row.push(e("a", { href: `/${base}-exercise.html` }, "exercise"));
+    row.push(e("a", { href: `/${base}/exercise.html` }, "exercise"));
   } else {
     row.push(null);
   }
 
   if (fs.existsSync(path.join(dir, "solution.js"))) {
-    console.log(`Building ${base}-solution.html...`);
+    console.log(`Building ${base}/solution.html...`);
 
-    fs.writeFileSync(
-      path.join(publicDir, `${base}-solution.html`),
+    writeFile(
+      path.join(publicDir, base, "solution.html"),
       renderPage(SubjectPage, { bundle: `${base}-solution` })
     );
 
-    row.push(e("a", { href: `/${base}-solution.html` }, "solution"));
+    row.push(e("a", { href: `/${base}/solution.html` }, "solution"));
   } else {
     row.push(null);
   }
@@ -146,7 +152,7 @@ subjectDirs.forEach(dir => {
 
 console.log(`Building index.html...`);
 
-fs.writeFileSync(
+writeFile(
   path.join(publicDir, "index.html"),
   renderPage(IndexPage, { data: rows })
 );

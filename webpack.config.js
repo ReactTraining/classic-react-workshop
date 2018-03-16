@@ -75,12 +75,7 @@ module.exports = {
     quiet: false,
     noInfo: false,
     historyApiFallback: {
-      rewrites: [
-        {
-          from: /ReduxDataFlow\/exercise.html/,
-          to: "ReduxDataFlow/exercise.html"
-        }
-      ]
+      rewrites: []
     },
     stats: {
       // Config for minimal console.log mess.
