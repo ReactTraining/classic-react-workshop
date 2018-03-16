@@ -4,14 +4,14 @@ export const ADD_CONTACT = "ADD_CONTACT";
 export const LOAD_CONTACTS = "LOAD_CONTACTS";
 export const CONTACTS_WERE_LOADED = "CONTACTS_WERE_LOADED";
 
-export const addContact = contact => {
+export function addContact(contact) {
   return {
     type: ADD_CONTACT,
     contact
   };
-};
+}
 
-export const loadContacts = dispatch => {
+export function loadContacts(dispatch) {
   dispatch({ type: LOAD_CONTACTS });
 
   fetchContacts((error, contacts) => {
@@ -20,4 +20,4 @@ export const loadContacts = dispatch => {
       contacts
     });
   });
-};
+}

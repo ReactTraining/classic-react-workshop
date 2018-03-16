@@ -7,14 +7,14 @@ export const DELETE_CONTACT = "DELETE_CONTACT";
 export const CONTACT_WAS_DELETED = "CONTACT_WAS_DELETED";
 export const ERROR_DELETING_CONTACT = "ERROR_DELETING_CONTACT";
 
-export const addContact = contact => {
+export function addContact(contact) {
   return {
     type: ADD_CONTACT,
     contact
   };
-};
+}
 
-export const loadContacts = dispatch => {
+export function loadContacts(dispatch) {
   dispatch({ type: LOAD_CONTACTS });
 
   fetchContacts((error, contacts) => {
@@ -23,15 +23,15 @@ export const loadContacts = dispatch => {
       contacts
     });
   });
-};
+}
 
-export const deleteContact = (dispatch, contactId) => {
+export function deleteContact(contactId, dispatch) {
   // We can handle latency with two actions: one when we begin...
   dispatch({ type: DELETE_CONTACT, contactId });
 
   deleteContactById(contactId, error => {
     if (error) {
-      // We can handle network errors with another action!
+      // ...and another when we fail.
       dispatch({
         type: ERROR_DELETING_CONTACT,
         message: error.message,
@@ -42,4 +42,4 @@ export const deleteContact = (dispatch, contactId) => {
       dispatch({ type: CONTACT_WAS_DELETED, contactId });
     }
   });
-};
+}

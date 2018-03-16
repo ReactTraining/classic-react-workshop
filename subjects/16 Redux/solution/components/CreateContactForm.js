@@ -5,26 +5,28 @@ import serializeForm from "form-serialize";
 const transparentGif =
   "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
-const generateId = () =>
-  Math.random()
+function generateId() {
+  return Math.random()
     .toString(36)
     .substring(7);
+}
 
 class CreateContactForm extends React.Component {
-  handleSubmit(event) {
+  static propTypes = {
+    onCreate: PropTypes.func.isRequired
+  };
+
+  handleSubmit = event => {
     event.preventDefault();
     const contact = serializeForm(event.target, { hash: true });
     contact.id = generateId();
     this.props.onCreate(contact);
     event.target.reset();
-  }
+  };
 
   render() {
     return (
-      <form
-        onSubmit={event => this.handleSubmit(event)}
-        style={{ display: "inline" }}
-      >
+      <form onSubmit={this.handleSubmit} style={{ display: "inline" }}>
         <img
           style={{ background: "#ccc" }}
           height="50"
@@ -54,9 +56,5 @@ class CreateContactForm extends React.Component {
     );
   }
 }
-
-CreateContactForm.propTypes = {
-  onCreate: PropTypes.func.isRequired
-};
 
 export default CreateContactForm;
