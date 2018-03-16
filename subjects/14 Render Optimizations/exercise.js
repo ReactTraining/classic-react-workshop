@@ -35,7 +35,7 @@ class ListView extends React.Component {
     }
 
     return (
-      <div style={{ height: "100%", overflowY: "scroll" }}>
+      <div style={{ height: "100vh", overflowY: "scroll" }}>
         <ol style={{ height: totalHeight }}>{items}</ol>
       </div>
     );

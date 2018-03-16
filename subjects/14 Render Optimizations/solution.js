@@ -65,7 +65,7 @@ class ListView extends React.Component {
 
     return (
       <div
-        style={{ height: "100%", overflowY: "scroll" }}
+        style={{ height: "100vh", overflowY: "scroll" }}
         onScroll={this.handleScroll}
         ref={node => (this.node = node)}
       >
