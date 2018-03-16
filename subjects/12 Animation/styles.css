@@ -20,7 +20,6 @@ body {
   -ms-user-select: none;
   -webkit-user-select: none;
 }
-
 .toggle-switch-knob {
   position: absolute;
   width: 50px;
@@ -38,10 +37,6 @@ body {
 .switch3 {
   width: 350px;
 }
-
-
-
-
 
 .grid {
   position: absolute;

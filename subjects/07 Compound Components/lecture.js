@@ -35,7 +35,7 @@ class Tabs extends React.Component {
   render() {
     return (
       <div>
-        <div style={styles.tabs}>{this.renderTabs()}</div>
+        <div style={styles.tabList}>{this.renderTabs()}</div>
         <div style={styles.tabPanels}>{this.renderPanel()}</div>
       </div>
     );
@@ -109,7 +109,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //
 //  render() {
 //    const tabs = (
-//      <div key="tabs" style={styles.tabs}>
+//      <div key="tabs" style={styles.tabList}>
 //        {this.renderTabs()}
 //      </div>
 //    )
@@ -207,7 +207,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //
 //  render() {
 //    const tabs = (
-//      <div key="tabs" style={styles.tabs}>
+//      <div key="tabs" style={styles.tabList}>
 //        {this.renderTabs()}
 //      </div>
 //    )

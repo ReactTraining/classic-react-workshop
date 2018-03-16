@@ -25,7 +25,7 @@ class TabList extends React.Component {
       }
     );
 
-    return <div style={styles.tabs}>{children}</div>;
+    return <div style={styles.tabList}>{children}</div>;
   }
 }
 
@@ -131,7 +131,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //         onClick: () => this.props.onActivate(index)
 //       })
 //     })
-//     return <div style={styles.tabs}>{children}</div>
+//     return <div style={styles.tabList}>{children}</div>
 //   }
 // }
 //
@@ -244,7 +244,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //       })
 //     ))
 //
-//     return <div style={styles.tabs}>{children}</div>
+//     return <div style={styles.tabList}>{children}</div>
 //   }
 // }
 //

@@ -51,17 +51,17 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.css$/, loader: "style!css" },
       {
         test: /\.js$/,
         exclude: /node_modules|mocha-browser\.js/,
         loader: "babel"
       },
+      { test: /\.css$/, loader: "style!css" },
+      { test: /\.(ttf|eot|svg|png|jpg)$/, loader: "file" },
       {
         test: /\.woff(2)?$/,
         loader: "url?limit=10000&mimetype=application/font-woff"
       },
-      { test: /\.(ttf|eot|svg|png|jpg)$/, loader: "file" },
       { test: require.resolve("jquery"), loader: "expose?jQuery" }
     ]
   },

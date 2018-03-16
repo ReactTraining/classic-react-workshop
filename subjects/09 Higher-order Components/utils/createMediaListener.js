@@ -24,19 +24,16 @@ export default media => {
     return state;
   }, {});
 
-  const mutateMediaState = (key, val) => {
-    mediaState[key] = val;
-    notify();
-  };
-
   const notify = () => {
     if (transientListener != null) transientListener(mediaState);
   };
 
   const listeners = mediaKeys.reduce((listeners, key) => {
     listeners[key] = event => {
-      mutateMediaState(key, event.matches);
+      mediaState[key] = event.matches;
+      notify();
     };
+
     return listeners;
   }, {});
 

@@ -9,11 +9,12 @@
 //   for the window's "resize" event)
 // - Remember scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
+import "./styles.css";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import * as RainbowListDelegate from "./RainbowListDelegate";
-import "./styles";
 
 class ListView extends React.Component {
   static propTypes = {

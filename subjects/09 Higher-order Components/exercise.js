@@ -6,18 +6,17 @@
 //
 // Got extra time?
 //
-// - Show an actual mouse moving around the screen (hint: use the `cursor` CSS
-//   property, see https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
-// - Make a `withCat` HOC that shows a cat chasing the mouse around the screen!
+// Make a `withCat` HOC that shows a cat chasing the mouse around the screen!
 ////////////////////////////////////////////////////////////////////////////////
+import "./styles.css";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import * as styles from "./styles";
 
-const withMouse = Component => {
+function withMouse(Component) {
   return Component;
-};
+}
 
 class App extends React.Component {
   static propTypes = {
@@ -31,7 +30,7 @@ class App extends React.Component {
     const { mouse } = this.props;
 
     return (
-      <div style={styles.container}>
+      <div className="container">
         {mouse ? (
           <h1>
             The mouse position is ({mouse.x}, {mouse.y})

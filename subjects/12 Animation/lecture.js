@@ -1,9 +1,9 @@
+import "./styles.css";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { Motion, StaggeredMotion, spring, presets } from "react-motion";
 import $ from "jquery";
-
-import "./styles";
 
 class ToggleSwitch extends React.Component {
   state = {

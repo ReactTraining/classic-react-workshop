@@ -1,6 +1,4 @@
-export const app = {};
-
-export const tabs = {};
+export const tabList = {};
 
 export const tab = {
   display: "inline-block",

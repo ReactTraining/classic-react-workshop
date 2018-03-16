@@ -1,0 +1,27 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  padding: 0 20px;
+  cursor: url(./images/mouse.png), auto;
+}
+
+.cat {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-image: url(./images/cat.jpg);
+  cursor: url(./images/mouse.png), auto;
+}

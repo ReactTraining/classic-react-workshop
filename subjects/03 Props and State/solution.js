@@ -64,8 +64,8 @@ class Tabs extends React.Component {
 
   render() {
     return (
-      <div style={styles.app}>
-        <div style={styles.tabs}>{this.renderTabs()}</div>
+      <div>
+        <div style={styles.tabList}>{this.renderTabs()}</div>
         <div style={styles.tabPanels}>{this.renderPanel()}</div>
       </div>
     );
