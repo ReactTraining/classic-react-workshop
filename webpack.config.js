@@ -20,15 +20,15 @@ module.exports = {
         .toLowerCase();
 
       if (fs.existsSync(path.join(dir, "exercise.js"))) {
-        entries[base + "-exercise"] = path.join(dir, "exercise.js");
+        entries[base + "/exercise"] = path.join(dir, "exercise.js");
       }
 
       if (fs.existsSync(path.join(dir, "solution.js"))) {
-        entries[base + "-solution"] = path.join(dir, "solution.js");
+        entries[base + "/solution"] = path.join(dir, "solution.js");
       }
 
       if (fs.existsSync(path.join(dir, "lecture.js"))) {
-        entries[base + "-lecture"] = path.join(dir, "lecture.js");
+        entries[base + "/lecture"] = path.join(dir, "lecture.js");
       }
 
       return entries;
@@ -39,10 +39,10 @@ module.exports = {
   ),
 
   output: {
-    path: "__build__",
+    path: "public",
     filename: "[name].js",
     chunkFilename: "[id].chunk.js",
-    publicPath: "/__build__/"
+    publicPath: "/"
   },
 
   resolve: {

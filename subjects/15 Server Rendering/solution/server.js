@@ -20,8 +20,8 @@ const createPage = (markup, data) => `
     <div id="app">${markup}</div>
     <script>window.__DATA__ = ${JSON.stringify(data)}</script>
 
-    <script src="${webpackServer}/__build__/shared.js"></script>
-    <script src="${webpackServer}/__build__/ServerRendering-solution.js"></script>
+    <script src="${webpackServer}/shared.js"></script>
+    <script src="${webpackServer}/15-server-rendering/solution.js"></script>
   </body>
 </html>
 `;

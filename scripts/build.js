@@ -69,8 +69,8 @@ function SubjectPage({ bundle }) {
       "body",
       null,
       e("div", { id: "app" }),
-      e("script", { src: "/__build__/shared.js" }),
-      e("script", { src: `/__build__/${bundle}.js` })
+      e("script", { src: "/shared.js" }),
+      e("script", { src: `/${bundle}.js` })
     )
   );
 }
@@ -113,7 +113,7 @@ subjectDirs.forEach(dir => {
 
     writeFile(
       path.join(publicDir, base, "lecture.html"),
-      renderPage(SubjectPage, { bundle: `${base}-lecture` })
+      renderPage(SubjectPage, { bundle: `${base}/lecture` })
     );
 
     row.push(e("a", { href: `/${base}/lecture.html` }, subject));
@@ -126,7 +126,7 @@ subjectDirs.forEach(dir => {
 
     writeFile(
       path.join(publicDir, base, "exercise.html"),
-      renderPage(SubjectPage, { bundle: `${base}-exercise` })
+      renderPage(SubjectPage, { bundle: `${base}/exercise` })
     );
 
     row.push(e("a", { href: `/${base}/exercise.html` }, "exercise"));
@@ -139,7 +139,7 @@ subjectDirs.forEach(dir => {
 
     writeFile(
       path.join(publicDir, base, "solution.html"),
-      renderPage(SubjectPage, { bundle: `${base}-solution` })
+      renderPage(SubjectPage, { bundle: `${base}/solution` })
     );
 
     row.push(e("a", { href: `/${base}/solution.html` }, "solution"));

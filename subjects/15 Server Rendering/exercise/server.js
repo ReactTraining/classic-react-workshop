@@ -20,8 +20,8 @@ const createPage = () => `
     <!-- TODO: Put some content in this div -->
     <div id="app"></div>
 
-    <script src="${webpackServer}/__build__/shared.js"></script>
-    <script src="${webpackServer}/__build__/ServerRendering-exercise.js"></script>
+    <script src="${webpackServer}/shared.js"></script>
+    <script src="${webpackServer}/15-server-rendering/exercise.js"></script>
   </body>
 </html>
 `;
