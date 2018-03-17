@@ -1,26 +1,3 @@
-html {
-  box-sizing: border-box;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  background: white;
-}
-a:link,
-a:visited {
-  color: #00d;
-  text-decoration: none;
-}
-a:link:hover {
-  text-decoration: underline;
-}
-
 .index-logo {
   max-width: 800px;
   margin: 30px auto 40px;

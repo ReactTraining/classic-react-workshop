@@ -1,20 +1,27 @@
 import React from "react";
 import convertNumberToEnglish from "./utils/convertNumberToEnglish";
+import computeHSLRainbowColor from "./utils/computeHSLRainbowColor";
 
-const computeHSLRainbowColor = (n, period) =>
-  `hsl(${Math.round(n / period * 360)},100%,50%)`;
+const RainbowListDelegate = {
+  numColors: 100,
 
-export const rowHeight = 30;
+  rowHeight: 30,
 
-export const renderRowAtIndex = index => (
-  <div
-    style={{
-      height: rowHeight,
-      color: computeHSLRainbowColor(index, 100),
-      fontSize: 24,
-      padding: "5px 10px"
-    }}
-  >
-    {convertNumberToEnglish(index + 1)}
-  </div>
-);
+  renderRowAtIndex: index => (
+    <div
+      style={{
+        height: RainbowListDelegate.rowHeight,
+        color: computeHSLRainbowColor(
+          index,
+          RainbowListDelegate.numColors
+        ),
+        padding: "5px 10px",
+        fontSize: 24
+      }}
+    >
+      {convertNumberToEnglish(index + 1)}
+    </div>
+  )
+};
+
+export default RainbowListDelegate;

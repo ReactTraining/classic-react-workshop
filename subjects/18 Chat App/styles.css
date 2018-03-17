@@ -1,9 +1,5 @@
 html {
-  box-sizing: border-box;
   overflow: hidden; /* prevent elastic scrolling in WebKit */
-}
-*, *:before, *:after {
-  box-sizing: inherit;
 }
 
 body {

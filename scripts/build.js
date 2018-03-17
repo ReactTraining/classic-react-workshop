@@ -30,6 +30,7 @@ function HostPage({ bundle, data, title = "React Training" }) {
         content: "width=device-width, initial-scale=1"
       }),
       e("title", null, title),
+      e("link", { rel: "stylesheet", href: "/shared.css" }),
       data &&
         e("script", {
           dangerouslySetInnerHTML: {

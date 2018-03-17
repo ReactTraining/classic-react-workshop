@@ -5,16 +5,17 @@
 //
 // Got extra time?
 //
-// - Render fewer rows as the size of the window changes (Hint: Listen
+// - Render fewer rows as the size of the window changes (hint: Listen
 //   for the window's "resize" event)
-// - Remember scroll position when you refresh the page
+// - Remember the scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import * as RainbowListDelegate from "./RainbowListDelegate";
+
+import RainbowListDelegate from "./RainbowListDelegate";
 
 class ListView extends React.Component {
   static propTypes = {
@@ -41,20 +42,13 @@ class ListView extends React.Component {
   };
 
   render() {
+    const { availableHeight, scrollTop } = this.state;
     const { numRows, rowHeight, renderRowAtIndex } = this.props;
     const totalHeight = rowHeight * numRows;
 
-    const { availableHeight, scrollTop } = this.state;
-    const scrollBottom = scrollTop + availableHeight;
-
-    const startIndex = Math.max(
-      0,
-      Math.floor(scrollTop / rowHeight) - 20
-    );
-    const endIndex = Math.min(
-      numRows,
-      Math.ceil(scrollBottom / rowHeight) + 20
-    );
+    const startIndex = Math.floor(scrollTop / rowHeight);
+    const endIndex =
+      startIndex + Math.ceil(availableHeight / rowHeight);
 
     const items = [];
 
@@ -66,19 +60,18 @@ class ListView extends React.Component {
 
     return (
       <div
-        style={{ height: "100vh", overflowY: "scroll" }}
         onScroll={this.handleScroll}
+        style={{ height: "100vh", overflowY: "scroll" }}
         ref={node => (this.node = node)}
       >
-        <ol
+        <div
           style={{
-            paddingTop: startIndex * rowHeight,
-            pointerEvents: "none",
-            height: totalHeight
+            height: totalHeight,
+            paddingTop: startIndex * rowHeight
           }}
         >
-          {items}
-        </ol>
+          <ol>{items}</ol>
+        </div>
       </div>
     );
   }

@@ -5,16 +5,17 @@
 //
 // Got extra time?
 //
-// - Render fewer rows as the size of the window changes (Hint: Listen
+// - Render fewer rows as the size of the window changes (hint: Listen
 //   for the window's "resize" event)
-// - Remember scroll position when you refresh the page
+// - Remember the scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import * as RainbowListDelegate from "./RainbowListDelegate";
+
+import RainbowListDelegate from "./RainbowListDelegate";
 
 class ListView extends React.Component {
   static propTypes = {
@@ -37,7 +38,9 @@ class ListView extends React.Component {
 
     return (
       <div style={{ height: "100vh", overflowY: "scroll" }}>
-        <ol style={{ height: totalHeight }}>{items}</ol>
+        <div style={{ height: totalHeight }}>
+          <ol>{items}</ol>
+        </div>
       </div>
     );
   }

@@ -1,12 +1,9 @@
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
 body {
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 .toggle-switch {
@@ -50,7 +47,7 @@ body {
   width: 451px;
   height: 451px;
 }
-.grid .cell {
+.grid-cell {
   border: 1px solid #999;
   border-width: 0 0 1px 1px;
   width: 150px;
@@ -62,11 +59,12 @@ body {
   -webkit-user-select: none;
   user-select: none;
 }
-.grid .marker, .grid .drop-hint {
+
+.grid-marker, .grid .drop-hint {
   position: absolute;
   background: red;
-  width: 150;
-  height: 150;
+  width: 150px;
+  height: 150px;
   opacity: 0.6;
 }
 .grid .drop-hint {

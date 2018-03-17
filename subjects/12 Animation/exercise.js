@@ -94,21 +94,21 @@ class DropGrid extends React.Component {
     return (
       <div className="grid" ref={node => (this.node = node)}>
         <Draggable
-          className="marker"
+          className="grid-marker"
           style={markerStyle}
           onDragStart={this.handleDragStart}
           onDrag={this.handleDrag}
           onDrop={this.handleDrop}
         />
-        <div className="cell">1</div>
-        <div className="cell">2</div>
-        <div className="cell">3</div>
-        <div className="cell">4</div>
-        <div className="cell">5</div>
-        <div className="cell">6</div>
-        <div className="cell">7</div>
-        <div className="cell">8</div>
-        <div className="cell">9</div>
+        <div className="grid-cell">1</div>
+        <div className="grid-cell">2</div>
+        <div className="grid-cell">3</div>
+        <div className="grid-cell">4</div>
+        <div className="grid-cell">5</div>
+        <div className="grid-cell">6</div>
+        <div className="grid-cell">7</div>
+        <div className="grid-cell">8</div>
+        <div className="grid-cell">9</div>
       </div>
     );
   }

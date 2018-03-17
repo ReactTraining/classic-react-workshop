@@ -1,0 +1,27 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background: white;
+}
+
+a:link,
+a:visited {
+  color: rebeccapurple;
+  text-decoration: none;
+}
+a:link:hover {
+  text-decoration: underline;
+}
+
+.hot {
+  color: red;
+}
