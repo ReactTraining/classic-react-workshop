@@ -9,13 +9,13 @@
 //
 // - Use a <Spring> to animate the transition
 ////////////////////////////////////////////////////////////////////////////////
+import "./styles.css";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { Mixin as TweenStateMixin } from "react-tween-state";
 import { Motion, spring } from "react-motion";
-
-require("./styles");
 
 const TweenToggleSwitch = React.createClass({
   propTypes: {

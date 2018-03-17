@@ -4,66 +4,38 @@ const mkdirp = require("mkdirp");
 const React = require("react");
 const ReactDOMServer = require("react-dom/server");
 
-const e = React.createElement;
+function writeFile(file, contents) {
+  mkdirp.sync(path.dirname(file));
+  fs.writeFileSync(file, contents);
+}
 
-function IndexPage({ data }) {
-  return e(
-    "html",
-    null,
-    e(
-      "head",
-      null,
-      e("link", { rel: "stylesheet", href: "/shared.css" })
-    ),
-    e(
-      "body",
-      null,
-      e(
-        "div",
-        { className: "index" },
-        e(
-          "div",
-          { className: "index-logo" },
-          e(
-            "a",
-            { href: "https://reacttraining.com" },
-            e("img", { src: "/logo.png" })
-          )
-        ),
-        e(
-          "table",
-          {
-            className: "index-subjectsTable",
-            cellSpacing: 0,
-            cellPadding: 0
-          },
-          e(
-            "tbody",
-            null,
-            data.map((row, index) =>
-              e(
-                "tr",
-                { key: index },
-                row.map((content, index) =>
-                  e("td", { key: index }, content)
-                )
-              )
-            )
-          )
-        )
-      )
-    )
+function renderPage(element) {
+  return (
+    "<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(element)
   );
 }
 
-function SubjectPage({ bundle }) {
+const e = React.createElement;
+
+function HostPage({ bundle, data, title = "React Training" }) {
   return e(
     "html",
     null,
     e(
       "head",
       null,
-      e("link", { rel: "stylesheet", href: "/shared.css" })
+      e("meta", { charSet: "utf-8" }),
+      e("meta", {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1"
+      }),
+      e("title", null, title),
+      data &&
+        e("script", {
+          dangerouslySetInnerHTML: {
+            __html: `window.__DATA__ = ${JSON.stringify(data)}`
+          }
+        })
     ),
     e(
       "body",
@@ -75,18 +47,6 @@ function SubjectPage({ bundle }) {
   );
 }
 
-function renderPage(page, props) {
-  return (
-    "<!doctype html>" +
-    ReactDOMServer.renderToStaticMarkup(e(page, props))
-  );
-}
-
-function writeFile(file, contents) {
-  mkdirp.sync(path.dirname(file));
-  fs.writeFileSync(file, contents);
-}
-
 const publicDir = path.resolve(__dirname, "../public");
 const subjectsDir = path.resolve(__dirname, "../subjects");
 const subjectDirs = fs
@@ -94,14 +54,11 @@ const subjectDirs = fs
   .map(file => path.join(subjectsDir, file))
   .filter(file => fs.lstatSync(file).isDirectory());
 
-const rows = [];
+const subjects = [];
 
 subjectDirs.forEach(dir => {
   const split = path.basename(dir).split(/ (.+)/);
-  const n = split[0];
-  const subject = split[1];
-
-  const row = [n];
+  const subject = { index: split[0], name: split[1] };
 
   const base = path
     .basename(dir)
@@ -113,12 +70,10 @@ subjectDirs.forEach(dir => {
 
     writeFile(
       path.join(publicDir, base, "lecture.html"),
-      renderPage(SubjectPage, { bundle: `${base}/lecture` })
+      renderPage(e(HostPage, { bundle: `${base}/lecture` }))
     );
 
-    row.push(e("a", { href: `/${base}/lecture.html` }, subject));
-  } else {
-    row.push(subject);
+    subject.lectureHref = `/${base}/lecture.html`;
   }
 
   if (fs.existsSync(path.join(dir, "exercise.js"))) {
@@ -126,12 +81,10 @@ subjectDirs.forEach(dir => {
 
     writeFile(
       path.join(publicDir, base, "exercise.html"),
-      renderPage(SubjectPage, { bundle: `${base}/exercise` })
+      renderPage(e(HostPage, { bundle: `${base}/exercise` }))
     );
 
-    row.push(e("a", { href: `/${base}/exercise.html` }, "exercise"));
-  } else {
-    row.push(null);
+    subject.exerciseHref = `/${base}/exercise.html`;
   }
 
   if (fs.existsSync(path.join(dir, "solution.js"))) {
@@ -139,20 +92,18 @@ subjectDirs.forEach(dir => {
 
     writeFile(
       path.join(publicDir, base, "solution.html"),
-      renderPage(SubjectPage, { bundle: `${base}/solution` })
+      renderPage(e(HostPage, { bundle: `${base}/solution` }))
     );
 
-    row.push(e("a", { href: `/${base}/solution.html` }, "solution"));
-  } else {
-    row.push(null);
+    subject.solutionHref = `/${base}/solution.html`;
   }
 
-  rows.push(row);
+  subjects.push(subject);
 });
 
 console.log(`Building index.html...`);
 
 writeFile(
   path.join(publicDir, "index.html"),
-  renderPage(IndexPage, { data: rows })
+  renderPage(e(HostPage, { bundle: "index", data: { subjects } }))
 );

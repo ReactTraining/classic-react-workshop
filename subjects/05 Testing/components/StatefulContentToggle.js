@@ -2,9 +2,7 @@ import React from "react";
 import ContentToggle from "./ContentToggle";
 
 class StatefulContentToggle extends React.Component {
-  state = {
-    isOpen: false
-  };
+  state = { isOpen: false };
 
   render() {
     return (

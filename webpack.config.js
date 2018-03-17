@@ -34,7 +34,8 @@ module.exports = {
       return entries;
     },
     {
-      shared: ["react", "react-dom"]
+      shared: ["react", "react-dom"],
+      index: path.join(subjectsDir, "index.js")
     }
   ),
 
@@ -43,10 +44,6 @@ module.exports = {
     filename: "[name].js",
     chunkFilename: "[id].chunk.js",
     publicPath: "/"
-  },
-
-  resolve: {
-    extensions: ["", ".js", ".css"]
   },
 
   module: {
