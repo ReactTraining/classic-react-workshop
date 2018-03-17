@@ -1,13 +1,13 @@
-.index-logo {
+.index-header {
   max-width: 800px;
   margin: 30px auto 40px;
   text-align: center;
 }
-.index-logo img {
+.index-header img {
   width: 300px;
 }
 @media (max-width: 600px) {
-  .index-logo {
+  .index-header {
     margin: 10px auto 20px;
   }
 }
@@ -44,4 +44,21 @@
 
 .index-exercise {
   padding-left: 20px;
+}
+
+.index-footer {
+  max-width: 800px;
+  margin: 40px auto 60px;
+  text-align: center;
+  font-size: 0.8em;
+  color: #ccc;
+}
+.index-footer a:link,
+.index-footer a:visited {
+  color: #ccc;
+}
+@media (max-width: 600px) {
+  .index-footer {
+    margin: 20px auto 40px;
+  }
 }

@@ -10,11 +10,11 @@ function Index() {
 
   return (
     <div className="index">
-      <div className="index-logo">
+      <header className="index-header">
         <a href="https://reacttraining.com">
-          <img src={logoURL} />
+          <img src={logoURL} alt="React Training" />
         </a>
-      </div>
+      </header>
       <table
         className="index-subjectsTable"
         cellSpacing={0}
@@ -25,9 +25,9 @@ function Index() {
             <tr key={index}>
               <td className="index-subjectNumber">{subject.number}</td>
               <td className="index-lecture">
-                {subject.lectureHref ? (
+                {subject.lecture ? (
                   <a
-                    href={subject.lectureHref}
+                    href={subject.lecture}
                     title={`${subject.name} lecture`}
                   >
                     {subject.name}
@@ -37,33 +37,35 @@ function Index() {
                 )}
               </td>
               <td className="index-exercise">
-                {subject.exerciseHref ? (
+                {subject.exercise && (
                   <a
-                    href={subject.exerciseHref}
+                    href={subject.exercise}
                     title={`${subject.name} exercise`}
                   >
                     exercise
                   </a>
-                ) : (
-                  ""
                 )}
               </td>
               <td className="index-solution">
-                {subject.solutionHref ? (
+                {subject.solution && (
                   <a
-                    href={subject.solutionHref}
+                    href={subject.solution}
                     title={`${subject.name} solution`}
                   >
                     solution
                   </a>
-                ) : (
-                  ""
                 )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <footer className="index-footer">
+        &copy; 2015-{new Date().getFullYear()}{" "}
+        <a href="https://reacttraining.com" title="React Training">
+          React Training LLC
+        </a>, all rights reserved
+      </footer>
     </div>
   );
 }

@@ -59,7 +59,7 @@ const subjects = [];
 
 subjectDirs.forEach(dir => {
   const split = path.basename(dir).split(/ (.+)/);
-  const subject = { index: split[0], name: split[1] };
+  const subject = { number: split[0], name: split[1] };
 
   const base = path
     .basename(dir)
@@ -74,7 +74,7 @@ subjectDirs.forEach(dir => {
       renderPage(e(HostPage, { bundle: `${base}/lecture` }))
     );
 
-    subject.lectureHref = `/${base}/lecture.html`;
+    subject.lecture = `/${base}/lecture.html`;
   }
 
   if (fs.existsSync(path.join(dir, "exercise.js"))) {
@@ -85,7 +85,7 @@ subjectDirs.forEach(dir => {
       renderPage(e(HostPage, { bundle: `${base}/exercise` }))
     );
 
-    subject.exerciseHref = `/${base}/exercise.html`;
+    subject.exercise = `/${base}/exercise.html`;
   }
 
   if (fs.existsSync(path.join(dir, "solution.js"))) {
@@ -96,7 +96,7 @@ subjectDirs.forEach(dir => {
       renderPage(e(HostPage, { bundle: `${base}/solution` }))
     );
 
-    subject.solutionHref = `/${base}/solution.html`;
+    subject.solution = `/${base}/solution.html`;
   }
 
   subjects.push(subject);
