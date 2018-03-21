@@ -35,7 +35,14 @@ styles.panel = {
 };
 
 class Tabs extends React.Component {
+  state = {
+    // ???
+  };
+
   render() {
+    // HINT! This is your array of countries you got from the <App>.
+    const data = this.props.data;
+
     return (
       <div className="Tabs">
         <div className="Tab" style={styles.activeTab}>
