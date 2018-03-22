@@ -91,6 +91,7 @@ class CheckoutForm extends React.Component {
             <label>
               <input
                 type="checkbox"
+                defaultChecked={shippingSameAsBilling}
                 onChange={event =>
                   this.setState({
                     shippingSameAsBilling: event.target.checked
