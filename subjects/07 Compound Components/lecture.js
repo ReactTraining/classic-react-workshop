@@ -3,47 +3,170 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import * as styles from "./styles";
 
-class Tabs extends React.Component {
-  state = {
-    activeIndex: 0
-  };
+// class Tabs extends React.Component {
+//   state = {
+//     activeIndex: 0
+//   };
 
-  selectTabIndex(activeIndex) {
-    this.setState({ activeIndex });
-  }
+//   selectTabIndex(activeIndex) {
+//     this.setState({ activeIndex });
+//   }
 
-  renderTabs() {
-    return this.props.data.map((tab, index) => {
-      const isActive = this.state.activeIndex === index;
-      return (
-        <div
-          key={tab.label}
-          style={isActive ? styles.activeTab : styles.tab}
-          onClick={() => this.selectTabIndex(index)}
-        >
-          {tab.label}
-        </div>
-      );
-    });
-  }
+//   renderTabs() {
+//     return this.props.data.map((tab, index) => {
+//       const isActive = this.state.activeIndex === index;
+//       const isDisabled = this.props.disabled.includes(index);
+//       return (
+//         <div
+//           key={tab.label}
+//           style={
+//             isDisabled
+//               ? styles.disabledTab
+//               : isActive ? styles.activeTab : styles.tab
+//           }
+//           onClick={isDisabled ? null : () => this.selectTabIndex(index)}
+//         >
+//           {tab.label}
+//         </div>
+//       );
+//     });
+//   }
 
-  renderPanel() {
-    const tab = this.props.data[this.state.activeIndex];
-    return <div>{tab.description}</div>;
-  }
+//   renderPanel() {
+//     const tab = this.props.data[this.state.activeIndex];
+//     return <div>{tab.description}</div>;
+//   }
+
+//   render() {
+//     const tabList = (
+//       <div style={styles.tabList}>{this.renderTabs()}</div>
+//     );
+//     const tabPanels = (
+//       <div style={styles.tabPanels}>{this.renderPanel()}</div>
+//     );
+
+//     return (
+//       <div>
+//         {this.props.tabsOnBottom
+//           ? [tabPanels, tabList]
+//           : [tabList, tabPanels]}
+//       </div>
+//     );
+//   }
+// }
+
+class NewTabs extends React.Component {
+  state = { activeIndex: 0 };
 
   render() {
-    return (
-      <div>
-        <div style={styles.tabList}>{this.renderTabs()}</div>
-        <div style={styles.tabPanels}>{this.renderPanel()}</div>
-      </div>
-    );
+    const children = React.Children.map(this.props.children, child => {
+      if (child.type === TabList) {
+        return React.cloneElement(child, {
+          _activeIndex: this.state.activeIndex,
+          _onSelectTab: index => this.setState({ activeIndex: index })
+        });
+      } else if (child.type === TabPanels) {
+        return React.cloneElement(child, {
+          _activeIndex: this.state.activeIndex
+        });
+      } else {
+        return child;
+      }
+    });
+
+    return <div>{children}</div>;
   }
+}
+
+function TabList({ children, _activeIndex, _onSelectTab }) {
+  return (
+    <div style={styles.tabList}>
+      {React.Children.map(children, (child, index) =>
+        React.cloneElement(child, {
+          _isActive: _activeIndex === index,
+          _onSelect: () => _onSelectTab(index)
+        })
+      )}
+    </div>
+  );
+}
+
+function Tab({ children, disabled, _isActive, _onSelect }) {
+  return (
+    <div
+      style={
+        disabled
+          ? styles.disabledTab
+          : _isActive ? styles.activeTab : styles.tab
+      }
+      onClick={disabled ? null : _onSelect}
+    >
+      {children}
+    </div>
+  );
+}
+
+function TabPanels({ children, _activeIndex }) {
+  return (
+    <div style={styles.tabPanels}>
+      {React.Children.toArray(children)[_activeIndex]}
+    </div>
+  );
+}
+
+function TabPanel({ children }) {
+  return <div style={styles.tabPanel}>{children}</div>;
+}
+
+function Tabs({ data, tabsOnBottom, disabled }) {
+  const tabList = (
+    <TabList>
+      {data.map((item, index) => (
+        <Tab key={index} disabled={disabled.includes(index)}>
+          {item.label}
+        </Tab>
+      ))}
+    </TabList>
+  );
+
+  const tabPanels = (
+    <TabPanels>
+      {data.map((item, index) => (
+        <TabPanel key={index}>{item.description}</TabPanel>
+      ))}
+    </TabPanels>
+  );
+
+  return (
+    <NewTabs>
+      {tabsOnBottom ? [tabPanels, tabList] : [tabList, tabPanels]}
+    </NewTabs>
+  );
 }
 
 class App extends React.Component {
   render() {
+    // return (
+    //   <NewTabs>
+    //     <TabList>
+    //       <Tab>Tacos</Tab>
+    //       <Tab disabled>Burritos</Tab>
+    //       <Tab>Coconut Korma</Tab>
+    //     </TabList>
+    //     <TabPanels>
+    //       <TabPanel>
+    //         <p>Tacos are delicious</p>
+    //       </TabPanel>
+    //       <TabPanel>
+    //         <p>Sometimes a burrito is what you really need</p>
+    //       </TabPanel>
+    //       <TabPanel>
+    //         <p>Might be your best option</p>
+    //       </TabPanel>
+    //     </TabPanels>
+    //   </NewTabs>
+    // );
+
     const tabData = [
       {
         label: "Tacos",
@@ -61,7 +184,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Tabs data={tabData} />
+        <Tabs data={tabData} tabsOnBottom={true} disabled={[1]} />
       </div>
     );
   }
