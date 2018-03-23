@@ -14,13 +14,18 @@ import * as styles from "./styles";
 // plan, so instead we can use a feature called "context".
 
 class TabList extends React.Component {
+  static contextTypes = {
+    activeIndex: PropTypes.number.isRequired,
+    onActivate: PropTypes.func.isRequired
+  };
+
   render() {
     const children = React.Children.map(
       this.props.children,
       (child, index) => {
         return React.cloneElement(child, {
-          isActive: index === this.props.activeIndex,
-          onClick: () => this.props.onActivate(index)
+          isActive: index === this.context.activeIndex,
+          onClick: () => this.context.onActivate(index)
         });
       }
     );
@@ -46,11 +51,24 @@ class Tab extends React.Component {
   }
 }
 
+/*
+parent 
+  - static childContextTypes
+  - getChildContext
+child
+  - static contextTypes
+  - this.context
+  */
+
 class TabPanels extends React.Component {
+  static contextTypes = {
+    activeIndex: PropTypes.number.isRequired
+  };
+
   render() {
     return (
       <div style={styles.tabPanels}>
-        {this.props.children[this.props.activeIndex]}
+        {this.props.children[this.context.activeIndex]}
       </div>
     );
   }
@@ -67,26 +85,26 @@ class Tabs extends React.Component {
     activeIndex: 0
   };
 
-  render() {
-    const children = React.Children.map(
-      this.props.children,
-      (child, index) => {
-        if (child.type === TabPanels) {
-          return React.cloneElement(child, {
-            activeIndex: this.state.activeIndex
-          });
-        } else if (child.type === TabList) {
-          return React.cloneElement(child, {
-            activeIndex: this.state.activeIndex,
-            onActivate: index => this.setState({ activeIndex: index })
-          });
-        } else {
-          return child;
-        }
-      }
-    );
+  static childContextTypes = {
+    activeIndex: PropTypes.number.isRequired,
+    onActivate: PropTypes.func.isRequired
+  };
 
-    return <div>{children}</div>;
+  getChildContext() {
+    return {
+      activeIndex: this.state.activeIndex,
+      onActivate: index => this.setState({ activeIndex: index })
+    };
+  }
+
+  render() {
+    return <div>{this.props.children}</div>;
+  }
+}
+
+class UpdateBlocker extends React.PureComponent {
+  render() {
+    return this.props.children;
   }
 }
 
@@ -95,22 +113,26 @@ class App extends React.Component {
     return (
       <div>
         <Tabs>
-          <TabList>
-            <Tab>Tacos</Tab>
-            <Tab disabled>Burritos</Tab>
-            <Tab>Coconut Korma</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <p>Tacos are delicious</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Sometimes a burrito is what you really need</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Might be your best option</p>
-            </TabPanel>
-          </TabPanels>
+          <div className="hot">
+            <TabList>
+              <Tab>Tacos</Tab>
+              <Tab disabled>Burritos</Tab>
+              <Tab>Coconut Korma</Tab>
+            </TabList>
+          </div>
+          <UpdateBlocker>
+            <TabPanels>
+              <TabPanel>
+                <p>Tacos are delicious</p>
+              </TabPanel>
+              <TabPanel>
+                <p>Sometimes a burrito is what you really need</p>
+              </TabPanel>
+              <TabPanel>
+                <p>Might be your best option</p>
+              </TabPanel>
+            </TabPanels>
+          </UpdateBlocker>
         </Tabs>
       </div>
     );
