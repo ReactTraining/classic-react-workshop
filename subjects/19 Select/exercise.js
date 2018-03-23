@@ -15,13 +15,61 @@ class Select extends React.Component {
     defaultValue: PropTypes.any
   };
 
+  isControlled() {
+    return this.props.value != null;
+  }
+
+  state = {
+    showOptions: false,
+    value: this.props.defaultValue
+  };
+
+  toggleOptions = () => {
+    this.setState({ showOptions: !this.state.showOptions });
+  };
+
+  componentDidMount() {
+    if (this.isControlled() && !this.props.onChange) {
+      console.warn(
+        "You provided a `value` prop to a <Select> without an `onChange` handler. This will render a read-only field..."
+      );
+    }
+  }
+
+  selectValue(value) {
+    if (this.isControlled()) {
+      if (this.props.onChange) {
+        this.props.onChange(value);
+      }
+    } else {
+      this.setState({ value });
+    }
+  }
+
   render() {
+    const value = (this.isControlled() ? this.props : this.state).value;
+
+    let label;
+    React.Children.forEach(this.props.children, child => {
+      if (child.props.value === value) {
+        label = child.props.children;
+      }
+    });
+
+    const children = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        _onSelect: () => this.selectValue(child.props.value)
+      });
+    });
+
     return (
-      <div className="select">
+      <div className="select" onClick={this.toggleOptions}>
         <div className="label">
-          label <span className="arrow">▾</span>
+          {label} <span className="arrow">▾</span>
         </div>
-        <div className="options">{this.props.children}</div>
+        {this.state.showOptions && (
+          <div className="options">{children}</div>
+        )}
       </div>
     );
   }
@@ -29,7 +77,11 @@ class Select extends React.Component {
 
 class Option extends React.Component {
   render() {
-    return <div className="option">{this.props.children}</div>;
+    return (
+      <div className="option" onClick={this.props._onSelect}>
+        {this.props.children}
+      </div>
+    );
   }
 }
 
