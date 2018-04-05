@@ -35,7 +35,14 @@ styles.panel = {
 };
 
 class Tabs extends React.Component {
+  state = {
+    // Hint: what state do we need?
+  };
+
   render() {
+    // Hint: here's how you get the data from the <App>!
+    const data = this.props.data;
+
     return (
       <div className="Tabs">
         <div className="Tab" style={styles.activeTab}>
