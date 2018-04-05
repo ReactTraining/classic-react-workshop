@@ -14,10 +14,33 @@ history.listen(() => {
 
 // change the URL
 history.push('/something')
+
+// Got extra time?
+- <Redirect to>
+- <Switch>
 */
 
 class Router extends React.Component {
   history = createHashHistory();
+
+  state = {
+    location: this.history.location
+  };
+
+  static childContextTypes = {
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
+  getChildContext() {
+    return { location: this.state.location, history: this.history };
+  }
+
+  componentDidMount() {
+    this.history.listen(() => {
+      this.setState({ location: this.history.location });
+    });
+  }
 
   render() {
     return this.props.children;
@@ -25,15 +48,42 @@ class Router extends React.Component {
 }
 
 class Route extends React.Component {
+  static contextTypes = {
+    location: PropTypes.object.isRequired
+  };
+
   render() {
+    const { location } = this.context;
     const { path, render, component: Component } = this.props;
+
+    if (location.pathname.startsWith(path)) {
+      // We matched the current URL!
+      if (render) {
+        return render();
+      }
+
+      if (Component) {
+        return <Component />;
+      }
+    }
+
     return null;
   }
 }
 
 class Link extends React.Component {
+  static contextTypes = {
+    history: PropTypes.object.isRequired
+  };
+
   handleClick = e => {
     e.preventDefault();
+
+    const { history } = this.context;
+
+    if (history.location.pathname !== this.props.to) {
+      history.push(this.props.to);
+    }
   };
 
   render() {
@@ -45,4 +95,26 @@ class Link extends React.Component {
   }
 }
 
-export { Router, Route, Link };
+class Switch extends React.Component {
+  static contextTypes = {
+    location: PropTypes.object.isRequired
+  };
+
+  render() {
+    const { location } = this.context;
+
+    let route = null;
+    React.Children.forEach(this.props.children, child => {
+      if (
+        route == null &&
+        location.pathname.startsWith(child.props.path)
+      ) {
+        route = child;
+      }
+    });
+
+    return route;
+  }
+}
+
+export { Router, Route, Link, Switch };

@@ -33,7 +33,7 @@ import PropTypes from "prop-types";
 //     return (
 //       <ul>
 //         {this.state.lines.map((line, index) => (
-//           <li key={index}>{line}</li>
+//           <li key={line}>{line}</li>
 //         ))}
 //       </ul>
 //     );
@@ -97,9 +97,17 @@ class TodoList extends React.Component {
 
     event.target.reset();
 
-    this.setState({
-      items: [item].concat(this.state.items)
-    });
+    Perf.start();
+
+    this.setState(
+      {
+        items: [item].concat(this.state.items)
+      },
+      () => {
+        Perf.stop();
+        Perf.printWasted();
+      }
+    );
   };
 
   render() {
@@ -119,7 +127,7 @@ class TodoList extends React.Component {
 }
 
 ReactDOM.render(
-  <TodoList startLength={200} />,
+  <TodoList startLength={5000} />,
   document.getElementById("app")
 );
 
