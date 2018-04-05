@@ -26,18 +26,16 @@ class Tabs extends React.Component {
     data: PropTypes.array.isRequired
   };
 
-  state = {
-    activeIndex: 0
-  };
-
   selectTab(index) {
-    this.setState({ activeIndex: index });
+    if (this.props.onChange) {
+      this.props.onChange(index);
+    }
   }
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
       const style =
-        this.state.activeIndex === index
+        this.props.activeIndex === index
           ? styles.activeTab
           : styles.tab;
 
@@ -55,7 +53,7 @@ class Tabs extends React.Component {
   }
 
   renderPanel() {
-    const tab = this.props.data[this.state.activeIndex];
+    const tab = this.props.data[this.props.activeIndex];
 
     return (
       <div>
@@ -74,12 +72,41 @@ class Tabs extends React.Component {
   }
 }
 
+class StatefulTabs extends React.Component {
+  state = { activeIndex: 0 };
+  render() {
+    return (
+      <Tabs
+        {...this.props}
+        activeIndex={this.state.activeIndex}
+        onChange={index => this.setState({ activeIndex: index })}
+      />
+    );
+  }
+}
+
 class App extends React.Component {
+  state = {
+    activeIndex: 1
+  };
+
+  componentDidMount() {
+    console.log(this.refs.tabs);
+  }
+
   render() {
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs ref="tabs" data={this.props.tabs} />
+        <button onClick={() => this.setState({ activeIndex: 1 })}>
+          Go to step 2
+        </button>
+        <Tabs
+          data={this.props.tabs}
+          activeIndex={this.state.activeIndex}
+          onChange={index => this.setState({ activeIndex: index })}
+        />
+        <StatefulTabs data={this.props.tabs} />
       </div>
     );
   }
