@@ -10,9 +10,7 @@ function writeFile(file, contents) {
 }
 
 function renderPage(element) {
-  return (
-    "<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(element)
-  );
+  return ReactDOMServer.renderToStaticMarkup(element);
 }
 
 const e = React.createElement;
