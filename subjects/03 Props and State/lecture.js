@@ -34,12 +34,16 @@ class ContentToggle extends React.Component {
   }
 }
 
+import carnitas from "./tacos/carnitas.png";
+import pollo from "./tacos/pollo.png";
+import asada from "./tacos/asada.png";
+
 class App extends React.Component {
   state = {
     tacos: [
-      { id: 0, name: "Carnitas", src: "tacos/carnitas.png" },
-      { id: 1, name: "Pollo", src: "tacos/pollo.png" },
-      { id: 2, name: "Asada", src: "tacos/asada.png" }
+      { id: 0, name: "Carnitas", src: carnitas },
+      { id: 1, name: "Pollo", src: pollo },
+      { id: 2, name: "Asada", src: asada }
     ]
   };
 
