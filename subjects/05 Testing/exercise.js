@@ -51,24 +51,52 @@ describe("when <Tabs> is rendered", () => {
     );
   });
 
-  it("renders the Brazil tab");
+  it("renders the Brazil tab", () => {
+    expect(tabs[1].innerText).toEqual(
+      FixtureData[1].label,
+      "Brazil tab was not rendered"
+    );
+  });
 
-  it("renders the Russia tab");
+  it("renders the Russia tab", () => {
+    expect(tabs[2].innerText).toEqual(
+      FixtureData[2].label,
+      "Russia tab was not rendered"
+    );
+  });
 
   // you may want to use the `borderFixture` variable
-  it("activates the first tab");
+  it("activates the first tab", () => {
+    expect(tabs[0].style.borderBottomColor).toEqual(
+      borderFixture.style.borderBottomColor
+    );
+  });
 
-  it("does not activate the second tab");
+  it("does not activate the second tab", () => {
+    expect(tabs[1].style.borderBottomColor).toNotEqual(
+      borderFixture.style.borderBottomColor
+    );
+  });
 
   describe("after clicking the second tab", () => {
     beforeEach(() => {
-      // TODO: simulate a click on the second tab
+      Simulate.click(tabs[1]);
     });
 
-    it("activates the second tab");
+    it("activates the second tab", () => {
+      expect(tabs[1].style.borderBottomColor).toEqual(
+        borderFixture.style.borderBottomColor
+      );
+    });
 
-    it("deactivates the first tab");
+    it("deactivates the first tab", () => {
+      expect(tabs[0].style.borderBottomColor).toNotEqual(
+        borderFixture.style.borderBottomColor
+      );
+    });
 
-    it("puts the correct content in the panel");
+    it("puts the correct content in the panel", () => {
+      expect(panel.innerHTML).toEqual(FixtureData[1].content);
+    });
   });
 });

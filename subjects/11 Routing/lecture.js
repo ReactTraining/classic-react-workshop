@@ -1,12 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { HashRouter, Switch, Route, Link } from "react-router-dom";
 
 const About = () => {
   return <h2>About</h2>;
 };
 
+const Message = ({ id }) => {
+  return (
+    <div>
+      <p>Now showing message {id}</p>
+    </div>
+  );
+};
+
 const Inbox = () => {
-  return <h2>Inbox</h2>;
+  return (
+    <div>
+      <h2>Inbox</h2>
+      <Route
+        path="/inbox/:id"
+        children={props =>
+          props.match ? (
+            <Message id={props.match.params.id} />
+          ) : (
+            <p>No message</p>
+          )
+        }
+      />
+    </div>
+  );
 };
 
 const Home = () => {
@@ -16,9 +39,30 @@ const Home = () => {
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Welcome to the app!</h1>
-      </div>
+      <HashRouter>
+        <div>
+          <h1>Welcome to the app!</h1>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/home">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              <li>
+                <Link to="/inbox">Inbox</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/home" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/inbox" component={Inbox} />
+          </Switch>
+        </div>
+      </HashRouter>
     );
   }
 }

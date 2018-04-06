@@ -33,7 +33,7 @@ const USERS = [
   {
     id: 1,
     name: "Michael Jackson",
-    email: "michael@reacttraining.com"
+    email: "mjijackson@gmail.com"
   },
   { id: 2, name: "Bruce Lee", email: "bruce@awesome.com" }
 ];
@@ -49,7 +49,9 @@ function getUserByID(id) {
 class Home extends React.Component {
   render() {
     const contactItems = USERS.map(user => (
-      <li key={user.email}>{user.name}</li>
+      <li key={user.email}>
+        <Link to={`/user/${user.id}`}>{user.name}</Link>
+      </li>
     ));
 
     return (
@@ -63,7 +65,7 @@ class Home extends React.Component {
 
 class Profile extends React.Component {
   render() {
-    const userId = 1; // TODO: Get this from the URL!
+    const userId = this.props.match.params.userId;
     const user = getUserByID(userId);
 
     if (user == null) return <p>Cannot find user with id {userId}</p>;
@@ -92,10 +94,14 @@ class NoMatch extends React.Component {
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <h1>People Viewer</h1>
-        <Home />
-      </div>
+      <Router>
+        <div>
+          <h1>People Viewer</h1>
+
+          <Route exact path="/" component={Home} />
+          <Route path="/user/:userId" component={Profile} />
+        </div>
+      </Router>
     );
   }
 }

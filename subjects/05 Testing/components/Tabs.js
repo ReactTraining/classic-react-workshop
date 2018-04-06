@@ -65,7 +65,9 @@ class Tabs extends React.Component {
     return (
       <div>
         {tabs}
-        <div style={styles.panel}>{content}</div>
+        <div className="TabPanel" style={styles.panel}>
+          {content}
+        </div>
       </div>
     );
   }

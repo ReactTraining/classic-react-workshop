@@ -11,112 +11,180 @@ import StatefulContentToggle from "./components/StatefulContentToggle";
 import Tabs from "./components/Tabs";
 import Droppable from "./components/Droppable";
 
-// describe("ContentToggle", () => {
-//   let div;
-//   beforeEach(() => {
-//     div = document.createElement("div");
-//   });
+describe("ContentToggle", () => {
+  describe("using server rendering", () => {
+    it("renders the summary in a button", () => {
+      const element = (
+        <ContentToggle summary="Tacos">
+          <p>ARE GOOD</p>
+        </ContentToggle>
+      );
 
-//   it("displays the summary", () => {
-//     ReactDOM.render(<ContentToggle summary="The Summary" />, div);
+      // const node = document.createElement('div');
+      const html = ReactDOMServer.renderToStaticMarkup(element);
 
-//     expect(div.innerHTML).toMatch(
-//       /The Summary/,
-//       '"The Summary" was not found in HTML'
-//     );
-//   });
+      expect(html).toContain("Tacos");
+    });
 
-//   describe("isOpen prop", () => {
-//     it("does not display children when false", () => {
-//       ReactDOM.render(
-//         <ContentToggle isOpen={false} summary="The Summary">
-//           <p>Cheers</p>
-//         </ContentToggle>,
-//         div
-//       );
+    it("does not render its content", () => {
+      const element = (
+        <ContentToggle summary="Tacos">
+          <p>ARE GOOD</p>
+        </ContentToggle>
+      );
 
-//       expect(div.innerHTML).toNotMatch(
-//         /Cheers/,
-//         '"Cheers" was found in HTML'
-//       );
-//     });
+      const html = ReactDOMServer.renderToStaticMarkup(element);
 
-//     it("defaults to false", () => {
-//       ReactDOM.render(
-//         <ContentToggle summary="The Summary">
-//           <p>Cheers</p>
-//         </ContentToggle>,
-//         div
-//       );
+      expect(html).toNotContain("ARE GOOD");
+    });
+  });
 
-//       expect(div.innerHTML).toNotMatch(
-//         /Cheers/,
-//         '"Cheers" was found in HTML'
-//       );
-//     });
+  describe("using a real browser", () => {
+    it("renders the summary in a button", () => {
+      const element = (
+        <ContentToggle summary="Tacos">
+          <p>ARE GOOD</p>
+        </ContentToggle>
+      );
 
-//     it("displays children when true", () => {
-//       ReactDOM.render(
-//         <ContentToggle isOpen={true} summary="The Summary">
-//           <p>Cheers</p>
-//         </ContentToggle>,
-//         div
-//       );
+      const node = document.createElement("div");
 
-//       expect(div.innerHTML).toMatch(
-//         /Cheers/,
-//         '"Cheers" was not found in HTML'
-//       );
-//     });
-//   });
-// });
+      ReactDOM.render(element, node);
+      const html = node.innerHTML;
 
-// describe("StatefulContentToggle", () => {
-//   let div;
-//   beforeEach(() => {
-//     div = document.createElement("div");
-//   });
+      expect(html).toContain("Tacos");
+    });
 
-//   it("opens when clicked", () => {
-//     ReactDOM.render(
-//       <StatefulContentToggle summary="The Summary">
-//         <p>The Content</p>
-//       </StatefulContentToggle>,
-//       div
-//     );
+    describe("when isOpen=true", () => {
+      it("renders its content", () => {
+        const element = (
+          <ContentToggle isOpen summary="Tacos">
+            <p>ARE GOOD</p>
+          </ContentToggle>
+        );
 
-//     Simulate.click(div.querySelector("button"));
+        const node = document.createElement("div");
 
-//     expect(div.innerHTML).toMatch(
-//       /The Content/,
-//       '"The Content" was not found in HTML'
-//     );
-//   });
-// });
+        ReactDOM.render(element, node);
+        const html = node.innerHTML;
 
-// describe("Droppable", () => {
-//   let div;
-//   beforeEach(() => {
-//     div = document.createElement("div");
-//   });
+        expect(html).toContain("ARE GOOD");
+      });
+    });
+  });
+});
 
-//   it("accepts files", () => {
-//     ReactDOM.render(<Droppable />, div);
-//     Simulate.dragOver(div.querySelector("div.Droppable"), {
-//       dataTransfer: { types: ["Files"] }
-//     });
-//     expect(div.innerHTML).toMatch(
-//       /Drop it!/,
-//       '"Drop it!" was not found in HTML'
-//     );
-//   });
-// });
+describe("StatefulContentToggle", () => {
+  it("renders the summary in a button", () => {
+    const element = (
+      <StatefulContentToggle summary="Tacos">
+        <p>ARE GOOD</p>
+      </StatefulContentToggle>
+    );
 
-// - render to a node that isn't in the dom
-// - match innerHTML
-// - renderToString
-// - Simulate
-// - actually render something
-// - getDefaultProps for application modules
-// - shallow renderer
-// - assert on vdom
+    const node = document.createElement("div");
+
+    ReactDOM.render(element, node);
+    const html = node.innerHTML;
+
+    expect(html).toContain("Tacos");
+  });
+
+  it("does not render its content", () => {
+    const element = (
+      <StatefulContentToggle summary="Tacos">
+        <p>ARE GOOD</p>
+      </StatefulContentToggle>
+    );
+
+    const node = document.createElement("div");
+
+    ReactDOM.render(element, node);
+    const html = node.innerHTML;
+
+    expect(html).toNotContain("ARE GOOD");
+  });
+
+  describe("when the button is clicked", () => {
+    it("shows its content", () => {
+      const element = (
+        <StatefulContentToggle summary="Tacos">
+          <p>ARE GOOD</p>
+        </StatefulContentToggle>
+      );
+
+      const node = document.createElement("div");
+
+      ReactDOM.render(element, node);
+
+      // Click on the button!
+      Simulate.click(node.querySelector("button"));
+
+      const html = node.innerHTML;
+
+      expect(html).toContain("ARE GOOD");
+    });
+  });
+});
+
+describe("Tabs", () => {
+  describe("by default", () => {
+    it("shows the content from the first tab", () => {
+      const element = (
+        <Tabs
+          data={[
+            { label: "ONE", content: "THE BEGINNING" },
+            { label: "TWO", content: "THE END" }
+          ]}
+        />
+      );
+
+      const node = document.createElement("div");
+
+      ReactDOM.render(element, node);
+      const html = node.innerHTML;
+
+      expect(html).toContain("THE BEGINNING");
+    });
+  });
+
+  describe("when the second tab is clicked", () => {
+    it("shows the content from the second tab", () => {
+      const element = (
+        <Tabs
+          data={[
+            { label: "ONE", content: "THE BEGINNING" },
+            { label: "TWO", content: "THE END" }
+          ]}
+        />
+      );
+
+      const node = document.createElement("div");
+
+      ReactDOM.render(element, node);
+      Simulate.click(node.querySelectorAll(".Tab")[1]);
+      const html = node.innerHTML;
+
+      expect(html).toContain("THE END");
+    });
+  });
+});
+
+describe("Droppable", () => {
+  describe("when a file is about to be dropped", () => {
+    it("says 'Drop it!'", () => {
+      const element = <Droppable />;
+      const node = document.createElement("div");
+
+      ReactDOM.render(element, node);
+
+      Simulate.dragOver(node.firstChild, {
+        dataTransfer: {
+          types: ["Files"]
+        }
+      });
+
+      expect(node.innerHTML).toContain("Drop it!");
+    });
+  });
+});
