@@ -58,46 +58,26 @@ const subjectDirs = fs
 const subjects = [];
 
 subjectDirs.forEach(dir => {
-  const split = path.basename(dir).split(/ (.+)/);
-  const subject = { number: split[0], name: split[1] };
+  const match = path.basename(dir).match(/^(\d\d)-(.+)$/);
+  const subject = {
+    number: match[1],
+    name: match[2].replace(/-/g, " ")
+  };
 
-  const base = path
-    .basename(dir)
-    .replace(/\s/g, "-")
-    .toLowerCase();
+  const base = path.basename(dir);
 
-  if (fs.existsSync(path.join(dir, "lecture.js"))) {
-    console.log(`Building ${base}/lecture.html...`);
+  ["exercise", "solution", "lecture"].forEach(name => {
+    if (fs.existsSync(path.join(dir, `${name}.js`))) {
+      console.log(`Building ${base}/${name}.html...`);
 
-    writeFile(
-      path.join(publicDir, base, "lecture.html"),
-      renderPage(e(HostPage, { bundle: `${base}/lecture` }))
-    );
+      writeFile(
+        path.join(publicDir, base, `${name}.html`),
+        renderPage(e(HostPage, { bundle: `${base}/${name}` }))
+      );
 
-    subject.lecture = `/${base}/lecture.html`;
-  }
-
-  if (fs.existsSync(path.join(dir, "exercise.js"))) {
-    console.log(`Building ${base}/exercise.html...`);
-
-    writeFile(
-      path.join(publicDir, base, "exercise.html"),
-      renderPage(e(HostPage, { bundle: `${base}/exercise` }))
-    );
-
-    subject.exercise = `/${base}/exercise.html`;
-  }
-
-  if (fs.existsSync(path.join(dir, "solution.js"))) {
-    console.log(`Building ${base}/solution.html...`);
-
-    writeFile(
-      path.join(publicDir, base, "solution.html"),
-      renderPage(e(HostPage, { bundle: `${base}/solution` }))
-    );
-
-    subject.solution = `/${base}/solution.html`;
-  }
+      subject[name] = `/${base}/${name}.html`;
+    }
+  });
 
   subjects.push(subject);
 });

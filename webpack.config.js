@@ -14,22 +14,15 @@ module.exports = {
 
   entry: subjectDirs.reduce(
     (entries, dir) => {
-      const base = path
-        .basename(dir)
-        .replace(/\s/g, "-")
-        .toLowerCase();
+      const base = path.basename(dir);
 
-      if (fs.existsSync(path.join(dir, "exercise.js"))) {
-        entries[base + "/exercise"] = path.join(dir, "exercise.js");
-      }
+      ["exercise", "solution", "lecture"].forEach(name => {
+        const file = path.join(dir, `${name}.js`);
 
-      if (fs.existsSync(path.join(dir, "solution.js"))) {
-        entries[base + "/solution"] = path.join(dir, "solution.js");
-      }
-
-      if (fs.existsSync(path.join(dir, "lecture.js"))) {
-        entries[base + "/lecture"] = path.join(dir, "lecture.js");
-      }
+        if (fs.existsSync(file)) {
+          entries[path.join(base, name)] = file;
+        }
+      });
 
       return entries;
     },
