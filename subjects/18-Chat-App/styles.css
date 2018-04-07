@@ -8,7 +8,7 @@ body {
 }
 
 .chat {
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -30,7 +30,6 @@ body {
 .chat-title {
   font-size: 1.5em;
 }
-
 
 .messages {
   overflow: auto;
@@ -69,6 +68,7 @@ ol.messages {
 .message-group-avatar {
   position: absolute;
   background-color: lightblue;
+  line-height: 0;
 }
 .message-group-avatar img {
   height: 40px;
