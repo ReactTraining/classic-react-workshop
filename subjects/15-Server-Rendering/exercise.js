@@ -3,7 +3,7 @@
 //
 // First, fire up the server:
 //
-// 1. Run `npm run server-exercise` from the root of this repository
+// 1. Run `npm run ssr-exercise` from the root of this repository
 // 2. Open http://localhost:8090 (not 8080)
 //
 // Now let's write some code:

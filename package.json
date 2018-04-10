@@ -7,12 +7,9 @@
   "author": "React Training LLC",
   "license": "GPL-3.0",
   "scripts": {
-    "start":
-      "node ./scripts/build.js && webpack-dev-server --inline --content-base public",
-    "server-exercise":
-      "supervisor -- -r babel-register 'subjects/15-Server-Rendering/exercise/server.js'",
-    "server-solution":
-      "supervisor -- -r babel-register 'subjects/15-Server-Rendering/solution/server.js'"
+    "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base public",
+    "ssr-exercise": "supervisor -- -r babel-register 'subjects/15-Server-Rendering/exercise/server.js'",
+    "ssr-solution": "supervisor -- -r babel-register 'subjects/15-Server-Rendering/solution/server.js'"
   },
   "dependencies": {
     "angular": "1.5.8",
