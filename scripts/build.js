@@ -58,13 +58,12 @@ const subjectDirs = fs
 const subjects = [];
 
 subjectDirs.forEach(dir => {
-  const match = path.basename(dir).match(/^(\d\d)-(.+)$/);
+  const base = path.basename(dir);
+  const match = base.match(/^(\d+)-(.+)$/);
   const subject = {
     number: match[1],
     name: match[2].replace(/-/g, " ")
   };
-
-  const base = path.basename(dir);
 
   ["lecture", "exercise", "solution"].forEach(name => {
     if (fs.existsSync(path.join(dir, `${name}.js`))) {
@@ -82,7 +81,7 @@ subjectDirs.forEach(dir => {
   subjects.push(subject);
 });
 
-console.log(`Building index.html...`);
+console.log(`Building /index.html...`);
 
 writeFile(
   path.join(publicDir, "index.html"),
