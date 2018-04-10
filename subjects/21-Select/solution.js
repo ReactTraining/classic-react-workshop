@@ -3,10 +3,11 @@
 //
 // Make this work like a normal <select> box!
 ////////////////////////////////////////////////////////////////////////////////
+import "./styles.css";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import "./styles.css";
 
 class Select extends React.Component {
   static propTypes = {
