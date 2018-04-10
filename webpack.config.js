@@ -16,11 +16,11 @@ module.exports = {
     (entries, dir) => {
       const base = path.basename(dir);
 
-      ["exercise", "solution", "lecture"].forEach(name => {
+      ["lecture", "exercise", "solution"].forEach(name => {
         const file = path.join(dir, `${name}.js`);
 
         if (fs.existsSync(file)) {
-          entries[path.join(base, name)] = file;
+          entries[`${base}/${name}`] = file;
         }
       });
 

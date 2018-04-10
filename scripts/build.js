@@ -48,12 +48,12 @@ function HostPage({ bundle, data, title = "React Training" }) {
   );
 }
 
-const publicDir = path.resolve(__dirname, "../public");
-const subjectsDir = path.resolve(__dirname, "../subjects");
+const publicDir = path.resolve(__dirname, "..", "public");
+const subjectsDir = path.resolve(__dirname, "..", "subjects");
 const subjectDirs = fs
   .readdirSync(subjectsDir)
   .map(file => path.join(subjectsDir, file))
-  .filter(file => fs.lstatSync(file).isDirectory());
+  .filter(file => fs.statSync(file).isDirectory());
 
 const subjects = [];
 
@@ -66,9 +66,9 @@ subjectDirs.forEach(dir => {
 
   const base = path.basename(dir);
 
-  ["exercise", "solution", "lecture"].forEach(name => {
+  ["lecture", "exercise", "solution"].forEach(name => {
     if (fs.existsSync(path.join(dir, `${name}.js`))) {
-      console.log(`Building ${base}/${name}.html...`);
+      console.log(`Building /${base}/${name}.html...`);
 
       writeFile(
         path.join(publicDir, base, `${name}.html`),
