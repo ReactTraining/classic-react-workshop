@@ -3,7 +3,7 @@ import "./mocha-setup";
 import React from "react";
 import ReactDOM from "react-dom";
 import ReactDOMServer from "react-dom/server";
-import { Simulate } from "react-addons-test-utils";
+import { Simulate } from "react-dom/test-utils";
 import expect from "expect";
 
 import ContentToggle from "./components/ContentToggle";

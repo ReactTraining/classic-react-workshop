@@ -7,7 +7,7 @@ import "./mocha-setup";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { Simulate } from "react-addons-test-utils";
+import { Simulate } from "react-dom/test-utils";
 import expect from "expect";
 
 import Tabs from "./components/Tabs";
