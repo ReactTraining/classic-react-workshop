@@ -17,7 +17,7 @@ function renderPage(element) {
 
 const e = React.createElement;
 
-function HostPage({ bundle, data, title = "React Training" }) {
+function HostPage({ chunk, data, title = "React Training" }) {
   return e(
     "html",
     null,
@@ -43,7 +43,7 @@ function HostPage({ bundle, data, title = "React Training" }) {
       null,
       e("div", { id: "app" }),
       e("script", { src: "/shared.js" }),
-      e("script", { src: `/${bundle}.js` })
+      e("script", { src: `/${chunk}.js` })
     )
   );
 }
@@ -71,7 +71,7 @@ subjectDirs.forEach(dir => {
 
       writeFile(
         path.join(publicDir, base, `${name}.html`),
-        renderPage(e(HostPage, { bundle: `${base}/${name}` }))
+        renderPage(e(HostPage, { chunk: `${base}-${name}` }))
       );
 
       subject[name] = `/${base}/${name}.html`;
@@ -85,5 +85,5 @@ console.log(`Building /index.html...`);
 
 writeFile(
   path.join(publicDir, "index.html"),
-  renderPage(e(HostPage, { bundle: "index", data: { subjects } }))
+  renderPage(e(HostPage, { chunk: "index", data: { subjects } }))
 );

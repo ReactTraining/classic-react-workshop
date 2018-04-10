@@ -13,18 +13,18 @@ module.exports = {
   devtool: "source-map",
 
   entry: subjectDirs.reduce(
-    (entries, dir) => {
+    (chunks, dir) => {
       const base = path.basename(dir);
 
       ["lecture", "exercise", "solution"].forEach(name => {
         const file = path.join(dir, `${name}.js`);
 
         if (fs.existsSync(file)) {
-          entries[`${base}/${name}`] = file;
+          chunks[`${base}-${name}`] = file;
         }
       });
 
-      return entries;
+      return chunks;
     },
     {
       shared: ["react", "react-dom"],
