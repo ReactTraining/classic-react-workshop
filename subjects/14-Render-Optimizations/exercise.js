@@ -15,7 +15,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
-import RainbowListDelegate from "./RainbowListDelegate";
+import * as RainbowListDelegate from "./RainbowListDelegate";
 
 class ListView extends React.Component {
   static propTypes = {

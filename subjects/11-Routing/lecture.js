@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const About = () => {
+function About() {
   return <h2>About</h2>;
-};
+}
 
-const Inbox = () => {
+function Inbox() {
   return <h2>Inbox</h2>;
-};
+}
 
-const Home = () => {
+function Home() {
   return <h2>Home</h2>;
-};
+}
 
 class App extends React.Component {
   render() {
@@ -29,17 +29,17 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // Setup a hashchange listener so we know when the URL changes. When it does,
 // update state and pick which child component we're going to render.
 
-// const About = () => {
+// function About() {
 //   return <h2>About</h2>;
-// };
+// }
 
-// const Inbox = () => {
+// function Inbox() {
 //   return <h2>Inbox</h2>;
-// };
+// }
 
-// const Home = () => {
+// function Home() {
 //   return <h2>Home</h2>;
-// };
+// }
 
 // class App extends React.Component {
 //   state = {
@@ -71,8 +71,17 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //       <div>
 //         <h1>Welcome to the app!</h1>
 //         <nav>
-//           <a href="#/">Home</a> <a href="#/about">About</a>{" "}
-//           <a href="#/inbox">Inbox</a>
+//           <ul>
+//             <li>
+//               <a href="#/">Home</a>
+//             </li>
+//             <li>
+//               <a href="#/about">About</a>
+//             </li>
+//             <li>
+//               <a href="#/inbox">Inbox</a>
+//             </li>
+//           </ul>
 //         </nav>
 //         <Child />
 //       </div>
@@ -87,17 +96,17 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // import { HashRouter as Router, Route, Link } from "react-router-dom";
 
-// const About = () => {
+// function About() {
 //   return <h2>About</h2>;
-// };
+// }
 
-// const Inbox = () => {
+// function Inbox() {
 //   return <h2>Inbox</h2>;
-// };
+// }
 
-// const Home = () => {
+// function Home() {
 //   return <h2>Home</h2>;
-// };
+// }
 
 // class App extends React.Component {
 //   render() {
@@ -105,11 +114,15 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //       <Router>
 //         <div>
 //           <h1>Welcome to the app!</h1>
+//
 //           <nav>
-//             <Link to="/">Home</Link> <Link to="/about">About</Link>{" "}
-//             <Link to="/inbox">Inbox</Link>
+//             <ul>
+//               <li><Link to="/">Home</Link></li>
+//               <li><Link to="/about">About</Link></li>
+//               <li><Link to="/inbox">Inbox</Link></li>
+//             </ul>
 //           </nav>
-
+//
 //           <Route exact path="/" component={Home} />
 //           <Route path="/about" component={About} />
 //           <Route path="/inbox" component={Inbox} />

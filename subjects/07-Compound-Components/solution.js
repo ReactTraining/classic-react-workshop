@@ -16,9 +16,9 @@
 // Got extra time?
 //
 // - Implement an `onChange` prop that communicates the <RadioGroup>'s state
-//   back to the parent so it can use it to render.
-// - Implement keyboard controls on the <RadioGroup> (you'll need tabIndex="0"
-//   on the <RadioOption>s so the keyboard will work)
+//   back to the parent so it can use it to render
+// - Implement keyboard controls on the <RadioGroup>
+//   - Hint: Use tabIndex="0" on the <RadioOption>s so the keyboard will work
 //   - Enter and space bar should select the option
 //   - Arrow right, arrow down should select the next option
 //   - Arrow left, arrow up should select the previous option
