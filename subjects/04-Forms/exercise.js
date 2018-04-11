@@ -21,6 +21,18 @@ import ReactDOM from "react-dom";
 import serializeForm from "form-serialize";
 
 class CheckoutForm extends React.Component {
+  // BIG HINT!!!1!!
+  state = {
+    billingName: "Michael Jackson",
+    billingState: "CA",
+    shippingName: "Jef Jonjevic",
+    shippingState: "IL",
+    shippingSameAsBilling: false
+  };
+
+  // On <input type="checkbox"> use "checked" and/or "defaultChecked"
+  // instead of "value" and "defaultValue"
+
   render() {
     return (
       <div>
@@ -44,7 +56,7 @@ class CheckoutForm extends React.Component {
 
           <fieldset>
             <label>
-              <input type="checkbox" /> Same as billing
+              <input type="checkbox" defaultChecked /> Same as billing
             </label>
             <legend>Shipping Address</legend>
             <p>
