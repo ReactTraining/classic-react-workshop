@@ -12,6 +12,8 @@ function wait(timeout, work) {
   });
 }
 
+const retryTimeout = 5000;
+
 function getAddressFromCoords(latitude, longitude) {
   const url = `${GoogleMapsAPI}/geocode/json?latlng=${latitude},${longitude}`;
 
@@ -20,13 +22,14 @@ function getAddressFromCoords(latitude, longitude) {
     .then(
       json =>
         json.status === "OVER_QUERY_LIMIT"
-          ? // Wait 5s for the query limit to reset.
-            wait(5000, () => getAddressFromCoords(latitude, longitude))
+          ? // Wait for the query limit to reset.
+            wait(retryTimeout, () =>
+              getAddressFromCoords(latitude, longitude)
+            )
           : json.results[0].formatted_address
     );
 }
 
-const requiredWaitTime = 6000;
 let lastCallTime = 0;
 let alreadyWarned = false;
 let promise = null;
@@ -34,7 +37,7 @@ let promise = null;
 function throttledGetAddressFromCoords(latitude, longitude) {
   const currentTime = Date.now();
 
-  if (lastCallTime + requiredWaitTime < currentTime) {
+  if (lastCallTime + retryTimeout < currentTime) {
     lastCallTime = currentTime;
     promise = getAddressFromCoords(latitude, longitude);
   } else if (!alreadyWarned) {
