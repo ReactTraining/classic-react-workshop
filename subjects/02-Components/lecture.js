@@ -2,43 +2,69 @@ import "./styles.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
-let isOpen = false;
+class ContentToggle extends React.Component {
+  static propTypes = {
+    summary: PropTypes.string.isRequired,
+    children: PropTypes.node,
+    onToggle: PropTypes.func
+  };
 
-function handleClick() {
-  isOpen = !isOpen;
-  updateThePage();
-}
+  state = {
+    isOpen: false
+  };
 
-function ContentToggle() {
-  let summaryClassName = "content-toggle-summary";
+  handleClick = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
 
-  if (isOpen) {
-    summaryClassName += " content-toggle-summary-open";
+    if (this.props.onToggle) {
+      this.props.onToggle();
+    }
+  };
+
+  render() {
+    let summaryClassName = "content-toggle-summary";
+
+    if (this.state.isOpen) {
+      summaryClassName += " content-toggle-summary-open";
+    }
+
+    return (
+      <div className="content-toggle">
+        <button onClick={this.handleClick} className={summaryClassName}>
+          {this.props.summary}
+        </button>
+        {this.state.isOpen && (
+          <div className="content-toggle-details">
+            {this.props.children}
+          </div>
+        )}
+      </div>
+    );
   }
-
-  return (
-    <div className="content-toggle">
-      <button onClick={handleClick} className={summaryClassName}>
-        Tacos
-      </button>
-      {isOpen && (
-        <div className="content-toggle-details">
-          <p>
-            A taco is a traditional Mexican dish composed of a corn or
-            wheat tortilla folded or rolled around a filling.
-          </p>
-        </div>
-      )}
-    </div>
-  );
 }
 
-function updateThePage() {
-  ReactDOM.render(<ContentToggle />, document.getElementById("app"));
+function handleToggle() {
+  console.log("TOGGLED!");
 }
 
-updateThePage();
+ReactDOM.render(
+  <div>
+    <ContentToggle summary="Tacos" onToggle={handleToggle}>
+      <p>
+        A taco is a traditional Mexican dish composed of a corn or wheat
+        tortilla folded or rolled around a filling.
+      </p>
+    </ContentToggle>
+    <ContentToggle summary="Burritos">
+      <p>Nothing like a taco, and you get more for your money.</p>
+    </ContentToggle>
+  </div>,
+  document.getElementById("app")
+);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Let's encapsulate state in an object and call it what it really is. Then, add

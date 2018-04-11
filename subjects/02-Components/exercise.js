@@ -13,6 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 const styles = {};
 
@@ -35,17 +36,35 @@ styles.panel = {
 };
 
 class Tabs extends React.Component {
+  static propTypes = {
+    data: PropTypes.array.isRequired
+  };
+
+  state = {
+    activeIndex: 0
+  };
+
   render() {
+    const data = this.props.data;
+
     return (
       <div className="Tabs">
-        <div className="Tab" style={styles.activeTab}>
-          Active
-        </div>
-        <div className="Tab" style={styles.tab}>
-          Inactive
-        </div>
+        {data.map((item, index) => (
+          <div
+            key={item.id}
+            className="Tab"
+            style={
+              index === this.state.activeIndex
+                ? styles.activeTab
+                : styles.tab
+            }
+            onClick={() => this.setState({ activeIndex: index })}
+          >
+            {item.name}
+          </div>
+        ))}
         <div className="TabPanel" style={styles.panel}>
-          Panel
+          {data[this.state.activeIndex].description}
         </div>
       </div>
     );
