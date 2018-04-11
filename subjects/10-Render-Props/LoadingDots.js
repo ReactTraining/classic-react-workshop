@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class LoadingDots extends React.Component {
-  static propTypes: {
-    interval: React.PropTypes.number,
-    dots: React.PropTypes.number
+  static propTypes = {
+    interval: PropTypes.number,
+    dots: PropTypes.number
   };
 
   static defaultProps = {

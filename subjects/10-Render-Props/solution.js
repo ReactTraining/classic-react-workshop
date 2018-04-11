@@ -21,8 +21,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import LoadingDots from "./utils/LoadingDots";
+
 import getAddressFromCoords from "./utils/getAddressFromCoords";
+import LoadingDots from "./LoadingDots";
 
 class GeoPosition extends React.Component {
   static propTypes = {

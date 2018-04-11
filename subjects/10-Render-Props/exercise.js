@@ -21,8 +21,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import LoadingDots from "./utils/LoadingDots";
+
 import getAddressFromCoords from "./utils/getAddressFromCoords";
+import LoadingDots from "./LoadingDots";
 
 class App extends React.Component {
   state = {

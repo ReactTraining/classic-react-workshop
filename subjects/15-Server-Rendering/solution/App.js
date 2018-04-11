@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class App extends React.Component {
   static propTypes = {
-    contacts: React.PropTypes.array
+    contacts: PropTypes.array
   };
 
   render() {
