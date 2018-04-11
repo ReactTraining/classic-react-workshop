@@ -1,11 +1,11 @@
-////////////////////////////////////////////////////////////////////////////////
 import React from "react";
+import PropTypes from "prop-types";
 import { createHashHistory } from "history";
 
 class Router extends React.Component {
   static childContextTypes = {
-    location: React.PropTypes.object,
-    history: React.PropTypes.object
+    location: PropTypes.object,
+    history: PropTypes.object
   };
 
   getChildContext() {
@@ -22,10 +22,8 @@ class Router extends React.Component {
   };
 
   componentDidMount() {
-    this.history.listen(() => {
-      this.setState({
-        location: this.history.location
-      });
+    this.history.listen(location => {
+      this.setState({ location });
     });
   }
 
@@ -36,22 +34,23 @@ class Router extends React.Component {
 
 class Route extends React.Component {
   static contextTypes = {
-    location: React.PropTypes.object
+    location: PropTypes.object
   };
 
   render() {
     const { location } = this.context;
     const { path, render, component: Component } = this.props;
-    const isMatch = location.pathname.startsWith(path);
 
-    if (isMatch) {
+    if (location.pathname.startsWith(path)) {
       if (render) {
         return render();
-      } else if (Component) {
-        return <Component />;
-      } else {
-        return null;
       }
+
+      if (Component) {
+        return <Component />;
+      }
+
+      return null;
     } else {
       return null;
     }
@@ -60,7 +59,7 @@ class Route extends React.Component {
 
 class Link extends React.Component {
   static contextTypes = {
-    history: React.PropTypes.object
+    history: PropTypes.object
   };
 
   handleClick = e => {

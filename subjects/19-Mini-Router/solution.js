@@ -1,17 +1,25 @@
 /*
- * 0. app with contacts in state.
- *    - What state is there?
- *    - When does it change?
- * 1. move creating contacts into redux
- *    - state is defined in reducers
- *    - immutable changes
- *    - changes to state modeled as actions
- *
- * 2. introduce middleware (logger)
- * 3. load contacts from the server (thunk)
- * 4. save the contact to the server
- * 5. exercise: delete contacts
- * 6. exercise: edit contacts
- */
+<Router>
+
+1. Add some state w/ `location` as a key
+2. Set `location`'s initial value to `this.history.location`
+3. Listen to `history` and put the location into state
+4. Provide `location` on context
+5. Provide `history` on context
+
+<Route>
+
+1. Get the location from context
+2. Figure out if the path matches location.pathname
+   (hint: location.pathname.startsWith(...)
+3. If there is a match, figure out which prop to render
+   `component` or `render`
+4. If there is no match, render null
+
+<Link>
+
+1. Get `history` from context
+2. Use `history.push(...)` with the `to` prop
+*/
 
 import "./solution/index";
