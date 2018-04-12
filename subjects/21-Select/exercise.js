@@ -16,13 +16,51 @@ class Select extends React.Component {
     defaultValue: PropTypes.any
   };
 
+  state = {
+    showOptions: false,
+    value: this.props.defaultValue
+  };
+
+  toggleOptions = () => {
+    this.setState({ showOptions: !this.state.showOptions });
+  };
+
+  isControlled = () => this.props.value != null;
+
+  selectValue = value => {
+    if (this.isControlled()) {
+      if (this.props.onChange) {
+        this.props.onChange(value);
+      }
+    } else {
+      this.setState({ value });
+    }
+  };
+
   render() {
+    const { value } = this.isControlled() ? this.props : this.state;
+
+    let label;
+    React.Children.forEach(this.props.children, child => {
+      if (child.props.value === value) {
+        label = child.props.children;
+      }
+    });
+
     return (
-      <div className="select">
+      <div className="select" onClick={this.toggleOptions}>
         <div className="label">
-          label <span className="arrow">▾</span>
+          {label} <span className="arrow">▾</span>
         </div>
-        <div className="options">{this.props.children}</div>
+        {this.state.showOptions && (
+          <div className="options">
+            {React.Children.map(this.props.children, child =>
+              React.cloneElement(child, {
+                _onSelect: () => this.selectValue(child.props.value)
+              })
+            )}
+          </div>
+        )}
       </div>
     );
   }
@@ -30,7 +68,11 @@ class Select extends React.Component {
 
 class Option extends React.Component {
   render() {
-    return <div className="option">{this.props.children}</div>;
+    return (
+      <div className="option" onClick={this.props._onSelect}>
+        {this.props.children}
+      </div>
+    );
   }
 }
 
