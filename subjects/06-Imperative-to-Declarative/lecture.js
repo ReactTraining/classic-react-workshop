@@ -15,17 +15,47 @@ styles.theremin = {
   display: "inline-block"
 };
 
-class App extends React.Component {
+class Tone extends React.Component {
   componentDidMount() {
     this.oscillator = createOscillator();
+    this.doImperativeWork();
   }
 
+  componentDidUpdate() {
+    this.doImperativeWork();
+  }
+
+  doImperativeWork() {
+    const { isPlaying, pitch, volume, type } = this.props;
+
+    if (isPlaying) {
+      this.oscillator.setPitchBend(pitch);
+      this.oscillator.setVolume(volume);
+      this.oscillator.setType(type);
+      this.oscillator.play();
+    } else {
+      this.oscillator.stop();
+    }
+  }
+
+  render() {
+    return <pre>{JSON.stringify(this.props, null, 2)}</pre>;
+  }
+}
+
+class Theremin extends React.Component {
+  state = {
+    isPlaying: false,
+    pitch: 0.3,
+    volume: 0.05
+  };
+
   play = () => {
-    this.oscillator.play();
+    this.setState({ isPlaying: true });
   };
 
   stop = () => {
-    this.oscillator.stop();
+    this.setState({ isPlaying: false });
   };
 
   changeTone = event => {
@@ -39,20 +69,37 @@ class App extends React.Component {
     const pitch = (clientX - left) / (right - left);
     const volume = 1 - (clientY - top) / (bottom - top);
 
-    this.oscillator.setPitchBend(pitch);
-    this.oscillator.setVolume(volume);
+    this.setState({ pitch, volume });
   };
 
   render() {
     return (
+      <div
+        style={styles.theremin}
+        onMouseEnter={this.play}
+        onMouseLeave={this.stop}
+        onMouseMove={this.changeTone}
+      >
+        <Tone
+          isPlaying={this.state.isPlaying}
+          pitch={this.state.pitch}
+          volume={this.state.volume}
+          type={this.props.waveType}
+        />
+      </div>
+    );
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
       <div>
         <h1>What does it mean to be declarative?</h1>
-        <div
-          style={styles.theremin}
-          onMouseEnter={this.play}
-          onMouseLeave={this.stop}
-          onMouseMove={this.changeTone}
-        />
+        <Theremin waveType="sine" />
+        <Theremin waveType="triangle" />
+        <Theremin waveType="sawtooth" />
+        <Theremin waveType="square" />
       </div>
     );
   }
