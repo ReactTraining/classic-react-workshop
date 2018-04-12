@@ -3,6 +3,10 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import * as styles from "./styles";
 
+import { createContext } from "react-broadcast";
+
+// const createContext = React.createContext
+
 ////////////////////////////////////////////////////////////////////////////////
 // Sometimes you don't want to specify how deep in the view tree the child
 // components need to be, our current implementation expects TabList/TabPanels
@@ -13,19 +17,27 @@ import * as styles from "./styles";
 // We could recursively check children with each render, which seems like a bad
 // plan, so instead we can use a feature called "context".
 
+const TabsContext = createContext();
+
 class TabList extends React.Component {
   render() {
-    const children = React.Children.map(
-      this.props.children,
-      (child, index) => {
-        return React.cloneElement(child, {
-          isActive: index === this.props.activeIndex,
-          onClick: () => this.props.onActivate(index)
-        });
-      }
-    );
+    return (
+      <TabsContext.Consumer>
+        {context => {
+          const children = React.Children.map(
+            this.props.children,
+            (child, index) => {
+              return React.cloneElement(child, {
+                isActive: index === context.activeIndex,
+                onClick: () => context.onActivate(index)
+              });
+            }
+          );
 
-    return <div style={styles.tabList}>{children}</div>;
+          return <div style={styles.tabList}>{children}</div>;
+        }}
+      </TabsContext.Consumer>
+    );
   }
 }
 
@@ -49,9 +61,13 @@ class Tab extends React.Component {
 class TabPanels extends React.Component {
   render() {
     return (
-      <div style={styles.tabPanels}>
-        {this.props.children[this.props.activeIndex]}
-      </div>
+      <TabsContext.Consumer>
+        {context => (
+          <div style={styles.tabPanels}>
+            {this.props.children[context.activeIndex]}
+          </div>
+        )}
+      </TabsContext.Consumer>
     );
   }
 }
@@ -68,49 +84,57 @@ class Tabs extends React.Component {
   };
 
   render() {
-    const children = React.Children.map(
-      this.props.children,
-      (child, index) => {
-        if (child.type === TabPanels) {
-          return React.cloneElement(child, {
-            activeIndex: this.state.activeIndex
-          });
-        } else if (child.type === TabList) {
-          return React.cloneElement(child, {
-            activeIndex: this.state.activeIndex,
-            onActivate: index => this.setState({ activeIndex: index })
-          });
-        } else {
-          return child;
-        }
-      }
+    return (
+      <TabsContext.Provider
+        value={{
+          activeIndex: this.state.activeIndex,
+          onActivate: index => this.setState({ activeIndex: index })
+        }}
+      >
+        <div>{this.props.children}</div>
+      </TabsContext.Provider>
     );
-
-    return <div>{children}</div>;
   }
 }
+
+// <Router>
+//   <div>
+//     <div>
+//       <div>
+//         <Route/>
+//       </div>
+//     </div>
+//     <div>
+//       <Link/>
+//     </div>
+//   </div>
+// </Router>
 
 class App extends React.Component {
   render() {
     return (
       <div>
         <Tabs>
-          <TabList>
-            <Tab>Tacos</Tab>
-            <Tab disabled>Burritos</Tab>
-            <Tab>Coconut Korma</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <p>Tacos are delicious</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Sometimes a burrito is what you really need</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Might be your best option</p>
-            </TabPanel>
-          </TabPanels>
+          <div className="hot">
+            <TabList>
+              <Tab>Tacos</Tab>
+              <Tab disabled>Burritos</Tab>
+              <Tab>Coconut Korma</Tab>
+            </TabList>
+          </div>
+          <div>
+            <TabPanels>
+              <TabPanel>
+                <p>Tacos are delicious</p>
+              </TabPanel>
+              <TabPanel>
+                <p>Sometimes a burrito is what you really need</p>
+              </TabPanel>
+              <TabPanel>
+                <p>Might be your best option</p>
+              </TabPanel>
+            </TabPanels>
+          </div>
         </Tabs>
       </div>
     );

@@ -3154,6 +3154,13 @@ react-addons-transition-group@^15.1.0:
   dependencies:
     react-transition-group "^1.2.0"
 
+react-broadcast@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-broadcast/-/react-broadcast-0.7.0.tgz#e0f70c208293bacc43eb1fff1971806076c756b6"
+  dependencies:
+    prop-types "^15.6.0"
+    warning "^3.0.0"
+
 react-dom@^15.1.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.2.tgz#41cfadf693b757faf2708443a1d1fd5a02bef730"

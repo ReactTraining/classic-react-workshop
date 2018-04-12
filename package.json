@@ -53,6 +53,7 @@
     "react-addons-css-transition-group": "^15.1.0",
     "react-addons-perf": "^15.1.0",
     "react-addons-transition-group": "^15.1.0",
+    "react-broadcast": "^0.7.0",
     "react-dom": "^15.1.0",
     "react-motion": "^0.4.2",
     "react-redux": "^5.0.2",
