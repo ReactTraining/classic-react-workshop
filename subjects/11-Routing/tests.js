@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { Simulate } from "react-addons-test-utils";
+import { Simulate } from "react-dom/test-utils";
 import assert from "../assert";
 
 function toArray(nodeList) {
@@ -28,8 +28,9 @@ export function run(component) {
 
   console.log("after clicking on a profile link...");
 
-  if (profileLinks.length)
+  if (profileLinks.length) {
     Simulate.click(profileLinks[1], { button: 0 });
+  }
 
   assert(node.querySelector(".profile"), "show the profile page");
 }
