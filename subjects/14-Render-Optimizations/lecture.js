@@ -33,7 +33,7 @@ import PropTypes from "prop-types";
 //     return (
 //       <ul>
 //         {this.state.lines.map((line, index) => (
-//           <li key={index}>{line}</li>
+//           <li key={line}>{line}</li>
 //         ))}
 //       </ul>
 //     );
@@ -42,7 +42,7 @@ import PropTypes from "prop-types";
 
 // ReactDOM.render(<Lines />, document.getElementById("app"));
 
-class TodoItem extends React.Component {
+class TodoItem extends React.PureComponent {
   render() {
     return (
       <li>
@@ -119,7 +119,7 @@ class TodoList extends React.Component {
 }
 
 ReactDOM.render(
-  <TodoList startLength={200} />,
+  <TodoList startLength={2000} />,
   document.getElementById("app")
 );
 
