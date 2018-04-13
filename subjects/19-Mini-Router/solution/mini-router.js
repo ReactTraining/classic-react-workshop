@@ -2,19 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createHashHistory } from "history";
 
+import { createContext } from "react-broadcast";
+
+const RoutingContext = createContext();
+
 class Router extends React.Component {
-  static childContextTypes = {
-    location: PropTypes.object,
-    history: PropTypes.object
-  };
-
-  getChildContext() {
-    return {
-      location: this.state.location,
-      history: this.history
-    };
-  }
-
   history = createHashHistory();
 
   state = {
@@ -28,50 +20,60 @@ class Router extends React.Component {
   }
 
   render() {
-    return this.props.children;
+    return (
+      <RoutingContext.Provider
+        value={{ location: this.state.location, history: this.history }}
+      >
+        {this.props.children}
+      </RoutingContext.Provider>
+    );
   }
 }
 
 class Route extends React.Component {
-  static contextTypes = {
-    location: PropTypes.object
-  };
-
   render() {
-    const { location } = this.context;
-    const { path, render, component: Component } = this.props;
+    return (
+      <RoutingContext.Consumer>
+        {({ location }) => {
+          const { path, render, component: Component } = this.props;
 
-    if (location.pathname.startsWith(path)) {
-      if (render) {
-        return render();
-      }
+          if (location.pathname.startsWith(path)) {
+            if (render) {
+              return render();
+            }
 
-      if (Component) {
-        return <Component />;
-      }
+            if (Component) {
+              return <Component />;
+            }
 
-      return null;
-    } else {
-      return null;
-    }
+            return null;
+          } else {
+            return null;
+          }
+        }}
+      </RoutingContext.Consumer>
+    );
   }
 }
 
 class Link extends React.Component {
-  static contextTypes = {
-    history: PropTypes.object
-  };
-
-  handleClick = e => {
+  handleClick = (e, push) => {
     e.preventDefault();
-    this.context.history.push(this.props.to);
+    push(this.props.to);
   };
 
   render() {
     return (
-      <a href={`#${this.props.to}`} onClick={this.handleClick}>
-        {this.props.children}
-      </a>
+      <RoutingContext.Consumer>
+        {({ history }) => (
+          <a
+            href={`#${this.props.to}`}
+            onClick={e => this.handleClick(e, history.push)}
+          >
+            {this.props.children}
+          </a>
+        )}
+      </RoutingContext.Consumer>
     );
   }
 }
