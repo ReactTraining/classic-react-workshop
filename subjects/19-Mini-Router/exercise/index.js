@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, Link } from "./mini-router";
+import { Router, Route, Link, Redirect } from "./mini-router";
 
 function App() {
   return (
@@ -27,7 +27,8 @@ function App() {
           </div>
         )}
       />
-      <Route path="/about" component={About} />
+      <Route path="/about-us" component={About} />
+      <Redirect from="/about" to="/about-us" />
       <Route path="/topics" component={Topics} />
     </div>
   );
