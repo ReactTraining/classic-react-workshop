@@ -7,8 +7,6 @@
 //
 //
 //
-// Make a <StatefulTabs> component that manages some state that is passed as
-// props down to <Tabs> (since it should now be stateless).
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
@@ -18,21 +16,15 @@ import data from "./data";
 
 class Tabs extends React.Component {
   static propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    activeIndex: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired
   };
-
-  state = {
-    activeIndex: 0
-  };
-
-  selectTab(index) {
-    this.setState({ activeIndex: index });
-  }
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
       const style =
-        this.state.activeIndex === index
+        this.props.activeIndex === index
           ? styles.activeTab
           : styles.tab;
 
@@ -41,7 +33,7 @@ class Tabs extends React.Component {
           className="Tab"
           key={tab.name}
           style={style}
-          onClick={() => this.selectTab(index)}
+          onClick={() => this.props.onChange(index)}
         >
           {tab.name}
         </div>
@@ -50,7 +42,7 @@ class Tabs extends React.Component {
   }
 
   renderPanel() {
-    const tab = this.props.data[this.state.activeIndex];
+    const tab = this.props.data[this.props.activeIndex];
 
     return (
       <div>
@@ -70,11 +62,18 @@ class Tabs extends React.Component {
 }
 
 class App extends React.Component {
+
+  state = { activeIndex: 0}
+
+  _selectTabs(index) {
+    this.setState({activeIndex: index});
+  }
+
   render() {
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs ref="tabs" data={this.props.tabs} />
+        <Tabs ref="tabs" data={this.props.tabs} activeIndex={this.state.activeIndex} onChange={this._selectTabs.bind(this)} />
       </div>
     );
   }
