@@ -5,10 +5,6 @@
 // add a property to tell it which tab to show, and then have it communicate
 // with its owner to get rerendered with a new active tab.
 //
-// Why would you move that state up? you might have a workflow where they can't
-// progress from one step to the next until they've completed some sort of task
-// but they can go back if they'd like. If the tabs keep their own state you
-// can't control them with your application logic.
 //
 // Got extra time?
 //
