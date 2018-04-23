@@ -6,7 +6,6 @@
 // with its owner to get rerendered with a new active tab.
 //
 //
-// Got extra time?
 //
 // Make a <StatefulTabs> component that manages some state that is passed as
 // props down to <Tabs> (since it should now be stateless).
