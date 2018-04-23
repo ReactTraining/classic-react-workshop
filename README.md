@@ -50,6 +50,9 @@ $ sudo rm -rf /usr/local/lib/node_modules
 $ npm install
 ```
 
+
+* **During `npm start` you get an error "xdg-open: no method available for opening 'http://localhost:8080'" right after building** You might be using a version of Linux that doesn't have a GUI browser. Remove the line in webpack.config.js (around line 61) `new OpenBrowserWebpackPlugin("http://localhost:8080")` and manually open a browser to the web page.
+
 ### License
 
 This material is available for private, non-commercial use under the [GPL version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html). If you would like to use this material to conduct your own workshop, please contact us at hello@reacttraining.com
