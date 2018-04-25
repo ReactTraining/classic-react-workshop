@@ -12,30 +12,30 @@
 //
 // Got extra time?
 //
-// Make a <StatefulTabs> component that manages some state that is passed as
-// props down to <Tabs> (since it should now be stateless).
+// Put a <button> in the <App> that selects the 2nd tab when it is clicked.
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+
 import * as styles from "./styles";
 import data from "./data";
 
 class Tabs extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
-    activeTabIndex: PropTypes.number.isRequired,
-    onActivate: PropTypes.func.isRequired
+    activeIndex: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired
   };
 
   selectTab(index) {
-    this.props.onActivate(index);
+    this.props.onChange(index);
   }
 
   renderTabs() {
     return this.props.data.map((tab, index) => {
       const style =
-        this.props.activeTabIndex === index
+        this.props.activeIndex === index
           ? styles.activeTab
           : styles.tab;
 
@@ -53,7 +53,7 @@ class Tabs extends React.Component {
   }
 
   renderPanel() {
-    const tab = this.props.data[this.props.activeTabIndex];
+    const tab = this.props.data[this.props.activeIndex];
 
     return (
       <div>
@@ -74,7 +74,7 @@ class Tabs extends React.Component {
 
 class App extends React.Component {
   state = {
-    activeTabIndex: 0
+    activeIndex: 0
   };
 
   render() {
@@ -84,8 +84,8 @@ class App extends React.Component {
         <Tabs
           ref="tabs"
           data={this.props.tabs}
-          activeTabIndex={this.state.activeTabIndex}
-          onActivate={index => this.setState({ activeTabIndex: index })}
+          activeIndex={this.state.activeIndex}
+          onChange={index => this.setState({ activeIndex: index })}
         />
       </div>
     );

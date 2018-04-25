@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+
 import * as styles from "./styles";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13,53 +14,44 @@ import * as styles from "./styles";
 // We could recursively check children with each render, which seems like a bad
 // plan, so instead we can use a feature called "context".
 
-class TabList extends React.Component {
-  render() {
-    const children = React.Children.map(
-      this.props.children,
-      (child, index) => {
+function TabList({ children, _activeIndex, _onTabSelect }) {
+  return (
+    <div style={styles.tabs}>
+      {React.Children.map(children, (child, index) => {
         return React.cloneElement(child, {
-          isActive: index === this.props.activeIndex,
-          onClick: () => this.props.onActivate(index)
+          _isActive: index === _activeIndex,
+          _onSelect: () => _onTabSelect(index)
         });
+      })}
+    </div>
+  );
+}
+
+function Tab({ children, disabled, _isActive, _onSelect }) {
+  return (
+    <div
+      style={
+        disabled
+          ? styles.disabledTab
+          : _isActive ? styles.activeTab : styles.tab
       }
-    );
-
-    return <div style={styles.tabList}>{children}</div>;
-  }
+      onClick={disabled ? null : _onSelect}
+    >
+      {children}
+    </div>
+  );
 }
 
-class Tab extends React.Component {
-  render() {
-    return (
-      <div
-        onClick={this.props.disabled ? null : this.props.onClick}
-        style={
-          this.props.disabled
-            ? styles.disabledTab
-            : this.props.isActive ? styles.activeTab : styles.tab
-        }
-      >
-        {this.props.children}
-      </div>
-    );
-  }
+function TabPanels({ children, _activeIndex }) {
+  return (
+    <div style={styles.tabPanels}>
+      {React.Children.toArray(children)[_activeIndex]}
+    </div>
+  );
 }
 
-class TabPanels extends React.Component {
-  render() {
-    return (
-      <div style={styles.tabPanels}>
-        {this.props.children[this.props.activeIndex]}
-      </div>
-    );
-  }
-}
-
-class TabPanel extends React.Component {
-  render() {
-    return <div>{this.props.children}</div>;
-  }
+function TabPanel({ children }) {
+  return <div>{children}</div>;
 }
 
 class Tabs extends React.Component {
@@ -73,12 +65,12 @@ class Tabs extends React.Component {
       (child, index) => {
         if (child.type === TabPanels) {
           return React.cloneElement(child, {
-            activeIndex: this.state.activeIndex
+            _activeIndex: this.state.activeIndex
           });
         } else if (child.type === TabList) {
           return React.cloneElement(child, {
-            activeIndex: this.state.activeIndex,
-            onActivate: index => this.setState({ activeIndex: index })
+            _activeIndex: this.state.activeIndex,
+            _onTabSelect: index => this.setState({ activeIndex: index })
           });
         } else {
           return child;
@@ -90,249 +82,246 @@ class Tabs extends React.Component {
   }
 }
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Tabs>
-          <TabList>
-            <Tab>Tacos</Tab>
-            <Tab disabled>Burritos</Tab>
-            <Tab>Coconut Korma</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <p>Tacos are delicious</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Sometimes a burrito is what you really need</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Might be your best option</p>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <Tabs>
+        <TabList>
+          <Tab>Tacos</Tab>
+          <Tab disabled>Burritos</Tab>
+          <Tab>Coconut Korma</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <p>Tacos are delicious</p>
+          </TabPanel>
+          <TabPanel>
+            <p>Sometimes a burrito is what you really need</p>
+          </TabPanel>
+          <TabPanel>
+            <p>Might be your best option</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Wrapping <TabPanels> in a div breaks everything! Instead of using
-// cloneElement, let's use context.
+// cloneElement, let's use context to pass the activeIndex down.
 
-// class TabList extends React.Component {
-//   render() {
-//     const children = React.Children.map(this.props.children, (child, index) => {
-//       return React.cloneElement(child, {
-//         isActive: index === this.props.activeIndex,
-//         onClick: () => this.props.onActivate(index)
-//       })
-//     })
-//     return <div style={styles.tabList}>{children}</div>
-//   }
+// const TabsContext = React.createContext();
+
+// function TabList({ children, _activeIndex, _onTabSelect }) {
+//   return (
+//     <div style={styles.tabs}>
+//       {React.Children.map(children, (child, index) => {
+//         return React.cloneElement(child, {
+//           _isActive: index === _activeIndex,
+//           _onSelect: () => _onTabSelect(index)
+//         });
+//       })}
+//     </div>
+//   );
 // }
-//
-// class Tab extends React.Component {
-//   render() {
-//     return (
-//       <div
-//         onClick={this.props.disabled ? null : this.props.onClick}
-//         style={this.props.disabled ? styles.disabledTab : (
-//           this.props.isActive ? styles.activeTab : styles.tab
-//         )}
-//       >
-//         {this.props.children}
-//       </div>
-//     )
-//   }
+
+// function Tab({ children, disabled, _isActive, _onSelect }) {
+//   return (
+//     <div
+//       style={
+//         disabled
+//           ? styles.disabledTab
+//           : _isActive ? styles.activeTab : styles.tab
+//       }
+//       onClick={disabled ? null : _onSelect}
+//     >
+//       {children}
+//     </div>
+//   );
 // }
-//
-// class TabPanels extends React.Component {
-//   static contextTypes = {
-//     activeIndex: PropTypes.number
-//   }
-//
-//   render() {
-//     return (
-//       <div style={styles.tabPanels}>
-//         {this.props.children[this.context.activeIndex]}
-//       </div>
-//     )
-//   }
+
+// function TabPanels({ children }) {
+//   return (
+//     <TabsContext.Consumer>
+//       {({ activeIndex }) => (
+//         <div style={styles.tabPanels}>
+//           {React.Children.toArray(children)[activeIndex]}
+//         </div>
+//       )}
+//     </TabsContext.Consumer>
+//   );
 // }
-//
-// class TabPanel extends React.Component {
-//   render() {
-//     return <div>{this.props.children}</div>
-//   }
+
+// function TabPanel({ children }) {
+//   return <div>{children}</div>;
 // }
-//
+
 // class Tabs extends React.Component {
-//   static childContextTypes = {
-//     activeIndex: PropTypes.number
-//   }
-//
-//   getChildContext () {
-//     return {
-//       activeIndex: this.state.activeIndex
-//     }
-//   }
-//
 //   state = {
 //     activeIndex: 0
-//   }
-//
+//   };
+
 //   render() {
-//     const children = React.Children.map(this.props.children, (child, index) => {
-//       if (child.type === TabList) {
-//         return React.cloneElement(child, {
-//           activeIndex: this.state.activeIndex,
-//           onActivate: index => this.setState({ activeIndex: index })
-//         })
-//       } else {
-//         return child
+//     const children = React.Children.map(
+//       this.props.children,
+//       (child, index) => {
+//         if (child.type === TabPanels) {
+//           return React.cloneElement(child, {
+//             _activeIndex: this.state.activeIndex
+//           });
+//         } else if (child.type === TabList) {
+//           return React.cloneElement(child, {
+//             _activeIndex: this.state.activeIndex,
+//             _onTabSelect: index => this.setState({ activeIndex: index })
+//           });
+//         } else {
+//           return child;
+//         }
 //       }
-//     })
-//
-//     return <div>{children}</div>
+//     );
+
+//     return (
+//       <TabsContext.Provider
+//         value={{ activeIndex: this.state.activeIndex }}
+//       >
+//         <div>{children}</div>
+//       </TabsContext.Provider>
+//     );
 //   }
 // }
-//
-// class App extends React.Component {
-//   render () {
+
+// function App() {
+//   return (
+//     <div>
+//       <Tabs>
+//         <TabList>
+//           <Tab>Tacos</Tab>
+//           <Tab disabled>Burritos</Tab>
+//           <Tab>Coconut Korma</Tab>
+//         </TabList>
+//         <div>
+//           <TabPanels>
+//             <TabPanel>
+//               <p>Tacos are delicious</p>
+//             </TabPanel>
+//             <TabPanel>
+//               <p>Sometimes a burrito is what you really need</p>
+//             </TabPanel>
+//             <TabPanel>
+//               <p>Might be your best option</p>
+//             </TabPanel>
+//           </TabPanels>
+//         </div>
+//       </Tabs>
+//     </div>
+//   );
+// }
+
+// ReactDOM.render(<App />, document.getElementById("app"));
+
+////////////////////////////////////////////////////////////////////////////////
+// Wrapping <TabList> also breaks (no more active styles), lets check context
+// for the activeIndex and the click handler instead of props.
+
+// const TabsContext = React.createContext();
+
+// function TabList({ children }) {
+//   return (
+//     <TabsContext.Consumer>
+//       {({ activeIndex, onTabSelect }) => (
+//         <div style={styles.tabs}>
+//           {React.Children.map(children, (child, index) => {
+//             return React.cloneElement(child, {
+//               _isActive: index === activeIndex,
+//               _onSelect: () => onTabSelect(index)
+//             });
+//           })}
+//         </div>
+//       )}
+//     </TabsContext.Consumer>
+//   );
+// }
+
+// function Tab({ children, disabled, _isActive, _onSelect }) {
+//   return (
+//     <div
+//       style={
+//         disabled
+//           ? styles.disabledTab
+//           : _isActive ? styles.activeTab : styles.tab
+//       }
+//       onClick={disabled ? null : _onSelect}
+//     >
+//       {children}
+//     </div>
+//   );
+// }
+
+// function TabPanels({ children }) {
+//   return (
+//     <TabsContext.Consumer>
+//       {({ activeIndex }) => (
+//         <div style={styles.tabPanels}>
+//           {React.Children.toArray(children)[activeIndex]}
+//         </div>
+//       )}
+//     </TabsContext.Consumer>
+//   );
+// }
+
+// function TabPanel({ children }) {
+//   return <div>{children}</div>;
+// }
+
+// class Tabs extends React.Component {
+//   state = {
+//     activeIndex: 0
+//   };
+
+//   render() {
 //     return (
-//       <div>
-//         <Tabs>
+//       <TabsContext.Provider
+//         value={{
+//           activeIndex: this.state.activeIndex,
+//           onTabSelect: index => this.setState({ activeIndex: index })
+//         }}
+//       >
+//         <div>{this.props.children}</div>
+//       </TabsContext.Provider>
+//     );
+//   }
+// }
+
+// function App() {
+//   return (
+//     <div>
+//       <Tabs>
+//         <div>
 //           <TabList>
 //             <Tab>Tacos</Tab>
 //             <Tab disabled>Burritos</Tab>
 //             <Tab>Coconut Korma</Tab>
 //           </TabList>
-//           <div>
-//             <TabPanels>
-//               <TabPanel><p>Tacos are delicious</p></TabPanel>
-//               <TabPanel><p>Sometimes a burrito is what you really need</p></TabPanel>
-//               <TabPanel><p>Might be your best option</p></TabPanel>
-//             </TabPanels>
-//           </div>
-//         </Tabs>
-//       </div>
-//     )
-//   }
+//         </div>
+//         <div>
+//           <TabPanels>
+//             <TabPanel>
+//               <p>Tacos are delicious</p>
+//             </TabPanel>
+//             <TabPanel>
+//               <p>Sometimes a burrito is what you really need</p>
+//             </TabPanel>
+//             <TabPanel>
+//               <p>Might be your best option</p>
+//             </TabPanel>
+//           </TabPanels>
+//         </div>
+//       </Tabs>
+//     </div>
+//   );
 // }
-//
-// ReactDOM.render(<App/>, document.getElementById('app'))
 
-////////////////////////////////////////////////////////////////////////////////
-// Wrapping <TabList> also breaks (no more active styles), lets check context
-// for isActive and the click handler instead of props.
-
-// class TabList extends React.Component {
-//   static contextTypes = {
-//     activeIndex: PropTypes.number,
-//     onActivate: PropTypes.func
-//   }
-//
-//   render() {
-//     const children = React.Children.map(this.props.children, (child, index) => (
-//       React.cloneElement(child, {
-//         isActive: index === this.context.activeIndex,
-//         onClick: () => this.context.onActivate(index)
-//       })
-//     ))
-//
-//     return <div style={styles.tabList}>{children}</div>
-//   }
-// }
-//
-// class Tab extends React.Component {
-//   render() {
-//     return (
-//       <div
-//         onClick={this.props.disabled ? null : this.props.onClick}
-//         style={this.props.disabled ? styles.disabledTab : (
-//           this.props.isActive ? styles.activeTab : styles.tab
-//         )}
-//       >
-//         {this.props.children}
-//       </div>
-//     )
-//   }
-// }
-//
-// class TabPanels extends React.Component {
-//   static contextTypes = {
-//     activeIndex: PropTypes.number
-//   }
-//
-//   render() {
-//     return (
-//       <div style={styles.tabPanels}>
-//         {this.props.children[this.context.activeIndex]}
-//       </div>
-//     )
-//   }
-// }
-//
-// class TabPanel extends React.Component {
-//   render() {
-//     return <div>{this.props.children}</div>
-//   }
-// }
-//
-// class Tabs extends React.Component {
-//   static childContextTypes = {
-//     activeIndex: PropTypes.number,
-//     onActivate: PropTypes.func
-//   }
-//
-//   getChildContext() {
-//     return {
-//       activeIndex: this.state.activeIndex,
-//       onActivate: index => this.setState({ activeIndex: index })
-//     }
-//   }
-//
-//   state = {
-//     activeIndex: 0
-//   }
-//
-//   render() {
-//     return <div>{this.props.children}</div>
-//   }
-// }
-//
-// class App extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         <Tabs>
-//           <div>
-//             <TabList>
-//               <Tab>Tacos</Tab>
-//               <Tab disabled>Burritos</Tab>
-//               <Tab>Coconut Korma</Tab>
-//             </TabList>
-//           </div>
-//           <div>
-//             <TabPanels>
-//               <TabPanel><p>Tacos are delicious</p></TabPanel>
-//               <TabPanel><p>Sometimes a burrito is what you really need</p></TabPanel>
-//               <TabPanel><p>Might be your best option</p></TabPanel>
-//             </TabPanels>
-//           </div>
-//         </Tabs>
-//       </div>
-//     )
-//   }
-// }
-//
-// ReactDOM.render(<App/>, document.getElementById('app'))
-
-////////////////////////////////////////////////////////////////////////////////
-// It's generally good practice to use a namespace on context to avoid conflicts
-// with other libraries that are also using context. For example, react-router
-// uses context.router. Here, we could use context.tabs.
+// ReactDOM.render(<App />, document.getElementById("app"));

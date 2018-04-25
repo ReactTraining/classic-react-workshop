@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Perf from "react-addons-perf";
+// import Perf from "react-addons-perf";
 import PropTypes from "prop-types";
 
 // class Lines extends React.Component {
