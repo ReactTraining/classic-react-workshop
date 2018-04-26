@@ -34,9 +34,9 @@ class ContentToggle extends React.Component {
   }
 }
 
-import carnitas from "./tacos/carnitas.png";
-import pollo from "./tacos/pollo.png";
-import asada from "./tacos/asada.png";
+import carnitas from "./images/carnitas.png";
+import pollo from "./images/pollo.png";
+import asada from "./images/asada.png";
 
 class App extends React.Component {
   state = {
@@ -119,9 +119,9 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   state = {
 //     allOpen: true,
 //     tacos: [
-//       { id: 0, name: "Carnitas", src: "tacos/carnitas.png" },
-//       { id: 1, name: "Pollo", src: "tacos/pollo.png" },
-//       { id: 2, name: "Asada", src: "tacos/asada.png" }
+//       { id: 0, name: "Carnitas", src: carnitas },
+//       { id: 1, name: "Pollo", src: pollo },
+//       { id: 2, name: "Asada", src: asada }
 //     ]
 //   };
 
@@ -210,9 +210,9 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // class App extends React.Component {
 //   state = {
 //     tacos: [
-//       { name: "Carnitas", src: "tacos/carnitas.png", isOpen: false },
-//       { name: "Pollo", src: "tacos/pollo.png", isOpen: false },
-//       { name: "Asada", src: "tacos/asada.png", isOpen: false }
+//       { name: "Carnitas", src: carnitas, isOpen: false },
+//       { name: "Pollo", src: pollo, isOpen: false },
+//       { name: "Asada", src: asada, isOpen: false }
 //     ]
 //   };
 
