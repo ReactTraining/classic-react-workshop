@@ -1552,7 +1552,7 @@ faye-websocket@^0.10.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fbjs@^0.8.16, fbjs@^0.8.4, fbjs@^0.8.9:
+fbjs@^0.8.16, fbjs@^0.8.9:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -3129,13 +3129,6 @@ react-addons-css-transition-group@^15.1.0:
   resolved "https://registry.yarnpkg.com/react-addons-css-transition-group/-/react-addons-css-transition-group-15.6.2.tgz#9e4376bcf40b5217d14ec68553081cee4b08a6d6"
   dependencies:
     react-transition-group "^1.2.0"
-
-react-addons-perf@^15.1.0:
-  version "15.4.2"
-  resolved "https://registry.yarnpkg.com/react-addons-perf/-/react-addons-perf-15.4.2.tgz#110bdcf5c459c4f77cb85ed634bcd3397536383b"
-  dependencies:
-    fbjs "^0.8.4"
-    object-assign "^4.1.0"
 
 react-addons-transition-group@^15.1.0:
   version "15.6.2"

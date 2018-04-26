@@ -1,71 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import Perf from "react-addons-perf";
 import PropTypes from "prop-types";
 
-// class Lines extends React.Component {
-//   static defaultProps = {
-//     maxLength: 5
-//   };
-
-//   state = {
-//     lines: []
-//   };
-
-//   addLine = () => {
-//     this.setState(state => {
-//       const lines = state.lines.concat([
-//         "The date is " + new Date().toLocaleString()
-//       ]);
-
-//       return {
-//         lines:
-//           lines.length > this.props.maxLength ? lines.slice(1) : lines
-//       };
-//     });
-//   };
-
-//   componentDidMount() {
-//     setInterval(this.addLine, 1000);
-//   }
-
-//   render() {
-//     return (
-//       <ul>
-//         {this.state.lines.map((line, index) => (
-//           <li key={index}>{line}</li>
-//         ))}
-//       </ul>
-//     );
-//   }
-// }
-
-// ReactDOM.render(<Lines />, document.getElementById("app"));
-
 class TodoItem extends React.Component {
+  state = {
+    done: false
+  };
+
   render() {
     return (
       <li>
         <span>
-          <input type="checkbox" />{" "}
+          <input
+            type="checkbox"
+            onChange={event =>
+              this.setState({ done: event.target.checked })
+            }
+          />{" "}
         </span>
         <span>
-          <span>
-            <b>item:</b>{" "}
-          </span>
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
-          <span className="stuff" />
+          <strong>
+            <span style={{ textTransform: "uppercase" }}>todo:</span>{" "}
+          </strong>
         </span>
-        <span tabIndex="-1">
-          <span className="thing">
-            <span style={{ color: "blue" }}>{this.props.body}</span>
+        <span>
+          <span
+            style={{
+              color: "blue",
+              textDecoration: this.state.done ? "line-through" : "none"
+            }}
+          >
+            {this.props.body}
           </span>
         </span>
       </li>
@@ -75,11 +40,11 @@ class TodoItem extends React.Component {
 
 class TodoList extends React.Component {
   static propTypes = {
-    startLength: PropTypes.number.isRequired
+    initialLength: PropTypes.number.isRequired
   };
 
   state = {
-    items: Array.from(new Array(this.props.startLength)).map(
+    items: Array.from(new Array(this.props.initialLength)).map(
       (_, index) => ({
         id: index,
         body: `item ${index + 1}`
@@ -119,7 +84,7 @@ class TodoList extends React.Component {
 }
 
 ReactDOM.render(
-  <TodoList startLength={200} />,
+  <TodoList initialLength={100} />,
   document.getElementById("app")
 );
 
