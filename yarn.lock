@@ -1426,7 +1426,7 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
 
-eventemitter3@1.x.x, eventemitter3@^1.0.2:
+eventemitter3@1.x.x:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
 
@@ -1890,17 +1890,6 @@ ieee754@^1.1.4:
 image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
-
-immstruct@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/immstruct/-/immstruct-2.0.0.tgz#8a2c83c512a639e69c590ecc0f9506957e40c43f"
-  dependencies:
-    eventemitter3 "^1.0.2"
-    immutable "^3.1.0"
-
-immutable@^3.1.0, immutable@^3.7.3:
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
 
 imports-loader@0.6.5:
   version "0.6.5"
