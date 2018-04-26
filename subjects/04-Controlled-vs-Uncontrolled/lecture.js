@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import serializeForm from "form-serialize";
 
-class Forms extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -15,12 +15,12 @@ class Forms extends React.Component {
   }
 }
 
-ReactDOM.render(<Forms />, document.getElementById("app"));
+ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Give the <input> a default value.
 
-// class Forms extends React.Component {
+// class App extends React.Component {
 //   render() {
 //     return (
 //       <div>
@@ -36,7 +36,7 @@ ReactDOM.render(<Forms />, document.getElementById("app"));
 ////////////////////////////////////////////////////////////////////////////////
 // Access the value using event.target.
 
-// class Forms extends React.Component {
+// class App extends React.Component {
 //   handleChange = event => {
 //     console.log(event.target.value);
 //   };
@@ -60,7 +60,7 @@ ReactDOM.render(<Forms />, document.getElementById("app"));
 ////////////////////////////////////////////////////////////////////////////////
 // Or use a ref.
 
-// class Forms extends React.Component {
+// class App extends React.Component {
 //   handleChange = () => {
 //     console.log(this.input.value);
 //   };
@@ -85,7 +85,7 @@ ReactDOM.render(<Forms />, document.getElementById("app"));
 // Or you can "control" the <input> and have its value in state.
 // What happens if we don't have an `onChange` but provide a value?
 
-// class Forms extends React.Component {
+// class App extends React.Component {
 //   state = {
 //     inputValue: "cupcakes"
 //   };
@@ -117,7 +117,7 @@ ReactDOM.render(<Forms />, document.getElementById("app"));
 ////////////////////////////////////////////////////////////////////////////////
 // When it's controlled, we can setState elsewhere and it stays in sync.
 
-// class Forms extends React.Component {
+// class App extends React.Component {
 //   state = {
 //     inputValue: "cupcakes"
 //   };
@@ -157,7 +157,7 @@ ReactDOM.render(<Forms />, document.getElementById("app"));
 // somewhere and reset the form, but the values in the form are never
 // important to `render`.
 
-// class Forms extends React.Component {
+// class App extends React.Component {
 //   handleSubmit = event => {
 //     event.preventDefault();
 //     const values = serializeForm(event.target, { hash: true });
@@ -206,7 +206,7 @@ ReactDOM.render(<Forms />, document.getElementById("app"));
 // synchronized when other parts of the app manipulate the state like the
 // button we had earlier.
 
-// class Forms extends React.Component {
+// class App extends React.Component {
 //   state = {
 //     firstName: "Michael",
 //     lastName: "Jackson"
