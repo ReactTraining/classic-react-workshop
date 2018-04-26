@@ -27,7 +27,7 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import Gravatar from "./components/Gravatar";
+import Gravatar from "./Gravatar";
 
 const USERS = [
   {
@@ -35,7 +35,7 @@ const USERS = [
     name: "Michael Jackson",
     email: "michael@reacttraining.com"
   },
-  { id: 2, name: "Bruce Lee", email: "bruce@awesome.com" }
+  { id: 2, name: "React Training", email: "hello@reacttraining.com" }
 ];
 
 function getUserByID(id) {
@@ -46,58 +46,50 @@ function getUserByID(id) {
   return null;
 }
 
-class Home extends React.Component {
-  render() {
-    const contactItems = USERS.map(user => (
-      <li key={user.email}>{user.name}</li>
-    ));
+function Home() {
+  const contactItems = USERS.map(user => (
+    <li key={user.email}>{user.name}</li>
+  ));
 
-    return (
-      <div>
-        <h2>Home</h2>
-        <ul className="people-list">{contactItems}</ul>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h2>Home</h2>
+      <ul className="people-list">{contactItems}</ul>
+    </div>
+  );
 }
 
-class Profile extends React.Component {
-  render() {
-    const userId = 1; // TODO: Get this from the URL!
-    const user = getUserByID(userId);
+function Profile() {
+  const userId = 1; // TODO: Get this from the URL!
+  const user = getUserByID(userId);
 
-    if (user == null) return <p>Cannot find user with id {userId}</p>;
+  if (user == null) return <p>Cannot find user with id {userId}</p>;
 
-    return (
-      <div className="profile">
-        <Gravatar email={user.email} /> {user.name}
-      </div>
-    );
-  }
+  return (
+    <div className="profile">
+      <Gravatar email={user.email} /> {user.name}
+    </div>
+  );
 }
 
-class NoMatch extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>No routes matched...</h1>
-        <p>
-          <Link to="/">Go home</Link>
-        </p>
-      </div>
-    );
-  }
+function NoMatch() {
+  return (
+    <div>
+      <h1>No routes matched...</h1>
+      <p>
+        <Link to="/">Go home</Link>
+      </p>
+    </div>
+  );
 }
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>People Viewer</h1>
-        <Home />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <h1>People Viewer</h1>
+      <Home />
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
