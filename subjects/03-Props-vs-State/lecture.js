@@ -22,7 +22,7 @@ class ContentToggle extends React.Component {
     }
 
     return (
-      <div {...this.props} className="content-toggle">
+      <div style={this.props.style} className="content-toggle">
         <button onClick={this.handleClick} className={summaryClassName}>
           {this.props.summary}
         </button>
@@ -103,7 +103,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     }
 
 //     return (
-//       <div {...this.props} className="content-toggle">
+//       <div style={this.props.style} className="content-toggle">
 //         <button onClick={this.handleClick} className={summaryClassName}>
 //           {this.props.summary}
 //         </button>
@@ -195,7 +195,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     }
 
 //     return (
-//       <div {...this.props} className="content-toggle">
+//       <div style={this.props.style} className="content-toggle">
 //         <button onClick={this.handleClick} className={summaryClassName}>
 //           {this.props.summary}
 //         </button>
@@ -301,7 +301,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     }
 
 //     return (
-//       <div {...this.props} className="content-toggle">
+//       <div style={this.props.style} className="content-toggle">
 //         <button onClick={this.handleClick} className={summaryClassName}>
 //           {this.props.summary}
 //         </button>
@@ -311,6 +311,33 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //       </div>
 //     );
 //   }
+// }
+
+//////////////////////////////////////////////////////////////////////////////
+// Can also write it as a state-less functional component (SFC)
+
+// function ContentToggle(props) {
+//   let summaryClassName = "content-toggle-summary";
+
+//   if (props.isOpen) {
+//     summaryClassName += " content-toggle-summary-open";
+//   }
+
+//   return (
+//     <div style={props.style} className="content-toggle">
+//       <button
+//         onClick={() => {
+//           if (props.onToggle) props.onToggle(!props.isOpen);
+//         }}
+//         className={summaryClassName}
+//       >
+//         {props.summary}
+//       </button>
+//       <div className="content-toggle-details">
+//         {props.isOpen && props.children}
+//       </div>
+//     </div>
+//   );
 // }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -326,7 +353,6 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // class StatefulContentToggle extends React.Component {
 //   state = { isOpen: false };
-
 //   render() {
 //     return (
 //       <ContentToggle
