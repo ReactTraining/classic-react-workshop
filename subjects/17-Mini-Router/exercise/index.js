@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, Link } from "./mini-router";
+import { Router, Route, Link, Switch } from "./mini-router";
 
 function App() {
   return (
@@ -19,16 +19,18 @@ function App() {
 
       <hr />
 
-      <Route
-        path="/dashboard"
-        render={() => (
-          <div>
-            <h2>Dashboard</h2>
-          </div>
-        )}
-      />
-      <Route path="/about" component={About} />
-      <Route path="/topics" component={Topics} />
+      <Switch>
+        <Route
+          path="/dashboard"
+          render={() => (
+            <div>
+              <h2>Dashboard</h2>
+            </div>
+          )}
+        />
+        <Route path="/about" component={About} />
+        <Route path="/" component={Topics} />
+      </Switch>
     </div>
   );
 }

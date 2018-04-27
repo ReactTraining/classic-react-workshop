@@ -15,33 +15,91 @@ history.listen(() => {
 history.push('/something')
 */
 
+const RouterContext = React.createContext();
+
 class Router extends React.Component {
   history = createHashHistory();
 
+  state = { location: this.history.location };
+
+  componentDidMount() {
+    this.history.listen(location => {
+      this.setState({ location });
+    });
+  }
+
   render() {
-    return this.props.children;
+    return (
+      <RouterContext.Provider
+        value={{
+          location: this.state.location,
+          push: this.history.push
+        }}
+      >
+        {this.props.children}
+      </RouterContext.Provider>
+    );
   }
 }
 
 class Route extends React.Component {
   render() {
-    const { path, render, component: Component } = this.props;
-    return null;
-  }
-}
-
-class Link extends React.Component {
-  handleClick = e => {
-    e.preventDefault();
-  };
-
-  render() {
     return (
-      <a href={`#${this.props.to}`} onClick={this.handleClick}>
-        {this.props.children}
-      </a>
+      <RouterContext.Consumer>
+        {({ location }) => {
+          const { path, render, component: Component } = this.props;
+
+          if (location.pathname.startsWith(path)) {
+            if (render) return render();
+            if (Component) return <Component />;
+          }
+
+          return null;
+        }}
+      </RouterContext.Consumer>
     );
   }
 }
 
-export { Router, Route, Link };
+class Link extends React.Component {
+  handleClick = (e, push) => {
+    e.preventDefault();
+    this.push(this.props.to);
+  };
+
+  render() {
+    return (
+      <RouterContext.Consumer>
+        {({ push }) => {
+          this.push = push;
+
+          return (
+            <a href={`#${this.props.to}`} onClick={this.handleClick}>
+              {this.props.children}
+            </a>
+          );
+        }}
+      </RouterContext.Consumer>
+    );
+  }
+}
+
+class Switch extends React.Component {
+  render() {
+    return (
+      <RouterContext.Consumer>
+        {({ location }) => {
+          const children = React.Children.toArray(this.props.children);
+
+          const route = children.find(child =>
+            location.pathname.startsWith(child.props.path)
+          );
+
+          return route;
+        }}
+      </RouterContext.Consumer>
+    );
+  }
+}
+
+export { Router, Route, Link, Switch };

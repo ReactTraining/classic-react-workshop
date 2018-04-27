@@ -1,32 +1,41 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import createClass from "create-react-class";
 
 import createMediaListener from "./utils/createMediaListener";
 
-const media = createMediaListener({
-  big: "(min-width : 1000px)",
-  tiny: "(max-width: 400px)"
-});
+const withMedia = (Component, queries) => {
+  const media = createMediaListener(queries);
+
+  return class extends React.Component {
+    static displayName = `withMedia(${Component.displayName ||
+      Component.name})`;
+
+    state = {
+      media: media.getState()
+    };
+
+    componentDidMount() {
+      media.listen(media => this.setState({ media }));
+    }
+
+    componentWillUnmount() {
+      media.dispose();
+    }
+
+    render() {
+      return <Component {...this.props} media={this.state.media} />;
+    }
+  };
+};
 
 class App extends React.Component {
-  state = {
-    media: media.getState()
-  };
-
-  componentDidMount() {
-    media.listen(media => this.setState({ media }));
-  }
-
-  componentWillUnmount() {
-    media.dispose();
-  }
-
   render() {
-    const { media } = this.state;
+    const { media, message } = this.props;
 
     return media.big ? (
-      <h1>Hey, this is a big screen</h1>
+      <h1>Hey, {message}</h1>
     ) : media.tiny ? (
       <h6>tiny tiny tiny</h6>
     ) : (
@@ -35,7 +44,17 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+// export App.js
+const AppWithMedia = withMedia(App, {
+  big: "(min-width : 1000px)",
+  tiny: "(max-width: 400px)"
+});
+
+// import App from 'App.js'
+ReactDOM.render(
+  <AppWithMedia message="Hello" />,
+  document.getElementById("app")
+);
 
 ////////////////////////////////////////////////////////////////////////////////
 // We can move all of that code into a higher-order component. A higher-order

@@ -19,135 +19,68 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
+const FormContext = React.createContext();
+
 class Form extends React.Component {
-  static childContextTypes = {
-    form: PropTypes.shape({
-      values: PropTypes.object.isRequired,
-      addField: PropTypes.func.isRequired,
-      change: PropTypes.func.isRequired,
-      submit: PropTypes.func.isRequired,
-      reset: PropTypes.func.isRequired
-    })
+  values = {};
+
+  handleSubmit = () => {
+    if (this.props.onSubmit) this.props.onSubmit(this.values);
   };
 
-  defaultValues = {};
-
-  state = {
-    values: {}
-  };
-
-  getValues() {
-    return Object.assign({}, this.defaultValues, this.state.values);
-  }
-
-  getChildContext() {
-    return {
-      form: {
-        values: this.getValues(),
-        addField: (name, defaultValue) => {
-          this.defaultValues[name] = defaultValue;
-        },
-        change: (name, value) => {
-          this.setState(state => ({
-            values: {
-              ...state.values,
-              [name]: value
-            }
-          }));
-        },
-        submit: () => {
-          if (this.props.onSubmit)
-            this.props.onSubmit(this.getValues());
-        },
-        reset: () => {
-          this.setState({ values: {} });
-        }
-      }
-    };
-  }
-
-  render() {
-    return <div>{this.props.children}</div>;
-  }
-}
-
-class SubmitButton extends React.Component {
-  static contextTypes = {
-    form: PropTypes.shape({
-      submit: PropTypes.func.isRequired
-    })
+  handleChange = (name, value) => {
+    this.values[name] = value;
   };
 
   render() {
     return (
-      <button onClick={this.context.form.submit}>
-        {this.props.children}
-      </button>
+      <FormContext.Provider
+        value={{ submit: this.handleSubmit, change: this.handleChange }}
+      >
+        <div>{this.props.children}</div>
+      </FormContext.Provider>
     );
   }
 }
 
-class ResetButton extends React.Component {
-  static contextTypes = {
-    form: PropTypes.shape({
-      reset: PropTypes.func.isRequired
-    })
-  };
-
+class SubmitButton extends React.Component {
   render() {
     return (
-      <button onClick={this.context.form.reset}>
-        {this.props.children}
-      </button>
+      <FormContext.Consumer>
+        {context => (
+          <button onClick={context.submit}>
+            {this.props.children}
+          </button>
+        )}
+      </FormContext.Consumer>
     );
   }
 }
 
 class TextInput extends React.Component {
-  static defaultProps = {
-    defaultValue: ""
-  };
-
-  static contextTypes = {
-    form: PropTypes.shape({
-      values: PropTypes.object.isRequired,
-      addField: PropTypes.func.isRequired,
-      change: PropTypes.func.isRequired,
-      submit: PropTypes.func.isRequired
-    })
-  };
-
-  componentWillMount() {
-    this.context.form.addField(
-      this.props.name,
-      this.props.defaultValue
-    );
+  handleKeyDown(event, submit) {
+    if (event.key === "Enter") {
+      submit();
+    }
   }
 
-  handleChange = event => {
-    this.context.form.change(this.props.name, event.target.value);
-  };
-
-  handleKeyDown = event => {
-    if (event.key === "Enter") this.context.form.submit();
-  };
-
   render() {
-    const value = this.context.form.values.hasOwnProperty(
-      this.props.name
-    )
-      ? this.context.form.values[this.props.name]
-      : this.props.defaultValue;
-
     return (
-      <input
-        type="text"
-        name={this.props.name}
-        placeholder={this.props.placeholder}
-        onKeyDown={this.handleKeyDown}
-        onChange={this.handleChange}
-        value={value}
-      />
+      <FormContext.Consumer>
+        {context => (
+          <input
+            type="text"
+            name={this.props.name}
+            placeholder={this.props.placeholder}
+            onKeyDown={event =>
+              this.handleKeyDown(event, context.submit)
+            }
+            onChange={event =>
+              context.change(this.props.name, event.target.value)
+            }
+          />
+        )}
+      </FormContext.Consumer>
     );
   }
 }
@@ -166,20 +99,11 @@ class App extends React.Component {
 
         <Form onSubmit={this.handleSubmit}>
           <p>
-            <TextInput
-              name="firstName"
-              placeholder="First Name"
-              defaultValue="Michael"
-            />{" "}
-            <TextInput
-              name="lastName"
-              placeholder="Last Name"
-              defaultValue="Jackson"
-            />
+            <TextInput name="firstName" placeholder="First Name" />{" "}
+            <TextInput name="lastName" placeholder="Last Name" />
           </p>
           <p>
             <SubmitButton>Submit</SubmitButton>
-            <ResetButton>Reset</ResetButton>
           </p>
         </Form>
       </div>
