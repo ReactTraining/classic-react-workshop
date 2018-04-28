@@ -7,12 +7,6 @@
 // - The selected <RadioOption> should pass the correct value to its <RadioIcon>
 // - The `defaultValue` should be set on first render
 //
-// Hints to get started:
-//
-// - <RadioGroup> will need some state
-// - It then needs to pass that state to the <RadioOption>s so they know
-//   whether or not they are active
-//
 // Got extra time?
 //
 // - Implement an `onChange` prop that communicates the <RadioGroup>'s state

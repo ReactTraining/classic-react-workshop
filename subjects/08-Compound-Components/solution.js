@@ -7,12 +7,6 @@
 // - The selected <RadioOption> should pass the correct value to its <RadioIcon>
 // - The `defaultValue` should be set on first render
 //
-// Hints to get started:
-//
-// - <RadioGroup> will need some state
-// - It then needs to pass that state to the <RadioOption>s so they know
-//   whether or not they are active
-//
 // Got extra time?
 //
 // - Implement an `onChange` prop that communicates the <RadioGroup>'s state
@@ -27,37 +21,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
-class RadioIcon extends React.Component {
-  static propTypes = {
-    isSelected: PropTypes.bool.isRequired
-  };
-
-  render() {
-    return (
-      <div
-        style={{
-          borderColor: "#ccc",
-          borderSize: "3px",
-          borderStyle: this.props.isSelected ? "inset" : "outset",
-          height: 16,
-          width: 16,
-          display: "inline-block",
-          cursor: "pointer",
-          background: this.props.isSelected ? "rgba(0, 0, 0, 0.05)" : ""
-        }}
-      />
-    );
-  }
-}
-
 class RadioGroup extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.string
   };
 
-  state = {
-    value: this.props.defaultValue
-  };
+  state = { value: this.props.defaultValue };
 
   select(value) {
     this.setState({ value }, () => {
@@ -88,6 +57,29 @@ class RadioOption extends React.Component {
         <RadioIcon isSelected={this.props.isSelected} />{" "}
         {this.props.children}
       </div>
+    );
+  }
+}
+
+class RadioIcon extends React.Component {
+  static propTypes = {
+    isSelected: PropTypes.bool.isRequired
+  };
+
+  render() {
+    return (
+      <div
+        style={{
+          borderColor: "#ccc",
+          borderSize: "3px",
+          borderStyle: this.props.isSelected ? "inset" : "outset",
+          height: 16,
+          width: 16,
+          display: "inline-block",
+          cursor: "pointer",
+          background: this.props.isSelected ? "rgba(0, 0, 0, 0.05)" : ""
+        }}
+      />
     );
   }
 }
