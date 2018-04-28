@@ -23,6 +23,7 @@
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.4",
     "bootstrap-webpack": "0.0.5",
+    "create-react-class": "^15.6.3",
     "css-loader": "^0.23.1",
     "events": "^1.0.2",
     "expect": "^1.13.4",
