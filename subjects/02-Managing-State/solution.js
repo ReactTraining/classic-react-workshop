@@ -105,7 +105,5 @@ const DATA = [
 ReactDOM.render(
   <App countries={DATA} />,
   document.getElementById("app"),
-  function() {
-    require("./tests").run(this);
-  }
+  () => require("./tests").run()
 );

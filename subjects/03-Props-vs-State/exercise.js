@@ -79,7 +79,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs ref="tabs" data={this.props.tabs} />
+        <Tabs data={this.props.tabs} />
       </div>
     );
   }
@@ -88,7 +88,5 @@ class App extends React.Component {
 ReactDOM.render(
   <App tabs={data} />,
   document.getElementById("app"),
-  function() {
-    require("./tests").run(this);
-  }
+  () => require("./tests").run()
 );

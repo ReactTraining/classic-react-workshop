@@ -82,7 +82,6 @@ class App extends React.Component {
       <div>
         <h1>Props v. State</h1>
         <Tabs
-          ref="tabs"
           data={this.props.tabs}
           activeIndex={this.state.activeIndex}
           onChange={index => this.setState({ activeIndex: index })}
@@ -95,7 +94,5 @@ class App extends React.Component {
 ReactDOM.render(
   <App tabs={data} />,
   document.getElementById("app"),
-  function() {
-    require("./tests").run(this);
-  }
+  () => require("./tests").run()
 );
