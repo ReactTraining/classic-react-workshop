@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
-class TodoItem extends React.Component {
+class TodoItem extends React.PureComponent {
   state = {
     done: false
   };
@@ -84,7 +84,7 @@ class TodoList extends React.Component {
 }
 
 ReactDOM.render(
-  <TodoList initialLength={100} />,
+  <TodoList initialLength={1000} />,
   document.getElementById("app")
 );
 

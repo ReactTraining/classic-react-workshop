@@ -14,8 +14,57 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
+function withCat(Component) {
+  return class extends React.Component {
+    static propTypes = {
+      mouse: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired
+      })
+    };
+
+    state = { left: 0, top: 0 };
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      const { mouse } = nextProps;
+
+      setTimeout(() => {
+        this.setState({
+          left: mouse.x - 50,
+          top: mouse.y - 50
+        });
+      }, 100);
+    }
+
+    render() {
+      const { mouse } = this.props;
+
+      return (
+        <div>
+          <Component {...this.props} />
+          <div className="cat" style={this.state} />
+        </div>
+      );
+    }
+  };
+}
+
 function withMouse(Component) {
-  return Component;
+  return class extends React.Component {
+    state = { x: 0, y: 0 };
+
+    handleMouseMove = event => {
+      this.setState({ x: event.clientX, y: event.clientY });
+    };
+
+    render() {
+      return (
+        <div onMouseMove={this.handleMouseMove}>
+          <Component {...this.props} mouse={this.state} />
+        </div>
+      );
+    }
+  };
 }
 
 class App extends React.Component {
@@ -43,6 +92,6 @@ class App extends React.Component {
   }
 }
 
-const AppWithMouse = withMouse(App);
+const AppWithMouse = withMouse(withCat(App));
 
 ReactDOM.render(<AppWithMouse />, document.getElementById("app"));
