@@ -33,6 +33,6 @@ function Menu() {
   return <div>Open the console, you have failing tests.</div>;
 }
 
-ReactDOM.render(<Menu />, document.getElementById("app"), () => {
-  require("./tests").run();
-});
+ReactDOM.render(<Menu />, document.getElementById("app"));
+
+require("./tests").run();

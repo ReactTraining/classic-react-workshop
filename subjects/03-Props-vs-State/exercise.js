@@ -85,8 +85,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <App tabs={data} />,
-  document.getElementById("app"),
-  () => require("./tests").run()
-);
+ReactDOM.render(<App tabs={data} />, document.getElementById("app"));
+
+require("./tests").run();

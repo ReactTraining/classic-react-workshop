@@ -43,6 +43,6 @@ function Menu() {
   );
 }
 
-ReactDOM.render(<Menu />, document.getElementById("app"), () => {
-  require("./tests").run();
-});
+ReactDOM.render(<Menu />, document.getElementById("app"));
+
+require("./tests").run();
