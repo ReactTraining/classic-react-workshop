@@ -2,19 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createHashHistory } from "history";
 
+/*
+How to use the history library:
+
+// read the current URL
+history.location
+
+// listen for changes to the URL
+history.listen(() => {
+  history.location // is now different
+})
+
+// change the URL
+history.push('/something')
+*/
+
+const RouterContext = React.createContext();
+
 class Router extends React.Component {
-  static childContextTypes = {
-    location: PropTypes.object,
-    history: PropTypes.object
-  };
-
-  getChildContext() {
-    return {
-      location: this.state.location,
-      history: this.history
-    };
-  }
-
   history = createHashHistory();
 
   state = {
@@ -27,51 +32,57 @@ class Router extends React.Component {
     });
   }
 
-  render() {
-    return this.props.children;
-  }
-}
-
-class Route extends React.Component {
-  static contextTypes = {
-    location: PropTypes.object
-  };
-
-  render() {
-    const { location } = this.context;
-    const { path, render, component: Component } = this.props;
-
-    if (location.pathname.startsWith(path)) {
-      if (render) {
-        return render();
-      }
-
-      if (Component) {
-        return <Component />;
-      }
-
-      return null;
-    } else {
-      return null;
-    }
-  }
-}
-
-class Link extends React.Component {
-  static contextTypes = {
-    history: PropTypes.object
-  };
-
-  handleClick = e => {
-    e.preventDefault();
-    this.context.history.push(this.props.to);
+  handlePush = to => {
+    this.history.push(to);
   };
 
   render() {
     return (
-      <a href={`#${this.props.to}`} onClick={this.handleClick}>
-        {this.props.children}
-      </a>
+      <RouterContext.Provider
+        {...this.props}
+        value={{ location: this.state.location, push: this.handlePush }}
+      />
+    );
+  }
+}
+
+class Route extends React.Component {
+  render() {
+    return (
+      <RouterContext.Consumer>
+        {router => {
+          const { path, render, component: Component } = this.props;
+
+          if (router.location.pathname.startsWith(path)) {
+            if (render) return render();
+            if (Component) return <Component />;
+          }
+
+          return null;
+        }}
+      </RouterContext.Consumer>
+    );
+  }
+}
+
+class Link extends React.Component {
+  handleClick = (event, router) => {
+    event.preventDefault();
+    router.push(this.props.to);
+  };
+
+  render() {
+    return (
+      <RouterContext.Consumer>
+        {router => (
+          <a
+            href={`#${this.props.to}`}
+            onClick={event => this.handleClick(event, router)}
+          >
+            {this.props.children}
+          </a>
+        )}
+      </RouterContext.Consumer>
     );
   }
 }

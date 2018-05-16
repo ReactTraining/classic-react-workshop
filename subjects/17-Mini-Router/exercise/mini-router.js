@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { createHashHistory } from "history";
 
 /*
+How to use the history library:
+
 // read the current URL
 history.location
 
@@ -31,8 +33,8 @@ class Route extends React.Component {
 }
 
 class Link extends React.Component {
-  handleClick = e => {
-    e.preventDefault();
+  handleClick = event => {
+    event.preventDefault();
   };
 
   render() {
