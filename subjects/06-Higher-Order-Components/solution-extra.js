@@ -12,7 +12,6 @@ import "./styles.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { Motion, spring } from "react-motion";
 import PropTypes from "prop-types";
 
 function withMouse(Component) {
@@ -38,14 +37,7 @@ function withMouse(Component) {
 
 function withCat(Component) {
   return class extends React.Component {
-    state = { width: 0, height: 0, x: 0, y: 0 };
-
-    componentDidMount() {
-      this.setState({
-        width: this.node.offsetWidth,
-        height: this.node.offsetHeight
-      });
-    }
+    state = { top: 0, left: 0 };
 
     componentDidUpdate(prevProps) {
       const { mouse } = this.props;
@@ -53,27 +45,22 @@ function withCat(Component) {
       if (
         mouse.x !== prevProps.mouse.x ||
         mouse.y !== prevProps.mouse.y
-      )
-        this.setState(mouse);
+      ) {
+        this.setState({
+          top: mouse.y - Math.round(this.node.offsetHeight / 2),
+          left: mouse.x - Math.round(this.node.offsetWidth / 2)
+        });
+      }
     }
 
     render() {
-      const catStyle = {
-        top: spring(this.state.y - Math.round(this.state.height / 2)),
-        left: spring(this.state.x - Math.round(this.state.width / 2))
-      };
-
       return (
-        <div style={{ height: "100%" }}>
-          <Motion style={catStyle}>
-            {style => (
-              <div
-                className="cat"
-                style={style}
-                ref={node => (this.node = node)}
-              />
-            )}
-          </Motion>
+        <div>
+          <div
+            ref={node => (this.node = node)}
+            className="cat"
+            style={this.state}
+          />
           <Component {...this.props} />
         </div>
       );

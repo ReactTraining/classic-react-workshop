@@ -10,6 +10,7 @@
 
 .cat {
   position: absolute;
+  transition: top 200ms ease-in, left 200ms ease-in;
   width: 100px;
   height: 100px;
   background-size: contain;
