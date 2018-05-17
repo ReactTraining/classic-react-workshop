@@ -4,16 +4,6 @@ import PropTypes from "prop-types";
 
 import * as styles from "./styles";
 
-////////////////////////////////////////////////////////////////////////////////
-// Sometimes you don't want to specify how deep in the view tree the child
-// components need to be, our current implementation expects TabList/TabPanels
-// to be immediate children of Tabs, also Tab and TabPanel are required to be
-// immediate children of their parent components. We really only care about the
-// interactivity between the components, not their hierarchy.
-//
-// We could recursively check children with each render, which seems like a bad
-// plan, so instead we can use a feature called "context".
-
 function TabList({ children, _activeIndex, _onTabSelect }) {
   return (
     <div style={styles.tabs}>
@@ -33,7 +23,9 @@ function Tab({ children, disabled, _isActive, _onSelect }) {
       style={
         disabled
           ? styles.disabledTab
-          : _isActive ? styles.activeTab : styles.tab
+          : _isActive
+            ? styles.activeTab
+            : styles.tab
       }
       onClick={disabled ? null : _onSelect}
     >
@@ -110,6 +102,15 @@ function App() {
 ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
+// Sometimes you don't want to specify how deep in the view tree the child
+// components need to be, our current implementation expects TabList/TabPanels
+// to be immediate children of Tabs, also Tab and TabPanel are required to be
+// immediate children of their parent components. We really only care about the
+// interactivity between the components, not their hierarchy.
+//
+// We could recursively check children with each render, which seems like a bad
+// plan, so instead we can use a feature called "context".
+//
 // Wrapping <TabPanels> in a div breaks everything! Instead of using
 // cloneElement, let's use context to pass the activeIndex down.
 
