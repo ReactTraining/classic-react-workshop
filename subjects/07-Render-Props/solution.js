@@ -1,21 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Refactor App by creating a new component named `<GeoPosition>`
-// - <GeoPosition> should use a child render callback that passes
-//   to <App> the latitude and longitude state
-// - When you're done, <App> should no longer have anything but
-//   a render method
+// - Refactor App by creating a new component named <GeoPosition>
+// - <GeoPosition> should use a render prop that passes the latitude and
+//   longitude to the <App>
 //
 // Got extra time?
 //
-// - Now create a <GeoAddress> component that also uses a render
-//   callback with the current address. You will use
-//   `getAddressFromCoords(latitude, longitude)` to get the
-//   address, it returns a promise.
-// - You should be able to compose <GeoPosition> and <GeoAddress>
-//   beneath it to naturally compose both the UI and the state
-//   needed to render it
+// - Now create a <GeoAddress> component that translates the geo coordinates
+//   to a physical address and prints it to the screen
+// - You should be able to compose <GeoPosition> and <GeoAddress> beneath it to
+//   naturally compose both the UI and the state needed to render it
 // - Make sure <GeoAddress> supports the user moving positions
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
