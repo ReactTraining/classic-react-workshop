@@ -29,10 +29,73 @@ const DATA = {
   ]
 };
 
+let foodType = "mexican";
+
+function updateFoodType(type) {
+  foodType = type;
+  ReactDOM.render(<Menu />, document.getElementById("app"));
+}
+
+let sortAscending = false;
+
+function toggleSortOrder() {
+  sortAscending = !sortAscending;
+  ReactDOM.render(<Menu />, document.getElementById("app"));
+}
+
 function Menu() {
-  return <div>Open the console, you have failing tests.</div>;
+  const items = DATA.items
+    .filter(item => item.type === foodType)
+    .sort(sortBy(sortAscending ? "name" : "-name"))
+    .map(item => <li key={item.id}>{item.name}</li>);
+
+  return (
+    <div>
+      <h1>{DATA.title}</h1>
+      <select onChange={event => updateFoodType(event.target.value)}>
+        <option>mexican</option>
+        <option>english</option>
+      </select>
+      <button onClick={toggleSortOrder}>Toggle sort order</button>
+      <ul>{items}</ul>
+    </div>
+  );
 }
 
 ReactDOM.render(<Menu />, document.getElementById("app"));
 
-require("./tests").run();
+// require("./tests").run();
+
+// import $ from "jquery";
+
+// let foodType = "mexican";
+
+// function updateFoodType(type) {
+//   foodType = type;
+//   render();
+// }
+
+// function render() {
+//   const items = DATA.items
+//     .filter(item => item.type === foodType)
+//     .sort(sortBy("name"))
+//     .map(item => "<li>" + item.name + "</li>");
+
+//   return $("#app").html(
+//     "<div><h1>" +
+//       DATA.title +
+//       "</h1><select><option>mexican</option><option>english</option></select><ul>" +
+//       items.join("") +
+//       "</ul></div>"
+//   );
+// }
+
+// function renderItems() {
+//   $('ul').html()
+// }
+
+// render()
+//   .find("select")
+//   .on("change", event => {
+//     updateFoodType(event.target.value);
+//   });

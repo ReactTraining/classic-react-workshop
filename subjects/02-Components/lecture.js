@@ -2,69 +2,77 @@ import "./styles.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
-let isOpen = false;
+// MSB = state, markup, behavior
+// MVC = model, view, controller
 
-function handleClick() {
-  isOpen = !isOpen;
-  updateThePage();
-}
+class ContentToggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isOpen: false };
+    this.handleClick = () => {
+      this.setState({ isOpen: !this.state.isOpen });
 
-function ContentToggle() {
-  let summaryClassName = "content-toggle-summary";
-
-  if (isOpen) {
-    summaryClassName += " content-toggle-summary-open";
+      if (this.props.onToggle) {
+        this.props.onToggle();
+      }
+    };
   }
 
-  return (
-    <div className="content-toggle">
-      <button onClick={handleClick} className={summaryClassName}>
-        Tacos
-      </button>
-      {isOpen && (
-        <div className="content-toggle-details">
+  render() {
+    let summaryClassName = "content-toggle-summary";
+
+    if (this.state.isOpen) {
+      summaryClassName += " content-toggle-summary-open";
+    }
+
+    return (
+      <div className="content-toggle">
+        <button onClick={this.handleClick} className={summaryClassName}>
+          {this.props.summary}
+        </button>
+        {this.state.isOpen && (
+          <div className="content-toggle-details">
+            {this.props.children}
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+ContentToggle.propTypes = {
+  summary: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  onToggle: PropTypes.func
+};
+
+class ToggleTracker extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { numToggles: 0 };
+    this.handleToggle = () => {
+      this.setState({ numToggles: this.state.numToggles + 1 });
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Number of toggles: {this.state.numToggles}</p>
+        <ContentToggle summary="Tacos" onToggle={this.handleToggle}>
           <p>
             A taco is a traditional Mexican dish composed of a corn or
             wheat tortilla folded or rolled around a filling.
           </p>
-        </div>
-      )}
-    </div>
-  );
+        </ContentToggle>
+        <ContentToggle summary="Burritos" onToggle={this.handleToggle}>
+          <p>It's like a big rolled up taco (see taco above)</p>
+        </ContentToggle>
+      </div>
+    );
+  }
 }
 
-function updateThePage() {
-  ReactDOM.render(<ContentToggle />, document.getElementById("app"));
-}
-
-updateThePage();
-
-////////////////////////////////////////////////////////////////////////////////
-// What happens when we want to render 2 <ContentToggle>s? Shared mutable state!
-
-////////////////////////////////////////////////////////////////////////////////
-// React gives us a component model we can use to encapsulate state at the
-// instance level, so each component instance has its own state. Let's refactor
-// this code to use React components.
-
-////////////////////////////////////////////////////////////////////////////////
-// First, encapsulate the state in an object. Then, add a setState function that
-// we can use to update state and automatically update the page any time it
-// changes.
-
-//////////////////////////////////////////////////////////////////////////////////
-// React gives us setState and automatically re-renders as the state changes.
-
-////////////////////////////////////////////////////////////////////////////////
-// Let's make <ContentToggle> re-usable and render a few of them. Title and
-// children are properties we can pass in from the parent component.
-
-////////////////////////////////////////////////////////////////////////////////
-// Wrap a few <ContentToggle>s in a <ToggleTracker> that tracks the # of times
-// it has been toggled and shows a counter. <ContentToggle> gets an onToggle
-// handler. This is like a "custom event".
-
-////////////////////////////////////////////////////////////////////////////////
-// We can use propTypes to declare the name, type, and even default value of
-// our props. These are like "runnable docs" for our code.
+ReactDOM.render(<ToggleTracker />, document.getElementById("app"));
