@@ -12,39 +12,33 @@ import expect from "expect";
 
 import Tabs from "./components/Tabs";
 
+const FixtureData = [
+  {
+    label: "USA",
+    content: "Land of the Free, Home of the brave"
+  },
+  { label: "Brazil", content: "Sunshine, beaches, and Carnival" },
+  { label: "Russia", content: "World Cup 2018!" }
+];
+
 describe("when <Tabs> is rendered", () => {
-  let node, tabs, panel, borderFixture;
-
-  const FixtureData = [
-    {
-      label: "USA",
-      content: "Land of the Free, Home of the brave"
-    },
-    { label: "Brazil", content: "Sunshine, beaches, and Carnival" },
-    { label: "Russia", content: "World Cup 2018!" }
-  ];
-
-  beforeEach(done => {
+  let node, activeBorderBottomColor;
+  beforeEach(() => {
     node = document.createElement("div");
-    document.body.appendChild(node);
 
-    ReactDOM.render(<Tabs data={FixtureData} />, node, () => {
-      tabs = node.querySelectorAll(".Tab");
-      panel = node.querySelector(".TabPanel");
+    const activeTab = document.createElement("div");
+    activeTab.setAttribute("style", "border-bottom-color: #000");
+    activeBorderBottomColor = activeTab.style.borderBottomColor;
 
-      borderFixture = document.createElement("div");
-      borderFixture.setAttribute("style", "border-bottom-color: #000");
-
-      done();
-    });
+    ReactDOM.render(<Tabs data={FixtureData} />, node);
   });
 
   afterEach(() => {
     ReactDOM.unmountComponentAtNode(node);
-    document.body.removeChild(node);
   });
 
   it("renders the USA tab", () => {
+    const tabs = node.querySelectorAll(".Tab");
     expect(tabs[0].innerText).toEqual(
       FixtureData[0].label,
       "USA tab was not rendered"
@@ -52,6 +46,7 @@ describe("when <Tabs> is rendered", () => {
   });
 
   it("renders the Brazil tab", () => {
+    const tabs = node.querySelectorAll(".Tab");
     expect(tabs[1].innerText).toEqual(
       FixtureData[1].label,
       "Brazil tab was not rendered"
@@ -59,6 +54,7 @@ describe("when <Tabs> is rendered", () => {
   });
 
   it("renders the Russia tab", () => {
+    const tabs = node.querySelectorAll(".Tab");
     expect(tabs[2].innerText).toEqual(
       FixtureData[2].label,
       "Russia tab was not rendered"
@@ -66,39 +62,45 @@ describe("when <Tabs> is rendered", () => {
   });
 
   it("activates the first tab", () => {
+    const tabs = node.querySelectorAll(".Tab");
     expect(tabs[0].style.borderBottomColor).toEqual(
-      borderFixture.style.borderBottomColor,
+      activeBorderBottomColor,
       "First tab is not active"
     );
   });
 
   it("does not activate the second tab", () => {
-    expect(tabs[1].style.borderBottomColor).toNotEqual(
-      borderFixture.style.borderBottomColor,
+    const tabs = node.querySelectorAll(".Tab");
+    expect(tabs[1].style.borderBottomColor).not.toEqual(
+      activeBorderBottomColor,
       "Second tab is active"
     );
   });
 
   describe("after clicking the second tab", () => {
     beforeEach(() => {
+      const tabs = node.querySelectorAll(".Tab");
       Simulate.click(tabs[1]);
     });
 
     it("activates the second tab", () => {
+      const tabs = node.querySelectorAll(".Tab");
       expect(tabs[1].style.borderBottomColor).toEqual(
-        borderFixture.style.borderBottomColor,
+        activeBorderBottomColor,
         "Second tab is not active"
       );
     });
 
     it("deactivates the first tab", () => {
-      expect(tabs[0].style.borderBottomColor).toNotEqual(
-        borderFixture.style.borderBottomColor,
+      const tabs = node.querySelectorAll(".Tab");
+      expect(tabs[0].style.borderBottomColor).not.toEqual(
+        activeBorderBottomColor,
         "First tab is active"
       );
     });
 
     it("puts the correct content in the panel", () => {
+      const panel = node.querySelector(".TabPanel");
       expect(panel.innerText).toEqual(
         FixtureData[1].content,
         "Correct content is not in the panel"
