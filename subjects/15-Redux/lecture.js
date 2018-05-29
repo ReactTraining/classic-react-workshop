@@ -1,52 +1,105 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+
 import { createStore } from "redux";
+import { Provider, connect } from "react-redux";
 
-const store = createStore((state = 0, action) => {
-  if (action.type === "INCREMENT") {
-    return state + (action.by || 1);
-  } else {
-    return state;
+const reducer = (state = 0, action) => {
+  if (action.type === "INC_COUNT") {
+    return state + action.by;
+  } else if (action.type === "DEC_COUNT") {
+    return state - action.by;
   }
-});
 
-store.subscribe(() => {
-  console.log(store.getState());
-});
+  return state;
+};
 
-store.dispatch({ type: "INCREMENT" });
-store.dispatch({ type: "INCREMENT", by: 5 });
-store.dispatch({ type: "INCREMENT" });
-store.dispatch({ type: "INCREMENT" });
+const store = createStore(reducer);
 
-/*
-- Flux is an architecture, not a framework
-  - DO NOT START BUILDING STUFF WITH FLUX WHEN YOU'RE FIRST GETTING STARTED WITH REACT
-  - It can be difficult to understand why the patterns in Flux are useful if you haven't
-    already tried to solve problems w/out Flux
-  - You'll most likely hate Flux unless you're already fighting with your current JS
-    framework. If you're not, stick with what's working for you
+// store.subscribe(() => {
+//   console.log(store.getState());
+// });
 
-- Flux is good at:
-  - Making it easy to reason about changes to state
+// store.dispatch({ type: "INC_COUNT", by: 10 });
+// store.dispatch({ type: "INC_COUNT", by: 10 });
+// store.dispatch({ type: "INC_COUNT", by: 10 });
+// store.dispatch({ type: "INC_COUNT", by: 10 });
+// store.dispatch({ type: "INC_COUNT", by: 10 });
 
-- Remember our 2 questions:
-  - What state is there?
-  - When does it change?
+class OriginalApp extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Welcome to the app!</h1>
 
-Open Redux.png
+        <p>The count is {this.props.count}</p>
 
-- Views
-  - React components (see components)
-  - Create actions (see actions)
+        <button
+          onClick={() =>
+            this.props.dispatch({
+              type: "INC_COUNT",
+              by: 1
+            })
+          }
+        >
+          inc
+        </button>
+        <button
+          onClick={() =>
+            this.props.dispatch({
+              type: "DEC_COUNT",
+              by: 1
+            })
+          }
+        >
+          dec
+        </button>
 
-- Actions
-  - Create "actions" with meaningful names (e.g. "load contacts", "delete contact").
-    These are the verbs. Ask yourself, "what actions can the user take?"
-  - Send actions through the dispatcher
-  - Possibly trigger API requests (side effect)
+        <One />
+      </div>
+    );
+  }
+}
 
-- Store
-  - Synchronous dispatch of actions to ALL registered listeners (stores)
+OriginalApp.propTypes = {
+  count: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 
-- Reducers
-  - Compute new state values
-*/
+function mapStateToProps(state) {
+  return { count: state };
+}
+
+const App = connect(mapStateToProps)(OriginalApp);
+
+function One() {
+  return (
+    <div>
+      <h2>The second level down</h2>
+      <Two />
+    </div>
+  );
+}
+
+function OriginalTwo({ count }) {
+  return (
+    <div>
+      <h3>The 3rd level down</h3>
+      <p>The count is {typeof count === "number" ? count : "???"}</p>
+    </div>
+  );
+}
+
+function mapStateToProps(state) {
+  return { count: state };
+}
+
+const Two = connect(mapStateToProps)(OriginalTwo);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("app")
+);

@@ -77,7 +77,7 @@ class Theremin extends React.Component {
         onMouseMove={this.changeTone}
       >
         <Tone
-          isPlaying={this.state.isPlaying}
+          isPlaying={false}
           pitch={this.state.pitch}
           volume={this.state.volume}
           type={this.props.waveType}
@@ -86,6 +86,8 @@ class Theremin extends React.Component {
     );
   }
 }
+
+export { Tone };
 
 // main benefits of being declarative:
 // 1. code becomes easier to read, more descriptive
