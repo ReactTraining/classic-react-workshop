@@ -13,6 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 const styles = {};
 
@@ -34,18 +35,49 @@ styles.panel = {
   padding: 10
 };
 
+const countryType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
+});
+
+const tabType = PropTypes.shape({
+  label: PropTypes.string.isRequired,
+  content: PropTypes.node.isRequired
+});
+
 class Tabs extends React.Component {
+  static propTypes = {
+    data: PropTypes.arrayOf(tabType)
+  };
+
+  state = { activeIndex: 0 };
+
+  handleClick = index => {
+    this.setState({ activeIndex: index });
+  };
+
   render() {
+    const { data } = this.props;
+
     return (
       <div className="Tabs">
-        <div className="Tab" style={styles.activeTab}>
-          Active
-        </div>
-        <div className="Tab" style={styles.tab}>
-          Inactive
-        </div>
+        {data.map((tab, index) => (
+          <div
+            className="Tab"
+            style={
+              index === this.state.activeIndex
+                ? styles.activeTab
+                : styles.tab
+            }
+            onClick={() => this.handleClick(index)}
+            key={index}
+          >
+            {tab.label}
+          </div>
+        ))}
         <div className="TabPanel" style={styles.panel}>
-          Panel
+          {data[this.state.activeIndex].content}
         </div>
       </div>
     );
@@ -54,10 +86,15 @@ class Tabs extends React.Component {
 
 class App extends React.Component {
   render() {
+    const data = this.props.countries.map(country => ({
+      label: country.name,
+      content: <p>{country.description}</p>
+    }));
+
     return (
       <div>
         <h1>Countries</h1>
-        <Tabs data={this.props.countries} />
+        <Tabs data={data} />
       </div>
     );
   }

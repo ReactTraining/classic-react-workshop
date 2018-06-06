@@ -21,65 +21,60 @@ import PropTypes from "prop-types";
 import * as styles from "./styles";
 import data from "./data";
 
-class Tabs extends React.Component {
-  static propTypes = {
-    data: PropTypes.array.isRequired
-  };
-
-  state = {
-    activeIndex: 0
-  };
-
-  selectTab(activeIndex) {
-    this.setState({ activeIndex });
-  }
-
-  renderTabs() {
-    return this.props.data.map((tab, index) => {
-      const style =
-        this.state.activeIndex === index
-          ? styles.activeTab
-          : styles.tab;
-
-      return (
-        <div
-          className="Tab"
-          key={tab.name}
-          style={style}
-          onClick={() => this.selectTab(index)}
-        >
-          {tab.name}
-        </div>
-      );
-    });
-  }
-
-  renderPanel() {
-    const tab = this.props.data[this.state.activeIndex];
+function Tabs(props) {
+  const tabs = props.data.map((tab, index) => {
+    const style =
+      props.activeIndex === index ? styles.activeTab : styles.tab;
 
     return (
-      <div>
-        <p>{tab.description}</p>
+      <div
+        className="Tab"
+        key={tab.name}
+        style={style}
+        onClick={() => props.onTabClick(index)}
+      >
+        {tab.name}
       </div>
     );
-  }
+  });
 
-  render() {
-    return (
-      <div>
-        <div style={styles.tabList}>{this.renderTabs()}</div>
-        <div style={styles.tabPanels}>{this.renderPanel()}</div>
-      </div>
-    );
-  }
+  const panels = (
+    <div>
+      <p>{props.data[props.activeIndex].description}</p>
+    </div>
+  );
+
+  return (
+    <div>
+      <div style={styles.tabList}>{tabs}</div>
+      <div style={styles.tabPanels}>{panels}</div>
+    </div>
+  );
 }
 
+Tabs.propTypes = {
+  data: PropTypes.array.isRequired,
+  activeIndex: PropTypes.number.isRequired,
+  onTabClick: PropTypes.func.isRequired
+};
+
 class App extends React.Component {
+  state = { activeIndex: 0 };
+
   render() {
     return (
       <div>
         <h1>Props v. State</h1>
-        <Tabs data={this.props.tabs} />
+
+        <button onClick={() => this.setState({ activeIndex: 1 })}>
+          Go to Step 2
+        </button>
+
+        <Tabs
+          data={this.props.tabs}
+          activeIndex={this.state.activeIndex}
+          onTabClick={activeIndex => this.setState({ activeIndex })}
+        />
       </div>
     );
   }
