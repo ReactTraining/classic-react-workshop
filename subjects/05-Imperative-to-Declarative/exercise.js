@@ -13,15 +13,28 @@ import "bootstrap-webpack";
 class Modal extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    children: PropTypes.node
+    children: PropTypes.node,
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func
   };
 
-  open() {
-    $(this.node).modal("show");
+  doImperativeWork() {
+    $(this.node).modal(this.props.isOpen ? "show" : "hide");
   }
 
-  close() {
-    $(this.node).modal("hide");
+  syncTheStateBackToTheParentWhenTheUserClicksOnTheOverlay() {
+    $(this.node).on("hidden.bs.modal", () => {
+      if (this.props.onClose) this.props.onClose();
+    });
+  }
+
+  componentDidMount() {
+    this.doImperativeWork();
+    this.syncTheStateBackToTheParentWhenTheUserClicksOnTheOverlay();
+  }
+
+  componentDidUpdate() {
+    this.doImperativeWork();
   }
 
   render() {
@@ -42,12 +55,14 @@ class Modal extends React.Component {
 
 class App extends React.Component {
   openModal = () => {
-    this.modal.open();
+    this.setState({ modalIsOpen: true });
   };
 
   closeModal = () => {
-    this.modal.close();
+    this.setState({ modalIsOpen: false });
   };
+
+  state = { modalIsOpen: false };
 
   render() {
     return (
@@ -60,7 +75,8 @@ class App extends React.Component {
 
         <Modal
           title="Declarative is better"
-          ref={modal => (this.modal = modal)}
+          isOpen={this.state.modalIsOpen}
+          onClose={this.closeModal}
         >
           <p>Calling methods on instances is a FLOW not a STOCK!</p>
           <p>
