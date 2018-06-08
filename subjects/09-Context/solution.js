@@ -22,21 +22,14 @@ import PropTypes from "prop-types";
 const FormContext = React.createContext();
 
 class Form extends React.Component {
-  values = {};
-
-  handleChange = (name, value) => {
-    this.values[name] = value;
-  };
-
   handleSubmit = () => {
-    if (this.props.onSubmit) this.props.onSubmit(this.values);
+    if (this.props.onSubmit) this.props.onSubmit();
   };
 
   render() {
     return (
       <FormContext.Provider
         value={{
-          change: this.handleChange,
           submit: this.handleSubmit
         }}
       >
@@ -69,9 +62,6 @@ class TextInput extends React.Component {
             type="text"
             name={this.props.name}
             placeholder={this.props.placeholder}
-            onChange={event => {
-              context.change(this.props.name, event.target.value);
-            }}
             onKeyDown={event => {
               if (event.key === "Enter") context.submit();
             }}
@@ -83,8 +73,8 @@ class TextInput extends React.Component {
 }
 
 class App extends React.Component {
-  handleSubmit = values => {
-    console.log(values);
+  handleSubmit = () => {
+    alert("YOU WIN!");
   };
 
   render() {
