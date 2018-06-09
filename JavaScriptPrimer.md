@@ -117,9 +117,6 @@ const add = (x, y) => {
 
 // which can be shorter with explicit expression return
 const add = (x, y) => x + y;
-
-// if we want multiline, we can create an expression with ()
-const add = (x, y) => x + y;
 ```
 
 ## Arrays
