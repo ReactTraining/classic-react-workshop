@@ -10,20 +10,16 @@ class TodoItem extends React.Component {
   render() {
     return (
       <li>
-        <span>
+        <label>
           <input
             type="checkbox"
             onChange={event =>
               this.setState({ done: event.target.checked })
             }
           />{" "}
-        </span>
-        <span>
           <strong>
             <span style={{ textTransform: "uppercase" }}>todo:</span>{" "}
           </strong>
-        </span>
-        <span>
           <span
             style={{
               color: "blue",
@@ -32,7 +28,7 @@ class TodoItem extends React.Component {
           >
             {this.props.body}
           </span>
-        </span>
+        </label>
       </li>
     );
   }

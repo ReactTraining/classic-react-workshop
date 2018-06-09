@@ -12,9 +12,8 @@
 //
 // - If there are more than two characters in the "state" field, let the user
 //   know they should use the two-character abbreviation
-// - If the user types something into shipping, then checks the checkbox, then
-//   unchecks the checkbox, ensure the field has the information from
-//   before clicking the checkbox the first time
+// - Save the state of the form and restore it when the page first loads, in
+//   case the user accidentally closes the tab before the form is submitted
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";

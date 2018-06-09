@@ -1,18 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Make tabs a "pure component" by not managing any of its own state, instead
-// add a property to tell it which tab to show, and then have it communicate
-// with its owner to get rerendered with a new active tab.
+// Make the "Go to Step 2" button work.
 //
-// Why would you move that state up? you might have a workflow where they can't
-// progress from one step to the next until they've completed some sort of task
-// but they can go back if they'd like. If the tabs keep their own state you
-// can't control them with your application logic.
+// In order to do this, you'll have to make tabs a "pure component" so that it
+// no longer manages its own state. Instead add a prop to tell it which tab to
+// show, and then move the state up to the <App>.
 //
-// Got extra time?
-//
-// Put a <button> in the <App> that selects the 2nd tab when it is clicked.
+// Also, be sure that clicking on the individual tabs still works.
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
@@ -73,14 +68,17 @@ class Tabs extends React.Component {
 }
 
 class App extends React.Component {
-  state = {
-    activeIndex: 0
-  };
+  state = { activeIndex: 0 };
+
+  goToStep2 = () => this.setState({ activeIndex: 1 });
 
   render() {
     return (
       <div>
         <h1>Props v. State</h1>
+
+        <button onClick={this.goToStep2}>Go to "Step 2"</button>
+
         <Tabs
           data={this.props.tabs}
           activeIndex={this.state.activeIndex}

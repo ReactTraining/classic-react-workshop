@@ -35,12 +35,18 @@ let alreadyWarned = false;
 let promise = null;
 
 function throttledGetAddressFromCoords(latitude, longitude) {
+  if (latitude == null || longitude == null) {
+    return Promise.resolve(null);
+  }
+
   const currentTime = Date.now();
 
   if (lastCallTime + retryTimeout < currentTime) {
     lastCallTime = currentTime;
     promise = getAddressFromCoords(latitude, longitude);
   } else if (!alreadyWarned) {
+    alreadyWarned = true;
+
     window.alert(
       "It looks like you're calling getAddressFromCoords many times " +
         "quickly in a loop. Take a closer look at the componentDidUpdate " +

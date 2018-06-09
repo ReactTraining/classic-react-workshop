@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Make `withMouse` a "higher-order component" that sends the mouse position
-// to the component as props (hint: use `event.clientX` and `event.clientY`).
+// - Make `withMouse` a "higher-order component" that sends the mouse position
+//   to the component as props (hint: use `event.clientX` and `event.clientY`).
 //
 // Got extra time?
 //
-// Make a `withCat` HOC that shows a cat chasing the mouse around the screen!
+// - Make a `withCat` HOC that shows a cat chasing the mouse around the screen!
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 

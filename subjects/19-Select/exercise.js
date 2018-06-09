@@ -48,7 +48,17 @@ class App extends React.Component {
       <div>
         <h1>Select</h1>
 
+        <h2>Uncontrolled</h2>
+
+        <Select defaultValue="tikka-masala">
+          <Option value="tikka-masala">Tikka Masala</Option>
+          <Option value="tandoori-chicken">Tandoori Chicken</Option>
+          <Option value="dosa">Dosa</Option>
+          <Option value="mint-chutney">Mint Chutney</Option>
+        </Select>
+
         <h2>Controlled</h2>
+
         <pre>{JSON.stringify(this.state, null, 2)}</pre>
         <p>
           <button onClick={this.setToMintChutney}>
@@ -60,14 +70,6 @@ class App extends React.Component {
           value={this.state.selectValue}
           onChange={value => this.setState({ selectValue: value })}
         >
-          <Option value="tikka-masala">Tikka Masala</Option>
-          <Option value="tandoori-chicken">Tandoori Chicken</Option>
-          <Option value="dosa">Dosa</Option>
-          <Option value="mint-chutney">Mint Chutney</Option>
-        </Select>
-
-        <h2>Uncontrolled</h2>
-        <Select defaultValue="tikka-masala">
           <Option value="tikka-masala">Tikka Masala</Option>
           <Option value="tandoori-chicken">Tandoori Chicken</Option>
           <Option value="dosa">Dosa</Option>

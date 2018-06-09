@@ -1,17 +1,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Refactor App by creating a new component named <GeoPosition>
-// - <GeoPosition> should use a render prop that passes the latitude and
-//   longitude to the <App>
+// - Create a <GeoPosition> component that encapsulates the geo state and
+//   watching logic and uses a render prop to pass the coordinates back to
+//   the <App>
 //
 // Got extra time?
 //
-// - Now create a <GeoAddress> component that translates the geo coordinates
-//   to a physical address and prints it to the screen
+// - Create a <GeoAddress> component that translates the geo coordinates to a
+//   physical address and prints it to the screen (hint: use
+//   `getAddressFromCoords`)
 // - You should be able to compose <GeoPosition> and <GeoAddress> beneath it to
 //   naturally compose both the UI and the state needed to render it
-// - Make sure <GeoAddress> supports the user moving positions
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
