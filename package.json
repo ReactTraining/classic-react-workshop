@@ -22,7 +22,6 @@
     "backbone": "^1.2.3",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.1.1",
-    "bootstrap-webpack": "0.0.6",
     "create-react-class": "^15.6.3",
     "css-loader": "^0.28.11",
     "events": "^1.0.2",
