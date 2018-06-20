@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const subjectsDir = path.join(__dirname, "subjects");
 const subjectDirs = fs
@@ -27,14 +28,20 @@ module.exports = {
       return chunks;
     },
     {
-      shared: ["react", "react-dom"],
-      index: path.join(subjectsDir, "index.js")
+      main: path.join(subjectsDir, "index.js")
     }
   ),
 
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      name: "shared"
+    }
+  },
+
   output: {
+    path: path.join(__dirname, "dist"),
     filename: "[name].js",
-    chunkFilename: "[id].chunk.js",
     publicPath: "/"
   },
 
@@ -58,24 +65,46 @@ module.exports = {
     ]
   },
 
-  // plugins: [new webpack.optimize.CommonsChunkPlugin({ name: "shared" })]
-
   devServer: {
     open: true,
     quiet: false
-    // noInfo: false,
-    // historyApiFallback: {
-    //   rewrites: []
-    // },
-    // stats: {
-    //   // Config for minimal console.log mess.
-    //   assets: true,
-    //   colors: true,
-    //   version: true,
-    //   hash: true,
-    //   timings: true,
-    //   chunks: false,
-    //   chunkModules: false
-    // }
+  },
+
+  plugins: [
+    ...subjectDirs.reduce((chunks, dir) => {
+      const base = path.basename(dir);
+
+      ["lecture", "exercise", "solution"].forEach(name => {
+        const filename = path.join(base, `${name}.html`);
+        const template = path.join("public", filename);
+        if (fs.existsSync(template)) {
+          chunks.push(
+            new HtmlWebpackPlugin({
+              chunks: [`${base}-${name}`, "shared"],
+              filename,
+              template
+            })
+          );
+        }
+      });
+
+      return chunks;
+    }, []),
+    new HtmlWebpackPlugin({
+      chunks: ["shared", "main"],
+      filename: "index.html",
+      template: "public/index.html"
+    })
+  ],
+
+  stats: {
+    // Config for minimal console.log mess.
+    assets: true,
+    colors: true,
+    version: true,
+    hash: true,
+    timings: true,
+    chunks: false,
+    chunkModules: false
   }
 };

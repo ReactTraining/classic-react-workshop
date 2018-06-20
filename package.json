@@ -7,7 +7,7 @@
   "author": "React Training LLC",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base public",
+    "start": "node ./scripts/build.js && webpack-dev-server --inline",
     "ssr-exercise": "supervisor -- -r babel-register 'subjects/14-Server-Rendering/exercise/server.js'",
     "ssr-solution": "supervisor -- -r babel-register 'subjects/14-Server-Rendering/solution/server.js'"
   },
@@ -33,6 +33,7 @@
     "file-loader": "1.1.11",
     "firebase": "^2.4.2",
     "form-serialize": "0.7.1",
+    "html-webpack-plugin": "^3.2.0",
     "imports-loader": "0.8.0",
     "invariant": "^2.1.0",
     "isomorphic-fetch": "^2.2.1",
