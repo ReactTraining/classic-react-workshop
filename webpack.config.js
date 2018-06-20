@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
-const OpenBrowserWebpackPlugin = require("open-browser-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const subjectsDir = path.join(__dirname, "subjects");
 const subjectDirs = fs
@@ -10,6 +10,7 @@ const subjectDirs = fs
   .filter(file => fs.lstatSync(file).isDirectory());
 
 module.exports = {
+  mode: "development",
   devtool: "source-map",
 
   entry: subjectDirs.reduce(
@@ -27,55 +28,83 @@ module.exports = {
       return chunks;
     },
     {
-      shared: ["react", "react-dom"],
-      index: path.join(subjectsDir, "index.js")
+      main: path.join(subjectsDir, "index.js")
     }
   ),
 
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      name: "shared"
+    }
+  },
+
   output: {
-    path: "public",
+    path: path.join(__dirname, "dist"),
     filename: "[name].js",
-    chunkFilename: "[id].chunk.js",
     publicPath: "/"
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules|mocha-browser\.js/,
-        loader: "babel"
+        loader: "babel-loader"
       },
-      { test: /\.css$/, loader: "style!css" },
-      { test: /\.(ttf|eot|svg|png|jpg)$/, loader: "file" },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      { test: /\.(ttf|eot|svg|png|jpg)$/, loader: "file-loader" },
       {
         test: /\.woff(2)?$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
+        loader: "url-loader?limit=10000&mimetype=application/font-woff"
       },
-      { test: require.resolve("jquery"), loader: "expose?jQuery" }
+      {
+        test: require.resolve("jquery"),
+        loader: "expose-loader?jQuery"
+      }
     ]
   },
 
+  devServer: {
+    open: true,
+    quiet: false
+  },
+
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: "shared" }),
-    new OpenBrowserWebpackPlugin("http://localhost:8080")
+    ...subjectDirs.reduce((chunks, dir) => {
+      const base = path.basename(dir);
+
+      ["lecture", "exercise", "solution"].forEach(name => {
+        const filename = path.join(base, `${name}.html`);
+        const template = path.join("public", filename);
+        if (fs.existsSync(template)) {
+          chunks.push(
+            new HtmlWebpackPlugin({
+              chunks: [`${base}-${name}`, "shared"],
+              filename,
+              template
+            })
+          );
+        }
+      });
+
+      return chunks;
+    }, []),
+    new HtmlWebpackPlugin({
+      chunks: ["shared", "main"],
+      filename: "index.html",
+      template: "public/index.html"
+    })
   ],
 
-  devServer: {
-    quiet: false,
-    noInfo: false,
-    historyApiFallback: {
-      rewrites: []
-    },
-    stats: {
-      // Config for minimal console.log mess.
-      assets: true,
-      colors: true,
-      version: true,
-      hash: true,
-      timings: true,
-      chunks: false,
-      chunkModules: false
-    }
+  stats: {
+    // Config for minimal console.log mess.
+    assets: true,
+    colors: true,
+    version: true,
+    hash: true,
+    timings: true,
+    chunks: false,
+    chunkModules: false
   }
 };

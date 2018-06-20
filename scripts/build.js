@@ -39,13 +39,7 @@ function HostPage({ chunk, data, title = "React Training" }) {
           }
         })
     ),
-    e(
-      "body",
-      null,
-      e("div", { id: "app" }),
-      e("script", { src: "/shared.js" }),
-      e("script", { src: `/${chunk}.js` })
-    )
+    e("body", null, e("div", { id: "app" }))
   );
 }
 
