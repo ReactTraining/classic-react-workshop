@@ -13,7 +13,7 @@ $ npm start
 
 Your web browser should open to [http://localhost:8080](http://localhost:8080)where you'll see a list of subjects.
 
-**IMPORTANT:** Please read the [JavaScript Primer](https://github.com/ReactTraining/react-subjects/blob/master/JavaScriptPrimer.md) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
+**IMPORTANT:** Please read the [JavaScript Primer](https://github.com/ReactTraining/react-workshop/blob/master/JavaScriptPrimer.md) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
 
 ### Troubleshooting
 
@@ -52,4 +52,4 @@ $ npm install
 
 ### License
 
-This material is available for private, non-commercial use under the [GPL version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html). If you would like to use this material to conduct your own workshop, please contact us at hello@reacttraining.com
+This material is available for private, non-commercial use under the [GPL version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html). If you would like to use this material to conduct your own workshop, please contact us at [hello@reacttraining.com](mailto:hello@reacttraining.com).
