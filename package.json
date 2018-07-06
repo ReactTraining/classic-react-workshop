@@ -8,8 +8,8 @@
   "license": "GPL-3.0",
   "scripts": {
     "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base public",
-    "ssr-exercise": "supervisor -- -r babel-register 'subjects/14-Server-Rendering/exercise/server.js'",
-    "ssr-solution": "supervisor -- -r babel-register 'subjects/14-Server-Rendering/solution/server.js'"
+    "ssr-exercise": "supervisor -- -r babel-register 'subjects/12-Server-Rendering/exercise/server.js'",
+    "ssr-solution": "supervisor -- -r babel-register 'subjects/12-Server-Rendering/solution/server.js'"
   },
   "dependencies": {
     "angular": "1.5.8",
@@ -48,10 +48,10 @@
     "open-browser-webpack-plugin": "^0.0.5",
     "prop-types": "^15.5.10",
     "purecss": "0.6.0",
-    "react": "^16.3.2",
+    "react": "^16.4.1",
     "react-addons-css-transition-group": "^15.1.0",
     "react-addons-transition-group": "^15.1.0",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.4.1",
     "react-motion": "^0.4.2",
     "react-redux": "^5.0.2",
     "react-router-dom": "^4.0.0",
