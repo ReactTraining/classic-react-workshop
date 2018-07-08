@@ -2,47 +2,53 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 ////////////////////////////////////////////////////////////////////////////////
-// React components are really just functions that take attributes
-// const element = React.DOM.input({ type: "text" });
+// React elements are plain JavaScript objects created with `createElement`
+// const element = React.createElement("input");
 
 // ReactDOM.render(element, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
-// You can also pass in children as extra arguments
-// const element = React.DOM.select(
+// You can also pass in properties and child elements as extra arguments
+// const element = React.createElement(
+//   "select",
 //   { value: "2" },
-//   React.DOM.option({ value: "1" }, "one"),
-//   React.DOM.option({ value: "2" }, "two"),
-//   React.DOM.option({ value: "3" }, "three")
+//   React.createElement("option", { value: "1" }, "one"),
+//   React.createElement("option", { value: "2" }, "two"),
+//   React.createElement("option", { value: "3" }, "three")
 // );
 
 // ReactDOM.render(element, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // And build up more UI
-// const { div, select, option, h1 } = React.DOM;
-
-// const element = div(
-//   {},
-//   h1({ className: "hot" }, "These are just functions"),
-//   select(
+// const element = React.createElement(
+//   "div",
+//   null,
+//   React.createElement(
+//     "h1",
+//     { className: "hot" },
+//     "These are just objects"
+//   ),
+//   React.createElement(
+//     "select",
 //     { value: "2" },
-//     option({ value: "1" }, "one"),
-//     option({ value: "2" }, "two"),
-//     option({ value: "3" }, "three")
+//     React.createElement("option", { value: "1" }, "one"),
+//     React.createElement("option", { value: "2" }, "two"),
+//     React.createElement("option", { value: "3" }, "three")
 //   )
 // );
 
 // ReactDOM.render(element, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
-// lets look at one of them in the console
-// don't get upset, `className` is a DOM thing
+// Lets look at one of them in the console
+// Don't get upset, `className` is a DOM thing
 //console.log(element)
 
 ////////////////////////////////////////////////////////////////////////////////
-// can pass in functions as event handlers
-// const element = React.DOM.button(
+// We can pass in functions as event handlers
+// const element = React.createElement(
+//   "button",
 //   { onClick: () => alert("clicked!") },
 //   "alert!"
 // );
@@ -50,22 +56,27 @@ import ReactDOM from "react-dom";
 // ReactDOM.render(element, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
-// probably more like this
+// Probably more like this
 // function handleClick() {
 //   alert("clicked some more!");
 // }
 
-// const element = React.DOM.button({ onClick: handleClick }, "alert!");
+// const element = React.createElement(
+//   "button",
+//   { onClick: handleClick },
+//   "alert!"
+// );
 
 // ReactDOM.render(element, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
-// you get an event, as you'd expect
-// function handleClick() {
-//   console.log(event.button);
+// You get an event, as you'd expect
+// function handleClick(event) {
+//   console.log(event.detail);
 // }
 
-// const element = React.DOM.button(
+// const element = React.createElement(
+//   "button",
 //   { onMouseDown: handleClick },
 //   "log button"
 // );
@@ -73,120 +84,178 @@ import ReactDOM from "react-dom";
 // ReactDOM.render(element, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
-// JSX is simply different syntax for calling functions
-// const element = (
-//   <div className="App">
-//     <h1 className="Title">Hello!</h1>
-//     <p>Pork Carnitas street tacos are the best</p>
-//   </div>
-// );
+// Usually we need to dynamically generate the UI from some data. Let's render
+// a list of items generated from an array.
+// We don't need any special helpers, just use Array methods!
+// const contacts = [
+//   { name: "Michael Jackson" },
+//   { name: "Taylor Swift" },
+//   { name: "Bruce Lee" }
+// ];
 
-// const { div, h1, p } = React.DOM;
-// const element = div(
-//   { className: "App" },
-//   h1({ className: "Title" }, "Hello!"),
-//   p({}, "Pork Carnitas street tacos are the best")
+// const element = React.createElement(
+//   "ul",
+//   null,
+//   contacts.map(contact => React.createElement("li", null, contact.name))
 // );
 
 // ReactDOM.render(element, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
-// no special template syntax/helpers, just use Array methods on lists
-// const tacos = [
-//   { name: "Carnitas" },
-//   { name: "Pollo" },
-//   { name: "Asada" }
+// What do I mean by "special helpers"? Remember how we did this with mustache?
+// import Mustache from "mustache";
+
+// const contacts = [
+//   { name: "Michael Jackson" },
+//   { name: "Taylor Swift" },
+//   { name: "Bruce Lee" }
 // ];
 
-// const items = tacos.map(taco => <li>{taco.name}</li>);
+// const template = `
+//   <ul>
+//     {{#contacts}}
+//     <li>{{name}}</li>
+//     {{/contacts}}
+//   </ul>
+// `;
 
-// ReactDOM.render(<ul>{items}</ul>, document.getElementById("app"));
+// document.getElementById("app").innerHTML = Mustache.render(template, {
+//   contacts
+// });
 
 ////////////////////////////////////////////////////////////////////////////////
-// lets say we want to generate this HTML
-// <select name="month">
-//   <option>(01) January</option>
-//   <option>(02) February</option>
-//   ...
-// </select>
+// Stuff you need to learn in order to do this in Mustache:
+// - {{#contacts}}{{/contacts}} syntax
+// - Special scope (can use {{name}} inside loop)
 
-// in angular we'd have something like this:
-// <select name="month">
-//   <option ng-repeat="month in months">
-//     ({{$index | padMonth}}) {{month}}
-//   </option>
-// </select>
+////////////////////////////////////////////////////////////////////////////////
+// Let's take this further and assume you want to alert the name when an item
+// is clicked. First, in Mustache:
+// import Mustache from "mustache";
 
-// Things you have to learn to make this work:
-// - ng-repeat
-// - `month in months` DSL
-// - auto-injected `$index`
-// - that `|` is called a filter so you can google to learn...
-// - ... how to create a filter
-
-// const months = [
-//   "January",
-//   "February",
-//   "March",
-//   "April",
-//   "May",
-//   "June",
-//   "July",
-//   "August",
-//   "September",
-//   "October",
-//   "November",
-//   "December"
+// const contacts = [
+//   { name: "Michael Jackson" },
+//   { name: "Taylor Swift" },
+//   { name: "Bruce Lee" }
 // ];
 
-// function padMonth(index) {
-//   const realIndex = index + 1;
-//   return realIndex > 9 ? "" + realIndex : "0" + realIndex;
+// const template = `
+//   <ul>
+//     {{#contacts}}
+//     <li>{{name}}</li>
+//     {{/contacts}}
+//   </ul>
+// `;
+
+// document.getElementById("app").innerHTML = Mustache.render(template, {
+//   contacts
+// });
+
+// document
+//   .getElementById("app")
+//   .querySelectorAll("li")
+//   .forEach(li => {
+//     li.addEventListener("click", () => alert(li.innerText));
+//   });
+
+// Then, in React:
+// const contacts = [
+//   { name: "Michael Jackson" },
+//   { name: "Taylor Swift" },
+//   { name: "Bruce Lee" }
+// ];
+
+// const element = React.createElement(
+//   "ul",
+//   null,
+//   contacts.map(contact =>
+//     React.createElement(
+//       "li",
+//       { onClick: () => alert(contact.name) },
+//       contact.name
+//     )
+//   )
+// );
+
+// ReactDOM.render(element, document.getElementById("app"));
+
+////////////////////////////////////////////////////////////////////////////////
+// No way to inject behavior into a template string w/out using globals, so
+// we need to add it imperatively afterwards.
+
+////////////////////////////////////////////////////////////////////////////////
+// Now let's put a number by each person's name. First, in React:
+// const contacts = [
+//   { name: "Michael Jackson" },
+//   { name: "Taylor Swift" },
+//   { name: "Bruce Lee" }
+// ];
+
+// const element = React.createElement(
+//   "ul",
+//   null,
+//   contacts.map((contact, index) =>
+//     React.createElement(
+//       "li",
+//       { onClick: () => alert(contact.name) },
+//       index + 1 + " " + contact.name
+//     )
+//   )
+// );
+
+// ReactDOM.render(element, document.getElementById("app"));
+
+////////////////////////////////////////////////////////////////////////////////
+// We can't actually do this in Mustache because I never implemented this
+// feature! (yep, I wrote it) There's no way to get the index of the current
+// item inside the {{#contacts}}{{/contacts}} block...
+
+////////////////////////////////////////////////////////////////////////////////
+// But you miss that nice HTML syntax, right? Well, you're gonna love JSX.
+// Every time you see a `createElement` call, you can use HTML tags instead.
+// const contacts = [
+//   { name: "Michael Jackson" },
+//   { name: "Taylor Swift" },
+//   { name: "Bruce Lee" }
+// ];
+
+// const items = contacts.map((contact, index) => (
+//   <li onClick={() => alert(contact.name)}>
+//     {index + 1} {contact.name}
+//   </li>
+// ));
+
+// const element = <ul>{items}</ul>;
+
+// ReactDOM.render(element, document.getElementById("app"));
+
+////////////////////////////////////////////////////////////////////////////////
+// You can even create your own custom components that encapsulate some markup
+// that you use more than once.
+// const contacts = [
+//   { name: "Michael Jackson" },
+//   { name: "Taylor Swift" },
+//   { name: "Bruce Lee" }
+// ];
+
+// function ContactList() {
+//   const items = contacts.map((contact, index) => (
+//     <li onClick={() => alert(contact.name)}>
+//       {index + 1} {contact.name}
+//     </li>
+//   ));
+
+//   return <ul>{items}</ul>;
 // }
 
-// ReactDOM.render(
-//   <select>
-//     {months.map((month, index) => (
-//       <option>
-//         ({padMonth(index)}) {month}
-//       </option>
-//     ))}
-//   </select>,
-//   document.getElementById("app")
-// );
+// const element = <ContactList />;
 
-// Things you have to know
-// - JavaScript
-// - JSX ... or not
-
-// const { select, option } = React.DOM;
-// ReactDOM.render(
-//   select(
-//     {},
-//     months.map((month, index) =>
-//       option({}, `(${padMonth(index)}) ${month}`)
-//     )
-//   ),
-//   document.getElementById("app")
-// );
+// ReactDOM.render(element, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
-// Because React is generally just a bunch of functions, you don't have to ask
+// Because React is generally just a bunch of objects, you don't have to ask
 // React how to solve a problem in your app, you can use everything you know
 // about programming already.
-// function monthOption(month, index) {
-//   return (
-//     <option>
-//       ({padMonth(index)}) {month})
-//     </option>
-//   );
-// }
-
-// function MonthSelect() {
-//   return <select>{months.map(monthOption)}</select>;
-// }
-
-// ReactDOM.render(<MonthSelect />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // - Always re-render
