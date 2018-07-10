@@ -1,10 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-
-const tabType = PropTypes.shape({
-  label: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
-});
 
 const styles = {};
 
@@ -27,24 +21,17 @@ styles.panel = {
 };
 
 class Tabs extends React.Component {
-  static propTypes = {
-    data: PropTypes.arrayOf(tabType)
-  };
+  state = { activeIndex: 0 };
 
-  state = {
-    activeTabIndex: 0
-  };
-
-  selectTabIndex(activeTabIndex) {
-    this.setState({ activeTabIndex });
+  selectIndex(activeIndex) {
+    this.setState({ activeIndex });
   }
 
   render() {
     const { data } = this.props;
-    const { activeTabIndex } = this.state;
 
     const tabs = data.map((tab, index) => {
-      const isActive = index === activeTabIndex;
+      const isActive = index === this.state.activeIndex;
       const style = isActive ? styles.activeTab : styles.tab;
 
       return (
@@ -52,21 +39,18 @@ class Tabs extends React.Component {
           key={tab.label}
           className="Tab"
           style={style}
-          onClick={() => this.selectTabIndex(index)}
+          onClick={() => this.selectIndex(index)}
         >
           {tab.label}
         </div>
       );
     });
 
-    const activeTab = data[activeTabIndex];
-    const content = activeTab && activeTab.content;
-
     return (
       <div>
         {tabs}
         <div className="TabPanel" style={styles.panel}>
-          {content}
+          {data[this.state.activeIndex].content}
         </div>
       </div>
     );

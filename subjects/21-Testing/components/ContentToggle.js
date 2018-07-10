@@ -17,13 +17,15 @@ class ContentToggle extends React.Component {
     }
 
     return (
-      <div {...this.props} className="content-toggle">
+      <div style={this.props.style} className="content-toggle">
         <button onClick={this.handleClick} className={summaryClassName}>
           {this.props.summary}
         </button>
-        <div className="content-toggle-details">
-          {this.props.isOpen && this.props.children}
-        </div>
+        {this.props.isOpen && (
+          <div className="content-toggle-details">
+            {this.props.children}
+          </div>
+        )}
       </div>
     );
   }
