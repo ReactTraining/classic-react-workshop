@@ -72,7 +72,6 @@ class App extends React.Component {
         <Modal
           title="Declarative is better"
           isOpen={this.state.isModalOpen}
-          onClose={this.closeModal}
         >
           <p>Calling methods on instances is a FLOW not a STOCK!</p>
           <p>
