@@ -15,22 +15,21 @@
 import "./styles.css";
 
 import React from "react";
-import { render } from "react-dom";
+import ReactDOM from "react-dom";
 import { login, sendMessage, subscribeToMessages } from "./utils";
 
 /*
 Here's how to use the utils:
 
-login((error, auth) => {
-  // hopefully the error is `null` and you have a auth.github object
+login(user => {
+  // do something with the user object
 })
 
-sendMessage(
-  auth.uid,                       // the auth.uid string
-  auth.github.username,           // the username
-  auth.github.profileImageURL,    // the user's profile image
-  'hello, this is a message'      // the text of the message
-)
+sendMessage({
+  userId: user.id,
+  photoURL: user.photoURL,
+  text: 'hello, this is a message'
+})
 
 const unsubscribe = subscribeToMessages(messages => {
   // here are your messages as an array, it will be called
@@ -43,8 +42,9 @@ The world is your oyster!
 */
 
 class SmartScroller extends React.Component {
+  autoScroll = true;
+
   componentDidMount() {
-    this.autoScroll = true;
     this.scrollToBottom();
   }
 
@@ -75,13 +75,13 @@ class SmartScroller extends React.Component {
 
 class Chat extends React.Component {
   state = {
-    auth: null,
+    user: null,
     messages: []
   };
 
   componentDidMount() {
-    login((error, auth) => {
-      this.setState({ auth });
+    login(user => {
+      this.setState({ user });
 
       subscribeToMessages(messages => {
         this.setState({ messages });
@@ -92,32 +92,29 @@ class Chat extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const { auth } = this.state;
+    const { user } = this.state;
     const messageText = this.messageInput.value;
 
-    if (/\S/.test(messageText)) {
-      sendMessage(
-        auth.uid, // the auth.uid string
-        auth.github.username, // the username
-        auth.github.profileImageURL, // the user's profile image
-        messageText // the text of the message
-      );
+    sendMessage({
+      userId: user.id,
+      photoURL: user.photoURL,
+      text: messageText
+    });
 
-      // Clear the form.
-      event.target.reset();
-    }
+    // Clear the form.
+    event.target.reset();
   };
 
   render() {
-    const { auth, messages } = this.state;
+    const { user, messages } = this.state;
 
-    if (auth == null) return <p>Loading...</p>;
+    if (user == null) return <p>Loading...</p>;
 
     // Array of arrays of messages grouped by user.
     const messageGroups = messages.reduce((groups, message) => {
       const prevGroup = groups.length && groups[groups.length - 1];
 
-      if (prevGroup && prevGroup[0].uid === message.uid) {
+      if (prevGroup && prevGroup[0].userId === message.userId) {
         prevGroup.push(message);
       } else {
         groups.push([message]);
@@ -136,14 +133,14 @@ class Chat extends React.Component {
         </header>
         <SmartScroller className="messages">
           <ol className="message-groups">
-            {messageGroups.map((messages, index) => (
-              <li key={index} className="message-group">
+            {messageGroups.map(group => (
+              <li key={group[0].id} className="message-group">
                 <div className="message-group-avatar">
-                  <img src={messages[0].avatarURL} />
+                  <img src={group[0].photoURL} />
                 </div>
                 <ol className="messages">
-                  {messages.map((message, index) => (
-                    <li key={index} className="message">
+                  {group.map(message => (
+                    <li key={message.id} className="message">
                       {message.text}
                     </li>
                   ))}
@@ -166,4 +163,4 @@ class Chat extends React.Component {
   }
 }
 
-render(<Chat />, document.getElementById("app"));
+ReactDOM.render(<Chat />, document.getElementById("app"));

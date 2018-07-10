@@ -1,84 +1,82 @@
-import Firebase from "firebase/lib/firebase-web";
+import invariant from "invariant";
 
-const baseRef = new Firebase("https://hip-react.firebaseio.com");
-const messagesRef = baseRef.child("messages");
-const usersRef = baseRef.child("users");
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
 
-const reservedRefNameChars = /[\.#\$\[\]]/g;
+firebase.initializeApp({
+  apiKey: "AIzaSyAT4OaC1A_Soy0f4x-YugeDrBgD6Nt7ZyE",
+  authDomain: "hip-react.firebaseapp.com",
+  databaseURL: "https://hip-react.firebaseio.com"
+});
 
-function escapeKey(name) {
-  return name.replace(reservedRefNameChars, "_");
-}
-
-function escapeValue(rawValue) {
-  const value =
-    rawValue && typeof rawValue.toJSON === "function"
-      ? rawValue.toJSON()
-      : rawValue;
-
-  if (value == null) return null; // Remove undefined values
-
-  if (Array.isArray(value)) return value.map(escapeValue);
-
-  if (typeof value === "object") {
-    return Object.keys(value).reduce((memo, key) => {
-      memo[escapeKey(key)] = escapeValue(value[key]);
-      return memo;
-    }, {});
-  }
-
-  return value;
-}
-
-function saveAuth(auth) {
-  usersRef.child(auth.uid).set(escapeValue(auth));
-}
+const messagesRef = firebase.database().ref("messages");
 
 export function login(callback) {
-  const auth = baseRef.getAuth();
+  let loggedInYet = false;
 
-  if (auth) {
-    saveAuth(auth);
-    callback(null, auth);
-  } else {
-    baseRef.authWithOAuthPopup("github", (error, auth) => {
-      if (auth) saveAuth(auth);
-      callback(error, auth);
+  firebase.auth().onAuthStateChanged(data => {
+    if (data) {
+      loggedInYet = true;
+
+      const providerData = data.providerData[0];
+
+      callback({
+        id: data.uid,
+        name: providerData.displayName,
+        email: providerData.email,
+        photoURL: providerData.photoURL
+      });
+    } else if (!loggedInYet) {
+      firebase
+        .auth()
+        .signInWithPopup(new firebase.auth.GithubAuthProvider());
+    }
+  });
+}
+
+export function sendMessage({ userId, photoURL, text }) {
+  invariant(
+    typeof userId === "string",
+    "The first argument to sendMessage must be a string user ID"
+  );
+
+  invariant(
+    typeof photoURL === "string",
+    "The 2nd argument to sendMessage must be a string photo URL"
+  );
+
+  invariant(
+    typeof text === "string",
+    "The 3rd argument to sendMessage must be a string of text"
+  );
+
+  if (text) {
+    messagesRef.push({
+      timestamp: Date.now(),
+      userId,
+      photoURL,
+      text
     });
   }
 }
 
 export function subscribeToMessages(callback) {
-  const handleValue = snapshot => {
+  function emitMessages(snapshot) {
     const messages = [];
 
     snapshot.forEach(s => {
       const message = s.val();
-      message._key = s.key();
+      message.id = s.key;
       messages.push(message);
     });
 
     callback(messages);
-  };
+  }
 
-  messagesRef.on("value", handleValue);
+  messagesRef.on("value", emitMessages);
 
   return () => {
-    messagesRef.off("value", handleValue);
+    messagesRef.off("value", emitMessages);
   };
-}
-
-let serverTimeOffset = 0;
-baseRef.child(".info/serverTimeOffset").on("value", s => {
-  serverTimeOffset = s.val();
-});
-
-export function sendMessage(uid, username, avatarURL, text) {
-  messagesRef.push({
-    uid,
-    timestamp: Date.now() + serverTimeOffset,
-    username,
-    avatarURL,
-    text
-  });
 }

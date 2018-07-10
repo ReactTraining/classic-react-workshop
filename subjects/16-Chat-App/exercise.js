@@ -21,16 +21,15 @@ import { login, sendMessage, subscribeToMessages } from "./utils";
 /*
 Here's how to use the utils:
 
-login((error, auth) => {
-  // hopefully the error is `null` and you have a auth.github object
+login(user => {
+  // do something with the user object
 })
 
-sendMessage(
-  auth.uid,                       // the auth.uid string
-  auth.github.username,           // the username
-  auth.github.profileImageURL,    // the user's profile image
-  'hello, this is a message'      // the text of the message
-)
+sendMessage({
+  userId: user.id,
+  photoURL: user.photoURL,
+  text: 'hello, this is a message'
+})
 
 const unsubscribe = subscribeToMessages(messages => {
   // here are your messages as an array, it will be called
@@ -48,7 +47,7 @@ class Chat extends React.Component {
       <div className="chat">
         <header className="chat-header">
           <h1 className="chat-title">HipReact</h1>
-          <p className="chat-message-count"># messages: 3</p>
+          <p className="chat-message-count"># messages: 8</p>
         </header>
         <div className="messages">
           <ol className="message-groups">
@@ -57,35 +56,23 @@ class Chat extends React.Component {
                 <img src="https://avatars1.githubusercontent.com/u/92839" />
               </div>
               <ol className="messages">
-                <li className="message">So, check it out:</li>
+                <li className="message">Hey, Bruce!</li>
                 <li className="message">
-                  QA Engineer walks into a bar.
+                  So, a QA Engineer walks into a bar.
                 </li>
                 <li className="message">Orders a beer.</li>
                 <li className="message">Orders 0 beers.</li>
                 <li className="message">Orders 999999999 beers.</li>
-                <li className="message">Orders a lizard.</li>
                 <li className="message">Orders -1 beers.</li>
                 <li className="message">Orders a sfdeljknesv.</li>
               </ol>
             </li>
             <li className="message-group">
               <div className="message-group-avatar">
-                <img src="https://avatars2.githubusercontent.com/u/100200" />
+                <img src="https://pbs.twimg.com/profile_images/534863086276988928/bX3juDCC_400x400.jpeg" />
               </div>
               <ol className="messages">
-                <li className="message">Haha</li>
-                <li className="message">
-                  Stop stealing other people's jokes :P
-                </li>
-              </ol>
-            </li>
-            <li className="message-group">
-              <div className="message-group-avatar">
-                <img src="https://avatars1.githubusercontent.com/u/92839" />
-              </div>
-              <ol className="messages">
-                <li className="message">:'(</li>
+                <li className="message">Hahaha 😅</li>
               </ol>
             </li>
           </ol>

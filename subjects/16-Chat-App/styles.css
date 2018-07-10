@@ -67,8 +67,10 @@ ol.messages {
 }
 .message-group-avatar {
   position: absolute;
-  background-color: lightblue;
+  background-color: pink;
   line-height: 0;
+  width: 40px;
+  overflow: hidden;
 }
 .message-group-avatar img {
   height: 40px;
