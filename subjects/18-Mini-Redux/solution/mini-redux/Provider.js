@@ -1,19 +1,39 @@
 import React from "react";
-import PropTypes from "prop-types";
+
+import ReduxContext from "./ReduxContext";
 
 class Provider extends React.Component {
-  static childContextTypes = {
-    store: PropTypes.object
+  state = {
+    storeState: this.props.store.getState()
   };
 
-  getChildContext() {
-    return {
-      store: this.props.store
-    };
+  componentDidMount() {
+    this.unsub = this.props.store.subscribe(() => {
+      this.setState({
+        storeState: this.props.store.getState()
+      });
+    });
   }
 
+  componentWillUnmount() {
+    this.unsub();
+  }
+
+  handleDispatch = action => {
+    this.props.store.dispatch(action);
+  };
+
   render() {
-    return <div>{this.props.children}</div>;
+    return (
+      <ReduxContext.Provider
+        value={{
+          dispatch: this.handleDispatch,
+          state: this.state.storeState
+        }}
+      >
+        <div>{this.props.children}</div>
+      </ReduxContext.Provider>
+    );
   }
 }
 

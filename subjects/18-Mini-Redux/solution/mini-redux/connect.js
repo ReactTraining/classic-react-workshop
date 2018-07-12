@@ -1,36 +1,23 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const connect = mapStateToProps => {
+import ReduxContext from "./ReduxContext";
+
+function connect(mapStateToProps) {
   return Component => {
-    return class extends React.Component {
-      static contextTypes = {
-        store: PropTypes.object
-      };
-
-      componentDidMount() {
-        this.unsubscribe = this.context.store.subscribe(() => {
-          this.forceUpdate();
-        });
-      }
-
-      componentWillUnmount() {
-        this.unsubscribe();
-      }
-
-      render() {
-        const props = mapStateToProps(this.context.store.getState());
-
-        return (
-          <Component
-            {...this.props}
-            {...props}
-            dispatch={this.context.store.dispatch}
-          />
-        );
-      }
+    return props => {
+      return (
+        <ReduxContext.Consumer>
+          {redux => (
+            <Component
+              {...props}
+              {...mapStateToProps(redux.state)}
+              dispatch={redux.dispatch}
+            />
+          )}
+        </ReduxContext.Consumer>
+      );
     };
   };
-};
+}
 
 export default connect;

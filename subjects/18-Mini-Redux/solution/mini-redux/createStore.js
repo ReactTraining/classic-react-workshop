@@ -1,4 +1,4 @@
-const createStore = reducer => {
+function createStore(reducer) {
   let state = reducer(undefined, { type: "@INIT" });
   let listeners = [];
 
@@ -22,6 +22,6 @@ const createStore = reducer => {
     dispatch,
     subscribe
   };
-};
+}
 
 export default createStore;

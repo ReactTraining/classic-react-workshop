@@ -1,8 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
-import connect from "../mini-redux/connect";
+
+import connect from "./mini-redux/connect";
 
 class App extends React.Component {
+  static defaultProps = {
+    counter: "Missing the `counter` prop!"
+  };
+
   increment = () => {
     this.props.dispatch({ type: "INCREMENT" });
   };
@@ -23,8 +27,6 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+export default connect(state => {
   return { counter: state };
-};
-
-export default connect(mapStateToProps)(App);
+})(App);

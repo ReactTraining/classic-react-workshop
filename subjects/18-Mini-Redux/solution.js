@@ -1,17 +1,39 @@
-/*
- * 0. app with contacts in state.
- *    - What state is there?
- *    - When does it change?
- * 1. move creating contacts into redux
- *    - state is defined in reducers
- *    - immutable changes
- *    - changes to state modeled as actions
- *
- * 2. introduce middleware (logger)
- * 3. load contacts from the server (thunk)
- * 4. save the contact to the server
- * 5. exercise: delete contacts
- * 6. exercise: edit contacts
- */
+////////////////////////////////////////////////////////////////////////////////
+// Exercise:
+//
+// Implement the React bindings for the Redux state manager using context and
+// a higher-order component.
+//
+// 1. Implement <Provider> to make the store accessible on context to the rest
+//    of the components rendered below it
+// 2. Implement `connect`. It should:
+//   a) Return a function that takes a component
+//   b) The new function should return a new component that wraps the component
+//      passed to it
+//   c) The new component, when rendered, will pass state from
+//      the store as props to your App component. You'll use the function
+//      passed to `connect` to map store state to component props
+import React from "react";
+import ReactDOM from "react-dom";
 
-import "./solution/index";
+import createStore from "./solution/mini-redux/createStore";
+import Provider from "./solution/mini-redux/Provider";
+
+import App from "./solution/App";
+
+const store = createStore((state = 0, action) => {
+  if (action.type === "INCREMENT") {
+    return state + 1;
+  } else if (action.type === "DECREMENT") {
+    return state - 1;
+  } else {
+    return state;
+  }
+});
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("app")
+);
