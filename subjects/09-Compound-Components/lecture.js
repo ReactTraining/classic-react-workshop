@@ -1,13 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
 import * as styles from "./styles";
 
 class Tabs extends React.Component {
-  state = {
-    activeIndex: 0
-  };
+  state = { activeIndex: 0 };
 
   selectTabIndex(activeIndex) {
     this.setState({ activeIndex });
@@ -30,7 +27,7 @@ class Tabs extends React.Component {
 
   renderPanel() {
     const tab = this.props.data[this.state.activeIndex];
-    return <div>{tab.description}</div>;
+    return <div>{tab.content}</div>;
   }
 
   render() {
@@ -48,15 +45,15 @@ class App extends React.Component {
     const tabData = [
       {
         label: "Tacos",
-        description: <p>Tacos are delicious</p>
+        content: <p>Tacos are delicious</p>
       },
       {
         label: "Burritos",
-        description: <p>Sometimes a burrito is what you really need</p>
+        content: <p>Sometimes a burrito is what you really need</p>
       },
       {
         label: "Coconut Korma",
-        description: <p>Might be your best option</p>
+        content: <p>Might be your best option</p>
       }
     ];
 
@@ -78,9 +75,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     tabsPlacement: "top"
 //   };
 
-//   state = {
-//     activeIndex: 0
-//   };
+//   state = { activeIndex: 0 };
 
 //   selectTabIndex(activeIndex) {
 //     this.setState({ activeIndex });
@@ -103,7 +98,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 //   renderPanel() {
 //     const tab = this.props.data[this.state.activeIndex];
-//     return <div>{tab.description}</div>;
+//     return <div>{tab.content}</div>;
 //   }
 
 //   render() {
@@ -132,15 +127,15 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     const tabData = [
 //       {
 //         label: "Tacos",
-//         description: <p>Tacos are delicious</p>
+//         content: <p>Tacos are delicious</p>
 //       },
 //       {
 //         label: "Burritos",
-//         description: <p>Sometimes a burrito is what you really need</p>
+//         content: <p>Sometimes a burrito is what you really need</p>
 //       },
 //       {
 //         label: "Coconut Korma",
-//         description: <p>Might be your best option</p>
+//         content: <p>Might be your best option</p>
 //       }
 //     ];
 
@@ -173,9 +168,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     disabled: []
 //   };
 
-//   state = {
-//     activeIndex: 0
-//   };
+//   state = { activeIndex: 0 };
 
 //   selectTabIndex(activeIndex) {
 //     this.setState({ activeIndex });
@@ -198,7 +191,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 //   renderPanel() {
 //     const tab = this.props.data[this.state.activeIndex];
-//     return <div>{tab.description}</div>;
+//     return <div>{tab.content}</div>;
 //   }
 
 //   render() {
@@ -227,15 +220,15 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     const tabData = [
 //       {
 //         label: "Tacos",
-//         description: <p>Tacos are delicious</p>
+//         content: <p>Tacos are delicious</p>
 //       },
 //       {
 //         label: "Burritos",
-//         description: <p>Sometimes a burrito is what you really need</p>
+//         content: <p>Sometimes a burrito is what you really need</p>
 //       },
 //       {
 //         label: "Coconut Korma",
-//         description: <p>Might be your best option</p>
+//         content: <p>Might be your best option</p>
 //       }
 //     ];
 
@@ -294,9 +287,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // }
 
 // class Tabs extends React.Component {
-//   state = {
-//     activeIndex: 0
-//   };
+//   state = { activeIndex: 0 };
 
 //   render() {
 //     const children = React.Children.map(
@@ -379,7 +370,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //         </TabList>
 //         <TabPanels>
 //           {this.props.data.map(item => (
-//             <TabPanel key={item.label}>{item.description}</TabPanel>
+//             <TabPanel key={item.label}>{item.content}</TabPanel>
 //           ))}
 //         </TabPanels>
 //       </Tabs>
@@ -391,15 +382,15 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   const tabData = [
 //     {
 //       label: "Tacos",
-//       description: <p>Tacos are delicious</p>
+//       content: <p>Tacos are delicious</p>
 //     },
 //     {
 //       label: "Burritos",
-//       description: <p>Sometimes a burrito is what you really need</p>
+//       content: <p>Sometimes a burrito is what you really need</p>
 //     },
 //     {
 //       label: "Coconut Korma",
-//       description: <p>Might be your best option</p>
+//       content: <p>Might be your best option</p>
 //     }
 //   ];
 

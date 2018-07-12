@@ -7,12 +7,12 @@ import * as styles from "./styles";
 function TabList({ children, _activeIndex, _onTabSelect }) {
   return (
     <div style={styles.tabs}>
-      {React.Children.map(children, (child, index) => {
-        return React.cloneElement(child, {
+      {React.Children.map(children, (child, index) =>
+        React.cloneElement(child, {
           _isActive: index === _activeIndex,
           _onSelect: () => _onTabSelect(index)
-        });
-      })}
+        })
+      )}
     </div>
   );
 }
@@ -47,9 +47,7 @@ function TabPanel({ children }) {
 }
 
 class Tabs extends React.Component {
-  state = {
-    activeIndex: 0
-  };
+  state = { activeIndex: 0 };
 
   render() {
     const children = React.Children.map(
@@ -119,12 +117,12 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // function TabList({ children, _activeIndex, _onTabSelect }) {
 //   return (
 //     <div style={styles.tabs}>
-//       {React.Children.map(children, (child, index) => {
-//         return React.cloneElement(child, {
+//       {React.Children.map(children, (child, index) =>
+//         React.cloneElement(child, {
 //           _isActive: index === _activeIndex,
 //           _onSelect: () => _onTabSelect(index)
-//         });
-//       })}
+//         })
+//       )}
 //     </div>
 //   );
 // }
@@ -161,9 +159,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // }
 
 // class Tabs extends React.Component {
-//   state = {
-//     activeIndex: 0
-//   };
+//   state = { activeIndex: 0 };
 
 //   render() {
 //     const children = React.Children.map(
@@ -234,12 +230,12 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     <TabsContext.Consumer>
 //       {({ activeIndex, onTabSelect }) => (
 //         <div style={styles.tabs}>
-//           {React.Children.map(children, (child, index) => {
-//             return React.cloneElement(child, {
+//           {React.Children.map(children, (child, index) =>
+//             React.cloneElement(child, {
 //               _isActive: index === activeIndex,
 //               _onSelect: () => onTabSelect(index)
-//             });
-//           })}
+//             })
+//           )}
 //         </div>
 //       )}
 //     </TabsContext.Consumer>
@@ -278,9 +274,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // }
 
 // class Tabs extends React.Component {
-//   state = {
-//     activeIndex: 0
-//   };
+//   state = { activeIndex: 0 };
 
 //   render() {
 //     return (
