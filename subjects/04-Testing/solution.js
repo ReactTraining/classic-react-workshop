@@ -10,16 +10,8 @@ import ReactDOM from "react-dom";
 import { Simulate } from "react-dom/test-utils";
 import expect from "expect";
 
+import data from "./data";
 import Tabs from "./components/Tabs";
-
-const FixtureData = [
-  {
-    label: "USA",
-    content: "Land of the Free, Home of the brave"
-  },
-  { label: "Brazil", content: "Sunshine, beaches, and Carnival" },
-  { label: "Russia", content: "World Cup 2018!" }
-];
 
 describe("when <Tabs> is rendered", () => {
   let node, activeBorderBottomColor;
@@ -30,50 +22,39 @@ describe("when <Tabs> is rendered", () => {
     activeTab.setAttribute("style", "border-bottom-color: #000");
     activeBorderBottomColor = activeTab.style.borderBottomColor;
 
-    ReactDOM.render(<Tabs data={FixtureData} />, node);
+    ReactDOM.render(<Tabs data={data} />, node);
   });
 
   afterEach(() => {
     ReactDOM.unmountComponentAtNode(node);
   });
 
-  it("renders the USA tab", () => {
+  it("renders the first tab", () => {
     const tabs = node.querySelectorAll(".Tab");
-    expect(tabs[0].innerText).toEqual(
-      FixtureData[0].label,
-      "USA tab was not rendered"
-    );
+    expect(tabs[0].innerText).toEqual(data[0].name);
   });
 
-  it("renders the Brazil tab", () => {
+  it("renders the second tab", () => {
     const tabs = node.querySelectorAll(".Tab");
-    expect(tabs[1].innerText).toEqual(
-      FixtureData[1].label,
-      "Brazil tab was not rendered"
-    );
+    expect(tabs[1].innerText).toEqual(data[1].name);
   });
 
-  it("renders the Russia tab", () => {
+  it("renders the third tab", () => {
     const tabs = node.querySelectorAll(".Tab");
-    expect(tabs[2].innerText).toEqual(
-      FixtureData[2].label,
-      "Russia tab was not rendered"
-    );
+    expect(tabs[2].innerText).toEqual(data[2].name);
   });
 
   it("activates the first tab", () => {
     const tabs = node.querySelectorAll(".Tab");
     expect(tabs[0].style.borderBottomColor).toEqual(
-      activeBorderBottomColor,
-      "First tab is not active"
+      activeBorderBottomColor
     );
   });
 
   it("does not activate the second tab", () => {
     const tabs = node.querySelectorAll(".Tab");
     expect(tabs[1].style.borderBottomColor).not.toEqual(
-      activeBorderBottomColor,
-      "Second tab is active"
+      activeBorderBottomColor
     );
   });
 
@@ -86,25 +67,20 @@ describe("when <Tabs> is rendered", () => {
     it("activates the second tab", () => {
       const tabs = node.querySelectorAll(".Tab");
       expect(tabs[1].style.borderBottomColor).toEqual(
-        activeBorderBottomColor,
-        "Second tab is not active"
+        activeBorderBottomColor
       );
     });
 
     it("deactivates the first tab", () => {
       const tabs = node.querySelectorAll(".Tab");
       expect(tabs[0].style.borderBottomColor).not.toEqual(
-        activeBorderBottomColor,
-        "First tab is active"
+        activeBorderBottomColor
       );
     });
 
     it("puts the correct content in the panel", () => {
       const panel = node.querySelector(".TabPanel");
-      expect(panel.innerText).toEqual(
-        FixtureData[1].content,
-        "Correct content is not in the panel"
-      );
+      expect(panel.innerText).toEqual(data[1].description);
     });
   });
 });

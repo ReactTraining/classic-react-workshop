@@ -23,34 +23,34 @@ styles.panel = {
 class Tabs extends React.Component {
   state = { activeIndex: 0 };
 
-  selectIndex(activeIndex) {
-    this.setState({ activeIndex });
+  selectTab(index) {
+    this.setState({ activeIndex: index });
   }
 
   render() {
-    const { data } = this.props;
-
-    const tabs = data.map((tab, index) => {
+    const tabs = this.props.data.map((item, index) => {
       const isActive = index === this.state.activeIndex;
       const style = isActive ? styles.activeTab : styles.tab;
 
       return (
         <div
-          key={tab.label}
+          key={item.id}
           className="Tab"
           style={style}
-          onClick={() => this.selectIndex(index)}
+          onClick={() => this.selectTab(index)}
         >
-          {tab.label}
+          {item.name}
         </div>
       );
     });
 
+    const activeItem = this.props.data[this.state.activeIndex];
+
     return (
-      <div>
+      <div className="Tabs">
         {tabs}
         <div className="TabPanel" style={styles.panel}>
-          {data[this.state.activeIndex].content}
+          {activeItem && activeItem.description}
         </div>
       </div>
     );
