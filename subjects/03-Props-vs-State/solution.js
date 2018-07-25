@@ -27,41 +27,31 @@ class Tabs extends React.Component {
     this.props.onChange(index);
   }
 
-  renderTabs() {
-    return this.props.data.map((tab, index) => {
-      const style =
-        this.props.activeIndex === index
-          ? styles.activeTab
-          : styles.tab;
+  render() {
+    const tabs = this.props.data.map((item, index) => {
+      const isActive = index === this.props.activeIndex;
+      const style = isActive ? styles.activeTab : styles.tab;
 
       return (
         <div
+          key={index}
           className="Tab"
-          key={tab.name}
           style={style}
           onClick={() => this.selectTab(index)}
         >
-          {tab.name}
+          {item.name}
         </div>
       );
     });
-  }
 
-  renderPanel() {
-    const tab = this.props.data[this.props.activeIndex];
+    const activeItem = this.props.data[this.props.activeIndex];
 
     return (
-      <div>
-        <p>{tab.description}</p>
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <div>
-        <div style={styles.tabList}>{this.renderTabs()}</div>
-        <div style={styles.tabPanels}>{this.renderPanel()}</div>
+      <div className="Tabs">
+        {tabs}
+        <div className="TabPanel" style={styles.panel}>
+          {activeItem && activeItem.description}
+        </div>
       </div>
     );
   }

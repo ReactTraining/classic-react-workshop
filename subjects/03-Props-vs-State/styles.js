@@ -1,5 +1,3 @@
-export const tabList = {};
-
 export const tab = {
   display: "inline-block",
   padding: 10,
@@ -14,6 +12,6 @@ export const activeTab = {
   borderBottomColor: "#000"
 };
 
-export const tabPanels = {
+export const panel = {
   padding: 10
 };

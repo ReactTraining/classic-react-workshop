@@ -4,14 +4,12 @@ import assert from "../assert";
 
 export function run() {
   const node = document.getElementById("app").firstChild;
+  const button = node.querySelector("button");
 
-  const tabs = node.querySelectorAll(".Tab");
+  Simulate.click(button);
 
-  Simulate.click(tabs[1]);
-
-  assert(node.innerHTML.match(/STEP TWO/), "clicking changes tabs");
-
-  Simulate.click(tabs[0]);
-
-  assert(node.innerHTML.match(/STEP ONE/), "clicking changes tabs");
+  assert(
+    node.innerHTML.match(/STEP TWO/),
+    "clicking the button goes to Step 2"
+  );
 }

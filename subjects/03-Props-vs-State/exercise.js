@@ -21,49 +21,37 @@ class Tabs extends React.Component {
     data: PropTypes.array.isRequired
   };
 
-  state = {
-    activeIndex: 0
-  };
+  state = { activeIndex: 0 };
 
-  selectTab(activeIndex) {
-    this.setState({ activeIndex });
-  }
-
-  renderTabs() {
-    return this.props.data.map((tab, index) => {
-      const style =
-        this.state.activeIndex === index
-          ? styles.activeTab
-          : styles.tab;
-
-      return (
-        <div
-          className="Tab"
-          key={tab.name}
-          style={style}
-          onClick={() => this.selectTab(index)}
-        >
-          {tab.name}
-        </div>
-      );
-    });
-  }
-
-  renderPanel() {
-    const tab = this.props.data[this.state.activeIndex];
-
-    return (
-      <div>
-        <p>{tab.description}</p>
-      </div>
-    );
+  selectTab(index) {
+    this.setState({ activeIndex: index });
   }
 
   render() {
+    const tabs = this.props.data.map((item, index) => {
+      const isActive = index === this.state.activeIndex;
+      const style = isActive ? styles.activeTab : styles.tab;
+
+      return (
+        <div
+          key={index}
+          className="Tab"
+          style={style}
+          onClick={() => this.selectTab(index)}
+        >
+          {item.name}
+        </div>
+      );
+    });
+
+    const activeItem = this.props.data[this.state.activeIndex];
+
     return (
-      <div>
-        <div style={styles.tabList}>{this.renderTabs()}</div>
-        <div style={styles.tabPanels}>{this.renderPanel()}</div>
+      <div className="Tabs">
+        {tabs}
+        <div className="TabPanel" style={styles.panel}>
+          {activeItem && activeItem.description}
+        </div>
       </div>
     );
   }

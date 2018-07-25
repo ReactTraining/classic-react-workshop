@@ -1,15 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Render a tab for each country with its name in the tab
-// - When you click on a tab, make it appear to be active while the others
-//   appear inactive
-// - Render the correct content for the selected tab in the panel
+// - Render a tab for each sport with its name in the tab
+// - When you click on a tab, make it appear to be active while
+//   the others appear inactive
+// - Render the description for the selected tab in the panel
 //
 // Got extra time?
 //
-// - Make <Tabs> generic so that it doesn't know anything about
-//   country data (Hint: good propTypes help)
+// - Add descriptive propTypes to <App> and <Tabs>
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
@@ -35,42 +34,36 @@ styles.panel = {
 };
 
 class Tabs extends React.Component {
-  state = {
-    activeIndex: 0
-  };
+  state = { activeIndex: 0 };
 
-  selectTab(activeIndex) {
-    this.setState({ activeIndex });
+  selectTab(index) {
+    this.setState({ activeIndex: index });
   }
 
   render() {
-    const { data } = this.props;
-    const { activeIndex } = this.state;
-
-    const tabs = data.map((country, index) => {
-      const isActive = index === activeIndex;
+    const tabs = this.props.data.map((item, index) => {
+      const isActive = index === this.state.activeIndex;
       const style = isActive ? styles.activeTab : styles.tab;
 
       return (
         <div
-          key={country.id}
+          key={item.id}
           className="Tab"
           style={style}
           onClick={() => this.selectTab(index)}
         >
-          {country.name}
+          {item.name}
         </div>
       );
     });
 
-    const activeCountry = data[activeIndex];
-    const content = activeCountry && activeCountry.description;
+    const activeItem = this.props.data[this.state.activeIndex];
 
     return (
       <div className="Tabs">
         {tabs}
         <div className="TabPanel" style={styles.panel}>
-          {content}
+          {activeItem && activeItem.description}
         </div>
       </div>
     );
@@ -81,8 +74,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Countries</h1>
-        <Tabs data={this.props.countries} />
+        <h1>Sports</h1>
+        <Tabs data={this.props.sports} />
       </div>
     );
   }
@@ -91,20 +84,24 @@ class App extends React.Component {
 const DATA = [
   {
     id: 1,
-    name: "USA",
-    description: "Land of the Free, Home of the brave"
+    name: "Soccer",
+    description:
+      "Association football, more commonly known as football or soccer, is a team sport played between two teams of eleven players with a spherical ball. It is played by 250 million players in over 200 countries and dependencies, making it the world's most popular sport."
   },
   {
     id: 2,
-    name: "Brazil",
-    description: "Sunshine, beaches, and Carnival"
+    name: "Baseball",
+    description:
+      "Baseball is a bat-and-ball game played between two opposing teams who take turns batting and fielding. The game proceeds when a player on the fielding team, called the pitcher, throws a ball which a player on the batting team tries to hit with a bat."
   },
-  { id: 3, name: "Russia", description: "World Cup 2018!" }
+  {
+    id: 3,
+    name: "Tennis",
+    description:
+      "Tennis is a racket sport that can be played individually against a single opponent (singles) or between two teams of two players each (doubles). Each player uses a tennis racket that is strung with cord to strike a hollow rubber ball covered with felt over or around a net and into the opponent's court."
+  }
 ];
 
-ReactDOM.render(
-  <App countries={DATA} />,
-  document.getElementById("app")
-);
+ReactDOM.render(<App sports={DATA} />, document.getElementById("app"));
 
 require("./tests").run();

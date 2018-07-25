@@ -7,14 +7,13 @@ export function run() {
 
   const activeFixture = document.createElement("div");
   activeFixture.setAttribute("style", "border-bottom-color: #000");
-
   const activeBorderBottomColor = activeFixture.style.borderBottomColor;
 
   console.log("on the initial render");
 
-  assert(!!node.innerHTML.match(/USA/), "render USA tab");
-  assert(!!node.innerHTML.match(/Brazil/), "render Brazil tab");
-  assert(!!node.innerHTML.match(/Russia/), "render Russia tab");
+  assert(!!node.innerHTML.match(/Soccer/), "render the Soccer tab");
+  assert(!!node.innerHTML.match(/Baseball/), "render the Baseball tab");
+  assert(!!node.innerHTML.match(/Tennis/), "render the Tennis tab");
 
   const tabs = node.querySelectorAll(".Tab");
 
@@ -47,8 +46,7 @@ export function run() {
   const panel = node.querySelector(".TabPanel");
 
   assert(
-    panel &&
-      panel.textContent.trim() === "Sunshine, beaches, and Carnival",
+    panel && /Baseball/.test(panel.textContent),
     "panel has the correct content"
   );
 

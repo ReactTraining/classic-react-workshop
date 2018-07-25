@@ -46,12 +46,7 @@ updateThePage();
 ////////////////////////////////////////////////////////////////////////////////
 // React gives us a component model we can use to encapsulate state at the
 // instance level, so each component instance has its own state. Let's refactor
-// this code to use React components.
-
-////////////////////////////////////////////////////////////////////////////////
-// First, encapsulate the state in an object. Then, add a setState function that
-// we can use to update state and automatically update the page any time it
-// changes.
+// this code to use a JavaScript class that extends React.Component.
 
 //////////////////////////////////////////////////////////////////////////////////
 // React gives us setState and automatically re-renders as the state changes.
