@@ -98,4 +98,6 @@ ReactDOM.render(
 // try to do this with imperative JavaScript?
 //
 // https://github.com/airbnb/infinity
-// https://github.com/emberjs/list-view
+// https://github.com/html-next/vertical-collection
+// https://github.com/html-next/smoke-and-mirrors
+
