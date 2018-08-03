@@ -65,6 +65,7 @@ module.exports = {
   devServer: {
     quiet: false,
     noInfo: false,
+    overlay: true,
     historyApiFallback: {
       rewrites: []
     },
