@@ -11,6 +11,7 @@ const subjectDirs = fs
 
 module.exports = {
   devtool: "source-map",
+  mode: "development",
 
   entry: subjectDirs.reduce(
     (chunks, dir) => {
@@ -33,7 +34,7 @@ module.exports = {
   ),
 
   output: {
-    path: "public",
+    path: __dirname + "public",
     filename: "[name].js",
     chunkFilename: "[id].chunk.js",
     publicPath: "/"
@@ -44,15 +45,18 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules|mocha-browser\.js/,
-        loader: "babel"
+        loader: "babel-loader"
       },
-      { test: /\.css$/, loader: "style!css" },
-      { test: /\.(ttf|eot|svg|png|jpg)$/, loader: "file" },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      { test: /\.(ttf|eot|svg|png|jpg)$/, loader: "file-loader" },
       {
         test: /\.woff(2)?$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
+        loader: "url-loader?limit=10000&mimetype=application/font-woff"
       },
-      { test: require.resolve("jquery"), loader: "expose?jQuery" }
+      {
+        test: require.resolve("jquery"),
+        loader: "expose-loader?jQuery"
+      }
     ]
   },
 
