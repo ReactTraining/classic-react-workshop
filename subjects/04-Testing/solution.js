@@ -14,15 +14,14 @@ import data from "./data";
 import Tabs from "./components/Tabs";
 
 describe("when <Tabs> is rendered", () => {
-  let node, activeBorderBottomColor;
+  let node, activeTab;
   beforeEach(() => {
     node = document.createElement("div");
 
-    const activeTab = document.createElement("div");
-    activeTab.setAttribute("style", "border-bottom-color: #000");
-    activeBorderBottomColor = activeTab.style.borderBottomColor;
-
     ReactDOM.render(<Tabs data={data} />, node);
+
+    activeTab = document.createElement("div");
+    activeTab.setAttribute("style", "border-bottom-color: #000");
   });
 
   afterEach(() => {
@@ -47,14 +46,14 @@ describe("when <Tabs> is rendered", () => {
   it("activates the first tab", () => {
     const tabs = node.querySelectorAll(".Tab");
     expect(tabs[0].style.borderBottomColor).toEqual(
-      activeBorderBottomColor
+      activeTab.style.borderBottomColor
     );
   });
 
   it("does not activate the second tab", () => {
     const tabs = node.querySelectorAll(".Tab");
     expect(tabs[1].style.borderBottomColor).not.toEqual(
-      activeBorderBottomColor
+      activeTab.style.borderBottomColor
     );
   });
 
@@ -67,14 +66,14 @@ describe("when <Tabs> is rendered", () => {
     it("activates the second tab", () => {
       const tabs = node.querySelectorAll(".Tab");
       expect(tabs[1].style.borderBottomColor).toEqual(
-        activeBorderBottomColor
+        activeTab.style.borderBottomColor
       );
     });
 
     it("deactivates the first tab", () => {
       const tabs = node.querySelectorAll(".Tab");
       expect(tabs[0].style.borderBottomColor).not.toEqual(
-        activeBorderBottomColor
+        activeTab.style.borderBottomColor
       );
     });
 
