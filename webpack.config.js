@@ -40,7 +40,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules|mocha-browser\.js/,
@@ -56,10 +56,7 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: "shared" }),
-    new OpenBrowserWebpackPlugin("http://localhost:8080")
-  ],
+  plugins: [new OpenBrowserWebpackPlugin("http://localhost:8080")],
 
   devServer: {
     quiet: false,
@@ -76,6 +73,11 @@ module.exports = {
       timings: true,
       chunks: false,
       chunkModules: false
+    }
+  },
+  optimization: {
+    splitChunks: {
+      name: "shared"
     }
   }
 };
