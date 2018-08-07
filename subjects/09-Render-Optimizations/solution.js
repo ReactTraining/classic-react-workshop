@@ -29,17 +29,13 @@ class ListView extends React.Component {
     scrollTop: 0
   };
 
-  componentDidMount() {
-    this.setState({
-      availableHeight: this.node.clientHeight
-    });
-  }
-
   handleScroll = event => {
-    this.setState({
-      scrollTop: event.target.scrollTop
-    });
+    this.setState({ scrollTop: event.target.scrollTop });
   };
+
+  componentDidMount() {
+    this.setState({ availableHeight: this.node.clientHeight });
+  }
 
   render() {
     const { availableHeight, scrollTop } = this.state;

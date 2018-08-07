@@ -29,11 +29,17 @@ class ListView extends React.Component {
     scrollTop: 0
   };
 
+  handleScroll = event => {
+    this.setState({ scrollTop: event.target.scrollTop });
+  };
+
+  handleWindowResize = () => {
+    this.setState({ availableHeight: this.node.clientHeight });
+  };
+
   componentWillMount() {
     if (localStorage.scrollTop) {
-      this.setState({
-        scrollTop: JSON.parse(localStorage.scrollTop)
-      });
+      this.setState({ scrollTop: JSON.parse(localStorage.scrollTop) });
     }
   }
 
@@ -53,18 +59,6 @@ class ListView extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleWindowResize);
   }
-
-  handleWindowResize = () => {
-    this.setState({
-      availableHeight: this.node.clientHeight
-    });
-  };
-
-  handleScroll = event => {
-    this.setState({
-      scrollTop: event.target.scrollTop
-    });
-  };
 
   render() {
     const { availableHeight, scrollTop } = this.state;
