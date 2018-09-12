@@ -15,8 +15,6 @@ class ContentToggle extends React.Component {
 
   handleClick = () => {
     this.setState({ isOpen: !this.state.isOpen }, () => {
-      console.log(this.state.isOpen);
-
       if (this.props.onToggle) {
         this.props.onToggle(this.state.isOpen);
       }
