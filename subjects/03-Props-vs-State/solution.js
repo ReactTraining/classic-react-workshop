@@ -8,6 +8,11 @@
 // show, and then move the state up to the <App>.
 //
 // Also, be sure that clicking on the individual tabs still works.
+//
+// Got extra time?
+//
+// Refactor <Tabs> from a class into a pure function that takes props as an
+// argument and returns an element (JSX).
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
@@ -23,10 +28,6 @@ class Tabs extends React.Component {
     onChange: PropTypes.func.isRequired
   };
 
-  selectTab(index) {
-    this.props.onChange(index);
-  }
-
   render() {
     const tabs = this.props.data.map((item, index) => {
       const isActive = index === this.props.activeIndex;
@@ -37,7 +38,7 @@ class Tabs extends React.Component {
           key={index}
           className="Tab"
           style={style}
-          onClick={() => this.selectTab(index)}
+          onClick={() => this.props.onChange(index)}
         >
           {item.name}
         </div>
@@ -60,19 +61,21 @@ class Tabs extends React.Component {
 class App extends React.Component {
   state = { activeIndex: 0 };
 
-  goToStep2 = () => this.setState({ activeIndex: 1 });
+  selectTab = index => this.setState({ activeIndex: index });
 
   render() {
     return (
       <div>
         <h1>Props v. State</h1>
 
-        <button onClick={this.goToStep2}>Go to "Step 2"</button>
+        <button onClick={() => this.selectTab(1)}>
+          Go to "Step 2"
+        </button>
 
         <Tabs
           data={this.props.tabs}
           activeIndex={this.state.activeIndex}
-          onChange={index => this.setState({ activeIndex: index })}
+          onChange={this.selectTab}
         />
       </div>
     );

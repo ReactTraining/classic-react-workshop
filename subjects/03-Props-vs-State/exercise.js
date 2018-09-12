@@ -8,6 +8,11 @@
 // show, and then move the state up to the <App>.
 //
 // Also, be sure that clicking on the individual tabs still works.
+//
+// Got extra time?
+//
+// Refactor <Tabs> from a class into a pure function that takes props as an
+// argument and returns an element (JSX).
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
@@ -23,9 +28,7 @@ class Tabs extends React.Component {
 
   state = { activeIndex: 0 };
 
-  selectTab(index) {
-    this.setState({ activeIndex: index });
-  }
+  selectTab = index => this.setState({ activeIndex: index });
 
   render() {
     const tabs = this.props.data.map((item, index) => {

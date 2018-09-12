@@ -81,9 +81,12 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // class ContentToggle extends React.Component {
 //   state = { isOpen: this.props.isOpen };
 
-//   componentWillReceiveProps(nextProps) {
-//     if (nextProps.isOpen != null) {
-//       this.setState({ isOpen: nextProps.isOpen });
+//   componentDidUpdate(prevProps) {
+//     if (
+//       prevProps.isOpen !== this.props.isOpen && // props.isOpen changed
+//       this.props.isOpen !== this.state.isOpen
+//     ) {
+//       this.setState({ isOpen: this.props.isOpen });
 //     }
 //   }
 
@@ -117,12 +120,12 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // class App extends React.Component {
 //   state = {
-//     allOpen: true,
 //     tacos: [
 //       { id: 0, name: "Carnitas", src: carnitas },
 //       { id: 1, name: "Pollo", src: pollo },
 //       { id: 2, name: "Asada", src: asada }
-//     ]
+//     ],
+//     allOpen: false
 //   };
 
 //   openAll = () => {
@@ -183,8 +186,13 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     });
 //   };
 
-//   componentWillReceiveProps(nextProps) {
-//     this.setState({ isOpen: nextProps.isOpen });
+//   componentDidUpdate(prevProps) {
+//     if (
+//       prevProps.isOpen !== this.props.isOpen && // props.isOpen changed
+//       this.props.isOpen !== this.state.isOpen
+//     ) {
+//       this.setState({ isOpen: this.props.isOpen });
+//     }
 //   }
 
 //   render() {
