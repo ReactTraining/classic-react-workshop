@@ -17,7 +17,7 @@ styles.theremin = {
   display: "inline-block"
 };
 
-class Tone extends React.Component {
+export class Tone extends React.Component {
   componentDidMount() {
     this.oscillator = createOscillator();
 
