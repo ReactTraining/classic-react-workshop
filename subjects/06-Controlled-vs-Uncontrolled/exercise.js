@@ -19,22 +19,76 @@ import React from "react";
 import ReactDOM from "react-dom";
 import serializeForm from "form-serialize";
 
+// For the checkbox use checked/defaultChecked
+// instead of value/defaultValue
+
 class CheckoutForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const formState = window.localStorage.formState;
+    if (formState) {
+      this.state = JSON.parse(formState);
+    } else {
+      this.state = {
+        billingName: "",
+        billingState: "",
+        shippingSameAsBilling: true,
+        shippingName: "",
+        shippingState: ""
+      };
+    }
+
+    this.handleSubmit = event => {
+      event.preventDefault();
+      const values = serializeForm(event.target, { hash: true });
+      console.log(values);
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener("beforeunload", () => {
+      window.localStorage.formState = JSON.stringify(this.state);
+    });
+  }
+
   render() {
     return (
       <div>
         <h1>Checkout</h1>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <fieldset>
             <legend>Billing Address</legend>
             <p>
               <label>
-                Billing Name: <input type="text" />
+                Billing Name:{" "}
+                <input
+                  type="text"
+                  name="billingName"
+                  defaultValue={this.state.billingName}
+                  onChange={event =>
+                    this.setState({ billingName: event.target.value })
+                  }
+                />
               </label>
             </p>
+            {this.state.billingState.length > 2 && (
+              <p className="error">
+                Please use the 2-character abbreviation for the state.
+              </p>
+            )}
             <p>
               <label>
-                Billing State: <input type="text" size="2" />
+                Billing State:{" "}
+                <input
+                  type="text"
+                  size="2"
+                  name="billingState"
+                  defaultValue={this.state.billingState}
+                  onChange={event =>
+                    this.setState({ billingState: event.target.value })
+                  }
+                />
               </label>
             </p>
           </fieldset>
@@ -43,17 +97,51 @@ class CheckoutForm extends React.Component {
 
           <fieldset>
             <label>
-              <input type="checkbox" /> Same as billing
+              <input
+                type="checkbox"
+                defaultChecked={this.state.shippingSameAsBilling}
+                onChange={event =>
+                  this.setState({
+                    shippingSameAsBilling: event.target.checked
+                  })
+                }
+              />{" "}
+              Same as billing
             </label>
             <legend>Shipping Address</legend>
             <p>
               <label>
-                Shipping Name: <input type="text" />
+                Shipping Name:{" "}
+                <input
+                  type="text"
+                  name="shippingName"
+                  value={
+                    this.state.shippingSameAsBilling
+                      ? this.state.billingName
+                      : this.state.shippingName
+                  }
+                  onChange={event =>
+                    this.setState({ shippingName: event.target.value })
+                  }
+                />
               </label>
             </p>
             <p>
               <label>
-                Shipping State: <input type="text" size="2" />
+                Shipping State:{" "}
+                <input
+                  type="text"
+                  size="2"
+                  name="shippingState"
+                  value={
+                    this.state.shippingSameAsBilling
+                      ? this.state.billingState
+                      : this.state.shippingState
+                  }
+                  onChange={event =>
+                    this.setState({ shippingState: event.target.value })
+                  }
+                />
               </label>
             </p>
           </fieldset>
