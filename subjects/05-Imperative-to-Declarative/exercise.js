@@ -8,7 +8,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import $ from "jquery";
-import "bootstrap-webpack";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class Modal extends React.Component {
   static propTypes = {
