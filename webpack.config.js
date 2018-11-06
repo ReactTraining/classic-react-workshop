@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
-const OpenBrowserWebpackPlugin = require("open-browser-webpack-plugin");
 
 const subjectsDir = path.join(__dirname, "subjects");
 const subjectDirs = fs
@@ -60,8 +59,6 @@ module.exports = {
     ]
   },
 
-  plugins: [new OpenBrowserWebpackPlugin("http://localhost:8080")],
-
   devServer: {
     quiet: false,
     noInfo: false,
@@ -80,6 +77,7 @@ module.exports = {
       chunkModules: false
     }
   },
+
   optimization: {
     splitChunks: {
       name: "shared"
