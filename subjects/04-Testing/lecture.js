@@ -12,15 +12,15 @@ import Tabs from "./components/Tabs";
 import Droppable from "./components/Droppable";
 
 // describe("ContentToggle", () => {
-//   let div;
+//   let node;
 //   beforeEach(() => {
-//     div = document.createElement("div");
+//     node = document.createElement("div");
 //   });
 
 //   it("displays the summary", () => {
-//     ReactDOM.render(<ContentToggle summary="The Summary" />, div);
+//     ReactDOM.render(<ContentToggle summary="The Summary" />, node);
 
-//     expect(div.innerHTML).toMatch(
+//     expect(node.innerHTML).toMatch(
 //       /The Summary/,
 //       '"The Summary" was not found in HTML'
 //     );
@@ -32,10 +32,10 @@ import Droppable from "./components/Droppable";
 //         <ContentToggle isOpen={false} summary="The Summary">
 //           <p>Cheers</p>
 //         </ContentToggle>,
-//         div
+//         node
 //       );
 
-//       expect(div.innerHTML).toNotMatch(
+//       expect(node.innerHTML).toNotMatch(
 //         /Cheers/,
 //         '"Cheers" was found in HTML'
 //       );
@@ -46,10 +46,10 @@ import Droppable from "./components/Droppable";
 //         <ContentToggle summary="The Summary">
 //           <p>Cheers</p>
 //         </ContentToggle>,
-//         div
+//         node
 //       );
 
-//       expect(div.innerHTML).toNotMatch(
+//       expect(node.innerHTML).toNotMatch(
 //         /Cheers/,
 //         '"Cheers" was found in HTML'
 //       );
@@ -60,10 +60,10 @@ import Droppable from "./components/Droppable";
 //         <ContentToggle isOpen={true} summary="The Summary">
 //           <p>Cheers</p>
 //         </ContentToggle>,
-//         div
+//         node
 //       );
 
-//       expect(div.innerHTML).toMatch(
+//       expect(node.innerHTML).toMatch(
 //         /Cheers/,
 //         '"Cheers" was not found in HTML'
 //       );
@@ -72,9 +72,9 @@ import Droppable from "./components/Droppable";
 // });
 
 // describe("StatefulContentToggle", () => {
-//   let div;
+//   let node;
 //   beforeEach(() => {
-//     div = document.createElement("div");
+//     node = document.createElement("div");
 //   });
 
 //   it("opens when clicked", () => {
@@ -82,12 +82,12 @@ import Droppable from "./components/Droppable";
 //       <StatefulContentToggle summary="The Summary">
 //         <p>The Content</p>
 //       </StatefulContentToggle>,
-//       div
+//       node
 //     );
 
-//     Simulate.click(div.querySelector("button"));
+//     Simulate.click(node.querySelector("button"));
 
-//     expect(div.innerHTML).toMatch(
+//     expect(node.innerHTML).toMatch(
 //       /The Content/,
 //       '"The Content" was not found in HTML'
 //     );
@@ -95,17 +95,17 @@ import Droppable from "./components/Droppable";
 // });
 
 // describe("Droppable", () => {
-//   let div;
+//   let node;
 //   beforeEach(() => {
-//     div = document.createElement("div");
+//     node = document.createElement("div");
 //   });
 
 //   it("accepts files", () => {
-//     ReactDOM.render(<Droppable />, div);
-//     Simulate.dragOver(div.querySelector("div.Droppable"), {
+//     ReactDOM.render(<Droppable />, node);
+//     Simulate.dragOver(node.querySelector("div.Droppable"), {
 //       dataTransfer: { types: ["Files"] }
 //     });
-//     expect(div.innerHTML).toMatch(
+//     expect(node.innerHTML).toMatch(
 //       /Drop it!/,
 //       '"Drop it!" was not found in HTML'
 //     );
