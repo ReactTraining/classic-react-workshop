@@ -3,9 +3,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
 class TodoItem extends React.Component {
-  state = {
-    done: false
-  };
+  state = { done: false };
 
   render() {
     return (
