@@ -7,11 +7,11 @@ class ContentToggle extends React.Component {
   state = { isOpen: false };
 
   handleClick = () => {
-    this.setState({ isOpen: !this.state.isOpen }, () => {
-      if (this.props.onToggle) {
-        this.props.onToggle(this.state.isOpen);
-      }
-    });
+    this.setState({ isOpen: !this.state.isOpen });
+
+    if (this.props.onToggle) {
+      this.props.onToggle();
+    }
   };
 
   render() {
@@ -224,19 +224,10 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //     ]
 //   };
 
-//   openAll = () => {
+//   toggleAll = isOpen => {
 //     this.setState({
 //       tacos: this.state.tacos.map(taco => {
-//         taco.isOpen = true;
-//         return taco;
-//       })
-//     });
-//   };
-
-//   closeAll = () => {
-//     this.setState({
-//       tacos: this.state.tacos.map(taco => {
-//         taco.isOpen = false;
+//         taco.isOpen = isOpen;
 //         return taco;
 //       })
 //     });
@@ -255,15 +246,13 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   };
 
 //   render() {
-//     const allOpen = this.state.tacos.every(taco => taco.isOpen);
+//     let allOpen = this.state.tacos.every(taco => taco.isOpen);
 
 //     return (
 //       <div>
-//         {allOpen ? (
-//           <button onClick={this.closeAll}>Close All</button>
-//         ) : (
-//           <button onClick={this.openAll}>Open All</button>
-//         )}
+//         <button onClick={() => this.toggleAll(!allOpen)}>
+//           {allOpen ? "Close" : "Open"} all
+//         </button>
 //         <div>
 //           {this.state.tacos.map(taco => (
 //             <ContentToggle

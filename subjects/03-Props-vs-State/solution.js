@@ -11,8 +11,8 @@
 //
 // Got extra time?
 //
-// Refactor <Tabs> from a class into a pure function that takes props as an
-// argument and returns an element (JSX).
+// - Now that <Tabs> doesn't have any state, refactor it from a class into a
+//   pure function that takes props as an argument and returns an element (JSX).
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
@@ -29,29 +29,29 @@ class Tabs extends React.Component {
   };
 
   render() {
-    const tabs = this.props.data.map((item, index) => {
-      const isActive = index === this.props.activeIndex;
-      const style = isActive ? styles.activeTab : styles.tab;
+    let { data, activeIndex, onChange } = this.props;
+
+    let tabs = data.map((item, index) => {
+      let isActive = index === activeIndex;
+      let style = isActive ? styles.activeTab : styles.tab;
 
       return (
         <div
           key={index}
           className="Tab"
           style={style}
-          onClick={() => this.props.onChange(index)}
+          onClick={() => onChange(index)}
         >
           {item.name}
         </div>
       );
     });
 
-    const activeItem = this.props.data[this.props.activeIndex];
-
     return (
       <div className="Tabs">
         {tabs}
         <div className="TabPanel" style={styles.panel}>
-          {activeItem && activeItem.description}
+          {data[activeIndex].description}
         </div>
       </div>
     );
@@ -83,5 +83,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App tabs={data} />, document.getElementById("app"));
-
-require("./tests").run();
