@@ -28,10 +28,14 @@ class ListView extends React.Component {
     const { numRows, rowHeight, renderRowAtIndex } = this.props;
     const totalHeight = numRows * rowHeight;
 
+    // HINT: Make these numbers closer together!
+    const startIndex = 0;
+    const endIndex = numRows;
+
     const items = [];
 
-    let index = 0;
-    while (index < numRows) {
+    let index = startIndex;
+    while (index < endIndex) {
       items.push(<li key={index}>{renderRowAtIndex(index)}</li>);
       index++;
     }
