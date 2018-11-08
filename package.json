@@ -8,17 +8,17 @@
   "license": "GPL-3.0",
   "scripts": {
     "start": "node ./scripts/build.js && webpack-dev-server --inline --content-base public",
-    "ssr-exercise": "supervisor -- -r babel-register 'subjects/13-Server-Rendering/exercise/server.js'",
-    "ssr-solution": "supervisor -- -r babel-register 'subjects/13-Server-Rendering/solution/server.js'"
+    "ssr-exercise": "supervisor -- -r @babel/register 'subjects/13-Server-Rendering/exercise/server.js'",
+    "ssr-solution": "supervisor -- -r @babel/register 'subjects/13-Server-Rendering/solution/server.js'"
   },
   "dependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "angular": "1.5.8",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.9.0",
+    "babel-loader": "^8.0.4",
     "backbone": "^1.2.3",
     "body-parser": "^1.15.2",
     "bootstrap": "3",
