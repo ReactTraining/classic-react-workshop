@@ -9,7 +9,7 @@
 //
 // - Create a <GeoAddress> component that translates the geo coordinates to a
 //   physical address and prints it to the screen (hint: use
-//   `getAddressFromCoords`)
+//   `getAddressFromCoords(lat, lng).then(address => ...)`)
 // - You should be able to compose <GeoPosition> and <GeoAddress> beneath it to
 //   naturally compose both the UI and the state needed to render it
 ////////////////////////////////////////////////////////////////////////////////
