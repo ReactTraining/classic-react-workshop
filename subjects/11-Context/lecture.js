@@ -6,7 +6,7 @@ import * as styles from "./styles";
 
 function TabList({ children, _activeIndex, _onTabSelect }) {
   return (
-    <div style={styles.tabs}>
+    <div>
       {React.Children.map(children, (child, index) =>
         React.cloneElement(child, {
           _isActive: index === _activeIndex,
@@ -116,7 +116,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // function TabList({ children, _activeIndex, _onTabSelect }) {
 //   return (
-//     <div style={styles.tabs}>
+//     <div>
 //       {React.Children.map(children, (child, index) =>
 //         React.cloneElement(child, {
 //           _isActive: index === _activeIndex,
@@ -229,7 +229,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   return (
 //     <TabsContext.Consumer>
 //       {({ activeIndex, onTabSelect }) => (
-//         <div style={styles.tabs}>
+//         <div>
 //           {React.Children.map(children, (child, index) =>
 //             React.cloneElement(child, {
 //               _isActive: index === activeIndex,

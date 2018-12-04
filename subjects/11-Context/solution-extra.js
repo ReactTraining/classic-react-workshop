@@ -58,50 +58,50 @@ class Form extends React.Component {
 }
 
 class ResetButton extends React.Component {
+  static contextType = FormContext;
+
   render() {
     return (
-      <FormContext.Consumer>
-        {context => (
-          <button onClick={context.reset}>{this.props.children}</button>
-        )}
-      </FormContext.Consumer>
+      <button onClick={this.context.reset}>
+        {this.props.children}
+      </button>
     );
   }
 }
 
 class SubmitButton extends React.Component {
+  static contextType = FormContext;
+
   render() {
     return (
-      <FormContext.Consumer>
-        {context => (
-          <button onClick={context.submit}>
-            {this.props.children}
-          </button>
-        )}
-      </FormContext.Consumer>
+      <button onClick={this.context.submit}>
+        {this.props.children}
+      </button>
     );
   }
 }
 
 class TextInput extends React.Component {
+  static contextType = FormContext;
+
+  handleChange = event => {
+    this.context.change(this.props.name, event.target.value);
+  };
+
+  handleKeyDown = event => {
+    if (event.key === "Enter") this.context.submit();
+  };
+
   render() {
     return (
-      <FormContext.Consumer>
-        {context => (
-          <input
-            type="text"
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            value={context.values[this.props.name] || ""}
-            onChange={event => {
-              context.change(this.props.name, event.target.value);
-            }}
-            onKeyDown={event => {
-              if (event.key === "Enter") context.submit();
-            }}
-          />
-        )}
-      </FormContext.Consumer>
+      <input
+        type="text"
+        name={this.props.name}
+        placeholder={this.props.placeholder}
+        value={this.context.values[this.props.name] || ""}
+        onChange={this.handleChange}
+        onKeyDown={this.handleKeyDown}
+      />
     );
   }
 }

@@ -28,11 +28,7 @@ class Form extends React.Component {
 
   render() {
     return (
-      <FormContext.Provider
-        value={{
-          submit: this.handleSubmit
-        }}
-      >
+      <FormContext.Provider value={{ submit: this.handleSubmit }}>
         <div>{this.props.children}</div>
       </FormContext.Provider>
     );
@@ -40,34 +36,32 @@ class Form extends React.Component {
 }
 
 class SubmitButton extends React.Component {
+  static contextType = FormContext;
+
   render() {
     return (
-      <FormContext.Consumer>
-        {context => (
-          <button onClick={context.submit}>
-            {this.props.children}
-          </button>
-        )}
-      </FormContext.Consumer>
+      <button onClick={this.context.submit}>
+        {this.props.children}
+      </button>
     );
   }
 }
 
 class TextInput extends React.Component {
+  static contextType = FormContext;
+
+  handleKeyDown = event => {
+    if (event.key === "Enter") this.context.submit();
+  };
+
   render() {
     return (
-      <FormContext.Consumer>
-        {context => (
-          <input
-            type="text"
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            onKeyDown={event => {
-              if (event.key === "Enter") context.submit();
-            }}
-          />
-        )}
-      </FormContext.Consumer>
+      <input
+        type="text"
+        name={this.props.name}
+        placeholder={this.props.placeholder}
+        onKeyDown={this.handleKeyDown}
+      />
     );
   }
 }
