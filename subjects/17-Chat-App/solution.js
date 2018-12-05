@@ -3,12 +3,15 @@
 //
 // - Create a chat application using the utility methods we give you
 //
+// Tip: The app uses a pop-up window for auth with GitHub. You may need to
+// make sure that you aren't blocking pop-up windows on localhost!
+//
 // Need some ideas?
 //
-// - Cause the message list to automatically scroll as new messages come in
+// - Group subsequent messages from the same sender
 // - Highlight messages from you to make them easy to find
 // - Highlight messages that mention you by your GitHub username
-// - Group subsequent messages from the same sender
+// - Cause the message list to automatically scroll as new messages come in
 // - Create a filter that lets you filter messages in the chat by
 //   sender and/or content
 ////////////////////////////////////////////////////////////////////////////////

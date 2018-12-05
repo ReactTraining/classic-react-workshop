@@ -5,6 +5,11 @@
 //   watching logic and uses a render prop to pass the coordinates back to
 //   the <App>
 //
+// Tip: If you're on a Mac, you may need to enable Location Services in order
+// for your browser to determine your current location. Open
+// System Preferences > Security & Privacy > Privacy > Location Services
+// and make sure the "Enable Location Services" box is checked.
+//
 // Got extra time?
 //
 // - Create a <GeoAddress> component that translates the geo coordinates to a
