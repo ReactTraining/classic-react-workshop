@@ -1,3 +1,4 @@
+// TODO: Add hints for clientHeight and scrollTop
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
@@ -24,13 +25,24 @@ class ListView extends React.Component {
     renderRowAtIndex: PropTypes.func.isRequired
   };
 
+  state = { availableHeight: window.innerHeight, scrollPosition: 0 };
+
+  handleScroll = event => {
+    this.setState({
+      scrollPosition: event.target.scrollTop
+    });
+  };
+
   render() {
+    const { availableHeight, scrollPosition } = this.state;
     const { numRows, rowHeight, renderRowAtIndex } = this.props;
     const totalHeight = numRows * rowHeight;
 
-    // HINT: Make these numbers closer together!
-    const startIndex = 0;
-    const endIndex = numRows;
+    const startIndex = Math.floor(scrollPosition / rowHeight);
+    const endIndex = Math.min(
+      numRows,
+      startIndex + Math.ceil(availableHeight / rowHeight) + 5
+    );
 
     const items = [];
 
@@ -41,8 +53,16 @@ class ListView extends React.Component {
     }
 
     return (
-      <div style={{ height: "100vh", overflowY: "scroll" }}>
-        <div style={{ height: totalHeight }}>
+      <div
+        style={{ height: "100vh", overflowY: "scroll" }}
+        onScroll={this.handleScroll}
+      >
+        <div
+          style={{
+            height: totalHeight,
+            paddingTop: startIndex * rowHeight
+          }}
+        >
           <ol>{items}</ol>
         </div>
       </div>
@@ -52,7 +72,7 @@ class ListView extends React.Component {
 
 ReactDOM.render(
   <ListView
-    numRows={500}
+    numRows={1000000000}
     rowHeight={RainbowListDelegate.rowHeight}
     renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
   />,

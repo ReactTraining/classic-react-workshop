@@ -19,21 +19,46 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
 function withMouse(ComposedComponent) {
-  // TODO
+  return class extends React.Component {
+    state = { x: 0, y: 0 };
+
+    handleMouseMove = event => {
+      this.setState({ x: event.clientX, y: event.clientY });
+    };
+
+    render() {
+      return (
+        <div onMouseMove={this.handleMouseMove}>
+          <ComposedComponent {...this.props} mouse={this.state} />
+        </div>
+      );
+    }
+  };
+}
+
+function withCat(Component) {
+  return class extends React.Component {
+    render() {
+      const mouse = this.props.mouse;
+      const style = { left: mouse.x, top: mouse.y };
+
+      return (
+        <React.Fragment>
+          <div className="cat" style={style} />
+          <Component {...this.props} />
+        </React.Fragment>
+      );
+    }
+  };
 }
 
 class App extends React.Component {
-  state = { x: 0, y: 0 };
-
-  handleMouseMove = event => {
-    this.setState({ x: event.clientX, y: event.clientY });
-  };
-
   render() {
-    const { x, y } = this.state;
+    const { x, y } = this.props.mouse;
 
     return (
-      <div className="container" onMouseMove={this.handleMouseMove}>
+      <div className="container">
+        <p>The secret ingredient is: {this.props.secretIngredient}</p>
         <h1>
           The mouse position is ({x}, {y})
         </h1>
@@ -42,4 +67,9 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const AppWithMouse = withMouse(withCat(App));
+
+ReactDOM.render(
+  <AppWithMouse secretIngredient="doughnuts" />,
+  document.getElementById("app")
+);
