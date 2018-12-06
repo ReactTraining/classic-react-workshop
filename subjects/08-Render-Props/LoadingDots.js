@@ -7,18 +7,13 @@ class LoadingDots extends React.Component {
     dots: PropTypes.number
   };
 
-  static defaultProps = {
-    interval: 300,
-    dots: 3
-  };
+  static defaultProps = { interval: 300, dots: 3 };
 
   state = { frame: 1 };
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.setState({
-        frame: this.state.frame + 1
-      });
+      this.setState({ frame: this.state.frame + 1 });
     }, this.props.interval);
   }
 
@@ -33,7 +28,12 @@ class LoadingDots extends React.Component {
       text += ".";
       dots--;
     }
-    return <span>{text}&nbsp;</span>;
+    return (
+      <span>
+        {text}
+        &nbsp;
+      </span>
+    );
   }
 }
 

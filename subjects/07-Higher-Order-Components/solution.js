@@ -1,8 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - Make `withMouse` a "higher-order component" that sends the mouse position
-//   to the component as props (hint: use `event.clientX` and `event.clientY`).
+// - Make the mouse-tracking logic reusable by filling in the `withMouse`
+//   higher-order component and returning a new component that renders a
+//   `ComposedComponent` element with the current mouse position as props
+// - Use the `withMouse` function you just wrote to create an `AppWithMouse`
+//   component
+// - Render <AppWithMouse> instead of <App>
 //
 // Got extra time?
 //
@@ -40,21 +44,17 @@ class App extends React.Component {
     mouse: PropTypes.shape({
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired
-    })
+    }).isRequired
   };
 
   render() {
-    const { mouse } = this.props;
+    const { x, y } = this.props.mouse;
 
     return (
       <div className="container">
-        {mouse ? (
-          <h1>
-            The mouse position is ({mouse.x}, {mouse.y})
-          </h1>
-        ) : (
-          <h1>We don't know the mouse position yet :(</h1>
-        )}
+        <h1>
+          The mouse position is ({x}, {y})
+        </h1>
       </div>
     );
   }

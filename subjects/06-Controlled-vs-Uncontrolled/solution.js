@@ -30,9 +30,7 @@ class CheckoutForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
     const values = serializeForm(event.target, { hash: true });
-
     console.log(values);
   };
 

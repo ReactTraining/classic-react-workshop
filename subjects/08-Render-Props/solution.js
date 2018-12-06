@@ -6,9 +6,9 @@
 //   the <App>
 //
 // Tip: If you're on a Mac, you may need to enable Location Services in order
-// for your browser to determine your current location. Open
-// System Preferences > Security & Privacy > Privacy > Location Services
-// and make sure the "Enable Location Services" box is checked.
+//      for your browser to determine your current location. Open
+//      System Preferences > Security & Privacy > Privacy > Location Services
+//      and make sure the "Enable Location Services" box is checked.
 //
 // Got extra time?
 //
@@ -22,8 +22,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
-import getAddressFromCoords from "./utils/getAddressFromCoords";
 import LoadingDots from "./LoadingDots";
+import getAddressFromCoords from "./utils/getAddressFromCoords";
 
 class GeoPosition extends React.Component {
   static propTypes = {

@@ -4,7 +4,7 @@
 // - Create a chat application using the utility methods we give you
 //
 // Tip: The app uses a pop-up window for auth with GitHub. You may need to
-// make sure that you aren't blocking pop-up windows on localhost!
+//      make sure that you aren't blocking pop-up windows on localhost!
 //
 // Need some ideas?
 //
@@ -18,7 +18,7 @@
 import "./styles.css";
 
 import React from "react";
-import { render } from "react-dom";
+import ReactDOM from "react-dom";
 import { login, sendMessage, subscribeToMessages } from "./utils";
 
 /*
@@ -75,7 +75,7 @@ class Chat extends React.Component {
                 <img src="https://pbs.twimg.com/profile_images/534863086276988928/bX3juDCC_400x400.jpeg" />
               </div>
               <ol className="messages">
-                <li className="message">Hahaha 😅</li>
+                <li className="message">Ha 😅</li>
               </ol>
             </li>
           </ol>
@@ -94,4 +94,4 @@ class Chat extends React.Component {
   }
 }
 
-render(<Chat />, document.getElementById("app"));
+ReactDOM.render(<Chat />, document.getElementById("app"));

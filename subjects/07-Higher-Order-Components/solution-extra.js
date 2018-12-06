@@ -73,21 +73,17 @@ class App extends React.Component {
     mouse: PropTypes.shape({
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired
-    })
+    }).isRequired
   };
 
   render() {
-    const { mouse } = this.props;
+    const { x, y } = this.props.mouse;
 
     return (
       <div className="container">
-        {mouse ? (
-          <h1>
-            The mouse position is ({mouse.x}, {mouse.y})
-          </h1>
-        ) : (
-          <h1>We don't know the mouse position yet :(</h1>
-        )}
+        <h1>
+          The mouse position is ({x}, {y})
+        </h1>
       </div>
     );
   }

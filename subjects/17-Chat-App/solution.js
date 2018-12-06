@@ -4,7 +4,7 @@
 // - Create a chat application using the utility methods we give you
 //
 // Tip: The app uses a pop-up window for auth with GitHub. You may need to
-// make sure that you aren't blocking pop-up windows on localhost!
+//      make sure that you aren't blocking pop-up windows on localhost!
 //
 // Need some ideas?
 //
