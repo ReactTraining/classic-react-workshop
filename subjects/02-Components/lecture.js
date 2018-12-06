@@ -2,64 +2,159 @@ import "./styles.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
-let isOpen = false;
+// class ContentToggle extends React.Component {
+//   static propTypes = {
+//     summary: PropTypes.string.isRequired,
+//     children: PropTypes.node.isRequired,
+//     onToggle: PropTypes.func
+//   };
 
-function handleClick() {
-  isOpen = !isOpen;
-  updateThePage();
-}
+//   constructor(props) {
+//     super(props);
+//     this.state = { isOpen: false };
+//     this.handleClick = () => {
+//       this.setState({ isOpen: !this.state.isOpen });
+//       if (this.props.onToggle) this.props.onToggle();
+//     };
+//   }
 
-function ContentToggle() {
+//   render() {
+//     let summaryClassName = "content-toggle-summary";
+
+//     if (this.state.isOpen) {
+//       summaryClassName += " content-toggle-summary-open";
+//     }
+
+//     return (
+//       <div className="content-toggle">
+//         <button onClick={this.handleClick} className={summaryClassName}>
+//           {this.props.summary}
+//         </button>
+//         {this.state.isOpen && (
+//           <div className="content-toggle-details">
+//             {this.props.children}
+//           </div>
+//         )}
+//       </div>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <div>
+//     <ContentToggle
+//       summary="Tacos"
+//       onToggle={() => console.log("toggle!")}
+//     >
+//       <p>
+//         A taco is a traditional Mexican dish composed of a corn or wheat
+//         tortilla folded or rolled around a filling.
+//       </p>
+//     </ContentToggle>
+
+//     <ContentToggle summary="Burritos">
+//       <p>
+//         <strong>delicious</strong>
+//       </p>
+//     </ContentToggle>
+//   </div>,
+//   document.getElementById("app")
+// );
+
+function ContentToggle(props) {
   let summaryClassName = "content-toggle-summary";
 
-  if (isOpen) {
+  if (props.isOpen) {
     summaryClassName += " content-toggle-summary-open";
   }
 
   return (
     <div className="content-toggle">
-      <button onClick={handleClick} className={summaryClassName}>
-        Tacos
+      <button
+        onClick={() => {
+          if (props.onToggle) props.onToggle();
+        }}
+        className={summaryClassName}
+      >
+        {props.summary}
       </button>
-      {isOpen && (
-        <div className="content-toggle-details">
-          <p>
-            A taco is a traditional Mexican dish composed of a corn or
-            wheat tortilla folded or rolled around a filling.
-          </p>
-        </div>
+      {props.isOpen && (
+        <div className="content-toggle-details">{props.children}</div>
       )}
     </div>
   );
 }
 
-function updateThePage() {
-  ReactDOM.render(<ContentToggle />, document.getElementById("app"));
+ContentToggle.propTypes = {
+  summary: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  onToggle: PropTypes.func
+};
+
+class StatefulContentToggle extends React.Component {
+  state = { isOpen: false };
+  render() {
+    return (
+      <ContentToggle
+        {...this.props}
+        isOpen={this.state.isOpen}
+        onToggle={() => this.setState({ isOpen: !this.state.isOpen })}
+      />
+    );
+  }
 }
 
-updateThePage();
+class ContentToggleGroup extends React.Component {
+  state = { tacoIsOpen: true, burritoIsOpen: true };
 
-////////////////////////////////////////////////////////////////////////////////
-// What happens when we want to render 2 <ContentToggle>s? Shared mutable state!
+  toggleAll = () => {
+    this.setState({
+      tacoIsOpen: !this.state.tacoIsOpen,
+      burritoIsOpen: !this.state.burritoIsOpen
+    });
+  };
 
-////////////////////////////////////////////////////////////////////////////////
-// React gives us a component model we can use to encapsulate state at the
-// instance level, so each component instance has its own state. Let's refactor
-// this code to use a JavaScript class that extends React.Component.
+  render() {
+    return (
+      <div>
+        <button onClick={this.toggleAll}>Toggle All</button>
 
-//////////////////////////////////////////////////////////////////////////////////
-// React gives us setState and automatically re-renders as the state changes.
+        <ContentToggle
+          summary="Tacos"
+          isOpen={this.state.tacoIsOpen}
+          onToggle={() =>
+            this.setState({ tacoIsOpen: !this.state.tacoIsOpen })
+          }
+        >
+          <p>
+            A taco is a traditional Mexican dish composed of a corn or
+            wheat tortilla folded or rolled around a filling.
+          </p>
+        </ContentToggle>
 
-////////////////////////////////////////////////////////////////////////////////
-// Let's make <ContentToggle> re-usable and render a few of them. Title and
-// children are properties we can pass in from the parent component.
+        <ContentToggle
+          summary="Burritos"
+          isOpen={this.state.burritoIsOpen}
+          onToggle={() =>
+            this.setState({ burritoIsOpen: !this.state.burritoIsOpen })
+          }
+        >
+          <p>
+            <strong>delicious</strong>
+          </p>
+        </ContentToggle>
 
-////////////////////////////////////////////////////////////////////////////////
-// Wrap a few <ContentToggle>s in a <ToggleTracker> that tracks the # of times
-// it has been toggled and shows a counter. <ContentToggle> gets an onToggle
-// handler. This is like a "custom event".
+        <StatefulContentToggle summary="Tostadas">
+          <p>
+            A taco is a traditional Mexican dish composed of a corn or
+            wheat tortilla folded or rolled around a filling.
+          </p>
+        </StatefulContentToggle>
+      </div>
+    );
+  }
+}
 
-////////////////////////////////////////////////////////////////////////////////
-// We can use propTypes to declare the name, type, and even default value of
-// our props. These are like "runnable docs" for our code.
+ReactDOM.render(<ContentToggleGroup />, document.getElementById("app"));

@@ -23,16 +23,15 @@ import data from "./data";
 
 class Tabs extends React.Component {
   static propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    activeIndex: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired
   };
 
-  state = { activeIndex: 0 };
-
-  selectTab = index => this.setState({ activeIndex: index });
+  selectTab = index => this.props.onChange(index);
 
   render() {
-    let { data } = this.props;
-    let { activeIndex } = this.state;
+    let { data, activeIndex } = this.props;
 
     let tabs = data.map((item, index) => {
       let isActive = index === activeIndex;
@@ -62,14 +61,22 @@ class Tabs extends React.Component {
 }
 
 class App extends React.Component {
+  state = { activeIndex: 0 };
+
   render() {
     return (
       <div>
         <h1>Props v. State</h1>
 
-        <button>Go to "Step 2"</button>
+        <button onClick={() => this.setState({ activeIndex: 1 })}>
+          Go to "Step 2"
+        </button>
 
-        <Tabs data={this.props.tabs} />
+        <Tabs
+          data={this.props.tabs}
+          activeIndex={this.state.activeIndex}
+          onChange={index => this.setState({ activeIndex: index })}
+        />
       </div>
     );
   }

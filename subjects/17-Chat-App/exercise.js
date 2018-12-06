@@ -45,7 +45,85 @@ The world is your oyster!
 */
 
 class Chat extends React.Component {
+  state = { user: null, messages: [] };
+
+  componentDidMount() {
+    login(user => {
+      this.setState({ user });
+
+      this.unsubscribe = subscribeToMessages(messages => {
+        this.setState({ messages });
+      });
+    });
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  scrollToBottom = () => {
+    const messages = this.refs.messages;
+    messages.scrollTop = messages.scrollHeight;
+  };
+
+  handleSubmit = event => {
+    event.preventDefault(); // Prevent full page reload.
+
+    const user = this.state.user;
+    // const text = event.target.elements[0].value;
+    const text = this.refs.message.value;
+
+    sendMessage({
+      userId: user.id,
+      photoURL: user.photoURL,
+      text: text
+    });
+
+    event.target.reset(); // Clear the form.
+  };
+
   render() {
+    if (!this.state.user) return <div>Loading...</div>;
+
+    return (
+      <div className="chat">
+        <header className="chat-header">
+          <h1 className="chat-title">HipReact</h1>
+          <p className="chat-message-count">
+            # messages: {this.state.messages.length}
+          </p>
+        </header>
+        <div className="messages" ref="messages">
+          {this.state.messages.map(message => (
+            <ol className="message-groups" key={message.id}>
+              <li className="message-group">
+                <div className="message-group-avatar">
+                  <img src={message.photoURL} />
+                </div>
+                <ol className="messages">
+                  <li className="message">{message.text}</li>
+                </ol>
+              </li>
+            </ol>
+          ))}
+        </div>
+        <form className="new-message-form" onSubmit={this.handleSubmit}>
+          <div className="new-message">
+            <input
+              ref="message"
+              type="text"
+              placeholder="say something..."
+            />
+          </div>
+        </form>
+      </div>
+    );
+
+    /*
     return (
       <div className="chat">
         <header className="chat-header">
@@ -80,7 +158,7 @@ class Chat extends React.Component {
             </li>
           </ol>
         </div>
-        <form className="new-message-form">
+        <form className="new-message-form" onSubmit={this.handleSubmit}>
           <div className="new-message">
             <input
               ref="message"
@@ -91,6 +169,7 @@ class Chat extends React.Component {
         </form>
       </div>
     );
+    */
   }
 }
 
