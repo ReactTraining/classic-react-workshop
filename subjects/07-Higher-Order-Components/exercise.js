@@ -2,11 +2,8 @@
 // Exercise:
 //
 // - Make the mouse-tracking logic reusable by filling in the `withMouse`
-//   higher-order component and returning a new component that renders a
-//   `ComposedComponent` element with the current mouse position as props
-// - Use the `withMouse` function you just wrote to create an `AppWithMouse`
-//   component
-// - Render <AppWithMouse> instead of <App>
+//   higher-order component and returning a new component that renders the
+//   given component with a `mouse` prop
 //
 // Got extra time?
 //
@@ -18,8 +15,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
-function withMouse(ComposedComponent) {
-  // TODO
+function withMouse(Component) {
+  // TODO: Return a *new* component class that renders
+  // the given Component with a `mouse` prop
+  return Component;
 }
 
 class App extends React.Component {
@@ -42,4 +41,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const AppWithMouse = withMouse(App);
+
+ReactDOM.render(<AppWithMouse />, document.getElementById("app"));

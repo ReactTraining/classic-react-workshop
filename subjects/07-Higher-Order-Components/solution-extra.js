@@ -1,12 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Make `withMouse` a "higher-order component" that sends the mouse position
-// to the component as props (hint: use `event.clientX` and `event.clientY`).
+// - Make the mouse-tracking logic reusable by filling in the `withMouse`
+//   higher-order component and returning a new component that renders the
+//   given component with a `mouse` prop
 //
 // Got extra time?
 //
-// Make a `withCat` HOC that shows a cat chasing the mouse around the screen!
+// - Make a `withCat` HOC that shows a cat chasing the mouse around the screen!
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 
@@ -19,10 +20,7 @@ function withMouse(Component) {
     state = { x: 0, y: 0 };
 
     handleMouseMove = event => {
-      this.setState({
-        x: event.clientX,
-        y: event.clientY
-      });
+      this.setState({ x: event.clientX, y: event.clientY });
     };
 
     render() {

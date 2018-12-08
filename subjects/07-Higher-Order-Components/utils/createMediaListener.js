@@ -9,17 +9,17 @@ listener.getState()
 listenter.dispose()
 */
 
-export default media => {
+function createMediaListener(queries) {
   let transientListener = null;
 
-  const mediaKeys = Object.keys(media);
+  const keys = Object.keys(queries);
 
-  const queryLists = mediaKeys.reduce((queryLists, key) => {
-    queryLists[key] = window.matchMedia(media[key]);
+  const queryLists = keys.reduce((queryLists, key) => {
+    queryLists[key] = window.matchMedia(queries[key]);
     return queryLists;
   }, {});
 
-  const mediaState = mediaKeys.reduce((state, key) => {
+  const mediaState = keys.reduce((state, key) => {
     state[key] = queryLists[key].matches;
     return state;
   }, {});
@@ -28,7 +28,7 @@ export default media => {
     if (transientListener != null) transientListener(mediaState);
   };
 
-  const listeners = mediaKeys.reduce((listeners, key) => {
+  const listeners = keys.reduce((listeners, key) => {
     listeners[key] = event => {
       mediaState[key] = event.matches;
       notify();
@@ -39,14 +39,14 @@ export default media => {
 
   const listen = listener => {
     transientListener = listener;
-    mediaKeys.forEach(key => {
+    keys.forEach(key => {
       queryLists[key].addListener(listeners[key]);
     });
   };
 
   const dispose = () => {
     transientListener = null;
-    mediaKeys.forEach(key => {
+    keys.forEach(key => {
       queryLists[key].removeListener(listeners[key]);
     });
   };
@@ -54,4 +54,6 @@ export default media => {
   const getState = () => mediaState;
 
   return { listen, dispose, getState };
-};
+}
+
+export default createMediaListener;

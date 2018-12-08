@@ -10,9 +10,7 @@ const media = createMediaListener({
 });
 
 class App extends React.Component {
-  state = {
-    media: media.getState()
-  };
+  state = { media: media.getState() };
 
   componentDidMount() {
     media.listen(media => this.setState({ media }));
@@ -42,13 +40,11 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // component (HOC) is a function that takes a `Component` as an argument, and
 // returns a new component renders that `Component` with some extra props.
 
-// const mediaComponent = (Component, queries) => {
+// function withMedia(Component, queries) {
 //   const media = createMediaListener(queries);
 
 //   return class extends React.Component {
-//     state = {
-//       media: media.getState()
-//     };
+//     state = { media: media.getState() };
 
 //     componentDidMount() {
 //       media.listen(media => this.setState({ media }));
@@ -62,7 +58,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //       return <Component {...this.props} media={this.state.media} />;
 //     }
 //   };
-// };
+// }
 
 // class App extends React.Component {
 //   static propTypes = {
@@ -85,7 +81,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   }
 // }
 
-// const AppWithMedia = mediaComponent(App, {
+// const AppWithMedia = withMedia(App, {
 //   big: "(min-width : 1000px)",
 //   tiny: "(max-width: 400px)"
 // });
