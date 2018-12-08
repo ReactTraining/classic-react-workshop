@@ -1,11 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Modify <ListView> so that it only renders the list items that are visible!
+// - Modify <ListView> so that it only renders the list items that are visible
+//   in the viewport (hint: what state do you need?)
+// - Crank up <ListView numRows> to a huge number to test your solution!
 //
 // Got extra time?
 //
-// - Render fewer rows as the size of the window changes (hint: Listen
+// - Adjust the number of rows as the size of the window changes (Hint: Listen
 //   for the window's "resize" event)
 // - Remember the scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,10 +26,7 @@ class ListView extends React.Component {
     renderRowAtIndex: PropTypes.func.isRequired
   };
 
-  state = {
-    availableHeight: 0,
-    scrollTop: 0
-  };
+  state = { availableHeight: 0, scrollTop: 0 };
 
   handleScroll = event => {
     this.setState({ scrollTop: event.target.scrollTop });

@@ -1,11 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Modify <ListView> so that it only renders the list items that are visible!
+// - Modify <ListView> so that it only renders the list items that are visible
+//   in the viewport
+// - Crank up <ListView numRows> to a huge number to test your solution!
 //
 // Got extra time?
 //
-// - Render fewer rows as the size of the window changes (hint: Listen
+// - Adjust the number of rows as the size of the window changes (Hint: Listen
 //   for the window's "resize" event)
 // - Remember the scroll position when you refresh the page
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,11 +26,18 @@ class ListView extends React.Component {
     renderRowAtIndex: PropTypes.func.isRequired
   };
 
+  // TODO: What state do you need?
+
+  handleScroll = event => {
+    // TODO: Use `event.target.scrollTop` to read the current scroll position
+    // See https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTop
+  };
+
   render() {
     const { numRows, rowHeight, renderRowAtIndex } = this.props;
     const totalHeight = numRows * rowHeight;
 
-    // HINT: Make these numbers closer together!
+    // TODO: Make these numbers closer together
     const startIndex = 0;
     const endIndex = numRows;
 
@@ -41,7 +50,10 @@ class ListView extends React.Component {
     }
 
     return (
-      <div style={{ height: "100vh", overflowY: "scroll" }}>
+      <div
+        style={{ height: "100vh", overflowY: "scroll" }}
+        onScroll={this.handleScroll}
+      >
         <div style={{ height: totalHeight }}>
           <ol>{items}</ol>
         </div>
