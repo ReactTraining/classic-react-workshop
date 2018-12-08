@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// - rename this file to exercise.js or copy paste it there to get it to run
-// - even though this Modal is a React component, the author created an
+// - Rename this file to exercise.js or copy paste it there to get it to run
+// - Even though this Modal is a React component, the author created an
 //   imperative API D: Make it declarative!
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
@@ -53,11 +53,11 @@ class Modal extends React.Component {
 
 class App extends React.Component {
   openModal = () => {
-    this.refs.modal.open();
+    this.modal.open();
   };
 
   closeModal = () => {
-    this.refs.modal.close();
+    this.modal.close();
   };
 
   render() {
@@ -79,7 +79,7 @@ class App extends React.Component {
           same curve, just on opposite ends.
         </p>
 
-        <Modal ref="modal">
+        <Modal ref={modal => (this.modal = modal)}>
           <button onClick={this.closeModal}>close</button>
           <p>Are you sure?</p>
         </Modal>

@@ -1,8 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// This Modal, even though its a React component, has an imperative API to
-// open and close it. Can you convert it to a declarative API?
+// - This Modal, even though its a React component, has an imperative API
+//   to open and close it. Can you convert it to a declarative API?
+//
+// Got extra time?
+//
+// - What happens when you click the overlay? How can you keep the state of
+//   the <App> consistent with what you see in the page?
 ////////////////////////////////////////////////////////////////////////////////
 import $ from "jquery";
 import "bootstrap";
