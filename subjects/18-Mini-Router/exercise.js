@@ -30,7 +30,7 @@ import ReactDOM from "react-dom";
 
 // You will be working in mini-router.js. This file is just an example app that
 // uses the components from that library.
-import { Router, Route, Link } from "./exercise/mini-router";
+import { Router, Route, Link, Switch } from "./exercise/mini-router";
 
 function App() {
   return (
@@ -50,16 +50,19 @@ function App() {
 
         <hr />
 
-        <Route
-          path="/dashboard"
-          render={() => (
-            <div>
-              <h2>Dashboard</h2>
-            </div>
-          )}
-        />
-        <Route path="/about" component={About} />
-        <Route path="/topics" component={Topics} />
+        <Switch>
+          <Route
+            path="/dashboard"
+            render={() => (
+              <div>
+                <h2>Dashboard</h2>
+              </div>
+            )}
+          />
+          <Route path="/about" component={About} />
+          <Route path="/topics" component={Topics} />
+          <Route path="/" component={() => <h1>Home</h1>} />
+        </Switch>
       </div>
     </Router>
   );

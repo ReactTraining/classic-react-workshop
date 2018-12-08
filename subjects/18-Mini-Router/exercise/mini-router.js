@@ -17,24 +17,59 @@ history.listen(() => {
 history.push('/something')
 */
 
+const RouterContext = React.createContext();
+
 class Router extends React.Component {
   history = createHashHistory();
 
+  state = { location: this.history.location };
+
+  componentDidMount() {
+    this.history.listen(location => this.setState({ location }));
+  }
+
+  handlePush = location => this.history.push(location);
+
   render() {
-    return this.props.children;
+    return (
+      <RouterContext.Provider
+        value={{
+          location: this.state.location,
+          push: this.handlePush
+        }}
+      >
+        {this.props.children}
+      </RouterContext.Provider>
+    );
   }
 }
 
 class Route extends React.Component {
   render() {
-    const { path, render, component: Component } = this.props;
-    return null;
+    return (
+      <RouterContext.Consumer>
+        {value => {
+          const { path, render, component: Component } = this.props;
+
+          if (value.location.pathname.startsWith(path)) {
+            // We matched!
+            if (render) return render();
+            if (Component) return <Component />;
+          }
+
+          return null;
+        }}
+      </RouterContext.Consumer>
+    );
   }
 }
 
 class Link extends React.Component {
+  static contextType = RouterContext;
+
   handleClick = event => {
     event.preventDefault();
+    this.context.push(this.props.to);
   };
 
   render() {
@@ -46,4 +81,28 @@ class Link extends React.Component {
   }
 }
 
-export { Router, Route, Link };
+class Switch extends React.Component {
+  render() {
+    return (
+      <RouterContext.Consumer>
+        {value => {
+          const { children } = this.props;
+
+          let element = null;
+          React.Children.toArray(children).find(child => {
+            if (
+              element == null &&
+              value.location.pathname.startsWith(child.props.path)
+            ) {
+              element = child;
+            }
+          });
+
+          return element;
+        }}
+      </RouterContext.Consumer>
+    );
+  }
+}
+
+export { Router, Route, Link, Switch };
