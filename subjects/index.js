@@ -61,10 +61,11 @@ function Index() {
         </tbody>
       </table>
       <footer className="index-footer">
-        &copy; 2015-{new Date().getFullYear()}{" "}
+        &copy; {new Date().getFullYear()}{" "}
         <a href="https://reacttraining.com" title="React Training">
           React Training LLC
-        </a>, all rights reserved
+        </a>
+        , all rights reserved
       </footer>
     </div>
   );
