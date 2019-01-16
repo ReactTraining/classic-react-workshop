@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import getHeaderStyle from './utils/getHeaderStyle';
+import getHeaderStyle from "./utils/getHeaderStyle";
 
 document.body.style.background = `
   linear-gradient(135deg,
@@ -11,8 +11,6 @@ document.body.style.background = `
     #7db9e8 100%
   )
 `;
-
-
 
 class App extends React.Component {
   state = { y: 0 };
