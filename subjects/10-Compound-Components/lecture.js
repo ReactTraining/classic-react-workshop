@@ -75,6 +75,8 @@ class Tabs2 extends React.Component {
   }
 }
 
+import { useContext } from "react";
+
 function TabList({ children }) {
   const context = useContext(TabsContext);
 
@@ -88,8 +90,6 @@ function TabList({ children }) {
     </div>
   );
 }
-
-import { useContext } from "react";
 
 function Tab({ children, disabled }) {
   const context = useContext(TabsContext);
@@ -153,28 +153,28 @@ function Tabs({ data, tabsPosition = "top", disabled = [] }) {
 
 class App extends React.Component {
   render() {
-    // return (
-    //   <Tabs2>
-    //     <div style={{ float: "left" }}>
-    //       <TabPanels>
-    //         <TabPanel>
-    //           <p>Tacos are delicious</p>
-    //         </TabPanel>
-    //         <TabPanel>
-    //           <p>Sometimes a burrito is what you really need</p>
-    //         </TabPanel>
-    //         <TabPanel>
-    //           <p>Might be your best option</p>
-    //         </TabPanel>
-    //       </TabPanels>
-    //     </div>
-    //     <TabList>
-    //       <Tab>Tacos</Tab>
-    //       <Tab disabled>Burritos</Tab>
-    //       <Tab>Coconut Korma</Tab>
-    //     </TabList>
-    //   </Tabs2>
-    // );
+    return (
+      <Tabs2>
+        <div>
+          <TabList>
+            <Tab>Tacos</Tab>
+            <Tab disabled>Burritos</Tab>
+            <Tab>Coconut Korma</Tab>
+          </TabList>
+        </div>
+        <TabPanels>
+          <TabPanel>
+            <p>Tacos are delicious</p>
+          </TabPanel>
+          <TabPanel>
+            <p>Sometimes a burrito is what you really need</p>
+          </TabPanel>
+          <TabPanel>
+            <p>Might be your best option</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs2>
+    );
 
     const tabData = [
       {
