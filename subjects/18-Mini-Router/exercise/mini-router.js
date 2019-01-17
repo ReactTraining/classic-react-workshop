@@ -17,24 +17,58 @@ history.listen(() => {
 history.push('/something')
 */
 
+const RouterContext = React.createContext();
+
 class Router extends React.Component {
   history = createHashHistory();
+  state = { location: this.history.location };
+
+  componentDidMount() {
+    this.history.listen(location => {
+      this.setState({ location });
+    });
+  }
+
+  handlePush = location => {
+    this.history.push(location);
+  };
 
   render() {
-    return this.props.children;
+    return (
+      <RouterContext.Provider
+        value={{
+          location: this.state.location,
+          push: this.handlePush
+        }}
+      >
+        {this.props.children}
+      </RouterContext.Provider>
+    );
   }
 }
 
 class Route extends React.Component {
+  static contextType = RouterContext;
   render() {
     const { path, render, component: Component } = this.props;
+    const { location } = this.context;
+
+    if (location.pathname.startsWith(path)) {
+      // We matched the URL! Render something.
+      if (render) return render();
+      if (Component) return <Component />;
+    }
+
     return null;
   }
 }
 
 class Link extends React.Component {
+  static contextType = RouterContext;
+
   handleClick = event => {
     event.preventDefault();
+    this.context.push(this.props.to);
   };
 
   render() {

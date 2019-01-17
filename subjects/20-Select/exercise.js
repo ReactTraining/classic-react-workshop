@@ -9,6 +9,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
+const SelectContext = React.createContext();
+
 class Select extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
@@ -16,21 +18,68 @@ class Select extends React.Component {
     defaultValue: PropTypes.any
   };
 
+  state = { showOptions: false, value: this.props.defaultValue };
+
+  toggleOptions = () =>
+    this.setState({ showOptions: !this.state.showOptions });
+
+  hideOptions = () => this.setState({ showOptions: false });
+
+  handleChange = value => {
+    if (this.isControlled()) {
+      this.props.onChange(value);
+    } else {
+      this.setState({ value });
+    }
+  };
+
+  isControlled = () => this.props.value != null;
+
   render() {
+    const currentValue = this.isControlled()
+      ? this.props.value
+      : this.state.value;
+
+    let label = null;
+    React.Children.forEach(this.props.children, child => {
+      if (child.props.value === currentValue) {
+        label = child.props.children;
+      }
+    });
+
     return (
-      <div className="select">
+      <div
+        className="select"
+        onClick={this.toggleOptions}
+        onBlur={this.hideOptions}
+        tabIndex="-1"
+      >
         <div className="label">
-          label <span className="arrow">▾</span>
+          {label} <span className="arrow">▾</span>
         </div>
-        <div className="options">{this.props.children}</div>
+        <SelectContext.Provider value={{ change: this.handleChange }}>
+          {this.state.showOptions && (
+            <div className="options">{this.props.children}</div>
+          )}
+        </SelectContext.Provider>
       </div>
     );
   }
 }
 
 class Option extends React.Component {
+  static contextType = SelectContext;
+
+  handleClick = () => {
+    this.context.change(this.props.value);
+  };
+
   render() {
-    return <div className="option">{this.props.children}</div>;
+    return (
+      <div className="option" onClick={this.handleClick}>
+        {this.props.children}
+      </div>
+    );
   }
 }
 
