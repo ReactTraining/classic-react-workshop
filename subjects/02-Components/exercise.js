@@ -73,6 +73,7 @@ class App extends React.Component {
       <div>
         <h1>Sports</h1>
         <Tabs data={this.props.sports} />
+        <Tabs data={this.props.sports} />
       </div>
     );
   }
