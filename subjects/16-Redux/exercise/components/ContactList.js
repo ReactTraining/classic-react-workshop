@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addContact, loadContacts } from "../actions";
+import { addContact, loadContacts, deleteContact } from "../actions";
 import CreateContactForm from "./CreateContactForm";
 
 class ContactList extends React.Component {
@@ -21,15 +21,42 @@ class ContactList extends React.Component {
     this.props.dispatch(addContact(contact));
   }
 
+  deleteContact(contact) {
+    deleteContact(this.props.dispatch, contact);
+  }
+
   render() {
-    const { contacts } = this.props;
+    const {
+      contacts,
+      contactsPendingDeletion,
+      contactErrors
+    } = this.props;
 
     return (
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {contacts.map(contact => (
-          <li key={contact.id}>
+          <li
+            key={contact.id}
+            style={{
+              opacity: contactsPendingDeletion.includes(contact)
+                ? 0.5
+                : 1
+            }}
+          >
             <img src={contact.avatar} height="50" /> {contact.first}{" "}
-            {contact.last}
+            {contact.last}{" "}
+            {contactErrors[contact.id] ? (
+              <p style={{ color: "red" }}>
+                {contactErrors[contact.id].message}
+              </p>
+            ) : (
+              <button
+                onClick={() => this.deleteContact(contact)}
+                disabled={contactsPendingDeletion.includes(contact)}
+              >
+                delete
+              </button>
+            )}
           </li>
         ))}
         <li>
@@ -42,4 +69,12 @@ class ContactList extends React.Component {
   }
 }
 
-export default ContactList;
+function mapStateToProps(state) {
+  return {
+    contacts: state.contacts,
+    contactsPendingDeletion: state.contactsPendingDeletion,
+    contactErrors: state.contactErrors
+  };
+}
+
+export default connect(mapStateToProps)(ContactList);

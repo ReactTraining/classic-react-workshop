@@ -1,52 +1,77 @@
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
+import { Provider, connect } from "react-redux";
 
-const store = createStore((state = 0, action) => {
-  if (action.type === "INCREMENT") {
-    return state + (action.by || 1);
-  } else {
-    return state;
+// redux = reduce + flux
+
+function add(amount) {
+  return { type: "add", amount };
+}
+
+function sub(amount) {
+  return { type: "sub", amount };
+}
+
+function count(state = 0, action) {
+  if (action.type === "add") {
+    return state + action.amount;
+  } else if (action.type === "sub") {
+    return state - action.amount;
   }
-});
+
+  return state;
+}
+
+function addTodo(todo) {
+  return { type: "add_todo", todo };
+}
+
+function todos(state = [], action) {
+  if (action.type === "add_todo") {
+    return state.concat(action.todo);
+  }
+
+  return state;
+}
+
+const reducer = combineReducers({ count, todos });
+
+const store = createStore(reducer);
 
 store.subscribe(() => {
   console.log(store.getState());
 });
 
-store.dispatch({ type: "INCREMENT" });
-store.dispatch({ type: "INCREMENT", by: 5 });
-store.dispatch({ type: "INCREMENT" });
-store.dispatch({ type: "INCREMENT" });
+store.dispatch(add(3));
+store.dispatch(add(4));
+store.dispatch(sub(2));
 
-/*
-- Flux is an architecture, not a framework
-  - DO NOT START BUILDING STUFF WITH FLUX WHEN YOU'RE FIRST GETTING STARTED WITH REACT
-  - It can be difficult to understand why the patterns in Flux are useful if you haven't
-    already tried to solve problems w/out Flux
-  - You'll most likely hate Flux unless you're already fighting with your current JS
-    framework. If you're not, stick with what's working for you
+store.dispatch(addTodo("go swimming"));
 
-- Flux is good at:
-  - Making it easy to reason about changes to state
+import React from "react";
+import ReactDOM from "react-dom";
 
-- Remember our 2 questions:
-  - What state is there?
-  - When does it change?
+function App({ count, dispatch }) {
+  return (
+    <div>
+      <h1>The count is {count}</h1>
+      <button onClick={() => dispatch(add(1))}>add 1</button>
+      <button onClick={() => dispatch(sub(1))}>sub 1</button>
+    </div>
+  );
+}
 
-Open Redux.png
+function mapStateToProps(state) {
+  return { count: state.count };
+}
 
-- Views
-  - React components (see components)
-  - Create actions (see actions)
+const ConnectedApp = connect(mapStateToProps)(App);
 
-- Actions
-  - Create "actions" with meaningful names (e.g. "load contacts", "delete contact").
-    These are the verbs. Ask yourself, "what actions can the user take?"
-  - Send actions through the dispatcher
-  - Possibly trigger API requests (side effect)
-
-- Store
-  - Synchronous dispatch of actions to ALL registered listeners (stores)
-
-- Reducers
-  - Compute new state values
-*/
+ReactDOM.render(
+  <Provider store={store}>
+    <div>
+      <ConnectedApp />
+      <ConnectedApp />
+    </div>
+  </Provider>,
+  document.getElementById("app")
+);

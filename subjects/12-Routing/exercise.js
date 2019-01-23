@@ -48,7 +48,9 @@ function getUserByID(id) {
 
 function Home() {
   const contactItems = USERS.map(user => (
-    <li key={user.email}>{user.name}</li>
+    <li key={user.email}>
+      <Link to={`/profile/${user.id}`}>{user.name}</Link>
+    </li>
   ));
 
   return (
@@ -59,8 +61,8 @@ function Home() {
   );
 }
 
-function Profile() {
-  const userId = 1; // TODO: Get this from the URL!
+function Profile({ match }) {
+  const userId = match.params.userId;
   const user = getUserByID(userId);
 
   if (user == null) return <p>Cannot find user with id {userId}</p>;
@@ -87,7 +89,14 @@ function App() {
   return (
     <div>
       <h1>People Viewer</h1>
-      <Home />
+
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/profile/:userId" component={Profile} />
+          <Route component={NoMatch} />
+        </Switch>
+      </Router>
     </div>
   );
 }
