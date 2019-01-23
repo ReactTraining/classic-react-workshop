@@ -17,56 +17,29 @@ import Droppable from "./components/Droppable";
 //     node = document.createElement("div");
 //   });
 
-//   it("displays the summary", () => {
-//     ReactDOM.render(<ContentToggle summary="The Summary" />, node);
+//   describe("by default", () => {
+//     it("is closed", () => {
+//       ReactDOM.render(
+//         <ContentToggle summary="Tacos">
+//           <p>are great</p>
+//         </ContentToggle>,
+//         node
+//       );
 
-//     expect(node.innerHTML).toMatch(
-//       /The Summary/,
-//       '"The Summary" was not found in HTML'
-//     );
+//       expect(node.innerHTML).not.toContain("are great");
+//     });
 //   });
 
-//   describe("isOpen prop", () => {
-//     it("does not display children when false", () => {
+//   describe("with isOpen=true", () => {
+//     it("is open", () => {
 //       ReactDOM.render(
-//         <ContentToggle isOpen={false} summary="The Summary">
-//           <p>Cheers</p>
+//         <ContentToggle summary="Tacos" isOpen={true}>
+//           <p>are great</p>
 //         </ContentToggle>,
 //         node
 //       );
 
-//       expect(node.innerHTML).toNotMatch(
-//         /Cheers/,
-//         '"Cheers" was found in HTML'
-//       );
-//     });
-
-//     it("defaults to false", () => {
-//       ReactDOM.render(
-//         <ContentToggle summary="The Summary">
-//           <p>Cheers</p>
-//         </ContentToggle>,
-//         node
-//       );
-
-//       expect(node.innerHTML).toNotMatch(
-//         /Cheers/,
-//         '"Cheers" was found in HTML'
-//       );
-//     });
-
-//     it("displays children when true", () => {
-//       ReactDOM.render(
-//         <ContentToggle isOpen={true} summary="The Summary">
-//           <p>Cheers</p>
-//         </ContentToggle>,
-//         node
-//       );
-
-//       expect(node.innerHTML).toMatch(
-//         /Cheers/,
-//         '"Cheers" was not found in HTML'
-//       );
+//       expect(node.innerHTML).toContain("are great");
 //     });
 //   });
 // });
@@ -77,46 +50,51 @@ import Droppable from "./components/Droppable";
 //     node = document.createElement("div");
 //   });
 
-//   it("opens when clicked", () => {
-//     ReactDOM.render(
-//       <StatefulContentToggle summary="The Summary">
-//         <p>The Content</p>
-//       </StatefulContentToggle>,
-//       node
-//     );
+//   describe("by default", () => {
+//     it("is closed", () => {
+//       ReactDOM.render(
+//         <StatefulContentToggle summary="Tacos">
+//           <p>are great</p>
+//         </StatefulContentToggle>,
+//         node
+//       );
 
-//     Simulate.click(node.querySelector("button"));
-
-//     expect(node.innerHTML).toMatch(
-//       /The Content/,
-//       '"The Content" was not found in HTML'
-//     );
-//   });
-// });
-
-// describe("Droppable", () => {
-//   let node;
-//   beforeEach(() => {
-//     node = document.createElement("div");
-//   });
-
-//   it("accepts files", () => {
-//     ReactDOM.render(<Droppable />, node);
-//     Simulate.dragOver(node.querySelector("div.Droppable"), {
-//       dataTransfer: { types: ["Files"] }
+//       expect(node.innerHTML).not.toContain("are great");
 //     });
-//     expect(node.innerHTML).toMatch(
-//       /Drop it!/,
-//       '"Drop it!" was not found in HTML'
-//     );
+//   });
+
+//   describe("after its button is clicked", () => {
+//     it("is open", () => {
+//       ReactDOM.render(
+//         <StatefulContentToggle summary="Tacos">
+//           <p>are great</p>
+//         </StatefulContentToggle>,
+//         node
+//       );
+
+//       const button = node.querySelector("button");
+//       Simulate.click(button);
+
+//       expect(node.innerHTML).toContain("are great");
+//     });
 //   });
 // });
 
-// - render to a node that isn't in the dom
-// - match innerHTML
-// - renderToString
-// - Simulate
-// - actually render something
-// - getDefaultProps for application modules
-// - shallow renderer
-// - assert on vdom
+describe("Droppable", () => {
+  let node;
+  beforeEach(() => {
+    node = document.createElement("div");
+  });
+
+  it("works", () => {
+    ReactDOM.render(<Droppable />, node);
+
+    Simulate.dragOver(node.firstChild, {
+      dataTransfer: {
+        types: ["Files"]
+      }
+    });
+
+    expect(node.innerHTML).toContain("Drop it!");
+  });
+});

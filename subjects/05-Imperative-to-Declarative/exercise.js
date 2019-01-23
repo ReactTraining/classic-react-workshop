@@ -67,6 +67,7 @@ class App extends React.Component {
 
         <Modal
           title="Declarative is better"
+          isOpen={true}
           ref={modal => (this.modal = modal)}
         >
           <p>Calling methods on instances is a FLOW not a STOCK!</p>

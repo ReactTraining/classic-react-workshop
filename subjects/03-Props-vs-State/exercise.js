@@ -26,13 +26,8 @@ class Tabs extends React.Component {
     data: PropTypes.array.isRequired
   };
 
-  state = { activeIndex: 0 };
-
-  selectTab = index => this.setState({ activeIndex: index });
-
   render() {
-    let { data } = this.props;
-    let { activeIndex } = this.state;
+    let { data, activeIndex } = this.props;
 
     let tabs = data.map((item, index) => {
       let isActive = index === activeIndex;
@@ -43,7 +38,7 @@ class Tabs extends React.Component {
           key={index}
           className="Tab"
           style={style}
-          onClick={() => this.selectTab(index)}
+          onClick={() => this.props.onSelect(index)}
         >
           {item.name}
         </div>
@@ -62,14 +57,23 @@ class Tabs extends React.Component {
 }
 
 class App extends React.Component {
+  state = { activeIndex: 0 };
+  selectTab = index => this.setState({ activeIndex: index });
+
   render() {
     return (
       <div>
         <h1>Props v. State</h1>
 
-        <button>Go to "Step 2"</button>
+        <button onClick={() => this.selectTab(1)}>
+          Go to "Step 2"
+        </button>
 
-        <Tabs data={this.props.tabs} />
+        <Tabs
+          data={this.props.tabs}
+          activeIndex={this.state.activeIndex}
+          onSelect={this.selectTab}
+        />
       </div>
     );
   }
