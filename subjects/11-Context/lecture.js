@@ -13,11 +13,18 @@ const TabContext = React.createContext();
 class TabList extends React.Component {
   static contextType = TabContext;
 
+  // Not even called when using TabContext.Consumer!
+  componentDidUpdate() {
+    console.log("context", this.context); // <--- OK
+  }
+
   render() {
     const { children } = this.props;
     const { activeIndex, selectIndex } = this.context;
 
     return (
+      // <TabContext.Consumer>
+      //   {({ activeIndex, selectIndex }) => (
       <div>
         {React.Children.map(children, (child, index) =>
           React.cloneElement(child, {
@@ -26,6 +33,8 @@ class TabList extends React.Component {
           })
         )}
       </div>
+      // )}
+      // </TabContext.Consumer>
     );
   }
 }
