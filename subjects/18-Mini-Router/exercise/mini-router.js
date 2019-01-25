@@ -17,33 +17,51 @@ history.listen(() => {
 history.push('/something')
 */
 
-class Router extends React.Component {
-  history = createHashHistory();
+const RouterContext = React.createContext();
 
-  render() {
-    return this.props.children;
-  }
+import { useState, useEffect, useContext } from "react";
+
+function Router({ children }) {
+  const history = createHashHistory();
+  const [location, updateLocation] = useState(history.location);
+
+  useEffect(() => {
+    return history.listen(updateLocation);
+  }, []);
+
+  const handlePush = to => history.push(to);
+
+  return (
+    <RouterContext.Provider value={{ location, push: handlePush }}>
+      {children}
+    </RouterContext.Provider>
+  );
 }
 
-class Route extends React.Component {
-  render() {
-    const { path, render, component: Component } = this.props;
-    return null;
+function Route({ path, render, component: Component }) {
+  const { location } = useContext(RouterContext);
+
+  if (location.pathname.startsWith(path)) {
+    if (render) return render();
+    if (Component) return <Component />;
   }
+
+  return null;
 }
 
-class Link extends React.Component {
-  handleClick = event => {
-    event.preventDefault();
+function Link({ to, children }) {
+  const { push } = useContext(RouterContext);
+
+  const handleClick = event => {
+    event.preventDefault(); // prevent page refresh
+    push(to);
   };
 
-  render() {
-    return (
-      <a href={`#${this.props.to}`} onClick={this.handleClick}>
-        {this.props.children}
-      </a>
-    );
-  }
+  return (
+    <a href={`#${to}`} onClick={handleClick}>
+      {children}
+    </a>
+  );
 }
 
 export { Router, Route, Link };

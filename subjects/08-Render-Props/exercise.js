@@ -25,19 +25,23 @@ import PropTypes from "prop-types";
 import LoadingDots from "./LoadingDots";
 import getAddressFromCoords from "./utils/getAddressFromCoords";
 
-class GeoPosition extends React.Component {
-  state = {
-    coords: {
-      latitude: null,
-      longitude: null
-    },
-    error: null
-  };
+import { useState, useEffect } from "react";
 
-  componentDidMount() {
-    this.geoId = navigator.geolocation.watchPosition(
+function useGeoPosition() {
+  const [/* current state */ geo, /* setState */ updateGeo] = useState(
+    /* initial state */ {
+      coords: {
+        latitude: null,
+        longitude: null
+      },
+      error: null
+    }
+  );
+
+  useEffect(() => {
+    const geoId = navigator.geolocation.watchPosition(
       position => {
-        this.setState({
+        updateGeo({
           coords: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
@@ -45,91 +49,88 @@ class GeoPosition extends React.Component {
         });
       },
       error => {
-        this.setState({ error });
+        updateGeo({ error });
       }
     );
-  }
 
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.geoId);
-  }
+    return () => {
+      navigator.geolocation.clearWatch(geoId);
+    };
+  }, []);
 
-  render() {
-    return this.props.children(this.state);
-  }
+  return geo;
 }
 
-class GeoAddress extends React.Component {
-  state = { address: "unknown" };
+function useAddress(coords) {
+  const [address, updateAddress] = useState(null);
 
-  refreshAddress() {
-    this.setState({ address: null });
+  function refreshAddress() {
+    updateAddress(null);
 
-    const { latitude, longitude } = this.props;
+    const { latitude, longitude } = coords;
 
     if (latitude && longitude) {
-      getAddressFromCoords(latitude, longitude).then(address => {
-        this.setState({ address });
-      });
+      getAddressFromCoords(latitude, longitude).then(updateAddress);
     }
   }
 
-  componentDidMount() {
-    this.refreshAddress();
-  }
+  useEffect(refreshAddress, [coords.latitude, coords.longitude]);
 
-  componentDidUpdate(prevProps) {
-    const { latitude: nextLat, longitude: nextLng } = this.props;
-    const { latitude: prevLat, longitude: prevLng } = prevProps;
-
-    if (nextLat !== prevLat || nextLng !== prevLng) {
-      this.refreshAddress();
-    }
-  }
-
-  render() {
-    return this.props.children(this.state.address);
-  }
+  return address;
 }
 
-class App extends React.Component {
-  // componentDidUpdate() {
-  //   console.log(coords); // ???
-  // }
-
-  render() {
-    return (
-      <GeoPosition>
-        {({ error, coords }) => (
-          <div>
-            <h1>Geolocation</h1>
-
-            {error ? (
-              <div>Error: {error.message}</div>
-            ) : (
-              <dl>
-                <dt>Latitude</dt>
-                <dd>{coords.latitude || <LoadingDots />}</dd>
-                <dt>Longitude</dt>
-                <dd>{coords.longitude || <LoadingDots />}</dd>
-              </dl>
-            )}
-
-            <GeoAddress
-              latitude={coords.latitude}
-              longitude={coords.longitude}
-            >
-              {address => (
-                <marquee>
-                  <p>The address is {address || <LoadingDots />}</p>
-                </marquee>
-              )}
-            </GeoAddress>
-          </div>
-        )}
-      </GeoPosition>
-    );
+/*
+const [
+  // current state
+  geo,
+  // setState
+  updateGeo
+] = useState(
+  // initial state
+  {
+    coords: {
+      latitude: null,
+      longitude: null
+    },
+    error: null
   }
+);
+
+useEffect(() => {
+  // componentDidMount and/or componentDidUpdate
+  return () => {
+    // componentWillUnmount
+  }
+},
+  // prop diff in componentDidUpdate
+  [when, this, stuff, changes, run, it, again]
+)
+*/
+
+function App() {
+  const { coords, error } = useGeoPosition();
+  const address = useAddress(coords);
+
+  return (
+    <div>
+      <h1>Geolocation</h1>
+
+      {error ? (
+        <div>Error: {error.message}</div>
+      ) : (
+        <dl>
+          <dt>Latitude</dt>
+          <dd>{coords.latitude || <LoadingDots />}</dd>
+          <dt>Longitude</dt>
+          <dd>{coords.longitude || <LoadingDots />}</dd>
+        </dl>
+      )}
+
+      <marquee>
+        <p>The address is {address || <LoadingDots />}</p>
+      </marquee>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
