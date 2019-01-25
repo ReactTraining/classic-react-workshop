@@ -27,19 +27,26 @@ class ListView extends React.Component {
   };
 
   // TODO: What state do you need?
+  state = {
+    scrollPosition: 0,
+    availableHeight: window.innerHeight
+  };
 
   handleScroll = event => {
-    // TODO: Use `event.target.scrollTop` to read the current scroll position
-    // See https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTop
+    this.setState({ scrollPosition: event.target.scrollTop });
   };
 
   render() {
+    const { scrollPosition, availableHeight } = this.state;
     const { numRows, rowHeight, renderRowAtIndex } = this.props;
     const totalHeight = numRows * rowHeight;
 
     // TODO: Make these numbers closer together
-    const startIndex = 0;
-    const endIndex = numRows;
+    const startIndex = Math.floor(scrollPosition / rowHeight);
+    const endIndex = Math.min(
+      Math.ceil((scrollPosition + availableHeight) / rowHeight),
+      numRows
+    );
 
     const items = [];
 
@@ -55,7 +62,9 @@ class ListView extends React.Component {
         onScroll={this.handleScroll}
       >
         <div style={{ height: totalHeight }}>
-          <ol>{items}</ol>
+          <ol style={{ paddingTop: startIndex * rowHeight }}>
+            {items}
+          </ol>
         </div>
       </div>
     );
@@ -64,7 +73,7 @@ class ListView extends React.Component {
 
 ReactDOM.render(
   <ListView
-    numRows={500}
+    numRows={50000}
     rowHeight={RainbowListDelegate.rowHeight}
     renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
   />,
