@@ -19,52 +19,116 @@ import React from "react";
 import ReactDOM from "react-dom";
 import serializeForm from "form-serialize";
 
-class CheckoutForm extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Checkout</h1>
-        <form>
-          <fieldset>
-            <legend>Billing Address</legend>
-            <p>
-              <label>
-                Billing Name: <input type="text" />
-              </label>
-            </p>
-            <p>
-              <label>
-                Billing State: <input type="text" size="2" />
-              </label>
-            </p>
-          </fieldset>
+// state = {
+//   shippingSameAsBilling: true,
+//   billingName: "Michael Jackson",
+//   billingState: "CA",
+//   shippingName: "",
+//   shippingState: ""
+// };
 
-          <br />
+import { useState } from "react";
 
-          <fieldset>
-            <label>
-              <input type="checkbox" /> Same as billing
-            </label>
-            <legend>Shipping Address</legend>
-            <p>
-              <label>
-                Shipping Name: <input type="text" />
-              </label>
-            </p>
-            <p>
-              <label>
-                Shipping State: <input type="text" size="2" />
-              </label>
-            </p>
-          </fieldset>
+function CheckoutForm() {
+  const [shippingSameAsBilling, updateShippingSameAsBilling] = useState(
+    true
+  );
+  const [billingName, updateBillingName] = useState("Michael Jackson");
+  const [billingState, updateBillingState] = useState("CA");
+  const [shippingName, updateShippingName] = useState("");
+  const [shippingState, updateShippingState] = useState("");
 
+  return (
+    <div>
+      <h1>Checkout</h1>
+      <form>
+        <fieldset>
+          <legend>Billing Address</legend>
           <p>
-            <button>Submit</button>
+            <label>
+              Billing Name:{" "}
+              <input
+                type="text"
+                defaultValue={billingName}
+                onChange={event =>
+                  updateBillingName(event.target.value)
+                }
+              />
+            </label>
           </p>
-        </form>
-      </div>
-    );
-  }
+          <p>
+            <label>
+              Billing State:{" "}
+              <input
+                type="text"
+                size="2"
+                defaultValue={billingState}
+                onChange={event =>
+                  updateBillingState(event.target.value)
+                }
+              />
+            </label>
+          </p>
+        </fieldset>
+
+        <br />
+
+        <fieldset>
+          <label>
+            <input
+              type="checkbox"
+              defaultChecked={shippingSameAsBilling}
+              onChange={event => {
+                updateShippingSameAsBilling(event.target.checked);
+
+                if (!event.target.checked) {
+                  updateShippingName("");
+                  updateShippingState("");
+                }
+              }}
+            />{" "}
+            Same as billing
+          </label>
+          <legend>Shipping Address</legend>
+          <p>
+            <label>
+              Shipping Name:{" "}
+              <input
+                type="text"
+                value={
+                  shippingSameAsBilling ? billingName : shippingName
+                }
+                onChange={event =>
+                  updateShippingName(event.target.value)
+                }
+                readOnly={shippingSameAsBilling}
+              />
+            </label>
+          </p>
+          <p>
+            <label>
+              Shipping State:{" "}
+              <input
+                type="text"
+                size="2"
+                value={
+                  shippingSameAsBilling ? billingState : shippingState
+                }
+                onChange={event =>
+                  updateShippingState(event.target.value)
+                }
+                readOnly={shippingSameAsBilling}
+              />
+            </label>
+          </p>
+        </fieldset>
+
+        <p>
+          <button>Submit</button>
+        </p>
+      </form>
+    </div>
+  );
 }
 
 ReactDOM.render(<CheckoutForm />, document.getElementById("app"));

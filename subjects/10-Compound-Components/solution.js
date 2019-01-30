@@ -28,17 +28,19 @@ class RadioGroup extends React.Component {
 
   state = { value: this.props.defaultValue };
 
-  select(value) {
-    this.setState({ value }, () => {
-      this.props.onChange(this.state.value);
-    });
+  selectValue(value) {
+    this.setState({ value });
+
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
   }
 
   render() {
     const children = React.Children.map(this.props.children, child =>
       React.cloneElement(child, {
         isSelected: child.props.value === this.state.value,
-        onClick: () => this.select(child.props.value)
+        onClick: () => this.selectValue(child.props.value)
       })
     );
 

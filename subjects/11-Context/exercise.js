@@ -19,28 +19,69 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
+const FormContext = React.createContext();
+
 class Form extends React.Component {
-  render() {
-    return <div>{this.props.children}</div>;
-  }
-}
+  handleSubmit = () => {
+    if (this.props.onSubmit) {
+      this.props.onSubmit();
+    }
+  };
 
-class SubmitButton extends React.Component {
-  render() {
-    return <button>{this.props.children}</button>;
-  }
-}
-
-class TextInput extends React.Component {
   render() {
     return (
-      <input
-        type="text"
-        name={this.props.name}
-        placeholder={this.props.placeholder}
-      />
+      <FormContext.Provider value={{ submit: this.handleSubmit }}>
+        <div>{this.props.children}</div>
+      </FormContext.Provider>
     );
   }
+}
+
+import { useContext } from "react";
+
+function SubmitButton({ children }) {
+  const { submit } = useContext(FormContext);
+  return <button onClick={submit}>{children}</button>;
+}
+
+// class TextInput extends React.Component {
+//   static contextType = FormContext;
+
+//   handleKeyDown = event => {
+//     if (event.key === "Enter") {
+//       this.context.submit();
+//     }
+//   };
+
+//   render() {
+//     return (
+//       <input
+//         type="text"
+//         name={this.props.name}
+//         placeholder={this.props.placeholder}
+//         onKeyDown={this.handleKeyDown}
+//       />
+//     );
+//   }
+// }
+
+function TextInput({ name, placeholder }) {
+  const { submit } = useContext(FormContext);
+
+  const handleKeyDown = event => {
+    if (event.key === "Enter") {
+      submit();
+    }
+  };
+
+  return (
+    <input
+      type="text"
+      name={name}
+      placeholder={placeholder}
+      onKeyDown={handleKeyDown}
+    />
+  );
 }
 
 class App extends React.Component {

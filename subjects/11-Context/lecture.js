@@ -4,17 +4,30 @@ import PropTypes from "prop-types";
 
 import * as styles from "./styles";
 
-function TabList({ children, _activeIndex, _onTabSelect }) {
-  return (
-    <div>
-      {React.Children.map(children, (child, index) =>
-        React.cloneElement(child, {
-          _isActive: index === _activeIndex,
-          _onSelect: () => _onTabSelect(index)
-        })
-      )}
-    </div>
-  );
+// Tabs.js
+// export { Tabs, TabList, Tab, TabPanels, TabPanel }
+
+const TabsContext = React.createContext();
+// <TabsContext.Provider value={...}>
+
+class TabList extends React.Component {
+  static contextType = TabsContext;
+
+  render() {
+    const { children } = this.props;
+    const { activeIndex, onTabSelect } = this.context;
+
+    return (
+      <div>
+        {React.Children.map(children, (child, index) =>
+          React.cloneElement(child, {
+            _isActive: index === activeIndex,
+            _onSelect: () => onTabSelect(index)
+          })
+        )}
+      </div>
+    );
+  }
 }
 
 function Tab({ children, disabled, _isActive, _onSelect }) {
@@ -34,12 +47,20 @@ function Tab({ children, disabled, _isActive, _onSelect }) {
   );
 }
 
-function TabPanels({ children, _activeIndex }) {
-  return (
-    <div style={styles.tabPanels}>
-      {React.Children.toArray(children)[_activeIndex]}
-    </div>
-  );
+class TabPanels extends React.Component {
+  static contextType = TabsContext;
+
+  render() {
+    return (
+      <div style={styles.tabPanels}>
+        {
+          React.Children.toArray(this.props.children)[
+            this.context.activeIndex
+          ]
+        }
+      </div>
+    );
+  }
 }
 
 function TabPanel({ children }) {
@@ -50,48 +71,68 @@ class Tabs extends React.Component {
   state = { activeIndex: 0 };
 
   render() {
-    const children = React.Children.map(
-      this.props.children,
-      (child, index) => {
-        if (child.type === TabPanels) {
-          return React.cloneElement(child, {
-            _activeIndex: this.state.activeIndex
-          });
-        } else if (child.type === TabList) {
-          return React.cloneElement(child, {
-            _activeIndex: this.state.activeIndex,
-            _onTabSelect: index => this.setState({ activeIndex: index })
-          });
-        } else {
-          return child;
-        }
-      }
+    return (
+      <TabsContext.Provider
+        value={{
+          activeIndex: this.state.activeIndex,
+          onTabSelect: index => this.setState({ activeIndex: index })
+        }}
+      >
+        <div>{this.props.children}</div>
+      </TabsContext.Provider>
     );
-
-    return <div>{children}</div>;
   }
 }
+
+// function Tabs() {
+//   var message = 'hi';
+
+//   function div() {
+//     function TabList() {
+//       console.log(message);
+//     }
+//   }
+// }
+
+// <Router>
+//   <div>
+//     <div>
+//       <div>
+//         <Link />
+//         <div>
+//           <div>
+//             <Link />
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </Router>;
 
 function App() {
   return (
     <div>
       <Tabs>
-        <TabList>
-          <Tab>Tacos</Tab>
-          <Tab disabled>Burritos</Tab>
-          <Tab>Coconut Korma</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <p>Tacos are delicious</p>
-          </TabPanel>
-          <TabPanel>
-            <p>Sometimes a burrito is what you really need</p>
-          </TabPanel>
-          <TabPanel>
-            <p>Might be your best option</p>
-          </TabPanel>
-        </TabPanels>
+        <div className="hot">
+          <TabList>
+            <Tab>Tacos</Tab>
+            <Tab disabled>Burritos</Tab>
+            <Tab>Coconut Korma</Tab>
+          </TabList>
+        </div>
+        <div>
+          <TabPanels>
+            <TabPanel>
+              <p>Tacos are delicious</p>
+            </TabPanel>
+            <TabPanel>
+              <p>Sometimes a burrito is what you really need</p>
+            </TabPanel>
+            <TabPanel>
+              <p>Might be your best option</p>
+            </TabPanel>
+          </TabPanels>
+        </div>
       </Tabs>
     </div>
   );
