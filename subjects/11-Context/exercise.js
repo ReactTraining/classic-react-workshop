@@ -18,55 +18,48 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import { useContext } from "react";
 
 const FormContext = React.createContext();
 
 class Form extends React.Component {
+  values = {};
+
+  handleChange = (name, value) => {
+    this.values[name] = value;
+    if (this.props.onChange) {
+      this.props.onChange(this.values);
+    }
+  };
+
   handleSubmit = () => {
     if (this.props.onSubmit) {
-      this.props.onSubmit();
+      this.props.onSubmit(this.values);
     }
   };
 
   render() {
     return (
-      <FormContext.Provider value={{ submit: this.handleSubmit }}>
+      <FormContext.Provider
+        value={{ submit: this.handleSubmit, change: this.handleChange }}
+      >
         <div>{this.props.children}</div>
       </FormContext.Provider>
     );
   }
 }
 
-import { useContext } from "react";
-
 function SubmitButton({ children }) {
   const { submit } = useContext(FormContext);
   return <button onClick={submit}>{children}</button>;
 }
 
-// class TextInput extends React.Component {
-//   static contextType = FormContext;
-
-//   handleKeyDown = event => {
-//     if (event.key === "Enter") {
-//       this.context.submit();
-//     }
-//   };
-
-//   render() {
-//     return (
-//       <input
-//         type="text"
-//         name={this.props.name}
-//         placeholder={this.props.placeholder}
-//         onKeyDown={this.handleKeyDown}
-//       />
-//     );
-//   }
-// }
-
 function TextInput({ name, placeholder }) {
-  const { submit } = useContext(FormContext);
+  const { submit, change } = useContext(FormContext);
+
+  const handleChange = event => {
+    change(name, event.target.value);
+  };
 
   const handleKeyDown = event => {
     if (event.key === "Enter") {
@@ -80,13 +73,18 @@ function TextInput({ name, placeholder }) {
       name={name}
       placeholder={placeholder}
       onKeyDown={handleKeyDown}
+      onChange={handleChange}
     />
   );
 }
 
 class App extends React.Component {
-  handleSubmit = () => {
-    alert("YOU WIN!");
+  handleSubmit = values => {
+    console.log(values);
+  };
+
+  handleChange = values => {
+    console.log(values);
   };
 
   render() {
@@ -96,7 +94,7 @@ class App extends React.Component {
           This isn't even my final <code>&lt;Form/&gt;</code>!
         </h1>
 
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <p>
             <TextInput name="firstName" placeholder="First Name" />{" "}
             <TextInput name="lastName" placeholder="Last Name" />
