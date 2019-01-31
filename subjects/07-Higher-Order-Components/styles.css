@@ -11,8 +11,8 @@
 .cat {
   position: absolute;
   transition: top 200ms ease-out, left 200ms ease-out;
-  width: 100px;
-  height: 100px;
+  width: 20px;
+  height: 20px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 50% 0;
