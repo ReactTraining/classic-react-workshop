@@ -28,107 +28,70 @@ import getAddressFromCoords from "./utils/getAddressFromCoords";
 import { useState, useEffect } from "react";
 
 function useGeoPosition() {
-  const [/* current state */ geo, /* setState */ updateGeo] = useState(
-    /* initial state */ {
-      coords: {
-        latitude: null,
-        longitude: null
-      },
-      error: null
-    }
-  );
+  const [coords, updateCoords] = useState({
+    latitude: null,
+    longitude: null
+  });
+  const [
+    /* this.state */ error,
+    /*this.setState*/ updateError
+  ] = useState(/*state = ...*/ null);
 
+  // useEffect(sideEffect, dependencies)
+  // componentDidMount
   useEffect(() => {
-    const geoId = navigator.geolocation.watchPosition(
-      position => {
-        updateGeo({
-          coords: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          }
-        });
-      },
-      error => {
-        updateGeo({ error });
-      }
-    );
+    const geoId = navigator.geolocation.watchPosition(position => {
+      updateCoords({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+    }, updateError);
 
+    // componentWillUnmount
     return () => {
       navigator.geolocation.clearWatch(geoId);
     };
   }, []);
 
-  return geo;
+  return { coords, error };
 }
 
-function useAddress(coords) {
+function useAddress(latitude, longitude) {
   const [address, updateAddress] = useState(null);
 
-  function refreshAddress() {
-    updateAddress(null);
-
-    const { latitude, longitude } = coords;
-
-    if (latitude && longitude) {
-      getAddressFromCoords(latitude, longitude).then(updateAddress);
-    }
-  }
-
-  useEffect(refreshAddress, [coords.latitude, coords.longitude]);
+  useEffect(
+    () => {
+      if (latitude && longitude) {
+        getAddressFromCoords(latitude, longitude).then(updateAddress);
+      }
+    },
+    [latitude, longitude]
+  );
 
   return address;
 }
 
-/*
-const [
-  // current state
-  geo,
-  // setState
-  updateGeo
-] = useState(
-  // initial state
-  {
-    coords: {
-      latitude: null,
-      longitude: null
-    },
-    error: null
-  }
-);
-
-useEffect(() => {
-  // componentDidMount and/or componentDidUpdate
-  return () => {
-    // componentWillUnmount
-  }
-},
-  // prop diff in componentDidUpdate
-  [when, this, stuff, changes, run, it, again]
-)
-*/
-
-function App() {
+function App(props) {
   const { coords, error } = useGeoPosition();
-  const address = useAddress(coords);
+  const address = useAddress(coords.latitude, coords.longitude);
 
   return (
     <div>
       <h1>Geolocation</h1>
-
       {error ? (
         <div>Error: {error.message}</div>
       ) : (
-        <dl>
-          <dt>Latitude</dt>
-          <dd>{coords.latitude || <LoadingDots />}</dd>
-          <dt>Longitude</dt>
-          <dd>{coords.longitude || <LoadingDots />}</dd>
-        </dl>
-      )}
+        <div>
+          <dl>
+            <dt>Latitude</dt>
+            <dd>{coords.latitude || <LoadingDots />}</dd>
+            <dt>Longitude</dt>
+            <dd>{coords.longitude || <LoadingDots />}</dd>
+          </dl>
 
-      <marquee>
-        <p>The address is {address || <LoadingDots />}</p>
-      </marquee>
+          <marquee>{address || <LoadingDots />}</marquee>
+        </div>
+      )}
     </div>
   );
 }
