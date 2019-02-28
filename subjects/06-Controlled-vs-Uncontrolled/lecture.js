@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import serializeForm from "form-serialize";
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Forms</h1>
-        <form>
-          <input type="text" />
-        </form>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <h1>Forms</h1>
+      <form>
+        <input type="text" />
+      </form>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
@@ -20,136 +18,124 @@ ReactDOM.render(<App />, document.getElementById("app"));
 ////////////////////////////////////////////////////////////////////////////////
 // Give the <input> a default value.
 
-// class App extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         <h1>Forms</h1>
-//         <form>
-//           <input type="text" defaultValue="cupcakes" />
-//         </form>
-//       </div>
-//     );
-//   }
+// function App() {
+//   return (
+//     <div>
+//       <h1>Forms</h1>
+//       <form>
+//         <input type="text" defaultValue="cupcakes" />
+//       </form>
+//     </div>
+//   );
 // }
+
+// ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Access the value using event.target.
 
-// class App extends React.Component {
-//   handleChange = event => {
+// function App() {
+//   function handleChange(event) {
 //     console.log(event.target.value);
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>Forms</h1>
-//         <form>
-//           <input
-//             type="text"
-//             defaultValue="cupcakes"
-//             onChange={this.handleChange}
-//           />
-//         </form>
-//       </div>
-//     );
 //   }
+
+//   return (
+//     <div>
+//       <h1>Forms</h1>
+//       <form>
+//         <input
+//           type="text"
+//           defaultValue="cupcakes"
+//           onChange={handleChange}
+//         />
+//       </form>
+//     </div>
+//   );
 // }
+
+// ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Or use a ref.
 
-// class App extends React.Component {
-//   handleChange = () => {
-//     console.log(this.input.value);
-//   };
+// function App() {
+//   const inputRef = useRef();
 
-//   render() {
-//     return (
-//       <div>
-//         <h1>Forms</h1>
-//         <form>
-//           <input
-//             type="text"
-//             onChange={this.handleChange}
-//             ref={node => (this.input = node)}
-//           />
-//         </form>
-//       </div>
-//     );
+//   function handleChange(event) {
+//     console.log(inputRef.current.value);
 //   }
+
+//   return (
+//     <div>
+//       <h1>Forms</h1>
+//       <form>
+//         <input
+//           type="text"
+//           defaultValue="cupcakes"
+//           onChange={handleChange}
+//           ref={inputRef}
+//         />
+//       </form>
+//     </div>
+//   );
 // }
+
+// ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Or you can "control" the <input> and have its value in state.
 // What happens if we don't have an `onChange` but provide a value?
 
-// class App extends React.Component {
-//   state = {
-//     inputValue: "cupcakes"
-//   };
+// function App() {
+//   const [inputValue, setInputValue] = useState("cupcakes");
 
-//   handleChange = () => {
-//     this.setState({
-//       inputValue: this.input.value
-//     });
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>Forms</h1>
-//         <form>
-//           <input
-//             type="text"
-//             ref={node => (this.input = node)}
-//             value={this.state.inputValue}
-//             onChange={this.handleChange}
-//           />
-//         </form>
-//         <pre>{JSON.stringify(this.state, null, 2)}</pre>
-//       </div>
-//     );
+//   function handleChange(event) {
+//     setInputValue(event.target.value);
 //   }
+
+//   return (
+//     <div>
+//       <h1>Forms</h1>
+//       <form>
+//         <input type="text" value={inputValue} onChange={handleChange} />
+//       </form>
+//       <div>{inputValue}</div>
+//     </div>
+//   );
 // }
+
+// ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // When it's controlled, we can setState elsewhere and it stays in sync.
 
-// class App extends React.Component {
-//   state = {
-//     inputValue: "cupcakes"
-//   };
+// function App() {
+//   const [inputValue, setInputValue] = useState("cupcakes");
 
-//   handleChange = () => {
-//     this.setState({
-//       inputValue: this.input.value
-//     });
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>Forms</h1>
-//         <form>
-//           <button
-//             onClick={() => this.setState({ inputValue: "changed!" })}
-//           >
-//             Change the value
-//           </button>
-//           <input
-//             ref={node => (this.input = node)}
-//             value={this.state.inputValue}
-//             type="text"
-//             onChange={this.handleChange}
-//           />
-//         </form>
-//         <pre>{JSON.stringify(this.state, null, 2)}</pre>
-//       </div>
-//     );
+//   function handleChange(event) {
+//     setInputValue(event.target.value);
 //   }
+
+//   return (
+//     <div>
+//       <h1>Forms</h1>
+//       <form>
+//         <div>
+//           <button
+//             type="button"
+//             onClick={() => setInputValue("changed!")}
+//           >
+//             Change
+//           </button>
+//         </div>
+//         <input type="text" value={inputValue} onChange={handleChange} />
+//       </form>
+//       <div>{inputValue}</div>
+//     </div>
+//   );
 // }
+
+// ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Some forms are transactional, so modeling in state isn't necessary, just
@@ -157,106 +143,44 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // somewhere and reset the form, but the values in the form are never
 // important to `render`.
 
-// class App extends React.Component {
-//   handleSubmit = event => {
+// function App() {
+//   function handleSubmit(event) {
 //     event.preventDefault();
 //     const values = serializeForm(event.target, { hash: true });
 //     console.log(values);
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>Forms</h1>
-//         <form onSubmit={this.handleSubmit}>
-//           <p>
-//             <label>
-//               First Name:{" "}
-//               <input
-//                 name="firstName"
-//                 defaultValue="Michael"
-//                 type="text"
-//               />
-//             </label>
-//           </p>
-
-//           <p>
-//             <label>
-//               Last Name:{" "}
-//               <input
-//                 name="lastName"
-//                 defaultValue="Jackson"
-//                 type="text"
-//               />
-//             </label>
-//           </p>
-
-//           <p>
-//             <button type="submit">Save</button>
-//           </p>
-//         </form>
-//       </div>
-//     );
 //   }
+
+//   return (
+//     <div>
+//       <h1>Forms</h1>
+//       <form onSubmit={handleSubmit}>
+//         <p>
+//           <label>
+//             First Name:{" "}
+//             <input
+//               name="firstName"
+//               defaultValue="Michael"
+//               type="text"
+//             />
+//           </label>
+//         </p>
+
+//         <p>
+//           <label>
+//             Last Name:{" "}
+//             <input name="lastName" defaultValue="Jackson" type="text" />
+//           </label>
+//         </p>
+
+//         <p>
+//           <button type="submit">Save</button>
+//         </p>
+//       </form>
+//     </div>
+//   );
 // }
 
-////////////////////////////////////////////////////////////////////////////////
-// If we did want it all in state, we don't have to link up every single
-// element to state, can use <form onChange>. However, updates won't be
-// synchronized when other parts of the app manipulate the state like the
-// button we had earlier.
-
-// class App extends React.Component {
-//   state = {
-//     firstName: "Michael",
-//     lastName: "Jackson"
-//   };
-
-//   handleFormChange = event => {
-//     event.preventDefault();
-//     const values = serializeForm(this.form, { hash: true });
-//     this.setState(values);
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>Forms</h1>
-//         <form
-//           onChange={this.handleFormChange}
-//           ref={node => (this.form = node)}
-//         >
-//           <p>
-//             <label>
-//               First Name:{" "}
-//               <input
-//                 name="firstName"
-//                 defaultValue={this.state.firstName}
-//                 type="text"
-//               />
-//             </label>
-//           </p>
-
-//           <p>
-//             <label>
-//               Last Name:{" "}
-//               <input
-//                 name="lastName"
-//                 defaultValue={this.state.lastName}
-//                 type="text"
-//               />
-//             </label>
-//           </p>
-
-//           <p>
-//             <button type="submit">Save</button>
-//           </p>
-//         </form>
-//         <pre>{JSON.stringify(this.state, null, 2)}</pre>
-//       </div>
-//     );
-//   }
-// }
+// ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Use-cases:
