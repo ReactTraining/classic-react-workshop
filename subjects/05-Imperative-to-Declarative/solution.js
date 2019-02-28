@@ -15,7 +15,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
 function Modal({ children, title, isOpen }) {
   const modalRef = useRef();
@@ -37,12 +36,6 @@ function Modal({ children, title, isOpen }) {
     </div>
   );
 }
-
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node,
-  isOpen: PropTypes.bool.isRequired
-};
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);

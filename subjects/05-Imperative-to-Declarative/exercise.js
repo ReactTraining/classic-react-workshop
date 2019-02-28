@@ -15,7 +15,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import React, { useRef } from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
 function Modal({ children, title }, ref) {
   return (
@@ -33,11 +32,6 @@ function Modal({ children, title }, ref) {
 }
 
 Modal = React.forwardRef(Modal);
-
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node
-};
 
 function App() {
   const modalRef = useRef();

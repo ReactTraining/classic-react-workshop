@@ -14,74 +14,15 @@ styles.theremin = {
   display: "inline-block"
 };
 
-// function App() {
-//   const oscillator = createOscillator();
-
-//   function play() {
-//     oscillator.play();
-//   }
-
-//   function stop() {
-//     oscillator.stop();
-//   }
-
-//   function changeTone(event) {
-//     const { clientX, clientY } = event;
-//     const {
-//       top,
-//       right,
-//       bottom,
-//       left
-//     } = event.target.getBoundingClientRect();
-//     const pitch = (clientX - left) / (right - left);
-//     const volume = 1 - (clientY - top) / (bottom - top);
-
-//     oscillator.setPitchBend(pitch);
-//     oscillator.setVolume(volume);
-//   }
-
-//   return (
-//     <div>
-//       <h1>What does it mean to be declarative?</h1>
-//       <div
-//         style={styles.theremin}
-//         onMouseEnter={play}
-//         onMouseLeave={stop}
-//         onMouseMove={changeTone}
-//       />
-//     </div>
-//   );
-// }
-
-// ReactDOM.render(<App />, document.getElementById("app"));
-
-////////////////////////////////////////////////////////////////////////////////
-// Can't predict what the sound is going to be by looking at state or the render
-// method, but using state makes things a lot easier to think about.
-
 function App() {
-  const oscillatorRef = useRef(createOscillator());
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.4);
-  const [pitch, setPitch] = useState(0.2);
-
-  useEffect(() => {
-    const oscillator = oscillatorRef.current;
-    if (isPlaying) {
-      oscillator.setPitchBend(pitch);
-      oscillator.setVolume(volume);
-      oscillator.play();
-    } else {
-      oscillator.stop();
-    }
-  }, [isPlaying, volume, pitch]);
+  const oscillator = createOscillator();
 
   function play() {
-    setIsPlaying(true);
+    oscillator.play();
   }
 
   function stop() {
-    setIsPlaying(false);
+    oscillator.stop();
   }
 
   function changeTone(event) {
@@ -95,8 +36,8 @@ function App() {
     const pitch = (clientX - left) / (right - left);
     const volume = 1 - (clientY - top) / (bottom - top);
 
-    setPitch(pitch);
-    setVolume(volume);
+    oscillator.setPitchBend(pitch);
+    oscillator.setVolume(volume);
   }
 
   return (
@@ -115,19 +56,74 @@ function App() {
 ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
+// Can't predict what the sound is going to be by looking at state or the render
+// method, but using state makes things a lot easier to think about.
+
+// function App() {
+//   const oscillatorRef = useRef(createOscillator());
+//   const [isPlaying, setIsPlaying] = useState(false);
+//   const [volume, setVolume] = useState(0.4);
+//   const [pitch, setPitch] = useState(0.2);
+
+//   useEffect(() => {
+//     const oscillator = oscillatorRef.current;
+//     if (isPlaying) {
+//       oscillator.setPitchBend(pitch);
+//       oscillator.setVolume(volume);
+//       oscillator.play();
+//     } else {
+//       oscillator.stop();
+//     }
+//   }, [isPlaying, volume, pitch]);
+
+//   function play() {
+//     setIsPlaying(true);
+//   }
+
+//   function stop() {
+//     setIsPlaying(false);
+//   }
+
+//   function changeTone(event) {
+//     const { clientX, clientY } = event;
+//     const {
+//       top,
+//       right,
+//       bottom,
+//       left
+//     } = event.target.getBoundingClientRect();
+//     const pitch = (clientX - left) / (right - left);
+//     const volume = 1 - (clientY - top) / (bottom - top);
+
+//     setPitch(pitch);
+//     setVolume(volume);
+//   }
+
+//   return (
+//     <div>
+//       <h1>What does it mean to be declarative?</h1>
+//       <div
+//         style={styles.theremin}
+//         onMouseEnter={play}
+//         onMouseLeave={stop}
+//         onMouseMove={changeTone}
+//       />
+//     </div>
+//   );
+// }
+
+// ReactDOM.render(<App />, document.getElementById("app"));
+
+////////////////////////////////////////////////////////////////////////////////
 // We can do even better and make this fully declarative for the <App>. Instead
 // of using this.oscillator (an imperative API), let's wrap that up into a
 // <Tone> component and control it declaratively.
 
 // function Tone({ isPlaying, pitch, volume }) {
-//   const [oscillator, setOscillator] = useState();
+//   const oscillatorRef = useRef(createOscillator());
 
 //   useEffect(() => {
-//     setOscillator(createOscillator());
-//   }, []);
-
-//   useEffect(() => {
-//     if (!oscillator) return;
+//     const oscillator = oscillatorRef.current;
 //     if (isPlaying) {
 //       oscillator.play();
 //     } else {
@@ -191,14 +187,10 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // generated and render many of them.
 
 // function Tone({ isPlaying, pitch, volume, waveType }) {
-//   const [oscillator, setOscillator] = useState();
+//   const oscillatorRef = useRef(createOscillator());
 
 //   useEffect(() => {
-//     setOscillator(createOscillator());
-//   }, []);
-
-//   useEffect(() => {
-//     if (!oscillator) return;
+//     const oscillator = oscillatorRef.current;
 //     if (isPlaying) {
 //       oscillator.play();
 //     } else {
