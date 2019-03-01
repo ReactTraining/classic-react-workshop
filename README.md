@@ -13,7 +13,7 @@ $ npm start
 
 Then, open a web browser to [http://localhost:8080](http://localhost:8080) where you'll see a list of subjects.
 
-**IMPORTANT:** Please read the [JavaScript Primer](https://github.com/ReactTraining/react-workshop/blob/master/JavaScriptPrimer.md) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
+**IMPORTANT:** Please read our [JavaScript Primer](https://reacttraining.com/blog/javascript-the-react-parts/) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
 
 ### Troubleshooting
 
