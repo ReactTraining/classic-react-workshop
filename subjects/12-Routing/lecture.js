@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 function About() {
@@ -13,14 +13,12 @@ function Home() {
   return <h2>Home</h2>;
 }
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Welcome to the app!</h1>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <h1>Welcome to the app!</h1>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
@@ -41,52 +39,46 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   return <h2>Home</h2>;
 // }
 
-// class App extends React.Component {
-//   state = {
-//     path: window.location.hash.substring(1)
-//   };
+// function App() {
+//   const [path, setPath] = useState(window.location.hash.substring(1));
 
-//   componentDidMount() {
+//   useEffect(() => {
 //     window.addEventListener("hashchange", () => {
-//       this.setState({ path: window.location.hash.substring(1) });
+//       setPath(window.location.hash.substring(1));
 //     });
+//   }, []);
+
+//   let Child;
+//   switch (path) {
+//     case "/about":
+//       Child = About;
+//       break;
+//     case "/inbox":
+//       Child = Inbox;
+//       break;
+//     default:
+//       Child = Home;
 //   }
 
-//   render() {
-//     const { path } = this.state;
-
-//     let Child;
-//     switch (path) {
-//       case "/about":
-//         Child = About;
-//         break;
-//       case "/inbox":
-//         Child = Inbox;
-//         break;
-//       default:
-//         Child = Home;
-//     }
-
-//     return (
-//       <div>
-//         <h1>Welcome to the app!</h1>
-//         <nav>
-//           <ul>
-//             <li>
-//               <a href="#/">Home</a>
-//             </li>
-//             <li>
-//               <a href="#/about">About</a>
-//             </li>
-//             <li>
-//               <a href="#/inbox">Inbox</a>
-//             </li>
-//           </ul>
-//         </nav>
-//         <Child />
-//       </div>
-//     );
-//   }
+//   return (
+//     <div>
+//       <h1>Welcome to the app!</h1>
+//       <nav>
+//         <ul>
+//           <li>
+//             <a href="#/">Home</a>
+//           </li>
+//           <li>
+//             <a href="#/about">About</a>
+//           </li>
+//           <li>
+//             <a href="#/inbox">Inbox</a>
+//           </li>
+//         </ul>
+//       </nav>
+//       <Child />
+//     </div>
+//   );
 // }
 
 // ReactDOM.render(<App />, document.getElementById("app"));
@@ -108,28 +100,32 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   return <h2>Home</h2>;
 // }
 
-// class App extends React.Component {
-//   render() {
-//     return (
-//       <Router>
-//         <div>
-//           <h1>Welcome to the app!</h1>
-//
-//           <nav>
-//             <ul>
-//               <li><Link to="/">Home</Link></li>
-//               <li><Link to="/about">About</Link></li>
-//               <li><Link to="/inbox">Inbox</Link></li>
-//             </ul>
-//           </nav>
-//
-//           <Route exact path="/" component={Home} />
-//           <Route path="/about" component={About} />
-//           <Route path="/inbox" component={Inbox} />
-//         </div>
-//       </Router>
-//     );
-//   }
+// function App() {
+//   return (
+//     <Router>
+//       <div>
+//         <h1>Welcome to the app!</h1>
+
+//         <nav>
+//           <ul>
+//             <li>
+//               <Link to="/">Home</Link>
+//             </li>
+//             <li>
+//               <Link to="/about">About</Link>
+//             </li>
+//             <li>
+//               <Link to="/inbox">Inbox</Link>
+//             </li>
+//           </ul>
+//         </nav>
+
+//         <Route exact path="/" component={Home} />
+//         <Route path="/about" component={About} />
+//         <Route path="/inbox" component={Inbox} />
+//       </div>
+//     </Router>
+//   );
 // }
 
 // ReactDOM.render(<App />, document.getElementById("app"));
