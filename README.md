@@ -28,7 +28,13 @@ npm install
 
 Then, open a web browser to [http://localhost:8080](http://localhost:8080) where you'll see a list of subjects.
 
+## Be Prepared
+
 **IMPORTANT:** Please read our [JavaScript Primer](https://reacttraining.com/blog/javascript-the-react-parts/) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
+
+### Windows Machine?
+
+We'll be running commands like the ones from the install/update instructions above. These are _bash_ commands which means if you're on Windows you'll need a bash-enabled command-line tool. If you've installed [Git For Windows](https://gitforwindows.org) then you'll have a command-line tool called Git Bash already. This seems to work out well for doing other bash things that aren't just git specific (like NPM).
 
 ## Troubleshooting
 
