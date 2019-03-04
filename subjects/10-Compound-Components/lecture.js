@@ -200,7 +200,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // Tabs.defaultProps = {
 //   tabsPlacement: "top",
-//   tabsDisabled: []
+//   disabled: []
 // };
 
 // function App() {

@@ -27,18 +27,18 @@ function RadioGroup({ children, defaultValue }) {
     <div>
       {React.Children.map(children, child => {
         return React.cloneElement(child, {
-          selectedValue: value,
-          setValue
+          _isSelected: value === child.props.value,
+          _onSelect: () => setValue(child.props.value)
         });
       })}
     </div>
   );
 }
 
-function RadioOption({ children, value, selectedValue, setValue }) {
+function RadioOption({ children, value, _isSelected, _onSelect }) {
   return (
-    <div onClick={() => setValue(value)}>
-      <RadioIcon isSelected={value === selectedValue} /> {children}
+    <div onClick={_onSelect}>
+      <RadioIcon isSelected={_isSelected} /> {children}
     </div>
   );
 }

@@ -19,26 +19,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
 class RadioGroup extends React.Component {
-  static propTypes = {
-    defaultValue: PropTypes.string
-  };
-
   state = { value: this.props.defaultValue };
 
-  select(value) {
-    this.setState({ value }, () => {
-      this.props.onChange(this.state.value);
-    });
+  selectValue(value) {
+    this.setState({ value });
   }
 
   render() {
     const children = React.Children.map(this.props.children, child =>
       React.cloneElement(child, {
-        isSelected: child.props.value === this.state.value,
-        onClick: () => this.select(child.props.value)
+        _isSelected: child.props.value === this.state.value,
+        _onSelect: () => this.selectValue(child.props.value)
       })
     );
 
@@ -47,14 +40,10 @@ class RadioGroup extends React.Component {
 }
 
 class RadioOption extends React.Component {
-  static propTypes = {
-    value: PropTypes.string
-  };
-
   render() {
     return (
-      <div onClick={this.props.onClick}>
-        <RadioIcon isSelected={this.props.isSelected} />{" "}
+      <div onClick={this.props._onSelect}>
+        <RadioIcon isSelected={this.props._isSelected} />{" "}
         {this.props.children}
       </div>
     );
@@ -62,10 +51,6 @@ class RadioOption extends React.Component {
 }
 
 class RadioIcon extends React.Component {
-  static propTypes = {
-    isSelected: PropTypes.bool.isRequired
-  };
-
   render() {
     return (
       <div
@@ -85,21 +70,14 @@ class RadioIcon extends React.Component {
 }
 
 class App extends React.Component {
-  state = {
-    radioValue: "fm"
-  };
+  state = { radioValue: "fm" };
 
   render() {
     return (
       <div>
         <h1>♬ It's about time that we all turned off the radio ♫</h1>
 
-        <h2>Radio Value: {this.state.radioValue}</h2>
-
-        <RadioGroup
-          defaultValue={this.state.radioValue}
-          onChange={radioValue => this.setState({ radioValue })}
-        >
+        <RadioGroup defaultValue={this.state.radioValue}>
           <RadioOption value="am">AM</RadioOption>
           <RadioOption value="fm">FM</RadioOption>
           <RadioOption value="tape">Tape</RadioOption>
