@@ -5,133 +5,108 @@
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
-class Select extends React.Component {
-  static propTypes = {
-    onChange: PropTypes.func,
-    value: PropTypes.any,
-    defaultValue: PropTypes.any
-  };
+function Select({ children, defaultValue, value, onChange }) {
+  const [showOptions, setShowOptions] = useState(false);
+  const [currentValue, setCurrentValue] = useState(defaultValue);
 
-  state = {
-    showOptions: false,
-    value: this.props.defaultValue
-  };
-
-  toggleOptions = () => {
-    this.setState(state => ({
-      showOptions: !state.showOptions
-    }));
-  };
-
-  isControlled() {
-    return this.props.value != null;
+  function toggleOptions() {
+    setShowOptions(!showOptions);
   }
 
-  componentWillMount() {
-    if (this.isControlled() && this.props.onChange == null) {
-      console.warn(
-        "You should provide an onChange to a controlled <Select> component!"
-      );
+  const isControlled = value != null;
+  const displayValue = isControlled ? value : currentValue;
+
+  function selectValue(value) {
+    if (isControlled) {
+      onChange(value);
+    } else {
+      setCurrentValue(value);
+
+      if (onChange) {
+        onChange(value);
+      }
     }
   }
 
-  render() {
-    const { value } = this.isControlled() ? this.props : this.state;
+  let label;
+  React.Children.forEach(children, child => {
+    if (child.props.value === displayValue) {
+      label = child.props.children;
+    }
+  });
 
-    let label;
-    const children = React.Children.map(this.props.children, child => {
-      if (child.props.value === value) {
-        label = child.props.children;
-      }
+  useEffect(() => {
+    if (isControlled && !onChange) {
+      console.warn(
+        "You rendered a <Select> with a `value` prop but no `onChange`, so it will be read-only..."
+      );
+    }
+  }, []);
 
-      return React.cloneElement(child, {
-        onSelect: () => {
-          if (this.isControlled()) {
-            if (this.props.onChange) {
-              this.props.onChange(child.props.value);
-            }
-          } else {
-            this.setState({ value: child.props.value }, () => {
-              if (this.props.onChange) {
-                this.props.onChange(this.state.value);
-              }
-            });
-          }
-        }
-      });
-    });
-
-    return (
-      <div className="select" onClick={this.toggleOptions}>
-        <div className="label">
-          {label} <span className="arrow">▾</span>
+  return (
+    <div className="select" onClick={toggleOptions}>
+      <div className="label">
+        {label} <span className="arrow">▾</span>
+      </div>
+      {showOptions && (
+        <div className="options">
+          {React.Children.map(children, child =>
+            React.cloneElement(child, {
+              onSelect: () => selectValue(child.props.value)
+            })
+          )}
         </div>
-        {this.state.showOptions && (
-          <div className="options">{children}</div>
-        )}
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 }
 
-class Option extends React.Component {
-  render() {
-    return (
-      <div className="option" onClick={this.props.onSelect}>
-        {this.props.children}
-      </div>
-    );
-  }
+function Option({ children, onSelect }) {
+  return (
+    <div className="option" onClick={onSelect}>
+      {children}
+    </div>
+  );
 }
 
-class App extends React.Component {
-  state = {
-    selectValue: "dosa"
-  };
+function App() {
+  const [selectValue, setSelectValue] = useState("dosa");
 
-  setToMintChutney = () => {
-    this.setState({ selectValue: "mint-chutney" });
-  };
-
-  render() {
-    return (
-      <div>
-        <h1>Select</h1>
-
-        <h2>Uncontrolled</h2>
-
-        <Select defaultValue="tikka-masala">
-          <Option value="tikka-masala">Tikka Masala</Option>
-          <Option value="tandoori-chicken">Tandoori Chicken</Option>
-          <Option value="dosa">Dosa</Option>
-          <Option value="mint-chutney">Mint Chutney</Option>
-        </Select>
-
-        <h2>Controlled</h2>
-
-        <pre>{JSON.stringify(this.state, null, 2)}</pre>
-        <p>
-          <button onClick={this.setToMintChutney}>
-            Set to Mint Chutney
-          </button>
-        </p>
-
-        <Select
-          value={this.state.selectValue}
-          onChange={value => this.setState({ selectValue: value })}
-        >
-          <Option value="tikka-masala">Tikka Masala</Option>
-          <Option value="tandoori-chicken">Tandoori Chicken</Option>
-          <Option value="dosa">Dosa</Option>
-          <Option value="mint-chutney">Mint Chutney</Option>
-        </Select>
-      </div>
-    );
+  function setToMintChutney() {
+    setSelectValue("mint-chutney");
   }
+
+  return (
+    <div>
+      <h1>Select</h1>
+
+      <h2>Uncontrolled</h2>
+
+      <Select defaultValue="tikka-masala">
+        <Option value="tikka-masala">Tikka Masala</Option>
+        <Option value="tandoori-chicken">Tandoori Chicken</Option>
+        <Option value="dosa">Dosa</Option>
+        <Option value="mint-chutney">Mint Chutney</Option>
+      </Select>
+
+      <h2>Controlled</h2>
+
+      <p>Current value: {selectValue}</p>
+      <p>
+        <button onClick={setToMintChutney}>Set to Mint Chutney</button>
+      </p>
+
+      <Select value={selectValue} onChange={setSelectValue}>
+        <Option value="tikka-masala">Tikka Masala</Option>
+        <Option value="tandoori-chicken">Tandoori Chicken</Option>
+        <Option value="dosa">Dosa</Option>
+        <Option value="mint-chutney">Mint Chutney</Option>
+      </Select>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
