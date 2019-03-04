@@ -11,6 +11,19 @@ $ npm install
 $ npm start
 ```
 
+## Updating
+
+If you've already cloned the repo but you need to get updated code, then follow these steps:
+
+- First, `cd` into the root directory of the repo
+- Then do an `ls` command to ensure you see a `package.json` file listed. If you don't you're not in the root folder of the repo
+- Then run these steps to get the updates:
+
+```sh
+git update origin master
+npm install
+```
+
 Then, open a web browser to [http://localhost:8080](http://localhost:8080) where you'll see a list of subjects.
 
 **IMPORTANT:** Please read our [JavaScript Primer](https://reacttraining.com/blog/javascript-the-react-parts/) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
