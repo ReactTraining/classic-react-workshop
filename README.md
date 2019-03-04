@@ -24,7 +24,7 @@ If you've already cloned the repo but you need to get updated code, then follow 
 - Then run these steps to get the updates:
 
 ```sh
-git update origin master
+git pull origin master
 npm install
 ```
 
