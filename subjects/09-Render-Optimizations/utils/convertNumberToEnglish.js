@@ -67,8 +67,6 @@ function convertMillions(n) {
     : convertThousands(n);
 }
 
-function convertNumberToEnglish(n) {
+export default function convertNumberToEnglish(n) {
   return n === 0 ? "zero" : convertMillions(n);
 }
-
-export default convertNumberToEnglish;

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 function TodoItem({ body }) {
   const [done, setDone] = useState(false);
-  console.log("render");
+
   return (
     <li>
       <label>
@@ -26,8 +26,6 @@ function TodoItem({ body }) {
     </li>
   );
 }
-
-TodoItem = React.memo(TodoItem);
 
 function TodoList({ initialLength }) {
   const inputRef = useRef();
