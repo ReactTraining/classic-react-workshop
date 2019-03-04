@@ -13,6 +13,8 @@ $ npm install
 $ npm start
 ```
 
+Then, open a web browser to [http://localhost:8080](http://localhost:8080) where you'll see a list of subjects.
+
 ## Updating
 
 If you've already cloned the repo but you need to get updated code, then follow these steps:
@@ -26,7 +28,7 @@ git update origin master
 npm install
 ```
 
-Then, open a web browser to [http://localhost:8080](http://localhost:8080) where you'll see a list of subjects.
+Then you should be able to do your `npm start` and open a web browser to [http://localhost:8080](http://localhost:8080) where you'll see a list of subjects.
 
 ## Be Prepared
 
