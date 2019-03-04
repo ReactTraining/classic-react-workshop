@@ -56,8 +56,8 @@ function App() {
 ReactDOM.render(<App />, document.getElementById("app"));
 
 ////////////////////////////////////////////////////////////////////////////////
-// Can't predict what the sound is going to be by looking at state or the render
-// method, but using state makes things a lot easier to think about.
+// Can't predict what the sound is going to be by looking at state or the JSX,
+// but using state makes things a lot easier to think about.
 
 // function App() {
 //   const oscillatorRef = useRef(createOscillator());
@@ -65,16 +65,19 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   const [volume, setVolume] = useState(0.4);
 //   const [pitch, setPitch] = useState(0.2);
 
-//   useEffect(() => {
-//     const oscillator = oscillatorRef.current;
-//     if (isPlaying) {
-//       oscillator.setPitchBend(pitch);
-//       oscillator.setVolume(volume);
-//       oscillator.play();
-//     } else {
-//       oscillator.stop();
-//     }
-//   }, [isPlaying, volume, pitch]);
+//   useEffect(
+//     () => {
+//       const oscillator = oscillatorRef.current;
+//       if (isPlaying) {
+//         oscillator.setPitchBend(pitch);
+//         oscillator.setVolume(volume);
+//         oscillator.play();
+//       } else {
+//         oscillator.stop();
+//       }
+//     },
+//     [isPlaying, volume, pitch]
+//   );
 
 //   function play() {
 //     setIsPlaying(true);

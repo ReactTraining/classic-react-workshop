@@ -20,6 +20,7 @@ describe("when <Tabs> is rendered", () => {
 
     ReactDOM.render(<Tabs data={data} />, node);
 
+    // Create a fixture to compare the currently active tab's styles against.
     activeTab = document.createElement("div");
     activeTab.setAttribute("style", "border-bottom-color: #000");
   });

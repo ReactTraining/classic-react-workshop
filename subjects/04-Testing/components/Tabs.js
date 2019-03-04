@@ -20,41 +20,31 @@ styles.panel = {
   padding: 10
 };
 
-class Tabs extends React.Component {
-  state = { activeIndex: 0 };
+export default function Tabs({ data }) {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  selectTab(index) {
-    this.setState({ activeIndex: index });
-  }
-
-  render() {
-    const tabs = this.props.data.map((item, index) => {
-      const isActive = index === this.state.activeIndex;
-      const style = isActive ? styles.activeTab : styles.tab;
-
-      return (
-        <div
-          key={item.id}
-          className="Tab"
-          style={style}
-          onClick={() => this.selectTab(index)}
-        >
-          {item.name}
-        </div>
-      );
-    });
-
-    const activeItem = this.props.data[this.state.activeIndex];
+  const tabs = data.map((item, index) => {
+    let isActive = index === activeIndex;
+    let style = isActive ? styles.activeTab : styles.tab;
 
     return (
-      <div className="Tabs">
-        {tabs}
-        <div className="TabPanel" style={styles.panel}>
-          {activeItem && activeItem.description}
-        </div>
+      <div
+        key={index}
+        className="Tab"
+        style={style}
+        onClick={() => setActiveIndex(index)}
+      >
+        {item.name}
       </div>
     );
-  }
-}
+  });
 
-export default Tabs;
+  return (
+    <div className="Tabs">
+      {tabs}
+      <div className="TabPanel" style={styles.panel}>
+        {data[activeIndex].description}
+      </div>
+    </div>
+  );
+}

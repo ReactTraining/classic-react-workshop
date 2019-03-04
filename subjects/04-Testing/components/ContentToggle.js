@@ -2,33 +2,32 @@ import "./ContentToggle.css";
 
 import React from "react";
 
-class ContentToggle extends React.Component {
-  handleClick = () => {
-    if (this.props.onToggle) {
-      this.props.onToggle(!this.props.isOpen);
+export default function ContentToggle({
+  summary,
+  onToggle,
+  isOpen,
+  children
+}) {
+  function handleClick() {
+    if (onToggle) {
+      onToggle(!isOpen);
     }
-  };
-
-  render() {
-    let summaryClassName = "content-toggle-summary";
-
-    if (this.props.isOpen) {
-      summaryClassName += " content-toggle-summary-open";
-    }
-
-    return (
-      <div style={this.props.style} className="content-toggle">
-        <button onClick={this.handleClick} className={summaryClassName}>
-          {this.props.summary}
-        </button>
-        {this.props.isOpen && (
-          <div className="content-toggle-details">
-            {this.props.children}
-          </div>
-        )}
-      </div>
-    );
   }
-}
 
-export default ContentToggle;
+  let summaryClassName = "content-toggle-summary";
+
+  if (isOpen) {
+    summaryClassName += " content-toggle-summary-open";
+  }
+
+  return (
+    <div className="content-toggle">
+      <button onClick={handleClick} className={summaryClassName}>
+        {summary}
+      </button>
+      {isOpen && (
+        <div className="content-toggle-details">{children}</div>
+      )}
+    </div>
+  );
+}
