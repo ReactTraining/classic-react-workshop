@@ -30,7 +30,7 @@ Then, open a web browser to [http://localhost:8080](http://localhost:8080) where
 
 **IMPORTANT:** Please read our [JavaScript Primer](https://reacttraining.com/blog/javascript-the-react-parts/) before attending the workshop. It's a refresher on some of the newer bits of JavaScript you'll want to be familiar with in order to get the most out of the experience.
 
-### Troubleshooting
+## Troubleshooting
 
 A few common problems:
 
@@ -65,6 +65,6 @@ $ sudo rm -rf /usr/local/lib/node_modules
 $ npm install
 ```
 
-### License
+## License
 
 This material is available for private, non-commercial use under the [GPL version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html). If you would like to use this material to conduct your own workshop, please contact us at [hello@reacttraining.com](mailto:hello@reacttraining.com).
