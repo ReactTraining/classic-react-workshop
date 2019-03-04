@@ -17,7 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { login, sendMessage, subscribeToMessages } from "./utils";
 
@@ -44,59 +44,43 @@ unsubscribe() // stop listening for new messages
 The world is your oyster!
 */
 
-class SmartScroller extends React.Component {
-  autoScroll = true;
+function SmartScroller(props) {
+  const autoScroll = useRef(true);
+  const nodeRef = useRef();
 
-  componentDidMount() {
-    this.scrollToBottom();
+  function scrollToBottom() {
+    if (autoScroll.current) {
+      nodeRef.current.scrollTop = nodeRef.current.scrollHeight;
+    }
   }
 
-  componentDidUpdate() {
-    if (this.autoScroll) this.scrollToBottom();
-  }
-
-  scrollToBottom() {
-    this.node.scrollTop = this.node.scrollHeight;
-  }
-
-  handleScroll = () => {
-    const { scrollTop, scrollHeight, clientHeight } = this.node;
+  function handleScroll() {
+    const { scrollTop, scrollHeight, clientHeight } = nodeRef.current;
     const distanceToBottom = scrollHeight - (scrollTop + clientHeight);
-    this.autoScroll = distanceToBottom < 10;
-  };
-
-  render() {
-    return (
-      <div
-        {...this.props}
-        ref={node => (this.node = node)}
-        onScroll={this.handleScroll}
-      />
-    );
+    autoScroll.current = distanceToBottom < 10;
   }
+
+  useEffect(scrollToBottom);
+
+  return <div {...props} ref={nodeRef} onScroll={handleScroll} />;
 }
 
-class Chat extends React.Component {
-  state = {
-    user: null,
-    messages: []
-  };
+function Chat() {
+  const [user, setUser] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const inputRef = useRef();
 
-  componentDidMount() {
+  useEffect(() => {
     login(user => {
-      this.setState({ user });
-
-      subscribeToMessages(messages => {
-        this.setState({ messages });
-      });
+      setUser(user);
+      subscribeToMessages(setMessages);
     });
-  }
+  }, []);
 
-  handleSubmit = event => {
+  function handleSubmit(event) {
     event.preventDefault();
 
-    const { user } = this.state;
-    const messageText = this.messageInput.value;
+    const messageText = inputRef.current.value;
 
     sendMessage({
       userId: user.id,
@@ -106,64 +90,60 @@ class Chat extends React.Component {
 
     // Clear the form.
     event.target.reset();
-  };
-
-  render() {
-    const { user, messages } = this.state;
-
-    if (user == null) return <p>Loading...</p>;
-
-    // Array of arrays of messages grouped by user.
-    const messageGroups = messages.reduce((groups, message) => {
-      const prevGroup = groups.length && groups[groups.length - 1];
-
-      if (prevGroup && prevGroup[0].userId === message.userId) {
-        prevGroup.push(message);
-      } else {
-        groups.push([message]);
-      }
-
-      return groups;
-    }, []);
-
-    return (
-      <div className="chat">
-        <header className="chat-header">
-          <h1 className="chat-title">HipReact</h1>
-          <p className="chat-message-count">
-            # messages: {messages.length}
-          </p>
-        </header>
-        <SmartScroller className="messages">
-          <ol className="message-groups">
-            {messageGroups.map(group => (
-              <li key={group[0].id} className="message-group">
-                <div className="message-group-avatar">
-                  <img src={group[0].photoURL} />
-                </div>
-                <ol className="messages">
-                  {group.map(message => (
-                    <li key={message.id} className="message">
-                      {message.text}
-                    </li>
-                  ))}
-                </ol>
-              </li>
-            ))}
-          </ol>
-        </SmartScroller>
-        <form className="new-message-form" onSubmit={this.handleSubmit}>
-          <div className="new-message">
-            <input
-              ref={node => (this.messageInput = node)}
-              type="text"
-              placeholder="say something..."
-            />
-          </div>
-        </form>
-      </div>
-    );
   }
+
+  if (user == null) return <p>Loading...</p>;
+
+  // Array of arrays of messages grouped by user.
+  const messageGroups = messages.reduce((groups, message) => {
+    const prevGroup = groups.length && groups[groups.length - 1];
+
+    if (prevGroup && prevGroup[0].userId === message.userId) {
+      prevGroup.push(message);
+    } else {
+      groups.push([message]);
+    }
+
+    return groups;
+  }, []);
+
+  return (
+    <div className="chat">
+      <header className="chat-header">
+        <h1 className="chat-title">HipReact</h1>
+        <p className="chat-message-count">
+          # messages: {messages.length}
+        </p>
+      </header>
+      <SmartScroller className="messages">
+        <ol className="message-groups">
+          {messageGroups.map(group => (
+            <li key={group[0].id} className="message-group">
+              <div className="message-group-avatar">
+                <img src={group[0].photoURL} />
+              </div>
+              <ol className="messages">
+                {group.map(message => (
+                  <li key={message.id} className="message">
+                    {message.text}
+                  </li>
+                ))}
+              </ol>
+            </li>
+          ))}
+        </ol>
+      </SmartScroller>
+      <form className="new-message-form" onSubmit={handleSubmit}>
+        <div className="new-message">
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="say something..."
+          />
+        </div>
+      </form>
+    </div>
+  );
 }
 
 ReactDOM.render(<Chat />, document.getElementById("app"));
