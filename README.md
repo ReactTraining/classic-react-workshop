@@ -15,17 +15,17 @@ $ npm start
 
 Then, open a web browser to [http://localhost:8080](http://localhost:8080) where you'll see a list of subjects.
 
-## Updating
+## Updating if you've already cloned
 
 If you've already cloned the repo but you need to get updated code, then follow these steps:
 
-- First, `cd` into the root directory of the repo
-- Then do an `ls` command to ensure you see a `package.json` file listed. If you don't you're not in the root folder of the repo
+- First, `cd` into the root directory of the repo.
+- Then do an `ls` command to ensure you see a `package.json` file listed. If you don't you're not in the root folder of the repo.
 - Then run these steps to get the updates:
 
 ```sh
-git pull origin master
-npm install
+$ git pull origin master
+$ npm install
 ```
 
 Then you should be able to do your `npm start` and open a web browser to [http://localhost:8080](http://localhost:8080) where you'll see a list of subjects.
