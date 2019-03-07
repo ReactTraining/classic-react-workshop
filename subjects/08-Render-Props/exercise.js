@@ -18,14 +18,14 @@
 // - You should be able to compose <GeoPosition> and <GeoAddress> beneath it to
 //   naturally compose both the UI and the state needed to render it
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
 import LoadingDots from "./LoadingDots";
 import getAddressFromCoords from "./utils/getAddressFromCoords";
 
-class App extends React.Component {
+class GeoPosition extends React.Component {
   state = {
     coords: {
       latitude: null,
@@ -55,19 +55,66 @@ class App extends React.Component {
   }
 
   render() {
+    return this.props.children(this.state);
+  }
+}
+
+class GeoAddress extends React.Component {
+  state = {};
+
+  componentDidMount() {
+    // console.log(this.props);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { latitude: lat, longitude: lng } = this.props;
+    if (prevProps.latitude !== lat || prevProps.longitude !== lng) {
+      console.log(lat, lng);
+      getAddressFromCoords(lat, lng).then(address => {
+        console.log(address);
+      });
+    }
+  }
+
+  render() {
+    return this.props.children("123");
+  }
+}
+
+class App extends React.Component {
+  render() {
     return (
       <div>
-        <h1>Geolocation</h1>
-        {this.state.error ? (
-          <div>Error: {this.state.error.message}</div>
-        ) : (
-          <dl>
-            <dt>Latitude</dt>
-            <dd>{this.state.coords.latitude || <LoadingDots />}</dd>
-            <dt>Longitude</dt>
-            <dd>{this.state.coords.longitude || <LoadingDots />}</dd>
-          </dl>
-        )}
+        <GeoPosition>
+          {({ error, coords }) => {
+            return (
+              <Fragment>
+                <h1>Geolocation</h1>
+                {error ? (
+                  <div>Error: {error.message}</div>
+                ) : (
+                  <dl>
+                    <dt>Latitude</dt>
+                    <dd>{coords.latitude || <LoadingDots />}</dd>
+                    <dt>Longitude</dt>
+                    <dd>{coords.longitude || <LoadingDots />}</dd>
+                  </dl>
+                )}
+              </Fragment>
+            );
+          }}
+        </GeoPosition>
+        <GeoPosition>
+          {({ error, coords }) => {
+            return (
+              <GeoAddress {...coords}>
+                {address => {
+                  return <div>{address || "nope"}</div>;
+                }}
+              </GeoAddress>
+            );
+          }}
+        </GeoPosition>
       </div>
     );
   }

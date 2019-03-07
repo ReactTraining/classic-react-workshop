@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 function TodoItem({ body }) {
   const [done, setDone] = useState(false);
-
+  console.log("here");
   return (
     <li>
       <label>
@@ -66,7 +66,7 @@ function TodoList({ initialLength }) {
 }
 
 ReactDOM.render(
-  <TodoList initialLength={100} />,
+  <TodoList initialLength={1000} />,
   document.getElementById("app")
 );
 

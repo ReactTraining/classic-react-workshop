@@ -15,11 +15,17 @@
 // - Save the state of the form and restore it when the page first loads, in
 //   case the user accidentally closes the tab before the form is submitted
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import serializeForm from "form-serialize";
 
 function CheckoutForm() {
+  const [billingName, setBillingName] = useState("");
+  const [billingState, setBillingState] = useState("");
+  const [useSameAsBilling, setUseSameAsBilling] = useState(false);
+  const [shippingName, setShippingName] = useState("");
+  const [shippingState, setShippingState] = useState("");
+
   return (
     <div>
       <h1>Checkout</h1>
@@ -28,12 +34,21 @@ function CheckoutForm() {
           <legend>Billing Address</legend>
           <p>
             <label>
-              Billing Name: <input type="text" />
+              Billing Name:{" "}
+              <input
+                type="text"
+                onChange={e => setBillingName(e.target.value)}
+              />
             </label>
           </p>
           <p>
             <label>
-              Billing State: <input type="text" size="2" />
+              Billing State:{" "}
+              <input
+                type="text"
+                size="2"
+                onChange={e => setBillingState(e.target.value)}
+              />
             </label>
           </p>
         </fieldset>
@@ -42,17 +57,32 @@ function CheckoutForm() {
 
         <fieldset>
           <label>
-            <input type="checkbox" /> Same as billing
+            <input
+              type="checkbox"
+              onChange={e => setUseSameAsBilling(e.target.checked)}
+            />{" "}
+            Same as billing
           </label>
           <legend>Shipping Address</legend>
           <p>
             <label>
-              Shipping Name: <input type="text" />
+              Shipping Name:{" "}
+              <input
+                type="text"
+                value={useSameAsBilling ? billingName : shippingName}
+                onChange={e => setShippingName(e.target.value)}
+              />
             </label>
           </p>
           <p>
             <label>
-              Shipping State: <input type="text" size="2" />
+              Shipping State:{" "}
+              <input
+                type="text"
+                size="2"
+                value={useSameAsBilling ? billingState : shippingState}
+                onChange={e => setShippingState(e.target.value)}
+              />
             </label>
           </p>
         </fieldset>
