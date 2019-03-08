@@ -13,7 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import * as RainbowListDelegate from "./RainbowListDelegate";
 
@@ -22,19 +22,25 @@ function ListViewItem({ children }) {
 }
 
 function ListView({ numRows, rowHeight, renderRowAtIndex }) {
-  // TODO: What state do you need?
+  const scrollAreaRef = useRef();
+  const [availableHeight, setAvailableHeight] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
+
+  useEffect(() => {
+    setAvailableHeight(scrollAreaRef.current.clientHeight);
+  }, []);
 
   function handleScroll(event) {
-    // TODO: Use `event.target.scrollTop` to read the current scroll position
-    // See https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTop
+    setScrollTop(event.target.scrollTop);
   }
 
   const totalHeight = numRows * rowHeight;
 
-  // TODO: Make these numbers smaller (what's on the screen)
-  // so we don't render everything, just what's in view
-  const startIndex = 0;
-  const endIndex = numRows;
+  const startIndex = Math.floor(scrollTop / rowHeight);
+  const endIndex = Math.min(
+    startIndex + Math.ceil(availableHeight / rowHeight) + 1,
+    numRows
+  );
 
   const items = [];
   let index = startIndex;
@@ -49,8 +55,14 @@ function ListView({ numRows, rowHeight, renderRowAtIndex }) {
     <div
       style={{ height: "100vh", overflowY: "scroll" }}
       onScroll={handleScroll}
+      ref={scrollAreaRef}
     >
-      <div style={{ height: totalHeight }}>
+      <div
+        style={{
+          height: totalHeight,
+          paddingTop: startIndex * rowHeight
+        }}
+      >
         <ol>{items}</ol>
       </div>
     </div>
@@ -59,7 +71,7 @@ function ListView({ numRows, rowHeight, renderRowAtIndex }) {
 
 ReactDOM.render(
   <ListView
-    numRows={500}
+    numRows={500000}
     rowHeight={RainbowListDelegate.rowHeight}
     renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
   />,

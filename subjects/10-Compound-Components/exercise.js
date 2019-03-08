@@ -20,14 +20,26 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-function RadioGroup({ children }) {
+function RadioGroup({ children, defaultValue, onSelect }) {
+  const [value, setValue] = useState(defaultValue);
+
+  children = React.Children.map(children, (child, index) => {
+    return React.cloneElement(child, {
+      currentValue: value,
+      setValue: value => {
+        setValue(value);
+        onSelect(value);
+      }
+    });
+  });
+
   return <div>{children}</div>;
 }
 
-function RadioOption({ children }) {
+function RadioOption({ children, value, currentValue, setValue }) {
   return (
-    <div>
-      <RadioIcon isSelected={false} /> {children}
+    <div onClick={() => setValue(value)}>
+      <RadioIcon isSelected={value === currentValue} /> {children}
     </div>
   );
 }
@@ -54,7 +66,12 @@ function App() {
     <div>
       <h1>♬ It's about time that we all turned off the radio ♫</h1>
 
-      <RadioGroup defaultValue="fm">
+      <RadioGroup
+        defaultValue="fm"
+        onSelect={value => {
+          console.log(value);
+        }}
+      >
         <RadioOption value="am">AM</RadioOption>
         <RadioOption value="fm">FM</RadioOption>
         <RadioOption value="tape">Tape</RadioOption>
