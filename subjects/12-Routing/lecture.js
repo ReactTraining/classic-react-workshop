@@ -1,12 +1,60 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import {
+  BrowserRouter,
+  Route,
+  Link as ReactRouterLink,
+  Switch,
+  withRouter
+} from "react-router-dom";
 
-function About() {
+function Link({ children, to, ...rest }) {
+  // database
+  return condition ? (
+    <a href={to} {...rest}>
+      {children}
+    </a>
+  ) : (
+    <ReactRouterLink to={to} {...rest}>
+      {children}
+    </ReactRouterLink>
+  );
+}
+
+const api = {
+  getUsers() {
+    return Promise.resolve([{ name: "Nathan" }, { name: "Ryan" }]);
+  }
+};
+
+function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    api.getUsers().then(users => {
+      setUsers(users);
+    });
+  }, []);
+
+  console.log(users);
   return <h2>About</h2>;
 }
 
-function Inbox() {
-  return <h2>Inbox</h2>;
+function FriendList(props) {
+  return (
+    <button onClick={() => props.history.push("/")}>Go Home</button>
+  );
+}
+
+const EnhancedFriendList = withRouter(FriendList);
+
+function UserProfile({ match }) {
+  return (
+    <div>
+      <h2>User Profile: {match.params.id}</h2>
+      <EnhancedFriendList />
+    </div>
+  );
 }
 
 function Home() {
@@ -15,117 +63,30 @@ function Home() {
 
 function App() {
   return (
-    <div>
-      <h1>Welcome to the app!</h1>
-    </div>
+    <BrowserRouter>
+      <div>
+        <h1>Welcome to the app!</h1>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/users/6">Visit User Six</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/users/:id" component={UserProfile} />
+          <Route path="/users" component={Users} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
-
-////////////////////////////////////////////////////////////////////////////////
-// Setup a hashchange listener so we know when the URL changes. When it does,
-// update state and pick which child component we're going to render.
-
-// function About() {
-//   return <h2>About</h2>;
-// }
-
-// function Inbox() {
-//   return <h2>Inbox</h2>;
-// }
-
-// function Home() {
-//   return <h2>Home</h2>;
-// }
-
-// function App() {
-//   const [path, setPath] = useState(window.location.hash.substring(1));
-
-//   useEffect(() => {
-//     window.addEventListener("hashchange", () => {
-//       setPath(window.location.hash.substring(1));
-//     });
-//   }, []);
-
-//   let Child;
-//   switch (path) {
-//     case "/about":
-//       Child = About;
-//       break;
-//     case "/inbox":
-//       Child = Inbox;
-//       break;
-//     default:
-//       Child = Home;
-//   }
-
-//   return (
-//     <div>
-//       <h1>Welcome to the app!</h1>
-//       <nav>
-//         <ul>
-//           <li>
-//             <a href="#/">Home</a>
-//           </li>
-//           <li>
-//             <a href="#/about">About</a>
-//           </li>
-//           <li>
-//             <a href="#/inbox">Inbox</a>
-//           </li>
-//         </ul>
-//       </nav>
-//       <Child />
-//     </div>
-//   );
-// }
-
-// ReactDOM.render(<App />, document.getElementById("app"));
-
-////////////////////////////////////////////////////////////////////////////////
-// Now, with React Router
-
-// import { HashRouter as Router, Route, Link } from "react-router-dom";
-
-// function About() {
-//   return <h2>About</h2>;
-// }
-
-// function Inbox() {
-//   return <h2>Inbox</h2>;
-// }
-
-// function Home() {
-//   return <h2>Home</h2>;
-// }
-
-// function App() {
-//   return (
-//     <Router>
-//       <div>
-//         <h1>Welcome to the app!</h1>
-
-//         <nav>
-//           <ul>
-//             <li>
-//               <Link to="/">Home</Link>
-//             </li>
-//             <li>
-//               <Link to="/about">About</Link>
-//             </li>
-//             <li>
-//               <Link to="/inbox">Inbox</Link>
-//             </li>
-//           </ul>
-//         </nav>
-
-//         <Route exact path="/" component={Home} />
-//         <Route path="/about" component={About} />
-//         <Route path="/inbox" component={Inbox} />
-//       </div>
-//     </Router>
-//   );
-// }
-
-// ReactDOM.render(<App />, document.getElementById("app"));

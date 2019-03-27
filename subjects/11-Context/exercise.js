@@ -15,24 +15,62 @@
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react";
+import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 
-function Form({ children }) {
-  return <div>{children}</div>;
+const FormContext = React.createContext();
+
+function Form({ children, onSubmit }) {
+  const [formValues, setFormValues] = useState({});
+
+  const handleSubmit = () => {
+    onSubmit(formValues);
+  };
+
+  const onChange = (name, value) => {
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  return (
+    <div>
+      <FormContext.Provider
+        value={{ handleSubmit, onChange, formValues }}
+      >
+        {children}
+      </FormContext.Provider>
+    </div>
+  );
 }
 
 function SubmitButton({ children }) {
-  return <button>{children}</button>;
+  const { handleSubmit } = useContext(FormContext);
+  return <button onClick={handleSubmit}>{children}</button>;
 }
 
 function TextInput({ name, placeholder }) {
-  return <input type="text" name={name} placeholder={placeholder} />;
+  const { handleSubmit, onChange, formValues } = useContext(
+    FormContext
+  );
+
+  return (
+    <input
+      onKeyDown={e => {
+        if (e.key === "Enter") handleSubmit();
+      }}
+      onChange={e => {
+        onChange(name, e.target.value);
+      }}
+      value={formValues[name] || ""}
+      type="text"
+      name={name}
+      placeholder={placeholder}
+    />
+  );
 }
 
 function App() {
-  function handleSubmit() {
-    alert("YOU WIN!");
+  function handleSubmit(values) {
+    console.log(values);
   }
 
   return (

@@ -13,12 +13,18 @@ import $ from "jquery";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-function Modal({ children, title }, ref) {
+function Modal({ isOpen, children, title }) {
+  const modalRef = useRef();
+
+  useEffect(() => {
+    $(modalRef.current).modal(isOpen ? "show" : "hide");
+  }, [isOpen]);
+
   return (
-    <div className="modal fade" ref={ref}>
+    <div className="modal fade" ref={modalRef}>
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -31,17 +37,15 @@ function Modal({ children, title }, ref) {
   );
 }
 
-Modal = React.forwardRef(Modal);
-
 function App() {
-  const modalRef = useRef();
+  const [isOpen, setIsOpen] = useState(false);
 
   function openModal() {
-    $(modalRef.current).modal("show");
+    setIsOpen(true);
   }
 
   function closeModal() {
-    $(modalRef.current).modal("hide");
+    setIsOpen(false);
   }
 
   return (
@@ -52,7 +56,7 @@ function App() {
         open modal
       </button>
 
-      <Modal title="Declarative is better" ref={modalRef}>
+      <Modal title="Declarative is better" isOpen={isOpen}>
         <p>Calling methods on instances is a FLOW not a STOCK!</p>
         <p>
           It’s the dynamic process, not the static program in text

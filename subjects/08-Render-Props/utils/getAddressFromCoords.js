@@ -1,6 +1,9 @@
 export default function getAddressFromCoords(lat, lng) {
   return fetch(
-    `https://reacttraining.com/api/address?lat=${lat}&lng=${lng}`
+    `https://reacttraining.com/api/address?lat=${lat}&lng=${lng}`,
+    {
+      mode: "no-cors"
+    }
   )
     .then(res => res.json())
     .then(json => {

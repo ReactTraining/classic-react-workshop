@@ -20,14 +20,28 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-function RadioGroup({ children }) {
+function RadioGroup({ children, defaultValue }) {
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
+
+  children = React.Children.map(children, child => {
+    return React.cloneElement(child, {
+      selectedValue,
+      setSelectedValue
+    });
+  });
+
   return <div>{children}</div>;
 }
 
-function RadioOption({ children }) {
+function RadioOption({
+  children,
+  value,
+  selectedValue,
+  setSelectedValue
+}) {
   return (
-    <div>
-      <RadioIcon isSelected={false} /> {children}
+    <div onClick={() => setSelectedValue()}>
+      <RadioIcon isSelected={value === selectedValue} /> {children}
     </div>
   );
 }

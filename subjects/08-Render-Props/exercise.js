@@ -25,7 +25,7 @@ import PropTypes from "prop-types";
 import LoadingDots from "./LoadingDots";
 import getAddressFromCoords from "./utils/getAddressFromCoords";
 
-class App extends React.Component {
+class GeoPosition extends React.Component {
   state = {
     coords: {
       latitude: null,
@@ -55,22 +55,61 @@ class App extends React.Component {
   }
 
   render() {
+    return this.props.children(this.state.coords, this.state.error);
+  }
+}
+
+class App extends React.Component {
+  render() {
     return (
       <div>
         <h1>Geolocation</h1>
-        {this.state.error ? (
-          <div>Error: {this.state.error.message}</div>
-        ) : (
-          <dl>
-            <dt>Latitude</dt>
-            <dd>{this.state.coords.latitude || <LoadingDots />}</dd>
-            <dt>Longitude</dt>
-            <dd>{this.state.coords.longitude || <LoadingDots />}</dd>
-          </dl>
-        )}
+
+        <GeoPosition>
+          {(coords, error) => {
+            return error ? (
+              <div>Error: {error.message}</div>
+            ) : (
+              <dl>
+                <dt>Latitude</dt>
+                <dd>{coords.latitude || <LoadingDots />}</dd>
+                <dt>Longitude</dt>
+                <dd>{coords.longitude || <LoadingDots />}</dd>
+              </dl>
+            );
+          }}
+        </GeoPosition>
       </div>
     );
   }
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
+
+const SomeComponent = props => {
+  const { results, refresh } = fetch(`user/${props.userId}`);
+
+  return (
+    <Toggle>
+      {(isToggled, setToggle) => (
+        <div>
+          <h1>is toggled: {isToggle}</h1>
+          <div>
+            <div>
+              <Fetch url={`/users/${id}`}>
+                {(results, refresh) => {
+                  return results.map(user => (
+                    <UserListing onRemove={() => refresh()}>
+                      <div />
+                    </UserListing>
+                  ));
+                }}
+              </Fetch>
+            </div>
+          </div>
+          <button>Refresh List</button>
+        </div>
+      )}
+    </Toggle>
+  );
+};

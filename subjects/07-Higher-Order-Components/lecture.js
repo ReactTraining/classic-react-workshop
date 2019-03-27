@@ -1,36 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
-import createMediaListener from "./utils/createMediaListener";
+// const withToggle = Component => {
+//   return class WithToggle extends React.Component {
+//     state = {
+//       toggleOn: false
+//     };
 
-const media = createMediaListener({
-  big: "(min-width : 1000px)",
-  tiny: "(max-width: 400px)"
-});
+//     handleToggle = () => {
+//       this.setState({
+//         toggleOn: !this.state.toggleOn
+//       });
+//     };
 
-class App extends React.Component {
-  state = { media: media.getState() };
+//     render() {
+//       return (
+//         <Component
+//           toggleOn={this.state.toggleOn}
+//           handleToggle={this.handleToggle}
+//         />
+//       );
+//     }
+//   };
+// };
 
-  componentDidMount() {
-    media.listen(media => this.setState({ media }));
-  }
+function useToggle(on) {
+  const [toggleOn, setToggleOn] = useState(on);
+  return {
+    toggleOn,
+    turnOn: () => setToggleOn(true),
+    turnOff: () => setToggleOn(false),
+    setToggleOn
+  };
+}
 
-  componentWillUnmount() {
-    media.dispose();
-  }
-
-  render() {
-    const { media } = this.state;
-
-    return media.big ? (
-      <h1>Hey, this is a big screen</h1>
-    ) : media.tiny ? (
-      <h6>tiny tiny tiny</h6>
-    ) : (
-      <h3>Somewhere in between</h3>
-    );
-  }
+function App() {
+  const { toggleOn, turnOn, turnOff } = useToggle(false);
+  return (
+    <button onClick={() => (toggleOn ? turnOff() : turnOn())}>
+      Toggle: {toggleOn ? "on" : "off"}
+    </button>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
