@@ -17,56 +17,41 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
-class Form extends React.Component {
-  render() {
-    return <div>{this.props.children}</div>;
-  }
+function Form({ children }) {
+  return <div>{children}</div>;
 }
 
-class SubmitButton extends React.Component {
-  render() {
-    return <button>{this.props.children}</button>;
-  }
+function SubmitButton({ children }) {
+  return <button>{children}</button>;
 }
 
-class TextInput extends React.Component {
-  render() {
-    return (
-      <input
-        type="text"
-        name={this.props.name}
-        placeholder={this.props.placeholder}
-      />
-    );
-  }
+function TextInput({ name, placeholder }) {
+  return <input type="text" name={name} placeholder={placeholder} />;
 }
 
-class App extends React.Component {
-  handleSubmit = () => {
+function App() {
+  function handleSubmit() {
     alert("YOU WIN!");
-  };
-
-  render() {
-    return (
-      <div>
-        <h1>
-          This isn't even my final <code>&lt;Form/&gt;</code>!
-        </h1>
-
-        <Form onSubmit={this.handleSubmit}>
-          <p>
-            <TextInput name="firstName" placeholder="First Name" />{" "}
-            <TextInput name="lastName" placeholder="Last Name" />
-          </p>
-          <p>
-            <SubmitButton>Submit</SubmitButton>
-          </p>
-        </Form>
-      </div>
-    );
   }
+
+  return (
+    <div>
+      <h1>
+        This isn't even my final <code>&lt;Form/&gt;</code>!
+      </h1>
+
+      <Form onSubmit={handleSubmit}>
+        <p>
+          <TextInput name="firstName" placeholder="First Name" />{" "}
+          <TextInput name="lastName" placeholder="Last Name" />
+        </p>
+        <p>
+          <SubmitButton>Submit</SubmitButton>
+        </p>
+      </Form>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));

@@ -33,33 +33,29 @@ styles.panel = {
   padding: 10
 };
 
-class Tabs extends React.Component {
-  render() {
-    return (
-      <div className="Tabs">
-        <div className="Tab" style={styles.activeTab}>
-          Active
-        </div>
-        <div className="Tab" style={styles.tab}>
-          Inactive
-        </div>
-        <div className="TabPanel" style={styles.panel}>
-          Panel
-        </div>
+function Tabs() {
+  return (
+    <div className="Tabs">
+      <div className="Tab" style={styles.activeTab}>
+        Active
       </div>
-    );
-  }
+      <div className="Tab" style={styles.tab}>
+        Inactive
+      </div>
+      <div className="TabPanel" style={styles.panel}>
+        Panel
+      </div>
+    </div>
+  );
 }
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Sports</h1>
-        <Tabs data={this.props.sports} />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <h1>Sports</h1>
+      <Tabs data={this.props.sports} />
+    </div>
+  );
 }
 
 const DATA = [

@@ -8,7 +8,6 @@ import expect from "expect";
 
 import ContentToggle from "./components/ContentToggle";
 import StatefulContentToggle from "./components/StatefulContentToggle";
-import Tabs from "./components/Tabs";
 import Droppable from "./components/Droppable";
 
 // describe("ContentToggle", () => {

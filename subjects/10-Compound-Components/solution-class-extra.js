@@ -19,14 +19,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
 class RadioGroup extends React.Component {
-  static propTypes = {
-    defaultValue: PropTypes.string,
-    onChange: PropTypes.func
-  };
-
   state = { value: this.props.defaultValue };
 
   updateFocus(index) {
@@ -74,14 +68,6 @@ class RadioGroup extends React.Component {
 }
 
 class RadioOption extends React.Component {
-  static propTypes = {
-    value: PropTypes.string,
-    _isSelected: PropTypes.bool,
-    _onSelect: PropTypes.func,
-    _onFocusPrev: PropTypes.func,
-    _onFocusNext: PropTypes.func
-  };
-
   handleKeyDown = event => {
     if (event.key === "Enter" || event.key === " ") {
       this.props._onSelect();
@@ -115,10 +101,6 @@ class RadioOption extends React.Component {
 }
 
 class RadioIcon extends React.Component {
-  static propTypes = {
-    isSelected: PropTypes.bool.isRequired
-  };
-
   render() {
     return (
       <div
@@ -145,7 +127,7 @@ class App extends React.Component {
       <div>
         <h1>♬ It's about time that we all turned off the radio ♫</h1>
 
-        <p>The {this.state.radioValue} is playing.</p>
+        <p>Now playing: {this.state.radioValue}</p>
 
         <RadioGroup
           defaultValue={this.state.radioValue}

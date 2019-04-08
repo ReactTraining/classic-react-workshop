@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const style = {
   border: "3px solid #ccc",
@@ -9,7 +9,7 @@ const style = {
   display: "inline-block"
 };
 
-function readFilesFromEvent(event, cb) {
+function readFilesFromEvent(event, callback) {
   const files = [];
   let needToLoadCounter = 0;
 
@@ -32,62 +32,50 @@ function readFilesFromEvent(event, cb) {
   maybeFinish();
 
   function maybeFinish() {
-    if (needToLoadCounter === 0) cb(files);
+    if (needToLoadCounter === 0) callback(files);
   }
 }
 
-class Droppable extends React.Component {
-  state = {
-    acceptDrop: false,
-    files: null
-  };
+export default function Droppable() {
+  const [acceptDrop, setAcceptDrop] = useState(false);
+  const [files, setFiles] = useState(null);
 
-  handleDragOver = event => {
+  function handleDragOver(event) {
     if (event.dataTransfer.types[0] === "Files") {
       event.preventDefault();
-      this.setState({
-        acceptDrop: true
-      });
+      setAcceptDrop(true);
     }
-  };
+  }
 
-  handleDrop = event => {
+  function handleDrop(event) {
     event.stopPropagation();
     event.preventDefault();
-    this.setState({
-      acceptDrop: false
-    });
+    setAcceptDrop(false);
     readFilesFromEvent(event, files => {
-      this.setState({ files });
+      setFiles(files);
     });
-  };
-
-  render() {
-    const { acceptDrop, files } = this.state;
-
-    return (
-      <div
-        className="Droppable"
-        onDragOver={this.handleDragOver}
-        onDrop={this.handleDrop}
-        style={style}
-      >
-        {acceptDrop ? "Drop it!" : "Drag a file here"}
-        {files &&
-          files.map(file => (
-            <div>
-              <p>
-                <b>{file.name}</b>
-              </p>
-              <img
-                src={file.data}
-                style={{ maxHeight: "100px", maxWidth: "100px" }}
-              />
-            </div>
-          ))}
-      </div>
-    );
   }
-}
 
-export default Droppable;
+  return (
+    <div
+      className="Droppable"
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      style={style}
+    >
+      {acceptDrop ? "Drop it!" : "Drag a file here"}
+      {files &&
+        files.map(file => (
+          <div>
+            <p>
+              <b>{file.name}</b>
+            </p>
+            <img
+              src={file.data}
+              style={{ maxHeight: "100px", maxWidth: "100px" }}
+            />
+          </div>
+        ))}
+    </div>
+  );
+}

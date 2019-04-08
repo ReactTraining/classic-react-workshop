@@ -1,33 +1,51 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 
 import * as styles from "./styles";
 
-function TabList({ children, _activeIndex, _onTabSelect }) {
-  return (
-    <div>
-      {React.Children.map(children, (child, index) =>
-        React.cloneElement(child, {
-          _isActive: index === _activeIndex,
-          _onSelect: () => _onTabSelect(index)
-        })
-      )}
-    </div>
-  );
+function Tabs({ children }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  children = React.Children.map(children, child => {
+    if (child.type === TabPanels) {
+      return React.cloneElement(child, {
+        _activeIndex: activeIndex
+      });
+    } else if (child.type === TabList) {
+      return React.cloneElement(child, {
+        _activeIndex: activeIndex,
+        _setActiveIndex: setActiveIndex
+      });
+    } else {
+      return child;
+    }
+  });
+
+  return children;
 }
 
-function Tab({ children, disabled, _isActive, _onSelect }) {
+function TabList({ children, _activeIndex, _setActiveIndex }) {
+  children = React.Children.map(children, (child, index) => {
+    const _isActive = _activeIndex === index;
+    return React.cloneElement(child, {
+      _isActive,
+      _selectTab: () => _setActiveIndex(index)
+    });
+  });
+  return <div style={styles.tabList}>{children}</div>;
+}
+
+function Tab({ children, disabled, _isActive, _selectTab }) {
+  const tabStyles = disabled
+    ? styles.disabledTab
+    : _isActive
+    ? styles.activeTab
+    : styles.tab;
+
   return (
     <div
-      style={
-        disabled
-          ? styles.disabledTab
-          : _isActive
-            ? styles.activeTab
-            : styles.tab
-      }
-      onClick={disabled ? null : _onSelect}
+      style={tabStyles}
+      onClick={disabled ? () => null : () => _selectTab()}
     >
       {children}
     </div>
@@ -44,32 +62,6 @@ function TabPanels({ children, _activeIndex }) {
 
 function TabPanel({ children }) {
   return <div>{children}</div>;
-}
-
-class Tabs extends React.Component {
-  state = { activeIndex: 0 };
-
-  render() {
-    const children = React.Children.map(
-      this.props.children,
-      (child, index) => {
-        if (child.type === TabPanels) {
-          return React.cloneElement(child, {
-            _activeIndex: this.state.activeIndex
-          });
-        } else if (child.type === TabList) {
-          return React.cloneElement(child, {
-            _activeIndex: this.state.activeIndex,
-            _onTabSelect: index => this.setState({ activeIndex: index })
-          });
-        } else {
-          return child;
-        }
-      }
-    );
-
-    return <div>{children}</div>;
-  }
 }
 
 function App() {
@@ -114,30 +106,49 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // const TabsContext = React.createContext();
 
-// function TabList({ children, _activeIndex, _onTabSelect }) {
+// function Tabs({ children }) {
+//   const [activeIndex, setActiveIndex] = useState(0);
+
+//   children = React.Children.map(children, child => {
+//     if (child.type === TabList) {
+//       return React.cloneElement(child, {
+//         _activeIndex: activeIndex,
+//         _setActiveIndex: setActiveIndex
+//       });
+//     } else {
+//       return child;
+//     }
+//   });
+
 //   return (
-//     <div>
-//       {React.Children.map(children, (child, index) =>
-//         React.cloneElement(child, {
-//           _isActive: index === _activeIndex,
-//           _onSelect: () => _onTabSelect(index)
-//         })
-//       )}
-//     </div>
+//     <TabsContext.Provider value={{ activeIndex }}>
+//       {children}
+//     </TabsContext.Provider>
 //   );
 // }
 
-// function Tab({ children, disabled, _isActive, _onSelect }) {
+// function TabList({ children, _activeIndex, _setActiveIndex }) {
+//   children = React.Children.map(children, (child, index) => {
+//     const _isActive = _activeIndex === index;
+//     return React.cloneElement(child, {
+//       _isActive,
+//       _selectTab: () => _setActiveIndex(index)
+//     });
+//   });
+//   return <div style={styles.tabList}>{children}</div>;
+// }
+
+// function Tab({ children, disabled, _isActive, _selectTab }) {
+//   const tabStyles = disabled
+//     ? styles.disabledTab
+//     : _isActive
+//     ? styles.activeTab
+//     : styles.tab;
+
 //   return (
 //     <div
-//       style={
-//         disabled
-//           ? styles.disabledTab
-//           : _isActive
-//             ? styles.activeTab
-//             : styles.tab
-//       }
-//       onClick={disabled ? null : _onSelect}
+//       style={tabStyles}
+//       onClick={disabled ? () => null : () => _selectTab()}
 //     >
 //       {children}
 //     </div>
@@ -145,45 +156,16 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // }
 
 // function TabPanels({ children }) {
+//   const context = useContext(TabsContext);
 //   return (
 //     <div style={styles.tabPanels}>
-//       {React.Children.toArray(children)[this.context.activeIndex]}
+//       {React.Children.toArray(children)[context.activeIndex]}
 //     </div>
 //   );
 // }
 
-// TabPanels.contextType = TabsContext;
-
 // function TabPanel({ children }) {
 //   return <div>{children}</div>;
-// }
-
-// class Tabs extends React.Component {
-//   state = { activeIndex: 0 };
-
-//   render() {
-//     const children = React.Children.map(
-//       this.props.children,
-//       (child, index) => {
-//         if (child.type === TabList) {
-//           return React.cloneElement(child, {
-//             _activeIndex: this.state.activeIndex,
-//             _onTabSelect: index => this.setState({ activeIndex: index })
-//           });
-//         } else {
-//           return child;
-//         }
-//       }
-//     );
-
-//     return (
-//       <TabsContext.Provider
-//         value={{ activeIndex: this.state.activeIndex }}
-//       >
-//         <div>{children}</div>
-//       </TabsContext.Provider>
-//     );
-//   }
 // }
 
 // function App() {
@@ -195,19 +177,17 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //           <Tab disabled>Burritos</Tab>
 //           <Tab>Coconut Korma</Tab>
 //         </TabList>
-//         <div>
-//           <TabPanels>
-//             <TabPanel>
-//               <p>Tacos are delicious</p>
-//             </TabPanel>
-//             <TabPanel>
-//               <p>Sometimes a burrito is what you really need</p>
-//             </TabPanel>
-//             <TabPanel>
-//               <p>Might be your best option</p>
-//             </TabPanel>
-//           </TabPanels>
-//         </div>
+//         <TabPanels>
+//           <TabPanel>
+//             <p>Tacos are delicious</p>
+//           </TabPanel>
+//           <TabPanel>
+//             <p>Sometimes a burrito is what you really need</p>
+//           </TabPanel>
+//           <TabPanel>
+//             <p>Might be your best option</p>
+//           </TabPanel>
+//         </TabPanels>
 //       </Tabs>
 //     </div>
 //   );
@@ -221,34 +201,40 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // const TabsContext = React.createContext();
 
-// function TabList({ children }) {
-//   const { activeIndex, onTabSelect } = this.context;
+// function Tabs({ children }) {
+//   const [activeIndex, setActiveIndex] = useState(0);
 
 //   return (
-//     <div>
-//       {React.Children.map(children, (child, index) =>
-//         React.cloneElement(child, {
-//           _isActive: index === activeIndex,
-//           _onSelect: () => onTabSelect(index)
-//         })
-//       )}
-//     </div>
+//     <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
+//       {children}
+//     </TabsContext.Provider>
 //   );
 // }
 
-// TabList.contextType = TabsContext;
+// function TabList({ children }) {
+//   const context = useContext(TabsContext);
 
-// function Tab({ children, disabled, _isActive, _onSelect }) {
+//   children = React.Children.map(children, (child, index) => {
+//     return React.cloneElement(child, {
+//       _selectTab: () => context.setActiveIndex(index)
+//     });
+//   });
+//   return <div style={styles.tabList}>{children}</div>;
+// }
+
+// function Tab({ children, disabled, _selectTab }) {
+//   const context = useContext(TabsContext);
+
+//   const tabStyles = disabled
+//     ? styles.disabledTab
+//     : context.isActive
+//     ? styles.activeTab
+//     : styles.tab;
+
 //   return (
 //     <div
-//       style={
-//         disabled
-//           ? styles.disabledTab
-//           : _isActive
-//             ? styles.activeTab
-//             : styles.tab
-//       }
-//       onClick={disabled ? null : _onSelect}
+//       style={tabStyles}
+//       onClick={disabled ? () => null : () => _selectTab()}
 //     >
 //       {children}
 //     </div>
@@ -256,9 +242,10 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // }
 
 // function TabPanels({ children }) {
+//   const context = useContext(TabsContext);
 //   return (
 //     <div style={styles.tabPanels}>
-//       {React.Children.toArray(children)[this.context.activeIndex]}
+//       {React.Children.toArray(children)[context.activeIndex]}
 //     </div>
 //   );
 // }
@@ -267,47 +254,26 @@ ReactDOM.render(<App />, document.getElementById("app"));
 //   return <div>{children}</div>;
 // }
 
-// class Tabs extends React.Component {
-//   state = { activeIndex: 0 };
-
-//   render() {
-//     return (
-//       <TabsContext.Provider
-//         value={{
-//           activeIndex: this.state.activeIndex,
-//           onTabSelect: index => this.setState({ activeIndex: index })
-//         }}
-//       >
-//         <div>{this.props.children}</div>
-//       </TabsContext.Provider>
-//     );
-//   }
-// }
-
 // function App() {
 //   return (
 //     <div>
 //       <Tabs>
-//         <div>
-//           <TabList>
-//             <Tab>Tacos</Tab>
-//             <Tab disabled>Burritos</Tab>
-//             <Tab>Coconut Korma</Tab>
-//           </TabList>
-//         </div>
-//         <div>
-//           <TabPanels>
-//             <TabPanel>
-//               <p>Tacos are delicious</p>
-//             </TabPanel>
-//             <TabPanel>
-//               <p>Sometimes a burrito is what you really need</p>
-//             </TabPanel>
-//             <TabPanel>
-//               <p>Might be your best option</p>
-//             </TabPanel>
-//           </TabPanels>
-//         </div>
+//         <TabList>
+//           <Tab>Tacos</Tab>
+//           <Tab disabled>Burritos</Tab>
+//           <Tab>Coconut Korma</Tab>
+//         </TabList>
+//         <TabPanels>
+//           <TabPanel>
+//             <p>Tacos are delicious</p>
+//           </TabPanel>
+//           <TabPanel>
+//             <p>Sometimes a burrito is what you really need</p>
+//           </TabPanel>
+//           <TabPanel>
+//             <p>Might be your best option</p>
+//           </TabPanel>
+//         </TabPanels>
 //       </Tabs>
 //     </div>
 //   );

@@ -10,7 +10,7 @@
 //
 // - Add descriptive propTypes to <App> and <Tabs>
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 const styles = {};
@@ -33,52 +33,44 @@ styles.panel = {
   padding: 10
 };
 
-class Tabs extends React.Component {
-  state = { activeIndex: 0 };
+function Tabs({ data }) {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  selectTab(index) {
-    this.setState({ activeIndex: index });
-  }
-
-  render() {
-    const tabs = this.props.data.map((item, index) => {
-      const isActive = index === this.state.activeIndex;
-      const style = isActive ? styles.activeTab : styles.tab;
-
-      return (
-        <div
-          key={item.id}
-          className="Tab"
-          style={style}
-          onClick={() => this.selectTab(index)}
-        >
-          {item.name}
-        </div>
-      );
-    });
-
-    const activeItem = this.props.data[this.state.activeIndex];
+  const tabs = data.map((item, index) => {
+    const isActive = index === activeIndex;
+    const style = isActive ? styles.activeTab : styles.tab;
 
     return (
-      <div className="Tabs">
-        {tabs}
-        <div className="TabPanel" style={styles.panel}>
-          {activeItem && activeItem.description}
-        </div>
+      <div
+        key={item.id}
+        className="Tab"
+        style={style}
+        onClick={() => setActiveIndex(index)}
+      >
+        {item.name}
       </div>
     );
-  }
+  });
+
+  const activeItem = data[activeIndex];
+
+  return (
+    <div className="Tabs">
+      {tabs}
+      <div className="TabPanel" style={styles.panel}>
+        {activeItem && activeItem.description}
+      </div>
+    </div>
+  );
 }
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Sports</h1>
-        <Tabs data={this.props.sports} />
-      </div>
-    );
-  }
+function App({ sports }) {
+  return (
+    <div>
+      <h1>Sports</h1>
+      <Tabs data={sports} />
+    </div>
+  );
 }
 
 const DATA = [

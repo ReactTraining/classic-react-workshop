@@ -17,7 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { login, sendMessage, subscribeToMessages } from "./utils";
 
@@ -44,54 +44,48 @@ unsubscribe() // stop listening for new messages
 The world is your oyster!
 */
 
-class Chat extends React.Component {
-  render() {
-    return (
-      <div className="chat">
-        <header className="chat-header">
-          <h1 className="chat-title">HipReact</h1>
-          <p className="chat-message-count"># messages: 8</p>
-        </header>
-        <div className="messages">
-          <ol className="message-groups">
-            <li className="message-group">
-              <div className="message-group-avatar">
-                <img src="https://avatars1.githubusercontent.com/u/92839" />
-              </div>
-              <ol className="messages">
-                <li className="message">Hey, Bruce!</li>
-                <li className="message">
-                  So, a QA Engineer walks into a bar.
-                </li>
-                <li className="message">Orders a beer.</li>
-                <li className="message">Orders 0 beers.</li>
-                <li className="message">Orders 999999999 beers.</li>
-                <li className="message">Orders -1 beers.</li>
-                <li className="message">Orders a sfdeljknesv.</li>
-              </ol>
-            </li>
-            <li className="message-group">
-              <div className="message-group-avatar">
-                <img src="https://pbs.twimg.com/profile_images/534863086276988928/bX3juDCC_400x400.jpeg" />
-              </div>
-              <ol className="messages">
-                <li className="message">Ha 😅</li>
-              </ol>
-            </li>
-          </ol>
-        </div>
-        <form className="new-message-form">
-          <div className="new-message">
-            <input
-              ref="message"
-              type="text"
-              placeholder="say something..."
-            />
-          </div>
-        </form>
+function Chat() {
+  return (
+    <div className="chat">
+      <header className="chat-header">
+        <h1 className="chat-title">HipReact</h1>
+        <p className="chat-message-count"># messages: 8</p>
+      </header>
+      <div className="messages">
+        <ol className="message-groups">
+          <li className="message-group">
+            <div className="message-group-avatar">
+              <img src="https://avatars1.githubusercontent.com/u/92839" />
+            </div>
+            <ol className="messages">
+              <li className="message">Hey, Bruce!</li>
+              <li className="message">
+                So, a QA Engineer walks into a bar.
+              </li>
+              <li className="message">Orders a beer.</li>
+              <li className="message">Orders 0 beers.</li>
+              <li className="message">Orders 999999999 beers.</li>
+              <li className="message">Orders -1 beers.</li>
+              <li className="message">Orders a sfdeljknesv.</li>
+            </ol>
+          </li>
+          <li className="message-group">
+            <div className="message-group-avatar">
+              <img src="https://pbs.twimg.com/profile_images/534863086276988928/bX3juDCC_400x400.jpeg" />
+            </div>
+            <ol className="messages">
+              <li className="message">Ha 😅</li>
+            </ol>
+          </li>
+        </ol>
       </div>
-    );
-  }
+      <form className="new-message-form">
+        <div className="new-message">
+          <input type="text" placeholder="say something..." />
+        </div>
+      </form>
+    </div>
+  );
 }
 
 ReactDOM.render(<Chat />, document.getElementById("app"));
