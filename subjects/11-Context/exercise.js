@@ -15,7 +15,7 @@
 //   without using DOM traversal APIs
 // - Implement a <ResetButton> that resets the <TextInput>s in the form
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 
 function Form({ children }) {

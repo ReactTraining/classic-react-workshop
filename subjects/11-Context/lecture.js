@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 
 import * as styles from "./styles";
@@ -39,8 +39,8 @@ function Tab({ children, disabled, _isActive, _selectTab }) {
   const tabStyles = disabled
     ? styles.disabledTab
     : _isActive
-    ? styles.activeTab
-    : styles.tab;
+      ? styles.activeTab
+      : styles.tab;
 
   return (
     <div
