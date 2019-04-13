@@ -10,7 +10,7 @@
 //
 // - Add descriptive propTypes to <App> and <Tabs>
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 const styles = {};
@@ -49,11 +49,11 @@ function Tabs() {
   );
 }
 
-function App() {
+function App({ sports }) {
   return (
     <div>
       <h1>Sports</h1>
-      <Tabs data={this.props.sports} />
+      <Tabs data={sports} />
     </div>
   );
 }

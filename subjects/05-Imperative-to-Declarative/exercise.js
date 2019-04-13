@@ -13,7 +13,7 @@ import $ from "jquery";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
 function Modal({ children, title }, ref) {

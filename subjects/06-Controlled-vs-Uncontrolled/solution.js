@@ -15,7 +15,7 @@
 // - Save the state of the form and restore it when the page first loads, in
 //   case the user accidentally closes the tab before the form is submitted
 ////////////////////////////////////////////////////////////////////////////////
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import serializeForm from "form-serialize";
 
@@ -24,7 +24,9 @@ function CheckoutForm() {
   const [billingState, setBillingState] = useState("CA");
   const [shippingName, setShippingName] = useState("");
   const [shippingState, setShippingState] = useState("");
-  const [sameAsBilling, setSameAsBilling] = useState(false);
+  const [shippingSameAsBilling, setShippingSameAsBilling] = useState(
+    false
+  );
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -49,6 +51,11 @@ function CheckoutForm() {
               />
             </label>
           </p>
+          {billingState.length > 2 && (
+            <p style={{ color: "red" }}>
+              Please use the 2-character abbreviation for the state.
+            </p>
+          )}
           <p>
             <label>
               Billing State:{" "}
@@ -69,8 +76,10 @@ function CheckoutForm() {
           <label>
             <input
               type="checkbox"
-              defaultChecked={sameAsBilling}
-              onChange={event => setSameAsBilling(event.target.checked)}
+              defaultChecked={shippingSameAsBilling}
+              onChange={event =>
+                setShippingSameAsBilling(event.target.checked)
+              }
             />{" "}
             Same as billing
           </label>
@@ -81,9 +90,11 @@ function CheckoutForm() {
               <input
                 type="text"
                 name="shippingName"
-                value={sameAsBilling ? billingName : shippingName}
-                readOnly={sameAsBilling}
+                value={
+                  shippingSameAsBilling ? billingName : shippingName
+                }
                 onChange={event => setShippingName(event.target.value)}
+                readOnly={shippingSameAsBilling}
               />
             </label>
           </p>
@@ -94,9 +105,11 @@ function CheckoutForm() {
                 type="text"
                 size="2"
                 name="shippingState"
-                value={sameAsBilling ? billingState : shippingState}
-                readOnly={sameAsBilling}
+                value={
+                  shippingSameAsBilling ? billingState : shippingState
+                }
                 onChange={event => setShippingState(event.target.value)}
+                readOnly={shippingSameAsBilling}
               />
             </label>
           </p>
