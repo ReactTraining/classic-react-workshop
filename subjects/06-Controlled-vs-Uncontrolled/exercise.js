@@ -15,7 +15,7 @@
 // - Save the state of the form and restore it when the page first loads, in
 //   case the user accidentally closes the tab before the form is submitted
 ////////////////////////////////////////////////////////////////////////////////
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import serializeForm from "form-serialize";
 

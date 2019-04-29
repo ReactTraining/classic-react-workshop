@@ -8,10 +8,7 @@ function ContentToggle({ summary, onToggle, children }) {
 
   function handleClick() {
     setIsOpen(!isOpen);
-
-    if (onToggle) {
-      onToggle(!isOpen);
-    }
+    if (onToggle) onToggle(!isOpen);
   }
 
   let summaryClassName = "content-toggle-summary";
@@ -78,9 +75,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // function ContentToggle({ summary, onToggle, isOpen, children }) {
 //   function handleClick() {
-//     if (onToggle) {
-//       onToggle(!isOpen);
-//     }
+//     if (onToggle) onToggle(!isOpen);
 //   }
 
 //   let summaryClassName = "content-toggle-summary";
@@ -161,9 +156,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // function ContentToggle({ summary, onToggle, isOpen, children }) {
 //   function handleClick() {
-//     if (onToggle) {
-//       onToggle(!isOpen);
-//     }
+//     if (onToggle) onToggle(!isOpen);
 //   }
 
 //   let summaryClassName = "content-toggle-summary";

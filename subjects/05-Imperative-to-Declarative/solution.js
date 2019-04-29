@@ -13,15 +13,18 @@ import $ from "jquery";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
 function Modal({ children, title, isOpen }) {
   const modalRef = useRef();
 
-  useEffect(() => {
-    $(modalRef.current).modal(isOpen ? "show" : "hide");
-  }, [isOpen]);
+  useEffect(
+    () => {
+      $(modalRef.current).modal(isOpen ? "show" : "hide");
+    },
+    [isOpen]
+  );
 
   return (
     <div className="modal fade" ref={modalRef}>

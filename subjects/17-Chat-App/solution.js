@@ -17,8 +17,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 import "./styles.css";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
+
 import { login, sendMessage, subscribeToMessages } from "./utils";
 
 /*

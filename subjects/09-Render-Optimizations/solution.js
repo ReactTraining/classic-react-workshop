@@ -17,10 +17,6 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import * as RainbowListDelegate from "./RainbowListDelegate";
 
-function ListViewItem({ children }) {
-  return <li>{children}</li>;
-}
-
 function ListView({ numRows, rowHeight, renderRowAtIndex }) {
   const scrollAreaRef = useRef();
   const [availableHeight, setAvailableHeight] = useState(0);
@@ -45,9 +41,7 @@ function ListView({ numRows, rowHeight, renderRowAtIndex }) {
   const items = [];
   let index = startIndex;
   while (index < endIndex) {
-    items.push(
-      <ListViewItem key={index}>{renderRowAtIndex(index)}</ListViewItem>
-    );
+    items.push(<li key={index}>{renderRowAtIndex(index)}</li>);
     index++;
   }
 
