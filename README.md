@@ -5,6 +5,7 @@
 # test3 tested on round 2
 # test4 tested on round 3
 # test5 tested on round 4
+# test6 tested on round 5
 
 This repo contains the course material for [React Training](https://reacttraining.com/). Before attending the training, please make sure you can run this repository.
 
